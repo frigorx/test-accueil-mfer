@@ -1,0 +1,1186 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Où j'en suis — positionnement froid et climatisation</title>
+<style>
+  :root{--bleu:#1b3a63; --orange:#ff6b35; --orange-p:#c9451a; --vert:#0e7a5f; --rouge:#b3261e; --encre:#22303f; --gris:#5d6b7c;
+    --filet:#d8dee6; --fond:#eef1f5; --doux:#f5f8fc}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--fond); color:var(--encre); font-family:Calibri,'Segoe UI',Arial,sans-serif; font-size:18px; line-height:1.45}
+  .page{max-width:640px; margin:0 auto; padding:14px 14px 40px}
+  header{background:var(--bleu); color:#fff; border-radius:0 0 10px 10px; padding:12px 16px; margin:0 -14px 14px}
+  header .lycee{font-family:'Trebuchet MS',sans-serif; font-weight:bold; letter-spacing:.06em; font-size:13px; opacity:.9}
+  header h1{margin:2px 0 0; font-family:'Trebuchet MS',sans-serif; font-size:19px; line-height:1.25}
+  .barre{display:flex; justify-content:space-between; align-items:center; gap:10px; margin:6px 0 6px; font-size:15px; color:var(--gris)}
+  .barre b{color:var(--bleu)}
+  .jauge{height:10px; background:#dfe5ee; border-radius:5px; overflow:hidden; margin:0 0 8px}
+  .jauge div{height:100%; background:var(--orange); width:0%}
+  .niveaux{display:flex; gap:4px; margin:0 0 12px}
+  .niveaux span{flex:1; text-align:center; font-size:12px; padding:3px 0; border-radius:5px; background:#dfe5ee; color:var(--gris); font-family:'Trebuchet MS',sans-serif; font-weight:bold}
+  .niveaux span.fait{background:var(--vert); color:#fff} .niveaux span.encours{background:var(--orange); color:#fff}
+  .carte{background:#fff; border-radius:10px; box-shadow:0 2px 12px rgba(27,58,99,.12); padding:16px; margin-bottom:14px}
+  .etiq{display:inline-block; background:var(--doux); border:1px solid var(--filet); border-radius:9px; padding:1px 10px; font-size:13px;
+    font-family:'Trebuchet MS',sans-serif; font-weight:bold; color:var(--bleu); margin:0 6px 8px 0}
+  .etiq.niv{background:#fff7f3; border-color:#f3c9b6; color:var(--orange-p)}
+  .q{font-size:20px; font-weight:bold; margin:0 0 10px; line-height:1.35}
+  .symb{text-align:center; margin:0 0 10px}
+  .symb svg{width:150px; height:110px; border:1px solid var(--filet); border-radius:8px; background:#fff}
+  button{font:inherit; cursor:pointer}
+  .rep{display:block; width:100%; text-align:left; background:#fff; border:2px solid var(--filet); border-radius:9px; padding:13px 14px; margin:8px 0;
+    font-size:18px; line-height:1.35; color:var(--encre); min-height:54px}
+  .rep .l{display:inline-block; width:28px; height:28px; border-radius:50%; background:var(--doux); border:1px solid var(--filet); text-align:center;
+    line-height:26px; font-weight:bold; margin-right:10px; font-family:'Trebuchet MS',sans-serif; color:var(--bleu)}
+  .rep.juste{border-color:var(--vert); background:#f2faf7}
+  .rep.faux{border-color:var(--rouge); background:#fdf3f3}
+  .rep:disabled{cursor:default}
+  .retour{border-left:6px solid var(--vert); background:#f2faf7; border-radius:0 8px 8px 0; padding:10px 14px; margin:10px 0 4px; font-size:17px}
+  .retour.faux{border-left-color:var(--rouge); background:#fdf3f3}
+  .retour b{font-family:'Trebuchet MS',sans-serif}
+  .suite{display:block; width:100%; background:var(--bleu); color:#fff; border:none; border-radius:9px; padding:14px; font-size:19px; font-weight:bold; margin-top:12px}
+  .suite.o{background:var(--orange-p)}
+  .lire{background:#fff; border:2px solid var(--filet); border-radius:9px; padding:6px 12px; font-size:15px; color:var(--bleu); margin:0 0 8px}
+  .choix{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin:6px 0 12px}
+  .choix button{border:2px solid var(--filet); background:#fff; border-radius:9px; padding:12px 6px; font-size:15px; font-weight:bold; color:var(--bleu)}
+  .choix button.on{border-color:var(--orange-p); background:#fff7f3; color:var(--orange-p)}
+  input[type=text]{font:inherit; width:100%; padding:12px; border:2px solid var(--filet); border-radius:9px; margin:4px 0 12px; font-size:18px}
+  label{font-weight:bold; color:var(--bleu); font-family:'Trebuchet MS',sans-serif; font-size:14px}
+  .regles{margin:6px 0 0 18px; padding:0; font-size:17px}
+  .regles li{margin:4px 0}
+  table{border-collapse:collapse; width:100%; margin:8px 0}
+  td,th{border:1px solid var(--filet); padding:6px 8px; text-align:left; font-size:14px}
+  th{background:var(--doux); color:var(--bleu); font-family:'Trebuchet MS',sans-serif}
+  .n0{color:var(--gris)} .n1{color:var(--rouge); font-weight:bold} .n2{color:var(--orange-p); font-weight:bold} .n3{color:var(--vert); font-weight:bold} .n4{color:var(--bleu); font-weight:bold}
+  .code{font-family:'Trebuchet MS',monospace; font-size:24px; letter-spacing:.12em; text-align:center; background:var(--doux); border:2px dashed var(--bleu);
+    border-radius:9px; padding:9px; margin:8px 0}
+  .petit{font-size:14px; color:var(--gris)}
+  .capture{border:3px solid var(--orange-p); padding:12px 14px}
+  .consigne-capture{background:#fff7f3; border:1.5px dashed var(--orange-p); border-radius:8px; padding:8px 12px; font-weight:bold; color:var(--orange-p); font-size:16px}
+  .atteint{font-size:26px; color:var(--bleu); margin:6px 0 2px; font-family:'Trebuchet MS',sans-serif}
+  .sorties{font-size:14px; color:var(--gris); margin:-2px 0 10px}
+  .sorties.alerte{color:var(--rouge); font-weight:bold}
+  .arret{background:#fdf3f3; border:2px solid var(--rouge); border-radius:8px; padding:10px 12px; color:var(--rouge); font-weight:bold; margin:0 0 8px}
+  footer{font-size:12px; color:var(--gris); text-align:center; margin-top:20px}
+  [hidden]{display:none!important}
+</style>
+
+<!-- SYMBOLES:debut — la palette de symboles, posée par construire-banque.py, ne pas éditer à la main -->
+<svg style="display:none" aria-hidden="true"> juste après <body> (il est invisible),
+       puis poser un symbole où on veut :
+         <use href="#compresseur_general" x="100" y="60"/>
+       x et y posent le CENTRE de l'organe : les symboles sont dessinés
+       autour de (0,0). data-vb rappelle l'encombrement (x y largeur hauteur).
+       et ne dessiner à la main QUE les liaisons entre organes. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><defs>
+<g id="compresseur_general" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/>
+<circle cx="-10" cy="10" r="1.5" fill="#000"/>
+<circle cx="2" cy="11" r="1.5" fill="#000"/>
+<circle cx="2" cy="11" r="1.5" fill="#000"/>
+<circle cx="-10" cy="-10" r="1.5" fill="#000"/></g>
+<g id="compresseur_piston" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<line x1="-4" y1="0" x2="5" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-5" y1="-5" x2="-5" y2="5" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/></g>
+<g id="compresseur_scroll" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 4.50 A 4.50 4.50 0 0 1 -0.00 -4.50" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -2.50 A 3.50 3.50 0 0 1 0.00 4.50" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 2.50 A 2.50 2.50 0 0 1 -0.00 -2.50" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -0.50 A 1.50 1.50 0 0 1 0.00 2.50" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/></g>
+<g id="echangeur_a_air" data-vb="-25.0 -25.0 60 60"><rect x="-18" y="-20" width="36" height="48" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-14" y1="16" x2="-14" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="7" y1="16" x2="7" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="14" y1="16" x2="14" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="16" x2="-7" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="16" x2="0" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="-19" y1="20" x2="19" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0.0" cy="-2.0" r="15.0" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="7" y1="-15" x2="13" y2="5" stroke="#000" stroke-width="1"/>
+<path d="M -1.00 -2.00 A 1.00 1.00 0 0 1 0.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-15" x2="-13" y2="5" stroke="#000" stroke-width="1"/>
+<path d="M 6.00 5.00 A 6.00 6.00 0 0 1 0.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 4.00 A 6.00 6.00 0 0 1 -1.00 -2.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -1.00 A 6.00 6.00 0 0 1 -6.00 5.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 5.00 A 1.00 1.00 0 0 1 -7.00 4.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 1.00 -2.00 A 6.00 6.00 0 0 1 7.00 4.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -1.00 A 1.00 1.00 0 0 1 1.00 -2.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 7.00 4.00 A 1.00 1.00 0 0 1 6.00 5.00" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="-7.0" rx="2.5" ry="4.5" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-19" cy="20" r="1.5" fill="#000"/>
+<circle cx="19" cy="20" r="1.5" fill="#000"/></g>
+<g id="condenseur_evaporatif" data-vb="-27.0 -33.0 50 50"><line x1="-7.83023" y1="-1.93092" x2="14.7327" y2="-1.93092" stroke="#000" stroke-width="1"/>
+<path d="M -9.00 -1.93 A 3.00 2.10 0 0 1 -9.00 -6.13" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-9.17778" y1="-6.13092" x2="0.19259" y2="-6.13092" stroke="#000" stroke-width="1"/>
+<rect x="-18" y="0" width="31" height="7" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-18,0 -8,-30 2,-30 13,0" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-18.2" y1="-10.3309" x2="0.13333" y2="-10.3309" stroke="#000" stroke-width="1"/>
+<ellipse cx="-3.2" cy="-23.7" rx="4.8" ry="4.7" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 1.00 -10.33 A 3.00 2.10 0 0 1 1.00 -6.13" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-16" x2="-2" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="-4.5575" y1="-28.0413" x2="-8" y2="-23.7172" stroke="#000" stroke-width="1"/>
+<line x1="-1.88" y1="-28.0413" x2="1.5625" y2="-23.7172" stroke="#000" stroke-width="1"/>
+<line x1="-1" y1="-15" x2="1" y2="-13" stroke="#000" stroke-width="1"/>
+<polyline points="-3.257,-24.2034 -2.5685,-24.7482 -2.5685,-26.3826 -3.257,-27.1998 -3.9455,-26.3826 -3.9455,-25.0206 -3.257,-24.2034 -2.22425,-23.931 -0.84725,-22.8413 -0.84725,-22.0241 -1.88,-22.2965 -2.91275,-23.1137 -3.257,-24.2034" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-3" y1="-15" x2="-5" y2="-13" stroke="#000" stroke-width="1"/>
+<polyline points="-3.257,-24.2034 -4.28975,-23.931 -5.3225,-22.5689 -5.3225,-21.7517 -4.28975,-22.0241 -3.257,-23.1137 -3.257,-23.931 -3.257,-23.931" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-14.4364" x2="-2" y2="-13.1" stroke="#000" stroke-width="1"/>
+<line x1="-14" y1="6" x2="-14" y2="11" stroke="#000" stroke-width="1"/>
+<circle cx="-19" cy="-10" r="1.5" fill="#000"/>
+<circle cx="15" cy="-2" r="1.5" fill="#000"/>
+<circle cx="-14" cy="11" r="1.5" fill="#000"/>
+<circle cx="-15" cy="-16" r="1.5" fill="#000"/></g>
+<g id="echangeur_a_plaques" data-vb="-21.0 -15.0 40 40"><line x1="6" y1="-5" x2="6" y2="14" stroke="#000" stroke-width="0.5"/>
+<line x1="10" y1="-5.82667" x2="10" y2="-10.16" stroke="#000" stroke-width="1"/>
+<line x1="0.5" y1="-5" x2="0.5" y2="14" stroke="#000" stroke-width="0.5"/>
+<rect x="-16" y="-5" width="30" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="20" x2="10" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="20.1359" x2="-10" y2="15.8746" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-5" x2="-7" y2="14" stroke="#000" stroke-width="0.5"/>
+<line x1="-12" y1="-5" x2="10" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-5" x2="-12" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="-5" x2="-10" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="-10" cy="-10" r="1.5" fill="#000"/>
+<circle cx="10" cy="-10" r="1.5" fill="#000"/>
+<circle cx="-10" cy="20" r="1.5" fill="#000"/>
+<circle cx="10" cy="20" r="1.5" fill="#000"/></g>
+<g id="detendeur_thermo_ext" data-vb="-19.0 -28.0 40 40"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-18" x2="0" y2="-20" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<text x="-5" y="-9.66667" font-family="sans-serif" font-size="6" fill="#333">TC</text></g>
+<g id="detendeur_thermo_ext--nu" data-vb="-19.0 -28.0 40 40"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-18" x2="0" y2="-20" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/></g>
+<g id="detendeur_thermo_int" data-vb="-19.0 -22.0 40 30"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="none" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<text x="-5" y="-9.66667" font-family="sans-serif" font-size="6" fill="#333">TC</text></g>
+<g id="detendeur_thermo_int--nu" data-vb="-19.0 -22.0 40 30"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="none" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/></g>
+<g id="detendeur_electronique" data-vb="-19.0 -21.0 40 30"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="white" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<text x="-3.5" y="-11" font-family="sans-serif" font-size="6" fill="#333">TCE</text></g>
+<g id="detendeur_electronique--nu" data-vb="-19.0 -21.0 40 30"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="white" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/></g>
+<g id="tube_capillaire" data-vb="-26.0 -11.0 50 20"><path d="M -14.00 -2.30 A 3.00 2.90 0 0 1 -8.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 11.00 -1.00 A 1.00 1.00 0 0 1 10.00 -2.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="11.7474" y1="-1" x2="17.2737" y2="-1" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 -2.30 A 3.00 2.90 0 0 1 10.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 2.00 -1.40 A 1.50 3.60 0 0 1 -1.00 -1.40" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -3.00 -1.40 A 1.50 3.60 0 0 1 -6.00 -1.40" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-21.2526" y1="-1" x2="-15.7263" y2="-1" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 -2.30 A 4.00 2.90 0 0 1 2.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -8.00 -1.40 A 1.50 3.60 0 0 1 -11.00 -1.40" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -11.00 -2.30 A 4.00 2.90 0 0 1 -3.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 7.00 -1.40 A 1.50 3.60 0 0 1 4.00 -1.40" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -1.00 -2.30 A 4.00 2.90 0 0 1 7.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -14.00 -2.00 A 1.00 1.00 0 0 1 -15.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-22" cy="-1" r="1.5" fill="#000"/>
+<circle cx="18" cy="-1" r="1.5" fill="#000"/></g>
+<g id="bouteille_liquide" data-vb="-24.0 -14.0 50 30"><line x1="-17" y1="7" x2="17" y2="7" stroke="#000" stroke-width="1"/>
+<line x1="-17" y1="-7" x2="17" y2="-7" stroke="#000" stroke-width="1"/>
+<path d="M 17.50 -7.00 A 2.50 7.00 0 0 1 17.50 7.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -17.50 7.00 A 2.50 7.00 0 0 1 -17.50 -7.00" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-10" cy="7" r="1.5" fill="#000"/>
+<circle cx="10" cy="7" r="1.5" fill="#000"/>
+<circle cx="10" cy="-7" r="1.5" fill="#000"/>
+<circle cx="-10" cy="-7" r="1.5" fill="#000"/>
+<circle cx="0" cy="-7" r="1.5" fill="#000"/>
+<circle cx="19" cy="4" r="1.5" fill="#000"/>
+<circle cx="0" cy="7" r="1.5" fill="#000"/>
+<circle cx="19" cy="-4" r="1.5" fill="#000"/>
+<circle cx="20" cy="0" r="1.5" fill="#000"/>
+<circle cx="-20" cy="0" r="1.5" fill="#000"/></g>
+<g id="filtre_deshydrateur" data-vb="-25.0 -10.0 40 20"><line x1="-5" y1="-4.22727" x2="-5" y2="1.22727" stroke="#000" stroke-width="1"/>
+<line x1="6" y1="0.494709" x2="9.75" y2="0.494709" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-0.454545" x2="2" y2="4.45455" stroke="#000" stroke-width="1"/>
+<rect x="-15.75" y="-5.01058" width="21.75" height="10.0106" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-19.5" y1="0.494709" x2="-15.75" y2="0.494709" stroke="#000" stroke-width="1"/>
+<line x1="-12" y1="-0.414828" x2="-12" y2="4.41483" stroke="#000" stroke-width="1"/>
+<circle cx="9.75" cy="0.494709" r="1.5" fill="#000"/>
+<circle cx="-19.5" cy="0.494709" r="1.5" fill="#000"/></g>
+<g id="voyant_liquide" data-vb="-15.0 -10.0 50 20"><line x1="21.7269" y1="-0.0538826" x2="27.65" y2="-0.0538826" stroke="#000" stroke-width="1"/>
+<rect x="-0.7" y="-5.79239" width="22.75" height="11.7924" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="10.7" cy="0.1" rx="6.1" ry="5.9" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-7.7" y1="-0.0538826" x2="-0.7" y2="-0.0538826" stroke="#000" stroke-width="1"/>
+<circle cx="27.3" cy="-0.0538826" r="1.5" fill="#000"/>
+<circle cx="-7.7" cy="-0.0538826" r="1.5" fill="#000"/>
+<text x="8" y="3" font-family="sans-serif" font-size="6" fill="#333">V</text></g>
+<g id="voyant_liquide--nu" data-vb="-15.0 -10.0 50 20"><line x1="21.7269" y1="-0.0538826" x2="27.65" y2="-0.0538826" stroke="#000" stroke-width="1"/>
+<rect x="-0.7" y="-5.79239" width="22.75" height="11.7924" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="10.7" cy="0.1" rx="6.1" ry="5.9" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-7.7" y1="-0.0538826" x2="-0.7" y2="-0.0538826" stroke="#000" stroke-width="1"/>
+<circle cx="27.3" cy="-0.0538826" r="1.5" fill="#000"/>
+<circle cx="-7.7" cy="-0.0538826" r="1.5" fill="#000"/></g>
+<g id="separateur_huile" data-vb="-14.0 -18.0 30 40"><polyline points="1,7 6,2 9,2" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="0" y2="-2" stroke="#000" stroke-width="1"/>
+<polyline points="-8,-13 8,-13 8,5 0,13 -8,5 -8,-13" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="8.0" rx="2.0" ry="1.0" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="14" r="1.5" fill="#000"/>
+<circle cx="-9" cy="-10" r="1.5" fill="#000"/>
+<circle cx="9" cy="-10" r="1.5" fill="#000"/>
+<circle cx="9" cy="2" r="1.5" fill="#000"/></g>
+<g id="distributeur_liquide" data-vb="-11.0 -24.0 30 40"><path d="M 4.89 -10.70 A 4.30 3.70 0 0 1 9.19 -14.41" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.04 -10.55 A 5.65 6.55 0 0 1 5.69 -17.10" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-7.6,-10 8.4,-10 0.4,4 -7.6,-10" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="9.1066" y1="-14.4062" x2="12.3686" y2="-14.4062" stroke="#000" stroke-width="1"/>
+<line x1="6.16342" y1="-17.1003" x2="12.8467" y2="-17.1003" stroke="#000" stroke-width="1"/>
+<line x1="0.4" y1="3.3" x2="0.4" y2="8.9" stroke="#000" stroke-width="1"/>
+<path d="M -5.00 -10.74 A 8.50 8.74 0 0 1 3.50 -19.49" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="4" y1="-19.4858" x2="13" y2="-19.4858" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="9" r="1.5" fill="#000"/>
+<circle cx="13" cy="-17" r="1.5" fill="#000"/></g>
+<g id="vanne_isolement" data-vb="-19.0 -10.0 40 20"><line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<polygon points="-10,-5 10,5 10,-5 -10,5 -10,-4" fill="white" stroke="#000" stroke-width="1"/>
+<circle cx="0.0" cy="0.0" r="2.0" fill="black" stroke="#000" stroke-width="1"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/></g>
+<g id="vanne_securite" data-vb="-7.0 -20.0 20 40"><polyline points="0,0 0,-3 4,-5 -4,-7 4,-10 0,-12 0,-14" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="11" stroke="#000" stroke-width="1"/>
+<polyline points="0,0 10,-5 10,5 0,0 5,10 -5,10 0,0" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="11" r="1.5" fill="#000"/></g>
+<g id="electrovanne_frigo" data-vb="-19.0 -21.0 40 30"><line x1="-3" y1="-13" x2="3" y2="-9" stroke="#000" stroke-width="1"/>
+<path d="M 3.00 -7.00 A 3.00 3.00 0 0 1 -3.00 -7.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-3" y1="-8" x2="-3" y2="-15" stroke="#000" stroke-width="1"/>
+<path d="M -3.00 -15.00 A 3.00 3.00 0 0 1 3.00 -15.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="3" y1="-8" x2="3" y2="-15" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-4" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/></g>
+<g id="clapet_anti_retour" data-vb="-19.0 -10.0 40 20"><polyline points="-10,5 -10,-5 10,5 10,-5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="-10.0" cy="-5.0" r="1.5" fill="black" stroke="#000" stroke-width="1"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/></g>
+<g id="ventilateur_axial" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="-12" y1="0" x2="-8" y2="0" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 -7.00 A 6.00 6.00 0 0 1 0.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -1.00 0.00 A 6.00 6.00 0 0 1 -7.00 -6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 6.00 A 6.00 6.00 0 0 1 -1.00 0.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 1.00 A 6.00 6.00 0 0 1 -6.00 7.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 7.00 A 1.00 1.00 0 0 1 -7.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 -6.00 A 1.00 1.00 0 0 1 -6.00 -7.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -1.00 A 1.00 1.00 0 0 1 -1.00 0.00" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="4.5" cy="0.0" rx="4.5" ry="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/></g>
+<g id="ventilateur_centrifuge" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 1.00 A 6.00 6.00 0 0 1 -6.00 7.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="3" x2="-10" y2="-3" stroke="#000" stroke-width="1"/>
+<path d="M -1.00 0.00 A 6.00 6.00 0 0 1 -7.00 -6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 6.00 A 6.00 6.00 0 0 1 -1.00 0.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 7.00 A 1.00 1.00 0 0 1 -7.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 -7.00 A 6.00 6.00 0 0 1 0.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 -6.00 A 1.00 1.00 0 0 1 -6.00 -7.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -1.00 A 1.00 1.00 0 0 1 -1.00 0.00" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="4.5" cy="0.0" rx="4.5" ry="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/></g>
+<g id="resistance_evaporation" data-vb="-29.0 -13.0 70 20"><polyline points="-20,0 -12,0 -12,-9 -2,-9 -2,0 7,0 7,-9 17,-9 17,0 26,0 26,-9 35,-9 35,0 34,0" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-21" cy="0" r="1.5" fill="#000"/></g>
+<g id="manometres" data-vb="-24.0 -25.0 50 40"><line x1="16" y1="-9" x2="16" y2="8" stroke="#000" stroke-width="1"/>
+<ellipse cx="16.0" cy="-14.5" rx="6.0" ry="5.5" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-15.0" cy="-14.5" rx="6.0" ry="5.5" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="4.7,-3 4.7,4 12.7,-3 12.7,4 4.7,-3" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="8.7" y1="0" x2="8.7" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="4.7" y1="-6" x2="12.7" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-9" x2="-15" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="13" y1="0" x2="15" y2="0" stroke="#000" stroke-width="1"/>
+<polyline points="-13,-3 -13,4 -5,-3 -5,4 -13,-3" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-9" y1="0" x2="-9" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-13" y1="-6" x2="-5" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-13" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-5" y1="0" x2="4" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="8" stroke="#000" stroke-width="1"/>
+<circle cx="-15" cy="8" r="1.5" fill="#000"/>
+<circle cx="0" cy="8" r="1.5" fill="#000"/>
+<circle cx="16" cy="8" r="1.5" fill="#000"/>
+<text x="14" y="-12" font-family="sans-serif" font-size="5.0" fill="#333">A</text>
+<text x="-17" y="-12" font-family="sans-serif" font-size="5.0" fill="#333">B</text></g>
+<g id="manometres--nu" data-vb="-24.0 -25.0 50 40"><line x1="16" y1="-9" x2="16" y2="8" stroke="#000" stroke-width="1"/>
+<ellipse cx="16.0" cy="-14.5" rx="6.0" ry="5.5" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-15.0" cy="-14.5" rx="6.0" ry="5.5" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="4.7,-3 4.7,4 12.7,-3 12.7,4 4.7,-3" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="8.7" y1="0" x2="8.7" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="4.7" y1="-6" x2="12.7" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-9" x2="-15" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="13" y1="0" x2="15" y2="0" stroke="#000" stroke-width="1"/>
+<polyline points="-13,-3 -13,4 -5,-3 -5,4 -13,-3" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-9" y1="0" x2="-9" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-13" y1="-6" x2="-5" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-13" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-5" y1="0" x2="4" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="8" stroke="#000" stroke-width="1"/>
+<circle cx="-15" cy="8" r="1.5" fill="#000"/>
+<circle cx="0" cy="8" r="1.5" fill="#000"/>
+<circle cx="16" cy="8" r="1.5" fill="#000"/></g>
+<g id="pressostat" data-vb="-37.0 -30.0 50 60"><line x1="-3" y1="0" x2="-17" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<circle cx="-17" cy="0" r="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<text x="2" y="20" font-family="sans-serif" font-size="4" fill="#333">14</text>
+<text x="2" y="-18" font-family="sans-serif" font-size="4" fill="#333">13</text>
+<text x="-27" y="2.5" font-family="sans-serif" font-size="8.0" fill="#333">P</text>
+<text x="6" y="-0.7" font-family="sans-serif" font-size="4" fill="#555">bar</text></g>
+<g id="pressostat--nu" data-vb="-37.0 -30.0 50 60"><line x1="-3" y1="0" x2="-17" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<circle cx="-17" cy="0" r="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="sonde_temperature" data-vb="-30.0 -14.0 60 40"><line x1="-20" y1="0" x2="20" y2="0" stroke="#000" stroke-width="1"/>
+<rect x="-10" y="-5" width="20" height="10" fill="white" stroke="#000" stroke-width="1"/>
+<polyline points="-10,10 -5,10 5,-10 10,-10" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-20" cy="0" r="1.5" fill="#000"/>
+<circle cx="20" cy="0" r="1.5" fill="#000"/>
+<text x="-10" y="22.5" font-family="sans-serif" font-size="9.0" fill="#555">S_</text></g>
+<g id="sonde_temperature--nu" data-vb="-30.0 -14.0 60 40"><line x1="-20" y1="0" x2="20" y2="0" stroke="#000" stroke-width="1"/>
+<rect x="-10" y="-5" width="20" height="10" fill="white" stroke="#000" stroke-width="1"/>
+<polyline points="-10,10 -5,10 5,-10 10,-10" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-20" cy="0" r="1.5" fill="#000"/>
+<circle cx="20" cy="0" r="1.5" fill="#000"/></g>
+<g id="thermostat" data-vb="-22.0 -30.0 30 60"><rect x="-20" y="-5" width="9" height="9" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-15.5" cy="-0.5" rx="2.0" ry="3.0" fill="none" stroke="#000" stroke-width="0.5"/>
+<path d="M -15.50 -0.50 A 1.00 1.00 0 0 0 -13.50 -0.50" fill="none" stroke="#000" stroke-width="0.5"/>
+<path d="M -15.50 -0.50 A 1.00 1.00 0 0 0 -17.50 -0.50" fill="none" stroke="#000" stroke-width="0.5"/>
+<line x1="-3" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<polyline points="-5,-11 0,9 0,19" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-11" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/></g>
+<g id="pressostat_nf" data-vb="-37.0 -30.0 50 60"><polyline points="5,-11 0,9 0,19" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="6" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-1" y1="0" x2="-17" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<circle cx="-17" cy="0" r="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<text x="2" y="20" font-family="sans-serif" font-size="4" fill="#333">14</text>
+<text x="2" y="-18" font-family="sans-serif" font-size="4" fill="#333">13</text>
+<text x="-27" y="2.5" font-family="sans-serif" font-size="8.0" fill="#333">P</text>
+<text x="6" y="-0.7" font-family="sans-serif" font-size="4" fill="#555">bar</text></g>
+<g id="pressostat_nf--nu" data-vb="-37.0 -30.0 50 60"><polyline points="5,-11 0,9 0,19" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="6" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-1" y1="0" x2="-17" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<circle cx="-17" cy="0" r="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="pressostat_bp" data-vb="-14.0 -23.0 30 30"><rect x="-10" y="-17.5" width="20" height="9.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-8" x2="0" y2="-0.3" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/>
+<text x="0" y="-10.6" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#333">BP</text></g>
+<g id="pressostat_bp--nu" data-vb="-14.0 -23.0 30 30"><rect x="-10" y="-17.5" width="20" height="9.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-8" x2="0" y2="-0.3" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/></g>
+<g id="pressostat_hp" data-vb="-14.0 -23.0 30 30"><rect x="-10" y="-17.5" width="20" height="9.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-8" x2="0" y2="-0.3" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/>
+<text x="0" y="-10.6" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#333">HP</text></g>
+<g id="pressostat_hp--nu" data-vb="-14.0 -23.0 30 30"><rect x="-10" y="-17.5" width="20" height="9.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-8" x2="0" y2="-0.3" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/></g>
+<g id="thermostat_froid" data-vb="-8.0 -24.0 30 30"><rect x="-5.07901" y="-19.0865" width="10.0644" height="9.31213" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-0.0468226" y1="-9.77432" x2="-0.0468226" y2="-0.462187" stroke="#000" stroke-width="1"/>
+<line x1="15.8993" y1="-2.01421" x2="19.1282" y2="-2.01421" stroke="#000" stroke-width="1"/>
+<ellipse cx="10.9" cy="-13.7" rx="2.0" ry="2.3" fill="none" stroke="#000" stroke-width="0.5"/>
+<line x1="5.10487" y1="-15.9824" x2="11.4482" y2="-15.9824" stroke="#000" stroke-width="0.5"/>
+<line x1="12.9051" y1="-14.009" x2="12.9051" y2="-2.47075" stroke="#000" stroke-width="0.5"/>
+<line x1="12.9051" y1="-2.01421" x2="15.547" y2="-2.01421" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/>
+<text x="-3" y="-13" font-family="sans-serif" font-size="6" fill="#333">T</text></g>
+<g id="thermostat_froid--nu" data-vb="-8.0 -24.0 30 30"><rect x="-5.07901" y="-19.0865" width="10.0644" height="9.31213" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-0.0468226" y1="-9.77432" x2="-0.0468226" y2="-0.462187" stroke="#000" stroke-width="1"/>
+<line x1="15.8993" y1="-2.01421" x2="19.1282" y2="-2.01421" stroke="#000" stroke-width="1"/>
+<ellipse cx="10.9" cy="-13.7" rx="2.0" ry="2.3" fill="none" stroke="#000" stroke-width="0.5"/>
+<line x1="5.10487" y1="-15.9824" x2="11.4482" y2="-15.9824" stroke="#000" stroke-width="0.5"/>
+<line x1="12.9051" y1="-14.009" x2="12.9051" y2="-2.47075" stroke="#000" stroke-width="0.5"/>
+<line x1="12.9051" y1="-2.01421" x2="15.547" y2="-2.01421" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/></g>
+<g id="source_3p_n" data-vb="-21.0 -38.0 40 80"><line x1="0" y1="10" x2="10" y2="10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="10" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="30" x2="10" y2="30" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="10" y2="-30" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="10" r="1.5" fill="#000"/>
+<circle cx="10" cy="30" r="1.5" fill="#000"/>
+<circle cx="10" cy="-30" r="1.5" fill="#000"/>
+<circle cx="10" cy="-10" r="1.5" fill="#000"/>
+<text x="-12" y="33" font-family="sans-serif" font-size="5.0" fill="#333">N</text>
+<text x="-12" y="13" font-family="sans-serif" font-size="5.0" fill="#333">L3</text>
+<text x="-12" y="-7" font-family="sans-serif" font-size="5.0" fill="#333">L2</text>
+<text x="-12" y="-27" font-family="sans-serif" font-size="5.0" fill="#333">L1</text></g>
+<g id="source_3p_n--nu" data-vb="-21.0 -38.0 40 80"><line x1="0" y1="10" x2="10" y2="10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="10" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="30" x2="10" y2="30" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="10" y2="-30" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="10" r="1.5" fill="#000"/>
+<circle cx="10" cy="30" r="1.5" fill="#000"/>
+<circle cx="10" cy="-30" r="1.5" fill="#000"/>
+<circle cx="10" cy="-10" r="1.5" fill="#000"/></g>
+<g id="source_phase_l" data-vb="-21.0 -8.0 40 20"><line x1="0" y1="0" x2="10" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="0" r="1.5" fill="#000"/>
+<text x="-12" y="3" font-family="sans-serif" font-size="5.0" fill="#333">L</text></g>
+<g id="source_phase_l--nu" data-vb="-21.0 -8.0 40 20"><line x1="0" y1="0" x2="10" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="0" r="1.5" fill="#000"/></g>
+<g id="source_neutre_n" data-vb="-21.0 -8.0 40 20"><line x1="0" y1="0" x2="10" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="0" r="1.5" fill="#000"/>
+<text x="-12" y="3" font-family="sans-serif" font-size="5.0" fill="#333">N</text></g>
+<g id="source_neutre_n--nu" data-vb="-21.0 -8.0 40 20"><line x1="0" y1="0" x2="10" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="0" r="1.5" fill="#000"/></g>
+<g id="terre" data-vb="-10.0 -21.0 20 30"><line x1="-3" y1="4" x2="3" y2="4" stroke="#000" stroke-width="1"/>
+<line x1="-5" y1="2" x2="5" y2="2" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="0" x2="7" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="0" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-11" r="1.5" fill="#000"/></g>
+<g id="sectionneur_3_fusibles" data-vb="-40.0 -30.0 70 60"><line x1="-33" y1="0" x2="-26" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="-35" y1="-10" x2="-30" y2="10" stroke="#000" stroke-width="0.5"/>
+<circle cx="-30" cy="10" r="2.5" fill="none" stroke="#000" stroke-width="0.5"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<polygon points="-5.69,-4.51 -3.19,5.49 0.69,4.51 -1.81,-5.49" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-25,-10 -20,10 -20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<polyline points="15,-10 20,10 20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-10" x2="-2" y2="-10" stroke="#000" stroke-width="1"/>
+<polygon points="14.31,-4.51 16.81,5.49 20.69,4.51 18.19,-5.49" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="-10" x2="22" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-10" stroke="#000" stroke-width="1"/>
+<polygon points="-25.69,-4.51 -23.19,5.49 -19.31,4.51 -21.81,-5.49" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-20" x2="-20" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-18" y1="-10" x2="-22" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="0" x2="-5" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="-1" y1="0" x2="15" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<circle cx="-20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="sectionneur_3p" data-vb="-50.0 -30.0 80 60"><polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-40.0" cy="12.0" rx="2.0" ry="2.0" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="20.0" cy="-10.0" rx="2.0" ry="2.0" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-20.0" cy="-10.0" rx="2.0" ry="2.0" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="-10.0" rx="2.0" ry="2.0" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="15,-10 20,10 20,20" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-25,-10 -20,10 -20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-12" x2="-2" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-20" x2="-20" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="-18" y1="-12" x2="-22" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="22" y1="-12" x2="18" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="-40" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<line x1="-40" y1="10" x2="-45" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/></g>
+<g id="disjoncteur_3p" data-vb="-30.0 -40.0 60 70"><line x1="-20" y1="15.5" x2="-20" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="15.5" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<path d="M -20.00 15.50 A 4.00 2.50 0 0 0 -20.00 10.50" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -0.00 15.50 A 4.00 2.50 0 0 0 0.00 10.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-20,10.5 -20,8 -15,8 -15,3 -20,3 -20,0 -25,-20" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="0,10.5 0,8 5,8 5,3 0,3 0,0 -5,-20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="15.5" x2="20" y2="20" stroke="#000" stroke-width="1"/>
+<path d="M 20.00 15.50 A 4.00 2.50 0 0 0 20.00 10.50" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-30" x2="-20" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="-18" y1="-26" x2="-22" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="-22" y1="-26" x2="-18" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-30" x2="20" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="22" y1="-26" x2="18" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="-26" x2="22" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-26" x2="-2" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-26" x2="2" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="-22.5" y1="-10" x2="17.5" y2="-10" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<polyline points="20,10.5 20,8 25,8 25,3 20,3 20,0 15,-20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-22" y1="-20" x2="-18" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-20" x2="2" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="-20" x2="22" y2="-20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="-20" cy="-30" r="1.5" fill="#000"/></g>
+<g id="disjoncteur_1p" data-vb="-8.0 -40.0 30 70"><line x1="0" y1="15.5" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<path d="M -0.00 15.50 A 4.00 2.50 0 0 0 0.00 10.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="0,10.5 0,8 5,8 5,3 0,3 0,0 -5,-20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-25" x2="-2" y2="-21" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-25" x2="2" y2="-21" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-19" x2="2" y2="-19" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="relais_thermique" data-vb="-7.0 -30.0 50 60"><rect x="-5" y="-10" width="35" height="20" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<line x1="0" y1="-20" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="5" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="5" y1="-5" x2="5" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="5" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="5" x2="5" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-20" x2="10" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="5" x2="10" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="-5" x2="15" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-5" x2="15" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="5" x2="15" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="5" x2="20" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="25" y1="-5" x2="25" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-5" x2="25" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="5" x2="25" y2="5" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-21" r="1.5" fill="#000"/>
+<circle cx="0" cy="21" r="1.5" fill="#000"/>
+<circle cx="10" cy="-21" r="1.5" fill="#000"/>
+<circle cx="10" cy="21" r="1.5" fill="#000"/>
+<circle cx="20" cy="-21" r="1.5" fill="#000"/>
+<circle cx="20" cy="21" r="1.5" fill="#000"/>
+<text x="36" y="3.3" font-family="sans-serif" font-size="4" fill="#555">Plage _A/_A</text>
+<text x="36" y="11.3" font-family="sans-serif" font-size="4" fill="#555">Réglage _A</text></g>
+<g id="relais_thermique--nu" data-vb="-7.0 -30.0 50 60"><rect x="-5" y="-10" width="35" height="20" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<line x1="0" y1="-20" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="5" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="5" y1="-5" x2="5" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="5" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="5" x2="5" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-20" x2="10" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="5" x2="10" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="-5" x2="15" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-5" x2="15" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="5" x2="15" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="5" x2="20" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="25" y1="-5" x2="25" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-5" x2="25" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="5" x2="25" y2="5" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-21" r="1.5" fill="#000"/>
+<circle cx="0" cy="21" r="1.5" fill="#000"/>
+<circle cx="10" cy="-21" r="1.5" fill="#000"/>
+<circle cx="10" cy="21" r="1.5" fill="#000"/>
+<circle cx="20" cy="-21" r="1.5" fill="#000"/>
+<circle cx="20" cy="21" r="1.5" fill="#000"/></g>
+<g id="contact_gv_no" data-vb="-49.0 -50.0 60 70"><polyline points="-27,-16 -27,-20 -22,-20 -22,-26 -27,-26 -27,-30" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-37" y="-30" width="20" height="28" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-37" y1="-16" x2="-17" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-25" x2="0" y2="-40" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="-10" y2="-25" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-15" x2="-7" y2="-15" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="-40" r="1.5" fill="#000"/>
+<circle cx="0" cy="10" r="1.5" fill="#000"/>
+<text x="-34" y="-5" font-family="sans-serif" font-size="9.0" fill="#333">I&gt;</text></g>
+<g id="contact_gv_no--nu" data-vb="-49.0 -50.0 60 70"><polyline points="-27,-16 -27,-20 -22,-20 -22,-26 -27,-26 -27,-30" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-37" y="-30" width="20" height="28" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-37" y1="-16" x2="-17" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-25" x2="0" y2="-40" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="-10" y2="-25" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-15" x2="-7" y2="-15" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="-40" r="1.5" fill="#000"/>
+<circle cx="0" cy="10" r="1.5" fill="#000"/></g>
+<g id="contact_gv_nf" data-vb="-46.0 -50.0 60 70"><polyline points="-27,-16 -27,-20 -22,-20 -22,-26 -27,-26 -27,-30" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-37" y="-30" width="20" height="28" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-37" y1="-16" x2="-17" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-25" x2="0" y2="-40" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="10" y2="-25" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-15" x2="0" y2="-15" stroke="#000" stroke-width="0.5"/>
+<line x1="0" y1="-25" x2="10" y2="-25" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="10" r="1.5" fill="#000"/>
+<circle cx="0" cy="-40" r="1.5" fill="#000"/>
+<text x="-34" y="-5" font-family="sans-serif" font-size="9.0" fill="#333">I&gt;</text></g>
+<g id="contact_gv_nf--nu" data-vb="-46.0 -50.0 60 70"><polyline points="-27,-16 -27,-20 -22,-20 -22,-26 -27,-26 -27,-30" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-37" y="-30" width="20" height="28" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-37" y1="-16" x2="-17" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-25" x2="0" y2="-40" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="10" y2="-25" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-15" x2="0" y2="-15" stroke="#000" stroke-width="0.5"/>
+<line x1="0" y1="-25" x2="10" y2="-25" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="10" r="1.5" fill="#000"/>
+<circle cx="0" cy="-40" r="1.5" fill="#000"/></g>
+<g id="fusible_3p" data-vb="-19.0 -30.0 40 60"><rect x="7" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-12.69" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="-20" x2="-10" y2="20" stroke="#000" stroke-width="1"/>
+<rect x="-3" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-20" x2="10" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="-10" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-10" cy="-20" r="1.5" fill="#000"/>
+<circle cx="10" cy="-20" r="1.5" fill="#000"/>
+<circle cx="10" cy="20" r="1.5" fill="#000"/>
+<text x="0.81" y="-14" font-family="sans-serif" font-size="5.0" fill="#333">3</text>
+<text x="11" y="-14" font-family="sans-serif" font-size="5.0" fill="#333">5</text>
+<text x="1" y="19" font-family="sans-serif" font-size="5.0" fill="#333">4</text>
+<text x="11" y="19" font-family="sans-serif" font-size="5.0" fill="#333">6</text>
+<text x="-9" y="19" font-family="sans-serif" font-size="5.0" fill="#333">2</text>
+<text x="-9" y="-14" font-family="sans-serif" font-size="5.0" fill="#333">1</text></g>
+<g id="fusible_3p--nu" data-vb="-19.0 -30.0 40 60"><rect x="7" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-12.69" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="-20" x2="-10" y2="20" stroke="#000" stroke-width="1"/>
+<rect x="-3" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-20" x2="10" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="-10" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-10" cy="-20" r="1.5" fill="#000"/>
+<circle cx="10" cy="-20" r="1.5" fill="#000"/>
+<circle cx="10" cy="20" r="1.5" fill="#000"/></g>
+<g id="bp_no_marche" data-vb="-12.0 -30.0 20 60"><polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-3" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<polyline points="-7,-5 -10,-5 -10,5 -7,5" fill="none" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="-21" r="1.5" fill="#000"/>
+<circle cx="0" cy="21" r="1.5" fill="#000"/></g>
+<g id="bp_nf_arret" data-vb="-12.0 -30.0 20 60"><polyline points="5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-9" x2="6" y2="-9" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-9" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="3" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<polyline points="-7,-5 -10,-5 -10,5 -7,5" fill="none" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="-21" r="1.5" fill="#000"/>
+<circle cx="0" cy="21" r="1.5" fill="#000"/></g>
+<g id="arret_urgence" data-vb="-17.0 -30.0 30 60"><polyline points="5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-4" y1="-2" x2="-1" y2="0" stroke="#000" stroke-width="0.5"/>
+<path d="M -7.00 -5.00 A 4.00 5.00 0 0 0 -7.00 5.00" fill="none" stroke="#000" stroke-width="0.5"/>
+<line x1="-4" y1="-2" x2="-4" y2="0" stroke="#000" stroke-width="0.5"/>
+<line x1="0" y1="-9" x2="6" y2="-9" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-9" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-5" x2="-7" y2="5" stroke="#000" stroke-width="0.5"/>
+<line x1="-7" y1="0" x2="3" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="contact_no_13_14" data-vb="-13.0 -34.0 30 70"><path d="M -0.53 -11.23 A 2.00 2.25 0 0 0 -0.05 -6.76" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-7,-7 0,8 0,30" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-7" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="30" r="1.5" fill="#000"/>
+<text x="-1" y="13.0" font-family="sans-serif" font-size="5.0" fill="#555">14</text>
+<text x="-1" y="-27.0" font-family="sans-serif" font-size="5.0" fill="#555">13</text>
+<text x="3" y="-21" font-family="sans-serif" font-size="4" fill="#333">NO</text>
+<text x="3.25" y="19.3" font-family="sans-serif" font-size="4" fill="#333">NO</text></g>
+<g id="contact_no_13_14--nu" data-vb="-13.0 -34.0 30 70"><path d="M -0.53 -11.23 A 2.00 2.25 0 0 0 -0.05 -6.76" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-7,-7 0,8 0,30" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-7" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="30" r="1.5" fill="#000"/></g>
+<g id="contact_nf_11_12" data-vb="-5.0 -34.0 20 70"><polyline points="7,-9 0,8 0,30 0,30" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="0,-30 0,-7 8,-7" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 1.09 -7.33 A 2.00 2.25 0 0 0 0.03 -11.23" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="30" r="1.5" fill="#000"/>
+<text x="3" y="-21" font-family="sans-serif" font-size="4" fill="#333">NC</text>
+<text x="-1" y="13.0" font-family="sans-serif" font-size="5.0" fill="#555">12</text>
+<text x="-1.25" y="-27.3" font-family="sans-serif" font-size="5.0" fill="#555">11</text>
+<text x="3.25" y="19.3" font-family="sans-serif" font-size="4" fill="#333">NC</text></g>
+<g id="contact_nf_11_12--nu" data-vb="-5.0 -34.0 20 70"><polyline points="7,-9 0,8 0,30 0,30" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="0,-30 0,-7 8,-7" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 1.09 -7.33 A 2.00 2.25 0 0 0 0.03 -11.23" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="30" r="1.5" fill="#000"/></g>
+<g id="contact_puissance_3p_no" data-vb="-30.0 -30.0 60 60"><polyline points="-25,-10 -20,10 -20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-20" x2="-20" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M -20 -14.50 A 2.50 2.50 0 0 0 -20 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M 0 -14.50 A 2.50 2.50 0 0 0 0 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="15,-10 20,10 20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M 20 -14.50 A 2.50 2.50 0 0 0 20 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-22.5" y1="0" x2="17.5" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<circle cx="-20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/>
+<text x="-17.5" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">1</text>
+<text x="-17.5" y="16.3" font-family="sans-serif" font-size="4" fill="#555">2</text>
+<text x="2.5" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">3</text>
+<text x="2.5" y="16.3" font-family="sans-serif" font-size="4" fill="#555">4</text>
+<text x="22.5" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">5</text>
+<text x="22.5" y="16.3" font-family="sans-serif" font-size="4" fill="#555">6</text></g>
+<g id="contact_puissance_3p_no--nu" data-vb="-30.0 -30.0 60 60"><polyline points="-25,-10 -20,10 -20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-20" x2="-20" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M -20 -14.50 A 2.50 2.50 0 0 0 -20 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M 0 -14.50 A 2.50 2.50 0 0 0 0 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="15,-10 20,10 20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M 20 -14.50 A 2.50 2.50 0 0 0 20 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-22.5" y1="0" x2="17.5" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<circle cx="-20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/></g>
+<g id="bobine_contacteur" data-vb="-20.0 -32.0 40 60"><rect x="-14" y="-8" width="28" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="8" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<text x="2" y="16.3" font-family="sans-serif" font-size="4" fill="#555">A2</text>
+<text x="2" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">A1</text></g>
+<g id="bobine_contacteur--nu" data-vb="-20.0 -32.0 40 60"><rect x="-14" y="-8" width="28" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="8" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="bobine_tempo_travail" data-vb="-20.0 -32.0 40 60"><rect x="10" y="-8" width="4" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-14" y="-8" width="28" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="14" y1="-8" x2="10" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-8" x2="14" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="8" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<text x="2" y="16.3" font-family="sans-serif" font-size="4" fill="#555">A2</text>
+<text x="2" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">A1</text></g>
+<g id="bobine_tempo_travail--nu" data-vb="-20.0 -32.0 40 60"><rect x="10" y="-8" width="4" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-14" y="-8" width="28" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="14" y1="-8" x2="10" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-8" x2="14" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="8" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="moteur_triphase" data-vb="-29.0 -38.0 60 60"><ellipse cx="0.0" cy="0.0" rx="15.0" ry="15.0" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 9.50 14.36 A 16.00 16.00 0 0 0 16.54 -4.97" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-15" stroke="#000" stroke-width="1"/>
+<polyline points="-20,-30 -20,-20 -11,-11" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="20,-30 20,-20 11,-11" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="17" y1="13" x2="25" y2="13" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="15" x2="24" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="19.61" y1="17" x2="22.42" y2="17" stroke="#000" stroke-width="1"/>
+<polyline points="18,4 21,6 21,13" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 6.00 A 2.00 2.00 0 0 0 8.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 6.00 A 2.00 2.00 0 0 0 0.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="-20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="21" cy="6" r="1.5" fill="#000"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<text x="21" y="-24" font-family="sans-serif" font-size="4" fill="#333">W1</text>
+<text x="2" y="-24" font-family="sans-serif" font-size="4" fill="#333">V1</text>
+<text x="-6" y="0" font-family="sans-serif" font-size="11" fill="#333">M</text>
+<text x="-19" y="-24" font-family="sans-serif" font-size="4" fill="#333">U1</text>
+<text x="-8" y="10" font-family="sans-serif" font-size="9.0" fill="#333">3</text></g>
+<g id="moteur_triphase--nu" data-vb="-29.0 -38.0 60 60"><ellipse cx="0.0" cy="0.0" rx="15.0" ry="15.0" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 9.50 14.36 A 16.00 16.00 0 0 0 16.54 -4.97" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-15" stroke="#000" stroke-width="1"/>
+<polyline points="-20,-30 -20,-20 -11,-11" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="20,-30 20,-20 11,-11" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="17" y1="13" x2="25" y2="13" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="15" x2="24" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="19.61" y1="17" x2="22.42" y2="17" stroke="#000" stroke-width="1"/>
+<polyline points="18,4 21,6 21,13" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 6.00 A 2.00 2.00 0 0 0 8.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 6.00 A 2.00 2.00 0 0 0 0.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="-20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="21" cy="6" r="1.5" fill="#000"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/></g>
+<g id="resistance_chauffante" data-vb="-30.0 -10.0 60 20"><line x1="-15" y1="0" x2="-20" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="20" y2="0" stroke="#000" stroke-width="1"/>
+<rect x="-15" y="-5" width="30" height="10" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="10,-5 10,5 5,5 5,-5 0,-5 0,5 -5,5 -5,-5 -10,-5 -10,5" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="20" cy="0" r="1.5" fill="#000"/>
+<circle cx="-20" cy="0" r="1.5" fill="#000"/></g>
+<g id="voyant_lumineux" data-vb="-15.0 -30.0 30 60"><ellipse cx="0.0" cy="0.0" rx="10.0" ry="10.0" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="7" y1="-7" x2="-7" y2="7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-7" x2="7" y2="7" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="voyant_rouge" data-vb="-15.0 -30.0 30 60"><line x1="0" y1="-20" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="0.0" rx="8.5" ry="8.5" fill="red" stroke="#000" stroke-width="1"/>
+<line x1="6.22" y1="-5.33" x2="-6.14" y2="5.12" stroke="#000" stroke-width="1"/>
+<line x1="-6.14" y1="-5.33" x2="6.22" y2="5.12" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<text x="2" y="-14" font-family="sans-serif" font-size="5.0" fill="#333">A1</text>
+<text x="2" y="20" font-family="sans-serif" font-size="5.0" fill="#333">A2</text></g>
+<g id="voyant_rouge--nu" data-vb="-15.0 -30.0 30 60"><line x1="0" y1="-20" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="0.0" rx="8.5" ry="8.5" fill="red" stroke="#000" stroke-width="1"/>
+<line x1="6.22" y1="-5.33" x2="-6.14" y2="5.12" stroke="#000" stroke-width="1"/>
+<line x1="-6.14" y1="-5.33" x2="6.22" y2="5.12" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/></g>
+<g id="voyant_vert" data-vb="-15.0 -30.0 30 60"><line x1="0" y1="-20" x2="0" y2="19" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="0.0" rx="8.5" ry="8.5" fill="green" stroke="#000" stroke-width="1"/>
+<line x1="6.22" y1="-5.33" x2="-6.14" y2="5.12" stroke="#000" stroke-width="1"/>
+<line x1="-6.14" y1="-5.33" x2="6.22" y2="5.12" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/></g>
+</defs></svg>
+<!-- SYMBOLES:fin -->
+<div class="page">
+  <header>
+    <div class="lycee">LPP JACQUES RAYNAUD</div>
+    <h1>Où j'en suis — froid, climatisation, habilitations</h1>
+  </header>
+
+  <section id="depart" class="carte">
+    <p><b>Ce test n'est pas noté.</b> Il dit à quel niveau je suis et ce que je maîtrise déjà. Une seule bonne réponse, une explication après chaque réponse.</p>
+    <ul class="regles">
+      <li>Six niveaux, du niveau 0 (l'atelier et les règles) au niveau 5 (expert). Je monte tant que je réussis au moins la moitié d'un niveau. Personne n'est censé tout réussir.</li>
+      <li>Je réponds seul. Mon voisin n'a pas les mêmes questions.</li>
+      <li>Le bouton 🔊 lit la question à voix haute.</li>
+      <li><b>Je reste sur la page</b> : chaque sortie est comptée ; à cinq sorties, le test s'arrête.</li>
+      <li>À la fin, je fais une <b>capture d'écran</b> de mon résultat et je l'envoie au professeur.</li>
+    </ul>
+    <label>Ma classe</label>
+    <div class="choix" style="grid-template-columns:1fr 1fr">
+      <button type="button" data-d="TNE">2<sup>de</sup> TNE</button>
+      <button type="button" data-d="CAP">CAP IFCA</button>
+      <button type="button" data-d="MFER">1<sup>re</sup> Bac Pro MFER</button>
+      <button type="button" data-d="TMFER">Term. Bac Pro MFER</button>
+    </div>
+    <label for="nom">Nom et prénom</label>
+    <input type="text" id="nom" autocomplete="off" placeholder="ex. : DUPONT Léa">
+    <p id="chargement" class="petit">Chargement des questions…</p>
+    <button class="suite o" id="commencer" disabled>Commencer</button>
+  </section>
+
+  <section id="quiz" hidden>
+    <div class="barre"><span><b id="nivnom"></b> · question <b id="numero">1</b> / <span id="total">0</span></span><span>Temps <b id="chrono">0:00</b></span></div>
+    <div class="jauge"><div id="jauge"></div></div>
+    <div class="niveaux" id="frise"></div>
+    <div class="sorties" id="sorties"></div>
+    <div class="carte">
+      <span class="etiq" id="theme"></span><span class="etiq niv" id="tax"></span>
+      <p class="q" id="question"></p>
+      <div class="symb" id="symb" hidden></div>
+      <button class="lire" id="lire" type="button">🔊 Lire à voix haute</button>
+      <div id="reponses"></div>
+      <div id="retour" hidden></div>
+      <button class="suite" id="suivant" hidden>Question suivante</button>
+    </div>
+  </section>
+
+  <section id="fin" hidden>
+    <div class="carte capture" id="capture">
+      <div class="arret" id="arret" hidden></div>
+      <div class="consigne-capture">📸 Je fais une capture d'écran de ce cadre et je l'envoie au professeur.</div>
+      <p style="margin:8px 0 0; font-size:16px"><b id="eleve"></b><br><span id="classe"></span> · <span id="quand"></span></p>
+      <p class="atteint">Niveau atteint : <b id="atteint"></b></p>
+      <p id="detail" class="petit" style="margin:0 0 6px"></p>
+      <table id="parniveau"></table>
+      <table id="parcomp"></table>
+      <table id="partax"></table>
+      <p style="margin:8px 0 2px"><b>Code de validation</b></p>
+      <div class="code" id="code"></div>
+      <p id="envoi" class="petit" style="margin:6px 0 0"></p>
+    </div>
+    <div class="carte">
+      <p class="petit" style="margin:0 0 8px">Échelle des compétences : moins de 40 % de justes = non acquis · 40 à 64 % = en cours · 65 à 84 % = acquis · 85 % et plus = parfaitement maîtrisé.</p>
+      <button class="suite" id="whatsapp" style="background:#128c7e" hidden>Envoyer par WhatsApp au professeur</button>
+      <button class="suite" id="courriel" style="background:var(--orange-p)" hidden>Envoyer par courriel au professeur</button>
+      <button class="suite" id="copier" style="background:var(--vert)">Copier mon résultat</button>
+      <button class="suite" id="revoir">Revoir mes erreurs</button>
+    </div>
+    <div class="carte" id="erreurs" hidden></div>
+    <div class="carte">
+      <p class="petit" style="margin:0 0 8px">Ce téléphone doit servir à un autre élève ? Le test repart de zéro.</p>
+      <button class="suite" id="autre" style="background:var(--gris)">Autre élève sur ce téléphone</button>
+    </div>
+  </section>
+
+  <footer>LPP Jacques Raynaud — Campus ÉQUATIO · F. Henninot · P. Warton · créé le 10/09/2026 · © F. Henninot 2026</footer>
+</div>
+
+<script>
+// ---------------------------------------------------------------- réglages
+// whatsapp : le numéro du professeur, format international sans + ni espaces (ex. : '33612345678') → bouton WhatsApp.
+// courriel : l'adresse (professionnelle) → bouton courriel. Vides : les boutons n'apparaissent pas.
+const COLLECTE = { whatsapp: '', courriel: '' };
+const PAR_NIVEAU = 15;                      // questions tirées par niveau (toutes si le niveau en a moins)
+const SEUIL = 0.5;                          // part de bonnes réponses pour passer au niveau suivant
+const SORTIES_MAX = 5;
+const NIVEAUX = ["N0 · L'atelier et les règles", "N1 · Les bases du froid", "N2 · Mesurer et agir", "N3 · Électricité et habilitation", "N4 · Habilitation fluide", "N5 · Expert"];
+const NOMS_COURTS = ['0 Règles', '1 Bases', '2 Mesures', '3 Élec', '4 Fluides', '5 Expert'];
+const TAX = { 1: 'Je sais', 2: 'Je comprends', 3: 'Je fais le bon geste' };
+const ECHELLE = ['non évalué', 'non acquis', 'en cours', 'acquis', 'parfaitement maîtrisé'];
+const REF = {
+  CAP: { nom: 'CAP IFCA', cle: 'cap', comp: { 'C1.1': 'Compléter, transmettre', 'C1.2': 'Communiquer avec les acteurs', 'C1.3': 'Rendre compte', 'C2.1': 'Organiser des informations', 'C2.2': 'Contrôler les éléments nécessaires', 'C2.3': "Préparer les conditions d'intervention", 'C2.4': "Sécuriser l'intervention", 'C3.1': 'Organiser le poste de travail', 'C3.2': "Identifier les réseaux d'alimentation", 'C3.3': 'Implanter, manutentionner, fixer', 'C3.4': 'Façonner, raccorder, assembler, isoler', 'C3.5': 'Soudage acier, PER', 'C3.6': 'Câbler, repérer, connecter', 'C3.7': 'Contrôler la mise en œuvre', 'C3.8': 'Trier, valoriser les déchets', 'C3.9': "Vérifier l'étanchéité avant mise en service", 'C4.1': 'Tirer au vide', 'C4.2': 'Manipuler le fluide et les huiles', 'C4.3': "Contrôler l'étanchéité d'un circuit chargé", 'C4.4': 'Intervenir sur un circuit hydraulique ou aéraulique', 'C4.5': 'Mesurer, comparer des grandeurs', 'C4.6': 'Paramétrer, régler les consignes', 'C4.7': 'Raccorder charge, mesure et contrôle' } },
+  MFER: { nom: '1re Bac Pro MFER', cle: 'mfer', comp: { C1: "Analyser les conditions de l'opération", C2: 'Analyser et exploiter les données techniques', C3: 'Choisir les matériels et outillages', C4: 'Organiser et sécuriser son intervention', C5: 'Réceptionner les approvisionnements', C6: 'Réaliser une installation, attitude écoresponsable', C7: 'Mettre en service', C8: 'Contrôler, régler et paramétrer', C9: 'Maintenance préventive', C10: 'Maintenance corrective', C11: 'Consigner et transmettre', C12: 'Communiquer, rendre compte', C13: 'Conseiller le client' } },
+};
+REF.TMFER = { nom: 'Terminale Bac Pro MFER', cle: 'mfer', comp: REF.MFER.comp };
+// 2nde TNE : compétences communes de la famille de métiers, obtenues par correspondance depuis les codes Bac Pro.
+REF.TNE = { nom: '2de TNE', cle: 'mfer',
+  map: { C1: 'CC11', C2: 'CC31', C3: 'CC23', C4: 'CC61', C5: 'CC23', C6: 'CC42', C7: 'CC62', C8: 'CC52', C9: 'CC71', C10: 'CC73', C11: 'CC81', C12: 'CC82', C13: 'CC92' },
+  comp: { CC11: 'Collecter les données nécessaires', CC23: 'Déterminer les matériels, produits et outillages', CC31: "Identifier les éléments d'un système", CC42: "Réaliser l'installation, les réseaux et câblages", CC52: 'Déterminer les réglages nécessaires', CC61: 'Appliquer les mesures de prévention des risques', CC62: "Réaliser la mise en service ou l'arrêt", CC71: "Contrôler les données d'exploitation", CC73: 'Lister des hypothèses de panne', CC81: 'Compléter les documents techniques', CC82: "Expliquer l'état d'avancement des opérations", CC92: "Expliquer le fonctionnement au client" } };
+function codeDe(q, ref){ const c = q[ref.cle]; return ref.map ? (ref.map[c] || c) : c; }
+
+// ---------------------------------------------------------------- outils
+const $ = (id) => document.getElementById(id);
+function graine(t){ let h = 2166136261; for (const c of t) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return h; }
+function alea(seed){ let s = seed || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
+function melange(tab, r){ const t = tab.slice(); for (let i = t.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [t[i], t[j]] = [t[j], t[i]]; } return t; }
+function echelle(ok, n){ if (!n) return 0; const t = ok / n; return t >= 0.85 ? 4 : t >= 0.65 ? 3 : t >= 0.4 ? 2 : 1; }
+
+let BANQUE = null, etat = null, classe = null, minuteur = null, enSortie = false;
+const CLE = 'positionnement-froid-2026';
+function sauver(){ try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }
+function charger(){ try { const s = localStorage.getItem(CLE); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+
+// ---------------------------------------------------------------- la banque
+fetch('banque.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(b => {
+  BANQUE = b;
+  $('chargement').textContent = b.length + ' questions prêtes.';
+  $('commencer').disabled = false;
+  const repris = charger();
+  if (repris && repris.nom) { etat = repris; classe = etat.classe; if (etat.fini) terminer(); else { minuteur = setInterval(chrono, 1000); afficher(); } }
+}).catch(() => { $('chargement').textContent = "Les questions ne se chargent pas : ouvrir cette page depuis l'adresse donnée par le professeur, pas depuis un fichier."; });
+
+// ---------------------------------------------------------------- la préparation : un tirage par niveau, propre à l'élève
+function preparer(nom, cl){
+  const r = alea(graine((nom + '|' + cl).toLowerCase()));
+  const dipl = cl === 'CAP' ? 'CAP' : 'MFER';
+  const niveaux = [];
+  for (let n = 0; n <= 5; n++) {
+    const dispo = BANQUE.map((q, i) => (q.niveau === n && (!q.d || q.d === dipl)) ? i : -1).filter(i => i >= 0);
+    const tires = melange(dispo, r).slice(0, PAR_NIVEAU);
+    niveaux.push({ ordre: tires, reponses: tires.map(() => melange([0, 1, 2, 3].slice(0, 3), r)), choix: [] });
+  }
+  return { nom, classe: cl, niveaux, n: 0, k: 0, debut: Date.now(), fini: false, sorties: 0, arret: null };
+}
+function ordreReponses(q, n, k){
+  const base = etat.niveaux[n].reponses[k];
+  if (q.r.length === 4 && base.length === 3) { const r = alea(graine(etat.nom + '|' + q.id)); return melange([0, 1, 2, 3], r); }
+  return base.slice(0, q.r.length);
+}
+
+// ---------------------------------------------------------------- l'écran des questions
+function afficher(){
+  $('depart').hidden = true; $('quiz').hidden = false; $('fin').hidden = true;
+  const N = etat.niveaux[etat.n], q = BANQUE[N.ordre[etat.k]];
+  $('nivnom').textContent = NIVEAUX[etat.n]; $('numero').textContent = etat.k + 1; $('total').textContent = N.ordre.length;
+  $('jauge').style.width = Math.round(100 * etat.k / N.ordre.length) + '%';
+  $('frise').innerHTML = NOMS_COURTS.map((x, i) => '<span class="' + (i < etat.n ? 'fait' : i === etat.n ? 'encours' : '') + '">' + x + '</span>').join('');
+  $('theme').textContent = q.theme; $('tax').textContent = TAX[q.tax] || '';
+  $('question').textContent = q.q;
+  const s = $('symb');
+  if (q.svg) { s.hidden = false; s.innerHTML = '<svg viewBox="-34 -34 68 68" role="img" aria-label="symbole"><use href="#' + q.svg + '"/></svg>'; }
+  else { s.hidden = true; s.innerHTML = ''; }
+  const zone = $('reponses'); zone.innerHTML = '';
+  ordreReponses(q, etat.n, etat.k).forEach((k, pos) => {
+    const b = document.createElement('button'); b.className = 'rep'; b.dataset.k = k;
+    b.innerHTML = '<span class="l">' + 'abcd'[pos] + '</span>' + q.r[k];
+    b.addEventListener('click', () => repondre(k));
+    zone.appendChild(b);
+  });
+  $('retour').hidden = true; $('suivant').hidden = true;
+  afficherSorties();
+}
+function repondre(k){
+  const N = etat.niveaux[etat.n], q = BANQUE[N.ordre[etat.k]];
+  if (N.choix[etat.k] !== undefined) return;
+  N.choix[etat.k] = k; sauver();
+  document.querySelectorAll('#reponses .rep').forEach(b => { b.disabled = true; if (+b.dataset.k === 0) b.classList.add('juste'); else if (+b.dataset.k === k) b.classList.add('faux'); });
+  const r = $('retour'); r.hidden = false; r.className = 'retour' + (k === 0 ? '' : ' faux');
+  r.innerHTML = (k === 0 ? '<b>Juste.</b> ' : '<b>Non.</b> La bonne réponse est en vert. ') + q.e;
+  const s = $('suivant'); s.hidden = false;
+  s.textContent = etat.k + 1 < N.ordre.length ? 'Question suivante' : 'Fin du niveau : voir la suite';
+}
+function suivante(){
+  const N = etat.niveaux[etat.n];
+  if (etat.k + 1 < N.ordre.length) { etat.k++; sauver(); afficher(); return; }
+  const ok = N.choix.filter(c => c === 0).length;
+  if (ok / N.ordre.length >= SEUIL && etat.n < 5) {
+    let n = etat.n + 1;
+    while (n <= 5 && etat.niveaux[n].ordre.length === 0) n++;
+    if (n <= 5) { etat.n = n; etat.k = 0; sauver(); afficher(); return; }
+  }
+  terminer();
+}
+function lireVoixHaute(){
+  if (!('speechSynthesis' in window)) return;
+  const N = etat.niveaux[etat.n], q = BANQUE[N.ordre[etat.k]];
+  const texte = q.q + ' ' + ordreReponses(q, etat.n, etat.k).map((k, pos) => 'abcd'[pos] + '. ' + q.r[k]).join('. ');
+  speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(texte); u.lang = 'fr-FR'; u.rate = 0.9; speechSynthesis.speak(u);
+}
+function chrono(){
+  const s = Math.floor((Date.now() - etat.debut) / 1000);
+  $('chrono').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+}
+
+// ---------------------------------------------------------------- les sorties de la page
+function afficherSorties(){
+  const z = $('sorties'); if (!z || !etat) return;
+  z.textContent = 'Sorties de la page : ' + etat.sorties + ' / ' + SORTIES_MAX;
+  z.className = 'sorties' + (etat.sorties >= 3 ? ' alerte' : '');
+}
+function sortie(){
+  if (!etat || etat.fini || enSortie) return;
+  enSortie = true; etat.sorties = (etat.sorties || 0) + 1; sauver(); afficherSorties();
+  if (etat.sorties >= SORTIES_MAX) { etat.arret = 'sorties'; sauver(); terminer(); }
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden) sortie(); else enSortie = false; });
+window.addEventListener('pagehide', () => { sortie(); });
+
+// ---------------------------------------------------------------- le résultat
+function terminer(){
+  etat.fini = true; sauver(); clearInterval(minuteur);
+  $('depart').hidden = true; $('quiz').hidden = true; $('fin').hidden = false;
+  const ref = REF[etat.classe] || REF.MFER;
+  const parNiv = [], parComp = {}, parTax = { 1: { ok: 0, n: 0 }, 2: { ok: 0, n: 0 }, 3: { ok: 0, n: 0 } };
+  let okTotal = 0, nTotal = 0, atteint = -1;
+  etat.niveaux.forEach((N, n) => {
+    const repondu = N.choix.filter(c => c !== undefined).length;
+    if (!repondu) return;
+    const ok = N.choix.filter(c => c === 0).length;
+    parNiv.push({ n, ok, total: N.ordre.length, repondu });
+    okTotal += ok; nTotal += N.ordre.length;
+    if (repondu === N.ordre.length && ok / N.ordre.length >= SEUIL) atteint = n;
+    N.ordre.forEach((i, k) => {
+      const q = BANQUE[i], juste = N.choix[k] === 0, c = codeDe(q, ref);
+      parComp[c] = parComp[c] || { ok: 0, n: 0 }; parComp[c].n++; if (juste) parComp[c].ok++;
+      parTax[q.tax] = parTax[q.tax] || { ok: 0, n: 0 }; parTax[q.tax].n++; if (juste) parTax[q.tax].ok++;
+    });
+  });
+  const note = nTotal ? Math.round(20 * okTotal / nTotal * 2) / 2 : 0;
+  if (!etat.quand) etat.quand = new Date().toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  $('eleve').textContent = etat.nom; $('classe').textContent = ref.nom; $('quand').textContent = etat.quand;
+  const nomAtteint = atteint >= 0 ? NIVEAUX[atteint] : 'aucun niveau validé';
+  $('atteint').textContent = nomAtteint;
+  const minutes = Math.round((Date.now() - etat.debut) / 60000);
+  $('detail').textContent = okTotal + ' justes sur ' + nTotal + ' · ' + minutes + ' min · sorties de la page : ' + (etat.sorties || 0) + (etat.arret ? ' (test arrêté)' : '');
+  const a = $('arret'); a.hidden = etat.arret !== 'sorties';
+  if (etat.arret === 'sorties') a.textContent = 'TEST ARRÊTÉ : ' + SORTIES_MAX + ' sorties de la page. Je vais voir le professeur.';
+  $('parniveau').innerHTML = '<tr><th>Niveau</th><th>Justes</th><th></th></tr>' + parNiv.map(x => '<tr><td>' + NIVEAUX[x.n] + '</td><td>' + x.ok + ' / ' + x.total + '</td><td class="' + (x.ok / x.total >= SEUIL ? 'n3' : 'n1') + '">' + (x.repondu < x.total ? 'inachevé' : x.ok / x.total >= SEUIL ? 'validé' : 'non validé') + '</td></tr>').join('');
+  const codes = Object.keys(ref.comp).filter(c => parComp[c]);
+  const carte = {};
+  $('parcomp').innerHTML = '<tr><th>Compétence (' + ref.nom + ')</th><th>Justes</th><th>Où j\'en suis</th></tr>' + codes.map(c => {
+    const x = parComp[c], e = echelle(x.ok, x.n); carte[c] = e;
+    return '<tr><td><b>' + c + '</b> ' + ref.comp[c] + '</td><td>' + x.ok + ' / ' + x.n + '</td><td class="n' + e + '">' + ECHELLE[e] + '</td></tr>'; }).join('');
+  $('partax').innerHTML = '<tr><th>Niveau de réponse</th><th>Justes</th><th></th></tr>' + [1, 2, 3].map(l => { const x = parTax[l]; const e = echelle(x.ok, x.n); return '<tr><td>' + TAX[l] + '</td><td>' + x.ok + ' / ' + x.n + '</td><td class="n' + e + '">' + ECHELLE[e] + '</td></tr>'; }).join('');
+  const h = graine(etat.nom.toLowerCase() + '|' + etat.classe + '|' + etat.niveaux.map(N => N.choix.join('')).join('/') + '|' + (etat.sorties || 0));
+  const code = (etat.nom.trim().slice(0, 3).toUpperCase() || 'XXX') + '-N' + Math.max(0, atteint) + '-' + (h % 9000 + 1000);
+  $('code').textContent = code;
+  etat.resultat = {
+    type: 'positionnement', nom: etat.nom, classe: ref.nom, diplome: ref.nom + ' · ' + etat.quand, quand: etat.quand,
+    niveau: atteint, niveau_nom: nomAtteint, note: String(note).replace('.', ','), justes: okTotal, total: nTotal, minutes: minutes,
+    sorties: etat.sorties || 0, arret: !!etat.arret, code: code, carte: carte,
+    niveaux: parNiv.map(x => 'N' + x.n + ' ' + x.ok + '/' + x.total).join(' · '),
+    competences: codes.map(c => c + ' ' + parComp[c].ok + '/' + parComp[c].n + ' ' + ECHELLE[carte[c]]).join(' · '),
+    tax: [1, 2, 3].map(l => TAX[l] + ' ' + parTax[l].ok + '/' + parTax[l].n).join(' · '),
+    reponses: etat.niveaux.map((N, n) => 'N' + n + ':' + N.ordre.map((i, k) => BANQUE[i].id + '=' + (N.choix[k] === undefined ? '-' : N.choix[k])).join(' ')).join(' | ')
+  };
+  sauver();
+  if (!etat.envoye) { envoyer(etat.resultat); etat.envoye = true; sauver(); }
+  else $('envoi').textContent = 'Résultat déjà transmis.';
+  $('whatsapp').hidden = !COLLECTE.whatsapp; $('courriel').hidden = !COLLECTE.courriel;
+}
+function texteResultat(r){
+  return 'POSITIONNEMENT — ' + r.nom + ' — ' + r.classe + ' — ' + r.quand + '\nNiveau atteint : ' + r.niveau_nom + '\n' + r.niveaux + '\nJustes : ' + r.justes + '/' + r.total + ' (' + r.note + '/20) · ' + r.minutes + ' min · sorties ' + r.sorties + (r.arret ? ' (arrêt)' : '') + '\nCompétences : ' + r.competences + '\n' + r.tax + '\nCode : ' + r.code;
+}
+function envoyer(d){
+  const e = $('envoi');
+  if (location.protocol === 'http:' && !/github\.io$/.test(location.hostname)) {
+    e.textContent = 'Envoi du résultat au PC du professeur…';
+    fetch('/resultat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+      .then(r => { e.textContent = r.ok ? 'Résultat envoyé au PC du professeur ✓ — je fais quand même la capture.' : 'Envoi refusé : la capture d\'écran est ma preuve.'; })
+      .catch(() => { e.textContent = 'Pas de liaison avec le PC : la capture d\'écran est ma preuve.'; });
+    return;
+  }
+  e.textContent = 'Ce résultat reste sur mon téléphone : la capture d\'écran est ma preuve.';
+}
+function revoir(){
+  const z = $('erreurs'); z.hidden = false; const lignes = [];
+  etat.niveaux.forEach(N => N.ordre.forEach((i, k) => { const q = BANQUE[i]; if (N.choix[k] !== undefined && N.choix[k] !== 0) lignes.push('<p><b>' + q.q + '</b><br><span style="color:var(--vert)">' + q.r[0] + '</span><br><span class="petit">' + q.e + '</span></p>'); }));
+  z.innerHTML = lignes.length ? '<h3 style="margin:0 0 6px; color:var(--bleu)">Mes erreurs et leur explication</h3>' + lignes.join('') : '<p>Aucune erreur.</p>';
+  $('revoir').hidden = true;
+}
+
+// ---------------------------------------------------------------- le démarrage et les boutons
+document.querySelector('.choix').addEventListener('click', (ev) => {
+  const b = ev.target.closest('button'); if (!b) return;
+  classe = b.dataset.d;
+  document.querySelectorAll('.choix button').forEach(x => { x.classList.toggle('on', x === b); x.style.borderColor = ''; });
+});
+$('commencer').addEventListener('click', () => {
+  const nom = $('nom').value.trim();
+  if (!BANQUE) return;
+  if (!classe) { document.querySelectorAll('.choix button').forEach(x => x.style.borderColor = 'var(--rouge)'); return; }
+  if (nom.length < 3) { $('nom').focus(); $('nom').style.borderColor = 'var(--rouge)'; return; }
+  etat = preparer(nom, classe); sauver();
+  minuteur = setInterval(chrono, 1000); chrono(); afficher();
+});
+$('suivant').addEventListener('click', suivante);
+$('lire').addEventListener('click', lireVoixHaute);
+$('revoir').addEventListener('click', revoir);
+$('autre').addEventListener('click', () => { try { localStorage.removeItem(CLE); } catch (e) {} location.reload(); });
+$('whatsapp').addEventListener('click', () => { const r = etat && etat.resultat; if (!r || !COLLECTE.whatsapp) return; location.href = 'https://wa.me/' + COLLECTE.whatsapp + '?text=' + encodeURIComponent(texteResultat(r)); });
+$('courriel').addEventListener('click', () => { const r = etat && etat.resultat; if (!r || !COLLECTE.courriel) return; location.href = 'mailto:' + COLLECTE.courriel + '?subject=' + encodeURIComponent('Positionnement — ' + r.nom + ' — ' + r.niveau_nom) + '&body=' + encodeURIComponent(texteResultat(r)); });
+$('copier').addEventListener('click', () => {
+  const r = etat && etat.resultat; if (!r) return; const t = texteResultat(r);
+  const fini = () => { $('copier').textContent = 'Résultat copié : je le colle dans le message au professeur'; };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(fini, () => prompt('À recopier :', t)); else prompt('À recopier :', t);
+});
+</script>

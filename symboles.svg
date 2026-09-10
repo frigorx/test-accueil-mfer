@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Symboles normalisés de la 1re MFER — GÉNÉRÉ, ne pas éditer à la main.
+     Source : C:\git\usine-contenu\bibliotheque-symboles (inerWeb v2.0, F. Henninot).
+     Refaire : python outils/construire-palette-symboles.py
+
+     USAGE dans une page :
+       coller ce <svg> juste après <body> (il est invisible),
+       puis poser un symbole où on veut :
+         <use href="#compresseur_general" x="100" y="60"/>
+       x et y posent le CENTRE de l'organe : les symboles sont dessinés
+       autour de (0,0). data-vb rappelle l'encombrement (x y largeur hauteur).
+       et ne dessiner à la main QUE les liaisons entre organes. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><defs>
+<g id="compresseur_general" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/>
+<circle cx="-10" cy="10" r="1.5" fill="#000"/>
+<circle cx="2" cy="11" r="1.5" fill="#000"/>
+<circle cx="2" cy="11" r="1.5" fill="#000"/>
+<circle cx="-10" cy="-10" r="1.5" fill="#000"/></g>
+<g id="compresseur_piston" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<line x1="-4" y1="0" x2="5" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-5" y1="-5" x2="-5" y2="5" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/></g>
+<g id="compresseur_scroll" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 4.50 A 4.50 4.50 0 0 1 -0.00 -4.50" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -2.50 A 3.50 3.50 0 0 1 0.00 4.50" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 2.50 A 2.50 2.50 0 0 1 -0.00 -2.50" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -0.50 A 1.50 1.50 0 0 1 0.00 2.50" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/></g>
+<g id="echangeur_a_air" data-vb="-25.0 -25.0 60 60"><rect x="-18" y="-20" width="36" height="48" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-14" y1="16" x2="-14" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="7" y1="16" x2="7" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="14" y1="16" x2="14" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="16" x2="-7" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="16" x2="0" y2="24" stroke="#000" stroke-width="1"/>
+<line x1="-19" y1="20" x2="19" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0.0" cy="-2.0" r="15.0" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="7" y1="-15" x2="13" y2="5" stroke="#000" stroke-width="1"/>
+<path d="M -1.00 -2.00 A 1.00 1.00 0 0 1 0.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-15" x2="-13" y2="5" stroke="#000" stroke-width="1"/>
+<path d="M 6.00 5.00 A 6.00 6.00 0 0 1 0.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 4.00 A 6.00 6.00 0 0 1 -1.00 -2.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -1.00 A 6.00 6.00 0 0 1 -6.00 5.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 5.00 A 1.00 1.00 0 0 1 -7.00 4.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 1.00 -2.00 A 6.00 6.00 0 0 1 7.00 4.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -1.00 A 1.00 1.00 0 0 1 1.00 -2.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 7.00 4.00 A 1.00 1.00 0 0 1 6.00 5.00" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="-7.0" rx="2.5" ry="4.5" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-19" cy="20" r="1.5" fill="#000"/>
+<circle cx="19" cy="20" r="1.5" fill="#000"/></g>
+<g id="condenseur_evaporatif" data-vb="-27.0 -33.0 50 50"><line x1="-7.83023" y1="-1.93092" x2="14.7327" y2="-1.93092" stroke="#000" stroke-width="1"/>
+<path d="M -9.00 -1.93 A 3.00 2.10 0 0 1 -9.00 -6.13" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-9.17778" y1="-6.13092" x2="0.19259" y2="-6.13092" stroke="#000" stroke-width="1"/>
+<rect x="-18" y="0" width="31" height="7" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-18,0 -8,-30 2,-30 13,0" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-18.2" y1="-10.3309" x2="0.13333" y2="-10.3309" stroke="#000" stroke-width="1"/>
+<ellipse cx="-3.2" cy="-23.7" rx="4.8" ry="4.7" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 1.00 -10.33 A 3.00 2.10 0 0 1 1.00 -6.13" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-16" x2="-2" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="-4.5575" y1="-28.0413" x2="-8" y2="-23.7172" stroke="#000" stroke-width="1"/>
+<line x1="-1.88" y1="-28.0413" x2="1.5625" y2="-23.7172" stroke="#000" stroke-width="1"/>
+<line x1="-1" y1="-15" x2="1" y2="-13" stroke="#000" stroke-width="1"/>
+<polyline points="-3.257,-24.2034 -2.5685,-24.7482 -2.5685,-26.3826 -3.257,-27.1998 -3.9455,-26.3826 -3.9455,-25.0206 -3.257,-24.2034 -2.22425,-23.931 -0.84725,-22.8413 -0.84725,-22.0241 -1.88,-22.2965 -2.91275,-23.1137 -3.257,-24.2034" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-3" y1="-15" x2="-5" y2="-13" stroke="#000" stroke-width="1"/>
+<polyline points="-3.257,-24.2034 -4.28975,-23.931 -5.3225,-22.5689 -5.3225,-21.7517 -4.28975,-22.0241 -3.257,-23.1137 -3.257,-23.931 -3.257,-23.931" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-14.4364" x2="-2" y2="-13.1" stroke="#000" stroke-width="1"/>
+<line x1="-14" y1="6" x2="-14" y2="11" stroke="#000" stroke-width="1"/>
+<circle cx="-19" cy="-10" r="1.5" fill="#000"/>
+<circle cx="15" cy="-2" r="1.5" fill="#000"/>
+<circle cx="-14" cy="11" r="1.5" fill="#000"/>
+<circle cx="-15" cy="-16" r="1.5" fill="#000"/></g>
+<g id="echangeur_a_plaques" data-vb="-21.0 -15.0 40 40"><line x1="6" y1="-5" x2="6" y2="14" stroke="#000" stroke-width="0.5"/>
+<line x1="10" y1="-5.82667" x2="10" y2="-10.16" stroke="#000" stroke-width="1"/>
+<line x1="0.5" y1="-5" x2="0.5" y2="14" stroke="#000" stroke-width="0.5"/>
+<rect x="-16" y="-5" width="30" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="20" x2="10" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="20.1359" x2="-10" y2="15.8746" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-5" x2="-7" y2="14" stroke="#000" stroke-width="0.5"/>
+<line x1="-12" y1="-5" x2="10" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-5" x2="-12" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="-5" x2="-10" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="-10" cy="-10" r="1.5" fill="#000"/>
+<circle cx="10" cy="-10" r="1.5" fill="#000"/>
+<circle cx="-10" cy="20" r="1.5" fill="#000"/>
+<circle cx="10" cy="20" r="1.5" fill="#000"/></g>
+<g id="detendeur_thermo_ext" data-vb="-19.0 -28.0 40 40"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-18" x2="0" y2="-20" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<text x="-5" y="-9.66667" font-family="sans-serif" font-size="6" fill="#333">TC</text></g>
+<g id="detendeur_thermo_ext--nu" data-vb="-19.0 -28.0 40 40"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-18" x2="0" y2="-20" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/></g>
+<g id="detendeur_thermo_int" data-vb="-19.0 -22.0 40 30"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="none" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<text x="-5" y="-9.66667" font-family="sans-serif" font-size="6" fill="#333">TC</text></g>
+<g id="detendeur_thermo_int--nu" data-vb="-19.0 -22.0 40 30"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="none" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/></g>
+<g id="detendeur_electronique" data-vb="-19.0 -21.0 40 30"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="white" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<text x="-3.5" y="-11" font-family="sans-serif" font-size="6" fill="#333">TCE</text></g>
+<g id="detendeur_electronique--nu" data-vb="-19.0 -21.0 40 30"><circle cx="0.0" cy="-12.00005" r="5.83095" fill="white" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/></g>
+<g id="tube_capillaire" data-vb="-26.0 -11.0 50 20"><path d="M -14.00 -2.30 A 3.00 2.90 0 0 1 -8.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 11.00 -1.00 A 1.00 1.00 0 0 1 10.00 -2.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="11.7474" y1="-1" x2="17.2737" y2="-1" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 -2.30 A 3.00 2.90 0 0 1 10.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 2.00 -1.40 A 1.50 3.60 0 0 1 -1.00 -1.40" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -3.00 -1.40 A 1.50 3.60 0 0 1 -6.00 -1.40" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-21.2526" y1="-1" x2="-15.7263" y2="-1" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 -2.30 A 4.00 2.90 0 0 1 2.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -8.00 -1.40 A 1.50 3.60 0 0 1 -11.00 -1.40" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -11.00 -2.30 A 4.00 2.90 0 0 1 -3.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 7.00 -1.40 A 1.50 3.60 0 0 1 4.00 -1.40" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -1.00 -2.30 A 4.00 2.90 0 0 1 7.00 -2.30" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -14.00 -2.00 A 1.00 1.00 0 0 1 -15.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-22" cy="-1" r="1.5" fill="#000"/>
+<circle cx="18" cy="-1" r="1.5" fill="#000"/></g>
+<g id="bouteille_liquide" data-vb="-24.0 -14.0 50 30"><line x1="-17" y1="7" x2="17" y2="7" stroke="#000" stroke-width="1"/>
+<line x1="-17" y1="-7" x2="17" y2="-7" stroke="#000" stroke-width="1"/>
+<path d="M 17.50 -7.00 A 2.50 7.00 0 0 1 17.50 7.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -17.50 7.00 A 2.50 7.00 0 0 1 -17.50 -7.00" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-10" cy="7" r="1.5" fill="#000"/>
+<circle cx="10" cy="7" r="1.5" fill="#000"/>
+<circle cx="10" cy="-7" r="1.5" fill="#000"/>
+<circle cx="-10" cy="-7" r="1.5" fill="#000"/>
+<circle cx="0" cy="-7" r="1.5" fill="#000"/>
+<circle cx="19" cy="4" r="1.5" fill="#000"/>
+<circle cx="0" cy="7" r="1.5" fill="#000"/>
+<circle cx="19" cy="-4" r="1.5" fill="#000"/>
+<circle cx="20" cy="0" r="1.5" fill="#000"/>
+<circle cx="-20" cy="0" r="1.5" fill="#000"/></g>
+<g id="filtre_deshydrateur" data-vb="-25.0 -10.0 40 20"><line x1="-5" y1="-4.22727" x2="-5" y2="1.22727" stroke="#000" stroke-width="1"/>
+<line x1="6" y1="0.494709" x2="9.75" y2="0.494709" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-0.454545" x2="2" y2="4.45455" stroke="#000" stroke-width="1"/>
+<rect x="-15.75" y="-5.01058" width="21.75" height="10.0106" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-19.5" y1="0.494709" x2="-15.75" y2="0.494709" stroke="#000" stroke-width="1"/>
+<line x1="-12" y1="-0.414828" x2="-12" y2="4.41483" stroke="#000" stroke-width="1"/>
+<circle cx="9.75" cy="0.494709" r="1.5" fill="#000"/>
+<circle cx="-19.5" cy="0.494709" r="1.5" fill="#000"/></g>
+<g id="voyant_liquide" data-vb="-15.0 -10.0 50 20"><line x1="21.7269" y1="-0.0538826" x2="27.65" y2="-0.0538826" stroke="#000" stroke-width="1"/>
+<rect x="-0.7" y="-5.79239" width="22.75" height="11.7924" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="10.7" cy="0.1" rx="6.1" ry="5.9" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-7.7" y1="-0.0538826" x2="-0.7" y2="-0.0538826" stroke="#000" stroke-width="1"/>
+<circle cx="27.3" cy="-0.0538826" r="1.5" fill="#000"/>
+<circle cx="-7.7" cy="-0.0538826" r="1.5" fill="#000"/>
+<text x="8" y="3" font-family="sans-serif" font-size="6" fill="#333">V</text></g>
+<g id="voyant_liquide--nu" data-vb="-15.0 -10.0 50 20"><line x1="21.7269" y1="-0.0538826" x2="27.65" y2="-0.0538826" stroke="#000" stroke-width="1"/>
+<rect x="-0.7" y="-5.79239" width="22.75" height="11.7924" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="10.7" cy="0.1" rx="6.1" ry="5.9" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-7.7" y1="-0.0538826" x2="-0.7" y2="-0.0538826" stroke="#000" stroke-width="1"/>
+<circle cx="27.3" cy="-0.0538826" r="1.5" fill="#000"/>
+<circle cx="-7.7" cy="-0.0538826" r="1.5" fill="#000"/></g>
+<g id="separateur_huile" data-vb="-14.0 -18.0 30 40"><polyline points="1,7 6,2 9,2" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="0" y2="-2" stroke="#000" stroke-width="1"/>
+<polyline points="-8,-13 8,-13 8,5 0,13 -8,5 -8,-13" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="8.0" rx="2.0" ry="1.0" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="14" r="1.5" fill="#000"/>
+<circle cx="-9" cy="-10" r="1.5" fill="#000"/>
+<circle cx="9" cy="-10" r="1.5" fill="#000"/>
+<circle cx="9" cy="2" r="1.5" fill="#000"/></g>
+<g id="distributeur_liquide" data-vb="-11.0 -24.0 30 40"><path d="M 4.89 -10.70 A 4.30 3.70 0 0 1 9.19 -14.41" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.04 -10.55 A 5.65 6.55 0 0 1 5.69 -17.10" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-7.6,-10 8.4,-10 0.4,4 -7.6,-10" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="9.1066" y1="-14.4062" x2="12.3686" y2="-14.4062" stroke="#000" stroke-width="1"/>
+<line x1="6.16342" y1="-17.1003" x2="12.8467" y2="-17.1003" stroke="#000" stroke-width="1"/>
+<line x1="0.4" y1="3.3" x2="0.4" y2="8.9" stroke="#000" stroke-width="1"/>
+<path d="M -5.00 -10.74 A 8.50 8.74 0 0 1 3.50 -19.49" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="4" y1="-19.4858" x2="13" y2="-19.4858" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="9" r="1.5" fill="#000"/>
+<circle cx="13" cy="-17" r="1.5" fill="#000"/></g>
+<g id="vanne_isolement" data-vb="-19.0 -10.0 40 20"><line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<polygon points="-10,-5 10,5 10,-5 -10,5 -10,-4" fill="white" stroke="#000" stroke-width="1"/>
+<circle cx="0.0" cy="0.0" r="2.0" fill="black" stroke="#000" stroke-width="1"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/></g>
+<g id="vanne_securite" data-vb="-7.0 -20.0 20 40"><polyline points="0,0 0,-3 4,-5 -4,-7 4,-10 0,-12 0,-14" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="11" stroke="#000" stroke-width="1"/>
+<polyline points="0,0 10,-5 10,5 0,0 5,10 -5,10 0,0" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="11" r="1.5" fill="#000"/></g>
+<g id="electrovanne_frigo" data-vb="-19.0 -21.0 40 30"><line x1="-3" y1="-13" x2="3" y2="-9" stroke="#000" stroke-width="1"/>
+<path d="M 3.00 -7.00 A 3.00 3.00 0 0 1 -3.00 -7.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-3" y1="-8" x2="-3" y2="-15" stroke="#000" stroke-width="1"/>
+<path d="M -3.00 -15.00 A 3.00 3.00 0 0 1 3.00 -15.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="3" y1="-8" x2="3" y2="-15" stroke="#000" stroke-width="1"/>
+<polygon points="2,1 0,3 -2,1 -10,5 -10,-5 10,5 10,-5 -2,1 0,0 0,0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="-4" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/></g>
+<g id="clapet_anti_retour" data-vb="-19.0 -10.0 40 20"><polyline points="-10,5 -10,-5 10,5 10,-5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="0" x2="11" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="-10.0" cy="-5.0" r="1.5" fill="black" stroke="#000" stroke-width="1"/>
+<circle cx="-11" cy="0" r="1.5" fill="#000"/>
+<circle cx="11" cy="0" r="1.5" fill="#000"/></g>
+<g id="ventilateur_axial" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<line x1="-12" y1="0" x2="-8" y2="0" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 -7.00 A 6.00 6.00 0 0 1 0.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -1.00 0.00 A 6.00 6.00 0 0 1 -7.00 -6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 6.00 A 6.00 6.00 0 0 1 -1.00 0.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 1.00 A 6.00 6.00 0 0 1 -6.00 7.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 7.00 A 1.00 1.00 0 0 1 -7.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 -6.00 A 1.00 1.00 0 0 1 -6.00 -7.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -1.00 A 1.00 1.00 0 0 1 -1.00 0.00" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="4.5" cy="0.0" rx="4.5" ry="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/></g>
+<g id="ventilateur_centrifuge" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 1.00 A 6.00 6.00 0 0 1 -6.00 7.00" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="3" x2="-10" y2="-3" stroke="#000" stroke-width="1"/>
+<path d="M -1.00 0.00 A 6.00 6.00 0 0 1 -7.00 -6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 6.00 A 6.00 6.00 0 0 1 -1.00 0.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 7.00 A 1.00 1.00 0 0 1 -7.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -6.00 -7.00 A 6.00 6.00 0 0 1 0.00 -1.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -7.00 -6.00 A 1.00 1.00 0 0 1 -6.00 -7.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 0.00 -1.00 A 1.00 1.00 0 0 1 -1.00 0.00" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="4.5" cy="0.0" rx="4.5" ry="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="16" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-13" x2="13" y2="-7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="13" x2="13" y2="7" stroke="#000" stroke-width="1"/>
+<circle cx="-16" cy="0" r="1.5" fill="#000"/>
+<circle cx="16" cy="0" r="1.5" fill="#000"/></g>
+<g id="resistance_evaporation" data-vb="-29.0 -13.0 70 20"><polyline points="-20,0 -12,0 -12,-9 -2,-9 -2,0 7,0 7,-9 17,-9 17,0 26,0 26,-9 35,-9 35,0 34,0" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-21" cy="0" r="1.5" fill="#000"/></g>
+<g id="manometres" data-vb="-24.0 -25.0 50 40"><line x1="16" y1="-9" x2="16" y2="8" stroke="#000" stroke-width="1"/>
+<ellipse cx="16.0" cy="-14.5" rx="6.0" ry="5.5" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-15.0" cy="-14.5" rx="6.0" ry="5.5" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="4.7,-3 4.7,4 12.7,-3 12.7,4 4.7,-3" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="8.7" y1="0" x2="8.7" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="4.7" y1="-6" x2="12.7" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-9" x2="-15" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="13" y1="0" x2="15" y2="0" stroke="#000" stroke-width="1"/>
+<polyline points="-13,-3 -13,4 -5,-3 -5,4 -13,-3" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-9" y1="0" x2="-9" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-13" y1="-6" x2="-5" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-13" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-5" y1="0" x2="4" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="8" stroke="#000" stroke-width="1"/>
+<circle cx="-15" cy="8" r="1.5" fill="#000"/>
+<circle cx="0" cy="8" r="1.5" fill="#000"/>
+<circle cx="16" cy="8" r="1.5" fill="#000"/>
+<text x="14" y="-12" font-family="sans-serif" font-size="5.0" fill="#333">A</text>
+<text x="-17" y="-12" font-family="sans-serif" font-size="5.0" fill="#333">B</text></g>
+<g id="manometres--nu" data-vb="-24.0 -25.0 50 40"><line x1="16" y1="-9" x2="16" y2="8" stroke="#000" stroke-width="1"/>
+<ellipse cx="16.0" cy="-14.5" rx="6.0" ry="5.5" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-15.0" cy="-14.5" rx="6.0" ry="5.5" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="4.7,-3 4.7,4 12.7,-3 12.7,4 4.7,-3" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="8.7" y1="0" x2="8.7" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="4.7" y1="-6" x2="12.7" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-9" x2="-15" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="13" y1="0" x2="15" y2="0" stroke="#000" stroke-width="1"/>
+<polyline points="-13,-3 -13,4 -5,-3 -5,4 -13,-3" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-9" y1="0" x2="-9" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-13" y1="-6" x2="-5" y2="-6" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="0" x2="-13" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="-5" y1="0" x2="4" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="0" x2="0" y2="8" stroke="#000" stroke-width="1"/>
+<circle cx="-15" cy="8" r="1.5" fill="#000"/>
+<circle cx="0" cy="8" r="1.5" fill="#000"/>
+<circle cx="16" cy="8" r="1.5" fill="#000"/></g>
+<g id="pressostat" data-vb="-37.0 -30.0 50 60"><line x1="-3" y1="0" x2="-17" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<circle cx="-17" cy="0" r="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<text x="2" y="20" font-family="sans-serif" font-size="4" fill="#333">14</text>
+<text x="2" y="-18" font-family="sans-serif" font-size="4" fill="#333">13</text>
+<text x="-27" y="2.5" font-family="sans-serif" font-size="8.0" fill="#333">P</text>
+<text x="6" y="-0.7" font-family="sans-serif" font-size="4" fill="#555">bar</text></g>
+<g id="pressostat--nu" data-vb="-37.0 -30.0 50 60"><line x1="-3" y1="0" x2="-17" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<circle cx="-17" cy="0" r="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="sonde_temperature" data-vb="-30.0 -14.0 60 40"><line x1="-20" y1="0" x2="20" y2="0" stroke="#000" stroke-width="1"/>
+<rect x="-10" y="-5" width="20" height="10" fill="white" stroke="#000" stroke-width="1"/>
+<polyline points="-10,10 -5,10 5,-10 10,-10" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-20" cy="0" r="1.5" fill="#000"/>
+<circle cx="20" cy="0" r="1.5" fill="#000"/>
+<text x="-10" y="22.5" font-family="sans-serif" font-size="9.0" fill="#555">S_</text></g>
+<g id="sonde_temperature--nu" data-vb="-30.0 -14.0 60 40"><line x1="-20" y1="0" x2="20" y2="0" stroke="#000" stroke-width="1"/>
+<rect x="-10" y="-5" width="20" height="10" fill="white" stroke="#000" stroke-width="1"/>
+<polyline points="-10,10 -5,10 5,-10 10,-10" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="-20" cy="0" r="1.5" fill="#000"/>
+<circle cx="20" cy="0" r="1.5" fill="#000"/></g>
+<g id="thermostat" data-vb="-22.0 -30.0 30 60"><rect x="-20" y="-5" width="9" height="9" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-15.5" cy="-0.5" rx="2.0" ry="3.0" fill="none" stroke="#000" stroke-width="0.5"/>
+<path d="M -15.50 -0.50 A 1.00 1.00 0 0 0 -13.50 -0.50" fill="none" stroke="#000" stroke-width="0.5"/>
+<path d="M -15.50 -0.50 A 1.00 1.00 0 0 0 -17.50 -0.50" fill="none" stroke="#000" stroke-width="0.5"/>
+<line x1="-3" y1="0" x2="-11" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<polyline points="-5,-11 0,9 0,19" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-11" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/></g>
+<g id="pressostat_nf" data-vb="-37.0 -30.0 50 60"><polyline points="5,-11 0,9 0,19" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="6" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-1" y1="0" x2="-17" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<circle cx="-17" cy="0" r="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<text x="2" y="20" font-family="sans-serif" font-size="4" fill="#333">14</text>
+<text x="2" y="-18" font-family="sans-serif" font-size="4" fill="#333">13</text>
+<text x="-27" y="2.5" font-family="sans-serif" font-size="8.0" fill="#333">P</text>
+<text x="6" y="-0.7" font-family="sans-serif" font-size="4" fill="#555">bar</text></g>
+<g id="pressostat_nf--nu" data-vb="-37.0 -30.0 50 60"><polyline points="5,-11 0,9 0,19" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="6" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-1" y1="0" x2="-17" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<circle cx="-17" cy="0" r="2.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="pressostat_bp" data-vb="-14.0 -23.0 30 30"><rect x="-10" y="-17.5" width="20" height="9.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-8" x2="0" y2="-0.3" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/>
+<text x="0" y="-10.6" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#333">BP</text></g>
+<g id="pressostat_bp--nu" data-vb="-14.0 -23.0 30 30"><rect x="-10" y="-17.5" width="20" height="9.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-8" x2="0" y2="-0.3" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/></g>
+<g id="pressostat_hp" data-vb="-14.0 -23.0 30 30"><rect x="-10" y="-17.5" width="20" height="9.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-8" x2="0" y2="-0.3" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/>
+<text x="0" y="-10.6" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#333">HP</text></g>
+<g id="pressostat_hp--nu" data-vb="-14.0 -23.0 30 30"><rect x="-10" y="-17.5" width="20" height="9.5" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-8" x2="0" y2="-0.3" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/></g>
+<g id="thermostat_froid" data-vb="-8.0 -24.0 30 30"><rect x="-5.07901" y="-19.0865" width="10.0644" height="9.31213" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-0.0468226" y1="-9.77432" x2="-0.0468226" y2="-0.462187" stroke="#000" stroke-width="1"/>
+<line x1="15.8993" y1="-2.01421" x2="19.1282" y2="-2.01421" stroke="#000" stroke-width="1"/>
+<ellipse cx="10.9" cy="-13.7" rx="2.0" ry="2.3" fill="none" stroke="#000" stroke-width="0.5"/>
+<line x1="5.10487" y1="-15.9824" x2="11.4482" y2="-15.9824" stroke="#000" stroke-width="0.5"/>
+<line x1="12.9051" y1="-14.009" x2="12.9051" y2="-2.47075" stroke="#000" stroke-width="0.5"/>
+<line x1="12.9051" y1="-2.01421" x2="15.547" y2="-2.01421" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/>
+<text x="-3" y="-13" font-family="sans-serif" font-size="6" fill="#333">T</text></g>
+<g id="thermostat_froid--nu" data-vb="-8.0 -24.0 30 30"><rect x="-5.07901" y="-19.0865" width="10.0644" height="9.31213" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-0.0468226" y1="-9.77432" x2="-0.0468226" y2="-0.462187" stroke="#000" stroke-width="1"/>
+<line x1="15.8993" y1="-2.01421" x2="19.1282" y2="-2.01421" stroke="#000" stroke-width="1"/>
+<ellipse cx="10.9" cy="-13.7" rx="2.0" ry="2.3" fill="none" stroke="#000" stroke-width="0.5"/>
+<line x1="5.10487" y1="-15.9824" x2="11.4482" y2="-15.9824" stroke="#000" stroke-width="0.5"/>
+<line x1="12.9051" y1="-14.009" x2="12.9051" y2="-2.47075" stroke="#000" stroke-width="0.5"/>
+<line x1="12.9051" y1="-2.01421" x2="15.547" y2="-2.01421" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="0" r="1.5" fill="#000"/></g>
+<g id="source_3p_n" data-vb="-21.0 -38.0 40 80"><line x1="0" y1="10" x2="10" y2="10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="10" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="30" x2="10" y2="30" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="10" y2="-30" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="10" r="1.5" fill="#000"/>
+<circle cx="10" cy="30" r="1.5" fill="#000"/>
+<circle cx="10" cy="-30" r="1.5" fill="#000"/>
+<circle cx="10" cy="-10" r="1.5" fill="#000"/>
+<text x="-12" y="33" font-family="sans-serif" font-size="5.0" fill="#333">N</text>
+<text x="-12" y="13" font-family="sans-serif" font-size="5.0" fill="#333">L3</text>
+<text x="-12" y="-7" font-family="sans-serif" font-size="5.0" fill="#333">L2</text>
+<text x="-12" y="-27" font-family="sans-serif" font-size="5.0" fill="#333">L1</text></g>
+<g id="source_3p_n--nu" data-vb="-21.0 -38.0 40 80"><line x1="0" y1="10" x2="10" y2="10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="10" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="30" x2="10" y2="30" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="10" y2="-30" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="10" r="1.5" fill="#000"/>
+<circle cx="10" cy="30" r="1.5" fill="#000"/>
+<circle cx="10" cy="-30" r="1.5" fill="#000"/>
+<circle cx="10" cy="-10" r="1.5" fill="#000"/></g>
+<g id="source_phase_l" data-vb="-21.0 -8.0 40 20"><line x1="0" y1="0" x2="10" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="0" r="1.5" fill="#000"/>
+<text x="-12" y="3" font-family="sans-serif" font-size="5.0" fill="#333">L</text></g>
+<g id="source_phase_l--nu" data-vb="-21.0 -8.0 40 20"><line x1="0" y1="0" x2="10" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="0" r="1.5" fill="#000"/></g>
+<g id="source_neutre_n" data-vb="-21.0 -8.0 40 20"><line x1="0" y1="0" x2="10" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="0" r="1.5" fill="#000"/>
+<text x="-12" y="3" font-family="sans-serif" font-size="5.0" fill="#333">N</text></g>
+<g id="source_neutre_n--nu" data-vb="-21.0 -8.0 40 20"><line x1="0" y1="0" x2="10" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="10" cy="0" r="1.5" fill="#000"/></g>
+<g id="terre" data-vb="-10.0 -21.0 20 30"><line x1="-3" y1="4" x2="3" y2="4" stroke="#000" stroke-width="1"/>
+<line x1="-5" y1="2" x2="5" y2="2" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="0" x2="7" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-10" x2="0" y2="0" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-11" r="1.5" fill="#000"/></g>
+<g id="sectionneur_3_fusibles" data-vb="-40.0 -30.0 70 60"><line x1="-33" y1="0" x2="-26" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="-35" y1="-10" x2="-30" y2="10" stroke="#000" stroke-width="0.5"/>
+<circle cx="-30" cy="10" r="2.5" fill="none" stroke="#000" stroke-width="0.5"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<polygon points="-5.69,-4.51 -3.19,5.49 0.69,4.51 -1.81,-5.49" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-25,-10 -20,10 -20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<polyline points="15,-10 20,10 20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-10" x2="-2" y2="-10" stroke="#000" stroke-width="1"/>
+<polygon points="14.31,-4.51 16.81,5.49 20.69,4.51 18.19,-5.49" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="-10" x2="22" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-10" stroke="#000" stroke-width="1"/>
+<polygon points="-25.69,-4.51 -23.19,5.49 -19.31,4.51 -21.81,-5.49" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-20" x2="-20" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-18" y1="-10" x2="-22" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="0" x2="-5" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="-1" y1="0" x2="15" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<circle cx="-20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="sectionneur_3p" data-vb="-50.0 -30.0 80 60"><polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-40.0" cy="12.0" rx="2.0" ry="2.0" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="20.0" cy="-10.0" rx="2.0" ry="2.0" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="-20.0" cy="-10.0" rx="2.0" ry="2.0" fill="none" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="-10.0" rx="2.0" ry="2.0" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="15,-10 20,10 20,20" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-25,-10 -20,10 -20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-12" x2="-2" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-20" x2="-20" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="-18" y1="-12" x2="-22" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="22" y1="-12" x2="18" y2="-12" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="-40" y2="0" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<line x1="-40" y1="10" x2="-45" y2="-10" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/></g>
+<g id="disjoncteur_3p" data-vb="-30.0 -40.0 60 70"><line x1="-20" y1="15.5" x2="-20" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="15.5" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<path d="M -20.00 15.50 A 4.00 2.50 0 0 0 -20.00 10.50" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M -0.00 15.50 A 4.00 2.50 0 0 0 0.00 10.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-20,10.5 -20,8 -15,8 -15,3 -20,3 -20,0 -25,-20" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="0,10.5 0,8 5,8 5,3 0,3 0,0 -5,-20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="15.5" x2="20" y2="20" stroke="#000" stroke-width="1"/>
+<path d="M 20.00 15.50 A 4.00 2.50 0 0 0 20.00 10.50" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-30" x2="-20" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="-18" y1="-26" x2="-22" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="-22" y1="-26" x2="-18" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-30" x2="20" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="22" y1="-26" x2="18" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="-26" x2="22" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-26" x2="-2" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-26" x2="2" y2="-22" stroke="#000" stroke-width="1"/>
+<line x1="-22.5" y1="-10" x2="17.5" y2="-10" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<polyline points="20,10.5 20,8 25,8 25,3 20,3 20,0 15,-20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-22" y1="-20" x2="-18" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-20" x2="2" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="-20" x2="22" y2="-20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="-20" cy="-30" r="1.5" fill="#000"/></g>
+<g id="disjoncteur_1p" data-vb="-8.0 -40.0 30 70"><line x1="0" y1="15.5" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<path d="M -0.00 15.50 A 4.00 2.50 0 0 0 0.00 10.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="0,10.5 0,8 5,8 5,3 0,3 0,0 -5,-20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-20" stroke="#000" stroke-width="1"/>
+<line x1="2" y1="-25" x2="-2" y2="-21" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-25" x2="2" y2="-21" stroke="#000" stroke-width="1"/>
+<line x1="-2" y1="-19" x2="2" y2="-19" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="relais_thermique" data-vb="-7.0 -30.0 50 60"><rect x="-5" y="-10" width="35" height="20" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<line x1="0" y1="-20" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="5" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="5" y1="-5" x2="5" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="5" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="5" x2="5" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-20" x2="10" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="5" x2="10" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="-5" x2="15" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-5" x2="15" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="5" x2="15" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="5" x2="20" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="25" y1="-5" x2="25" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-5" x2="25" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="5" x2="25" y2="5" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-21" r="1.5" fill="#000"/>
+<circle cx="0" cy="21" r="1.5" fill="#000"/>
+<circle cx="10" cy="-21" r="1.5" fill="#000"/>
+<circle cx="10" cy="21" r="1.5" fill="#000"/>
+<circle cx="20" cy="-21" r="1.5" fill="#000"/>
+<circle cx="20" cy="21" r="1.5" fill="#000"/>
+<text x="36" y="3.3" font-family="sans-serif" font-size="4" fill="#555">Plage _A/_A</text>
+<text x="36" y="11.3" font-family="sans-serif" font-size="4" fill="#555">Réglage _A</text></g>
+<g id="relais_thermique--nu" data-vb="-7.0 -30.0 50 60"><rect x="-5" y="-10" width="35" height="20" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+<line x1="0" y1="-20" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="5" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="5" y1="-5" x2="5" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="5" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="5" x2="5" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-20" x2="10" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="5" x2="10" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="-5" x2="15" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-5" x2="15" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="5" x2="15" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="5" x2="20" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="25" y1="-5" x2="25" y2="5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-5" x2="25" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="5" x2="25" y2="5" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-21" r="1.5" fill="#000"/>
+<circle cx="0" cy="21" r="1.5" fill="#000"/>
+<circle cx="10" cy="-21" r="1.5" fill="#000"/>
+<circle cx="10" cy="21" r="1.5" fill="#000"/>
+<circle cx="20" cy="-21" r="1.5" fill="#000"/>
+<circle cx="20" cy="21" r="1.5" fill="#000"/></g>
+<g id="contact_gv_no" data-vb="-49.0 -50.0 60 70"><polyline points="-27,-16 -27,-20 -22,-20 -22,-26 -27,-26 -27,-30" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-37" y="-30" width="20" height="28" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-37" y1="-16" x2="-17" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-25" x2="0" y2="-40" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="-10" y2="-25" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-15" x2="-7" y2="-15" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="-40" r="1.5" fill="#000"/>
+<circle cx="0" cy="10" r="1.5" fill="#000"/>
+<text x="-34" y="-5" font-family="sans-serif" font-size="9.0" fill="#333">I&gt;</text></g>
+<g id="contact_gv_no--nu" data-vb="-49.0 -50.0 60 70"><polyline points="-27,-16 -27,-20 -22,-20 -22,-26 -27,-26 -27,-30" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-37" y="-30" width="20" height="28" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-37" y1="-16" x2="-17" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-25" x2="0" y2="-40" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="-10" y2="-25" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-15" x2="-7" y2="-15" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="-40" r="1.5" fill="#000"/>
+<circle cx="0" cy="10" r="1.5" fill="#000"/></g>
+<g id="contact_gv_nf" data-vb="-46.0 -50.0 60 70"><polyline points="-27,-16 -27,-20 -22,-20 -22,-26 -27,-26 -27,-30" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-37" y="-30" width="20" height="28" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-37" y1="-16" x2="-17" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-25" x2="0" y2="-40" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="10" y2="-25" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-15" x2="0" y2="-15" stroke="#000" stroke-width="0.5"/>
+<line x1="0" y1="-25" x2="10" y2="-25" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="10" r="1.5" fill="#000"/>
+<circle cx="0" cy="-40" r="1.5" fill="#000"/>
+<text x="-34" y="-5" font-family="sans-serif" font-size="9.0" fill="#333">I&gt;</text></g>
+<g id="contact_gv_nf--nu" data-vb="-46.0 -50.0 60 70"><polyline points="-27,-16 -27,-20 -22,-20 -22,-26 -27,-26 -27,-30" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-37" y="-30" width="20" height="28" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-37" y1="-16" x2="-17" y2="-16" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-25" x2="0" y2="-40" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-5" x2="10" y2="-25" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="-5" stroke="#000" stroke-width="1"/>
+<line x1="-15" y1="-15" x2="0" y2="-15" stroke="#000" stroke-width="0.5"/>
+<line x1="0" y1="-25" x2="10" y2="-25" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="10" r="1.5" fill="#000"/>
+<circle cx="0" cy="-40" r="1.5" fill="#000"/></g>
+<g id="fusible_3p" data-vb="-19.0 -30.0 40 60"><rect x="7" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-12.69" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="-20" x2="-10" y2="20" stroke="#000" stroke-width="1"/>
+<rect x="-3" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-20" x2="10" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="-10" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-10" cy="-20" r="1.5" fill="#000"/>
+<circle cx="10" cy="-20" r="1.5" fill="#000"/>
+<circle cx="10" cy="20" r="1.5" fill="#000"/>
+<text x="0.81" y="-14" font-family="sans-serif" font-size="5.0" fill="#333">3</text>
+<text x="11" y="-14" font-family="sans-serif" font-size="5.0" fill="#333">5</text>
+<text x="1" y="19" font-family="sans-serif" font-size="5.0" fill="#333">4</text>
+<text x="11" y="19" font-family="sans-serif" font-size="5.0" fill="#333">6</text>
+<text x="-9" y="19" font-family="sans-serif" font-size="5.0" fill="#333">2</text>
+<text x="-9" y="-14" font-family="sans-serif" font-size="5.0" fill="#333">1</text></g>
+<g id="fusible_3p--nu" data-vb="-19.0 -30.0 40 60"><rect x="7" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-12.69" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="-20" x2="-10" y2="20" stroke="#000" stroke-width="1"/>
+<rect x="-3" y="-10" width="6" height="20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-20" x2="10" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="-10" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-10" cy="-20" r="1.5" fill="#000"/>
+<circle cx="10" cy="-20" r="1.5" fill="#000"/>
+<circle cx="10" cy="20" r="1.5" fill="#000"/></g>
+<g id="bp_no_marche" data-vb="-12.0 -30.0 20 60"><polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="-3" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<polyline points="-7,-5 -10,-5 -10,5 -7,5" fill="none" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="-21" r="1.5" fill="#000"/>
+<circle cx="0" cy="21" r="1.5" fill="#000"/></g>
+<g id="bp_nf_arret" data-vb="-12.0 -30.0 20 60"><polyline points="5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-9" x2="6" y2="-9" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-9" stroke="#000" stroke-width="1"/>
+<line x1="-10" y1="0" x2="3" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<polyline points="-7,-5 -10,-5 -10,5 -7,5" fill="none" stroke="#000" stroke-width="0.5"/>
+<circle cx="0" cy="-21" r="1.5" fill="#000"/>
+<circle cx="0" cy="21" r="1.5" fill="#000"/></g>
+<g id="arret_urgence" data-vb="-17.0 -30.0 30 60"><polyline points="5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-4" y1="-2" x2="-1" y2="0" stroke="#000" stroke-width="0.5"/>
+<path d="M -7.00 -5.00 A 4.00 5.00 0 0 0 -7.00 5.00" fill="none" stroke="#000" stroke-width="0.5"/>
+<line x1="-4" y1="-2" x2="-4" y2="0" stroke="#000" stroke-width="0.5"/>
+<line x1="0" y1="-9" x2="6" y2="-9" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-9" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-5" x2="-7" y2="5" stroke="#000" stroke-width="0.5"/>
+<line x1="-7" y1="0" x2="3" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="contact_no_13_14" data-vb="-13.0 -34.0 30 70"><path d="M -0.53 -11.23 A 2.00 2.25 0 0 0 -0.05 -6.76" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-7,-7 0,8 0,30" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-7" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="30" r="1.5" fill="#000"/>
+<text x="-1" y="13.0" font-family="sans-serif" font-size="5.0" fill="#555">14</text>
+<text x="-1" y="-27.0" font-family="sans-serif" font-size="5.0" fill="#555">13</text>
+<text x="3" y="-21" font-family="sans-serif" font-size="4" fill="#333">NO</text>
+<text x="3.25" y="19.3" font-family="sans-serif" font-size="4" fill="#333">NO</text></g>
+<g id="contact_no_13_14--nu" data-vb="-13.0 -34.0 30 70"><path d="M -0.53 -11.23 A 2.00 2.25 0 0 0 -0.05 -6.76" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-7,-7 0,8 0,30" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-7" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="30" r="1.5" fill="#000"/></g>
+<g id="contact_nf_11_12" data-vb="-5.0 -34.0 20 70"><polyline points="7,-9 0,8 0,30 0,30" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="0,-30 0,-7 8,-7" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 1.09 -7.33 A 2.00 2.25 0 0 0 0.03 -11.23" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="30" r="1.5" fill="#000"/>
+<text x="3" y="-21" font-family="sans-serif" font-size="4" fill="#333">NC</text>
+<text x="-1" y="13.0" font-family="sans-serif" font-size="5.0" fill="#555">12</text>
+<text x="-1.25" y="-27.3" font-family="sans-serif" font-size="5.0" fill="#555">11</text>
+<text x="3.25" y="19.3" font-family="sans-serif" font-size="4" fill="#333">NC</text></g>
+<g id="contact_nf_11_12--nu" data-vb="-5.0 -34.0 20 70"><polyline points="7,-9 0,8 0,30 0,30" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="0,-30 0,-7 8,-7" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 1.09 -7.33 A 2.00 2.25 0 0 0 0.03 -11.23" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<circle cx="0" cy="30" r="1.5" fill="#000"/></g>
+<g id="contact_puissance_3p_no" data-vb="-30.0 -30.0 60 60"><polyline points="-25,-10 -20,10 -20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-20" x2="-20" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M -20 -14.50 A 2.50 2.50 0 0 0 -20 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M 0 -14.50 A 2.50 2.50 0 0 0 0 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="15,-10 20,10 20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M 20 -14.50 A 2.50 2.50 0 0 0 20 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-22.5" y1="0" x2="17.5" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<circle cx="-20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/>
+<text x="-17.5" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">1</text>
+<text x="-17.5" y="16.3" font-family="sans-serif" font-size="4" fill="#555">2</text>
+<text x="2.5" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">3</text>
+<text x="2.5" y="16.3" font-family="sans-serif" font-size="4" fill="#555">4</text>
+<text x="22.5" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">5</text>
+<text x="22.5" y="16.3" font-family="sans-serif" font-size="4" fill="#555">6</text></g>
+<g id="contact_puissance_3p_no--nu" data-vb="-30.0 -30.0 60 60"><polyline points="-25,-10 -20,10 -20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-20" y1="-20" x2="-20" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M -20 -14.50 A 2.50 2.50 0 0 0 -20 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="-5,-10 0,10 0,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M 0 -14.50 A 2.50 2.50 0 0 0 0 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="15,-10 20,10 20,20" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="20" y1="-20" x2="20" y2="-10" stroke="#000" stroke-width="1"/>
+<path d="M 20 -14.50 A 2.50 2.50 0 0 0 20 -9.50" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="-22.5" y1="0" x2="17.5" y2="0" stroke="#000" stroke-width="0.5" stroke-dasharray="4,2"/>
+<circle cx="-20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="-20" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="20" cy="-20" r="1.5" fill="#000"/>
+<circle cx="20" cy="20" r="1.5" fill="#000"/></g>
+<g id="bobine_contacteur" data-vb="-20.0 -32.0 40 60"><rect x="-14" y="-8" width="28" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="8" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<text x="2" y="16.3" font-family="sans-serif" font-size="4" fill="#555">A2</text>
+<text x="2" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">A1</text></g>
+<g id="bobine_contacteur--nu" data-vb="-20.0 -32.0 40 60"><rect x="-14" y="-8" width="28" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="8" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="bobine_tempo_travail" data-vb="-20.0 -32.0 40 60"><rect x="10" y="-8" width="4" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-14" y="-8" width="28" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="14" y1="-8" x2="10" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-8" x2="14" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="8" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<text x="2" y="16.3" font-family="sans-serif" font-size="4" fill="#555">A2</text>
+<text x="2" y="-19.7" font-family="sans-serif" font-size="4" fill="#555">A1</text></g>
+<g id="bobine_tempo_travail--nu" data-vb="-20.0 -32.0 40 60"><rect x="10" y="-8" width="4" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<rect x="-14" y="-8" width="28" height="16" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="14" y1="-8" x2="10" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="10" y1="-8" x2="14" y2="8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-8" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="8" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="moteur_triphase" data-vb="-29.0 -38.0 60 60"><ellipse cx="0.0" cy="0.0" rx="15.0" ry="15.0" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 9.50 14.36 A 16.00 16.00 0 0 0 16.54 -4.97" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-15" stroke="#000" stroke-width="1"/>
+<polyline points="-20,-30 -20,-20 -11,-11" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="20,-30 20,-20 11,-11" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="17" y1="13" x2="25" y2="13" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="15" x2="24" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="19.61" y1="17" x2="22.42" y2="17" stroke="#000" stroke-width="1"/>
+<polyline points="18,4 21,6 21,13" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 6.00 A 2.00 2.00 0 0 0 8.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 6.00 A 2.00 2.00 0 0 0 0.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="-20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="21" cy="6" r="1.5" fill="#000"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/>
+<text x="21" y="-24" font-family="sans-serif" font-size="4" fill="#333">W1</text>
+<text x="2" y="-24" font-family="sans-serif" font-size="4" fill="#333">V1</text>
+<text x="-6" y="0" font-family="sans-serif" font-size="11" fill="#333">M</text>
+<text x="-19" y="-24" font-family="sans-serif" font-size="4" fill="#333">U1</text>
+<text x="-8" y="10" font-family="sans-serif" font-size="9.0" fill="#333">3</text></g>
+<g id="moteur_triphase--nu" data-vb="-29.0 -38.0 60 60"><ellipse cx="0.0" cy="0.0" rx="15.0" ry="15.0" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 9.50 14.36 A 16.00 16.00 0 0 0 16.54 -4.97" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-30" x2="0" y2="-15" stroke="#000" stroke-width="1"/>
+<polyline points="-20,-30 -20,-20 -11,-11" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="20,-30 20,-20 11,-11" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="17" y1="13" x2="25" y2="13" stroke="#000" stroke-width="1"/>
+<line x1="18" y1="15" x2="24" y2="15" stroke="#000" stroke-width="1"/>
+<line x1="19.61" y1="17" x2="22.42" y2="17" stroke="#000" stroke-width="1"/>
+<polyline points="18,4 21,6 21,13" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 6.00 A 2.00 2.00 0 0 0 8.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<path d="M 4.00 6.00 A 2.00 2.00 0 0 0 0.00 6.00" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="-20" cy="-30" r="1.5" fill="#000"/>
+<circle cx="21" cy="6" r="1.5" fill="#000"/>
+<circle cx="0" cy="-30" r="1.5" fill="#000"/></g>
+<g id="resistance_chauffante" data-vb="-30.0 -10.0 60 20"><line x1="-15" y1="0" x2="-20" y2="0" stroke="#000" stroke-width="1"/>
+<line x1="15" y1="0" x2="20" y2="0" stroke="#000" stroke-width="1"/>
+<rect x="-15" y="-5" width="30" height="10" fill="none" stroke="#000" stroke-width="1"/>
+<polyline points="10,-5 10,5 5,5 5,-5 0,-5 0,5 -5,5 -5,-5 -10,-5 -10,5" fill="none" stroke="#000" stroke-width="1"/>
+<circle cx="20" cy="0" r="1.5" fill="#000"/>
+<circle cx="-20" cy="0" r="1.5" fill="#000"/></g>
+<g id="voyant_lumineux" data-vb="-15.0 -30.0 30 60"><ellipse cx="0.0" cy="0.0" rx="10.0" ry="10.0" fill="none" stroke="#000" stroke-width="1"/>
+<line x1="7" y1="-7" x2="-7" y2="7" stroke="#000" stroke-width="1"/>
+<line x1="-7" y1="-7" x2="7" y2="7" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="-20" x2="0" y2="-10" stroke="#000" stroke-width="1"/>
+<line x1="0" y1="10" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/></g>
+<g id="voyant_rouge" data-vb="-15.0 -30.0 30 60"><line x1="0" y1="-20" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="0.0" rx="8.5" ry="8.5" fill="red" stroke="#000" stroke-width="1"/>
+<line x1="6.22" y1="-5.33" x2="-6.14" y2="5.12" stroke="#000" stroke-width="1"/>
+<line x1="-6.14" y1="-5.33" x2="6.22" y2="5.12" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/>
+<text x="2" y="-14" font-family="sans-serif" font-size="5.0" fill="#333">A1</text>
+<text x="2" y="20" font-family="sans-serif" font-size="5.0" fill="#333">A2</text></g>
+<g id="voyant_rouge--nu" data-vb="-15.0 -30.0 30 60"><line x1="0" y1="-20" x2="0" y2="20" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="0.0" rx="8.5" ry="8.5" fill="red" stroke="#000" stroke-width="1"/>
+<line x1="6.22" y1="-5.33" x2="-6.14" y2="5.12" stroke="#000" stroke-width="1"/>
+<line x1="-6.14" y1="-5.33" x2="6.22" y2="5.12" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/></g>
+<g id="voyant_vert" data-vb="-15.0 -30.0 30 60"><line x1="0" y1="-20" x2="0" y2="19" stroke="#000" stroke-width="1"/>
+<ellipse cx="0.0" cy="0.0" rx="8.5" ry="8.5" fill="green" stroke="#000" stroke-width="1"/>
+<line x1="6.22" y1="-5.33" x2="-6.14" y2="5.12" stroke="#000" stroke-width="1"/>
+<line x1="-6.14" y1="-5.33" x2="6.22" y2="5.12" stroke="#000" stroke-width="1"/>
+<circle cx="0" cy="20" r="1.5" fill="#000"/>
+<circle cx="0" cy="-20" r="1.5" fill="#000"/></g>
+</defs></svg>

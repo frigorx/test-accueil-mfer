@@ -27,7 +27,8 @@ DOSSIER = os.path.join(ICI, 'resultats')
 JSONL = os.path.join(DOSSIER, 'test-accueil.jsonl')
 CSV = os.path.join(DOSSIER, 'test-accueil.csv')
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 8765
-COLONNES = ['recu', 'nom', 'diplome', 'note', 'sorties', 'arret', 'repondu', 'total', 'code', 'competences', 'blocs', 'reponses', 'ip']
+COLONNES = ['recu', 'type', 'nom', 'diplome', 'classe', 'niveau', 'niveau_nom', 'note', 'justes', 'total', 'sorties', 'arret', 'repondu',
+            'minutes', 'code', 'competences', 'niveaux', 'tax', 'blocs', 'reponses', 'ip']
 
 
 def lire_resultats():
@@ -72,6 +73,57 @@ def page_resultats(lignes):
             % (len(lignes), html.escape(JSONL), ''.join(tr) or '<tr><td colspan="8">Aucun résultat pour l\'instant.</td></tr>'))
 
 
+ECHELLE = ['non évalué', 'non acquis', 'en cours', 'acquis', 'parfaitement maîtrisé']
+
+
+def cartographie(lignes):
+    """Une ligne par élève (son dernier résultat de positionnement), une colonne par compétence : la note 0-4."""
+    derniers = {}
+    for l in lignes:
+        if l.get('type') == 'positionnement' and isinstance(l.get('carte'), dict):
+            derniers[(l.get('nom', ''), l.get('classe', ''))] = l
+    codes = sorted({c for l in derniers.values() for c in l['carte']}, key=lambda c: [int(x) if x.isdigit() else x for x in c.replace('C', '').split('.')])
+    eleves = sorted(derniers.values(), key=lambda l: (l.get('classe', ''), l.get('nom', '')))
+    return codes, eleves
+
+
+def csv_cartographie(codes, eleves):
+    out = io.StringIO()
+    w = csv.writer(out, delimiter=';')
+    w.writerow(['nom', 'classe', 'date', 'niveau atteint', 'justes', 'total', 'sorties'] + codes + ['moyenne 0-4'])
+    for l in eleves:
+        vals = [l['carte'].get(c, '') for c in codes]
+        nums = [v for v in vals if isinstance(v, int) and v > 0]
+        w.writerow([l.get('nom'), l.get('classe'), l.get('quand', ''), l.get('niveau_nom', ''), l.get('justes', ''), l.get('total', ''), l.get('sorties', '')]
+                   + vals + [round(sum(nums) / len(nums), 2) if nums else ''])
+    return out.getvalue()
+
+
+def page_cartographie(codes, eleves):
+    couleurs = {0: '#eef1f5', 1: '#f8d7d3', 2: '#fde3c9', 3: '#d5efe6', 4: '#cfe0f5'}
+    tr = []
+    for l in eleves:
+        cells = ''.join('<td style="background:%s;text-align:center" title="%s">%s</td>' % (couleurs.get(l['carte'].get(c, 0), '#fff'), ECHELLE[l['carte'].get(c, 0)], l['carte'].get(c, '·')) for c in codes)
+        tr.append('<tr><td><b>%s</b><br><span style="font-size:11px;color:#5d6b7c">%s · %s</span></td><td>%s</td>%s</tr>' % (
+            html.escape(str(l.get('nom', ''))), html.escape(str(l.get('classe', ''))), html.escape(str(l.get('quand', ''))), html.escape(str(l.get('niveau_nom', ''))), cells))
+    th = ''.join('<th style="writing-mode:vertical-rl;transform:rotate(180deg);padding:6px 2px">%s</th>' % html.escape(c) for c in codes)
+    # colonne : part d'élèves à « acquis » ou mieux, pour lire les points faibles de la classe
+    bas = []
+    for c in codes:
+        vals = [l['carte'].get(c, 0) for l in eleves if l['carte'].get(c, 0) > 0]
+        bas.append('<td style="text-align:center;font-size:12px">%s</td>' % ('%d %%' % round(100 * sum(1 for v in vals if v >= 3) / len(vals)) if vals else '·'))
+    return ('<meta charset="utf-8"><meta http-equiv="refresh" content="20"><title>Cartographie de la classe</title>'
+            '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:18px;color:#22303f}table{border-collapse:collapse}'
+            'td,th{border:1px solid #d8dee6;padding:4px 6px;font-size:13px;vertical-align:middle}th{background:#f5f8fc;color:#1b3a63}'
+            'h1{color:#1b3a63;font-size:20px}a{color:#1b3a63}.leg span{display:inline-block;padding:2px 8px;margin-right:6px;border-radius:4px;font-size:12px}</style>'
+            '<h1>Cartographie — %d élève(s), %d compétence(s)</h1>'
+            '<p class="leg"><span style="background:#f8d7d3">1 non acquis</span><span style="background:#fde3c9">2 en cours</span>'
+            '<span style="background:#d5efe6">3 acquis</span><span style="background:#cfe0f5">4 parfaitement maîtrisé</span> · '
+            '<a href="/cartographie.csv">télécharger le CSV</a> · <a href="/resultats">tous les résultats</a></p>'
+            '<table><tr><th>Élève</th><th>Niveau atteint</th>%s</tr>%s<tr><td colspan="2"><b>Part de la classe à « acquis » ou mieux</b></td>%s</tr></table>'
+            % (len(eleves), len(codes), th, ''.join(tr) or '<tr><td colspan="99">Aucun positionnement reçu pour l\'instant.</td></tr>', ''.join(bas)))
+
+
 class Gestionnaire(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=ICI, **k)
@@ -90,6 +142,20 @@ class Gestionnaire(SimpleHTTPRequestHandler):
         self.wfile.write(b)
 
     def do_GET(self):
+        if self.path.startswith('/cartographie.csv'):
+            codes, eleves = cartographie(lire_resultats())
+            b = ('﻿' + csv_cartographie(codes, eleves)).encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/csv; charset=utf-8')
+            self.send_header('Content-Disposition', 'attachment; filename="cartographie.csv"')
+            self.send_header('Content-Length', str(len(b)))
+            self.end_headers()
+            self.wfile.write(b)
+            return
+        if self.path.startswith('/cartographie'):
+            codes, eleves = cartographie(lire_resultats())
+            self.repondre(200, page_cartographie(codes, eleves))
+            return
         if self.path.startswith('/resultats.csv'):
             if not os.path.exists(CSV):
                 ecrire_csv(lire_resultats())
@@ -118,7 +184,9 @@ class Gestionnaire(SimpleHTTPRequestHandler):
             d = json.loads(self.rfile.read(n).decode('utf-8') or '{}')
             if not isinstance(d, dict) or not d.get('nom'):
                 raise ValueError('résultat sans nom')
-            d = {k: d.get(k, '') for k in COLONNES if k not in ('recu', 'ip')} | {'recu': datetime.now().isoformat(timespec='seconds'), 'ip': self.client_address[0]}
+            d = dict(d)   # tout est gardé (dont la carte des compétences) ; le CSV n'en prend que les colonnes connues
+            d['recu'] = datetime.now().isoformat(timespec='seconds')
+            d['ip'] = self.client_address[0]
             os.makedirs(DOSSIER, exist_ok=True)
             with io.open(JSONL, 'a', encoding='utf-8') as f:
                 f.write(json.dumps(d, ensure_ascii=False) + '\n')
@@ -155,7 +223,10 @@ if __name__ == '__main__':
     print('=' * 64)
     for ip in adresses() or ['(pas de réseau détecté)']:
         print('  Élèves     : http://%s:%d/' % (ip, PORT))
+    print('  Test d\'accueil    : http://%s:%d/' % ((adresses() or ['localhost'])[0], PORT))
+    print('  Positionnement    : http://%s:%d/positionnement.html' % ((adresses() or ['localhost'])[0], PORT))
     print('  Professeur : http://localhost:%d/resultats' % PORT)
+    print('  Cartographie : http://localhost:%d/cartographie   (CSV : /cartographie.csv)' % PORT)
     print('  Tableau    : http://localhost:%d/resultats.csv' % PORT)
     print('  Résultats  : %s' % JSONL)
     print('=' * 64)
