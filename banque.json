@@ -1,1 +1,2791 @@
-[{"id": "N0-001", "niveau": 0, "theme": "Essai niveau 0", "q": "Question d'essai 1 du niveau 0 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C1", "cap": "C1.1", "tax": 1, "source": "essai"}, {"id": "N0-002", "niveau": 0, "theme": "Essai niveau 0", "q": "Question d'essai 2 du niveau 0 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C2", "cap": "C2.4", "tax": 2, "source": "essai"}, {"id": "N0-003", "niveau": 0, "theme": "Essai niveau 0", "q": "Question d'essai 3 du niveau 0 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C3", "cap": "C3.6", "tax": 3, "source": "essai"}, {"id": "N1-001", "niveau": 1, "theme": "Essai niveau 1", "q": "Question d'essai 1 du niveau 1 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C2", "cap": "C2.4", "tax": 1, "source": "essai", "svg": "compresseur_general"}, {"id": "N1-002", "niveau": 1, "theme": "Essai niveau 1", "q": "Question d'essai 2 du niveau 1 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C3", "cap": "C3.6", "tax": 2, "source": "essai"}, {"id": "N1-003", "niveau": 1, "theme": "Essai niveau 1", "q": "Question d'essai 3 du niveau 1 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C4", "cap": "C4.1", "tax": 3, "source": "essai"}, {"id": "N2-001", "niveau": 2, "theme": "Essai niveau 2", "q": "Question d'essai 1 du niveau 2 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C3", "cap": "C3.6", "tax": 1, "source": "essai"}, {"id": "N2-002", "niveau": 2, "theme": "Essai niveau 2", "q": "Question d'essai 2 du niveau 2 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C4", "cap": "C4.1", "tax": 2, "source": "essai"}, {"id": "N2-003", "niveau": 2, "theme": "Essai niveau 2", "q": "Question d'essai 3 du niveau 2 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C5", "cap": "C4.5", "tax": 3, "source": "essai"}, {"id": "N3-001", "niveau": 3, "theme": "Essai niveau 3", "q": "Question d'essai 1 du niveau 3 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C4", "cap": "C4.1", "tax": 1, "source": "essai"}, {"id": "N3-002", "niveau": 3, "theme": "Essai niveau 3", "q": "Question d'essai 2 du niveau 3 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C5", "cap": "C4.5", "tax": 2, "source": "essai"}, {"id": "N3-003", "niveau": 3, "theme": "Essai niveau 3", "q": "Question d'essai 3 du niveau 3 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C6", "cap": "C2.1", "tax": 3, "source": "essai"}, {"id": "N4-001", "niveau": 4, "theme": "Essai niveau 4", "q": "Question d'essai 1 du niveau 4 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C5", "cap": "C4.5", "tax": 1, "source": "essai"}, {"id": "N4-002", "niveau": 4, "theme": "Essai niveau 4", "q": "Question d'essai 2 du niveau 4 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C6", "cap": "C2.1", "tax": 2, "source": "essai"}, {"id": "N4-003", "niveau": 4, "theme": "Essai niveau 4", "q": "Question d'essai 3 du niveau 4 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C7", "cap": "C1.1", "tax": 3, "source": "essai"}, {"id": "N5-001", "niveau": 5, "theme": "Essai niveau 5", "q": "Question d'essai 1 du niveau 5 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C6", "cap": "C2.1", "tax": 1, "source": "essai"}, {"id": "N5-002", "niveau": 5, "theme": "Essai niveau 5", "q": "Question d'essai 2 du niveau 5 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C7", "cap": "C1.1", "tax": 2, "source": "essai"}, {"id": "N5-003", "niveau": 5, "theme": "Essai niveau 5", "q": "Question d'essai 3 du niveau 5 ?", "r": ["bonne réponse", "réponse fausse", "autre réponse fausse"], "e": "Explication d'essai.", "mfer": "C8", "cap": "C2.4", "tax": 3, "source": "essai"}]
+[
+{
+"id": "N0-001",
+"niveau": 0,
+"theme": "Les règles de la classe",
+"q": "En classe et à l'atelier, mon téléphone est :",
+"r": [
+"dans mon sac, en silencieux",
+"dans ma poche",
+"sur la table"
+],
+"e": "Le téléphone reste dans le sac. Il sort seulement si le professeur le demande, par exemple pour photographier une plaque.",
+"mfer": "C1",
+"cap": "C2.3",
+"tax": 1,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 0 (les règles de la classe)"
+},
+{
+"id": "N0-002",
+"niveau": 0,
+"theme": "Les règles de la classe",
+"q": "Pour entrer à l'atelier, il me faut :",
+"r": [
+"ma tenue de travail et mes chaussures de sécurité",
+"ma tenue de ville et des baskets",
+"seulement des gants"
+],
+"e": "Tenue de travail et chaussures de sécurité. Sans elles, je n'entre pas à l'atelier.",
+"mfer": "C4",
+"cap": "C2.3",
+"tax": 1,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 0 (les règles de la classe)"
+},
+{
+"id": "N0-003",
+"niveau": 0,
+"theme": "Les règles de la classe",
+"q": "Il manque un outil dans ma caisse. Je :",
+"r": [
+"le dis tout de suite au professeur",
+"prends l'outil d'un camarade",
+"le dis à la fin"
+],
+"e": "Un manque se dit tout de suite. Sinon, c'est moi qui suis responsable.",
+"mfer": "C11",
+"cap": "C1.3",
+"tax": 3,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 0 (les règles de la classe)"
+},
+{
+"id": "N0-004",
+"niveau": 0,
+"theme": "Le règlement du lycée",
+"q": "J'ai été absent. À mon retour, je :",
+"r": [
+"donne un justificatif à la vie scolaire",
+"ne fais rien",
+"envoie un message au professeur"
+],
+"e": "Une absence se justifie à la vie scolaire. En entreprise, c'est pareil.",
+"mfer": "C12",
+"cap": "C1.2",
+"tax": 3,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 1 (le règlement du lycée)"
+},
+{
+"id": "N0-005",
+"niveau": 0,
+"theme": "Le règlement du lycée",
+"q": "Les EPI (chaussures, lunettes, gants) à l'atelier sont :",
+"r": [
+"obligatoires",
+"conseillés",
+"seulement pour les travaux dangereux"
+],
+"e": "Obligatoires. Sans EPI, pas d'atelier.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 1 (le règlement du lycée)"
+},
+{
+"id": "N0-006",
+"niveau": 0,
+"theme": "Le règlement du lycée",
+"q": "Manger ou boire à l'atelier :",
+"r": [
+"c'est interdit",
+"c'est permis pendant les pauses",
+"c'est permis loin des machines"
+],
+"e": "Interdit : produits, copeaux, fluides. On mange dehors, aux pauses.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 1 (le règlement du lycée)"
+},
+{
+"id": "N0-007",
+"niveau": 0,
+"theme": "La sécurité à l'atelier",
+"q": "Avant de toucher une machine, je vérifie :",
+"r": [
+"qu'elle est à l'arrêt et consignée par le professeur",
+"que j'ai mes gants",
+"que le disjoncteur est coupé par moi"
+],
+"e": "Machine à l'arrêt, consignée par le professeur. Le cadenas et la vérification viendront avec l'habilitation.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 2 (la sécurité à l'atelier)"
+},
+{
+"id": "N0-008",
+"niveau": 0,
+"theme": "La sécurité à l'atelier",
+"q": "Une bouteille de fluide frigorigène ne doit jamais :",
+"r": [
+"être chauffée ni laissée au soleil",
+"être posée debout",
+"être attachée"
+],
+"e": "Chauffer une bouteille fait monter sa pression. Debout, attachée, à l'ombre.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 2 (la sécurité à l'atelier)"
+},
+{
+"id": "N0-009",
+"niveau": 0,
+"theme": "La sécurité à l'atelier",
+"q": "Du fluide frigorigène liquide sur la peau :",
+"r": [
+"brûle par le froid : lunettes et gants",
+"ne fait rien",
+"fait une petite rougeur"
+],
+"e": "Le fluide se détend à très basse température : brûlure froide. Lunettes et gants toujours.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 2 (la sécurité à l'atelier)"
+},
+{
+"id": "N0-010",
+"niveau": 0,
+"theme": "Les gestes qui sauvent",
+"q": "Je me brûle la main. Je :",
+"r": [
+"mets la main sous l'eau froide 15 minutes et j'alerte",
+"mets de la crème et je continue",
+"frotte avec un chiffon"
+],
+"e": "Eau froide, 15 minutes, sans glace ni crème. Et je préviens le professeur.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 3 (les gestes qui sauvent)"
+},
+{
+"id": "N0-011",
+"niveau": 0,
+"theme": "Les gestes qui sauvent",
+"q": "Un camarade se sent mal près d'une fuite de fluide. Je :",
+"r": [
+"l'emmène à l'air et j'alerte",
+"le fais asseoir et je vais chercher de l'eau",
+"ouvre la bouteille pour voir"
+],
+"e": "Le fluide chasse l'oxygène. À l'air, et on alerte. Personne ne reste dans la zone.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 3 (les gestes qui sauvent)"
+},
+{
+"id": "N0-012",
+"niveau": 0,
+"theme": "Les gestes qui sauvent",
+"q": "Les pompiers et le SAMU, c'est :",
+"r": [
+"le 18 et le 15, ou le 112",
+"le 17 et le 18",
+"le 15 et le 17"
+],
+"e": "18 pompiers, 15 SAMU, 112 partout en Europe. Au lycée, je préviens d'abord le professeur.",
+"mfer": "C12",
+"cap": "C1.2",
+"tax": 1,
+"source": "00-dossier/Test-numerique-accueil-securite-et-regles.html, bloc 3 (les gestes qui sauvent)"
+},
+{
+"id": "N1-001",
+"niveau": 1,
+"theme": "Les quatre organes",
+"q": "Ce symbole, placé juste après le détendeur, côté basse pression, représente :",
+"r": [
+"l'évaporateur",
+"le condenseur",
+"le compresseur"
+],
+"e": "Après le détendeur, le fluide entre dans l'évaporateur : il y bout et prend la chaleur du local.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"svg": "echangeur_a_air",
+"source": "Cours-de-theorie/T01-Le-circuit-frigorifique.html, partie 2 (tableau des organes)"
+},
+{
+"id": "N1-002",
+"niveau": 1,
+"theme": "Les quatre organes",
+"q": "Ce symbole, placé juste après le compresseur, côté haute pression, représente :",
+"r": [
+"le condenseur",
+"l'évaporateur",
+"le détendeur"
+],
+"e": "Après le compresseur, la vapeur chaude arrive au condenseur, qui rejette la chaleur dehors.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"svg": "echangeur_a_air",
+"source": "Cours-de-theorie/T01-Le-circuit-frigorifique.html, partie 2 (tableau des organes)"
+},
+{
+"id": "N1-003",
+"niveau": 1,
+"theme": "Les quatre organes",
+"q": "Quel organe aspire la vapeur basse pression et la refoule à haute pression ?",
+"r": [
+"le compresseur",
+"le détendeur",
+"l'évaporateur"
+],
+"e": "Le compresseur fait circuler le fluide : sans lui, rien ne bouge dans le circuit.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"svg": "compresseur_general",
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie A"
+},
+{
+"id": "N1-004",
+"niveau": 1,
+"theme": "Les quatre organes",
+"q": "Quel organe fait chuter la pression du fluide et dose l'entrée dans l'évaporateur ?",
+"r": [
+"le détendeur",
+"le compresseur",
+"le condenseur"
+],
+"e": "Le détendeur fait deux choses : il fait chuter la pression et il dose le débit vers l'évaporateur.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"svg": "detendeur_thermo_ext",
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie C"
+},
+{
+"id": "N1-005",
+"niveau": 1,
+"theme": "Le cycle",
+"q": "Quels sont les deux seuls organes qui séparent la haute pression de la basse pression ?",
+"r": [
+"le compresseur et le détendeur",
+"le condenseur et l'évaporateur",
+"le filtre et le voyant"
+],
+"e": "Tout le reste du circuit est entièrement en haute ou entièrement en basse pression.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 2,
+"source": "Cours-de-theorie/T01-Le-circuit-frigorifique.html, partie 2 (les deux frontières)"
+},
+{
+"id": "N1-006",
+"niveau": 1,
+"theme": "Les EPI",
+"q": "Pour intervenir sur une machine du parc, les gants anti-coupure protègent contre :",
+"r": [
+"les ailettes et la tôlerie",
+"le bruit du compresseur",
+"la projection de fluide"
+],
+"e": "Les ailettes des échangeurs et la tôlerie peuvent couper. Les gants anti-coupure protègent les mains.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "Interros/Interros-P1-01-a-05-PROFESSEUR.html, corrigé interro 1, question 4"
+},
+{
+"id": "N1-007",
+"niveau": 1,
+"theme": "Les quatre organes",
+"q": "À la sortie de l'évaporateur, le fluide doit être :",
+"r": [
+"entièrement vaporisé",
+"encore liquide",
+"à moitié liquide et à moitié vapeur"
+],
+"e": "S'il reste du liquide, il peut atteindre le compresseur : c'est le coup de liquide.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 2,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie D"
+},
+{
+"id": "N1-008",
+"niveau": 1,
+"theme": "Les quatre organes",
+"q": "Un compresseur ne doit jamais aspirer :",
+"r": [
+"du liquide",
+"de la vapeur froide",
+"de la vapeur chaude"
+],
+"e": "Un liquide ne se comprime pas. C'est le coup de liquide : le compresseur peut être détruit.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie A"
+},
+{
+"id": "N1-009",
+"niveau": 1,
+"theme": "Le compresseur",
+"q": "Un compresseur hermétique, quand il tombe en panne, se :",
+"r": [
+"remplace en entier",
+"répare en l'ouvrant",
+"répare en changeant les clapets"
+],
+"e": "Un hermétique est soudé, on ne peut pas l'ouvrir. On le remplace entièrement.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie A"
+},
+{
+"id": "N1-010",
+"niveau": 1,
+"theme": "Le compresseur",
+"q": "Le compresseur scroll fonctionne avec :",
+"r": [
+"deux spirales",
+"un piston",
+"une vis"
+],
+"e": "Le scroll utilise deux spirales. Il est silencieux et n'aime pas tourner à l'envers.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"svg": "compresseur_scroll",
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie A"
+},
+{
+"id": "N1-011",
+"niveau": 1,
+"theme": "Le condenseur",
+"q": "Dans le condenseur, la première étape, juste après l'arrivée de la vapeur chaude, s'appelle :",
+"r": [
+"la désurchauffe",
+"la condensation",
+"le sous-refroidissement"
+],
+"e": "La vapeur très chaude se refroidit d'abord un peu avant de commencer à se condenser.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie B"
+},
+{
+"id": "N1-012",
+"niveau": 1,
+"theme": "Le condenseur",
+"q": "Dans le condenseur, la dernière étape, quand le fluide est déjà liquide, s'appelle :",
+"r": [
+"le sous-refroidissement",
+"la désurchauffe",
+"la condensation"
+],
+"e": "Le liquide continue de refroidir un peu après s'être entièrement condensé.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie B"
+},
+{
+"id": "N1-013",
+"niveau": 1,
+"theme": "Le condenseur",
+"q": "Un condenseur encrassé fait :",
+"r": [
+"monter la haute pression",
+"descendre la haute pression",
+"descendre la basse pression"
+],
+"e": "La chaleur ne passe plus à travers des ailettes bouchées : la haute pression monte.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 2,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie B"
+},
+{
+"id": "N1-014",
+"niveau": 1,
+"theme": "Le détendeur",
+"q": "Le détendeur capillaire est :",
+"r": [
+"un tube très fin et très long, sans réglage",
+"un bulbe relié à une membrane",
+"une sonde pilotée par un régulateur"
+],
+"e": "Le capillaire n'a aucune pièce mobile. On le trouve sur les petites machines.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"svg": "tube_capillaire",
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie C"
+},
+{
+"id": "N1-015",
+"niveau": 1,
+"theme": "Le détendeur",
+"q": "Le détendeur thermostatique s'adapte tout seul grâce à :",
+"r": [
+"un bulbe posé sur la sortie de l'évaporateur",
+"une sonde électronique",
+"un tube très long"
+],
+"e": "Le bulbe commande une membrane qui règle le passage du fluide.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"svg": "detendeur_thermo_int",
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie C"
+},
+{
+"id": "N1-016",
+"niveau": 1,
+"theme": "Le détendeur",
+"q": "Pour choisir un détendeur thermostatique, le premier critère est :",
+"r": [
+"le fluide frigorigène",
+"la couleur du bulbe",
+"la marque du fabricant"
+],
+"e": "Le bulbe contient une charge adaptée à un fluide donné. Un détendeur n'est pas interchangeable entre fluides.",
+"mfer": "C3",
+"cap": "C3.2",
+"tax": 2,
+"source": "Cours-de-theorie/T07-Le-detendeur-et-la-ligne-liquide.html, partie C"
+},
+{
+"id": "N1-017",
+"niveau": 1,
+"theme": "Le détendeur",
+"q": "L'égalisation externe d'un détendeur thermostatique se choisit :",
+"r": [
+"quand la perte de charge dans l'évaporateur est importante",
+"pour toutes les petites machines",
+"seulement pour les détendeurs électroniques"
+],
+"e": "L'égalisation interne suffit pour un petit évaporateur ; l'externe corrige une perte de charge plus grande.",
+"mfer": "C3",
+"cap": "C3.2",
+"tax": 2,
+"svg": "detendeur_thermo_ext",
+"source": "Cours-de-theorie/T07-Le-detendeur-et-la-ligne-liquide.html, partie C"
+},
+{
+"id": "N1-018",
+"niveau": 1,
+"theme": "Le détendeur",
+"q": "Le détendeur électronique est piloté par :",
+"r": [
+"une sonde et un régulateur",
+"un bulbe et une membrane",
+"un simple tube capillaire"
+],
+"e": "On le trouve sur les machines récentes, les centrales, et au CO₂.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"svg": "detendeur_electronique",
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie C"
+},
+{
+"id": "N1-019",
+"niveau": 1,
+"theme": "L'évaporateur",
+"q": "Sur un évaporateur à air ventilé, il faut surveiller :",
+"r": [
+"le givre, qui isole et bloque l'échange",
+"la couleur des ailettes",
+"le bruit du compresseur"
+],
+"e": "Un peu de givre est normal. Trop de givre isole l'échangeur, la chambre ne descend plus.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 2,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie D"
+},
+{
+"id": "N1-020",
+"niveau": 1,
+"theme": "Reconnaître sur une machine",
+"q": "Sur un circuit frigorifique, le tube d'aspiration est :",
+"r": [
+"toujours plus gros que le tube de liquide",
+"toujours plus petit que le tube de liquide",
+"de la même taille que le tube de liquide"
+],
+"e": "À masse égale, la vapeur occupe beaucoup plus de place que le liquide.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie 3 (reconnaître sur une machine)"
+},
+{
+"id": "N1-021",
+"niveau": 1,
+"theme": "Reconnaître sur une machine",
+"q": "Sur une machine en marche, au toucher avec des gants, le tube de refoulement est :",
+"r": [
+"chaud, voire brûlant",
+"froid",
+"tiède, comme la ligne liquide"
+],
+"e": "Le refoulement sort du compresseur en vapeur chaude à haute pression : on ne le saisit jamais.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"source": "Cours-de-theorie/T02-Les-organes-un-par-un.html, partie 3 et conduite du cours"
+},
+{
+"id": "N1-022",
+"niveau": 1,
+"theme": "Le cycle",
+"q": "Dans le circuit frigorifique, après le compresseur, le fluide passe ensuite dans :",
+"r": [
+"le condenseur",
+"l'évaporateur",
+"le détendeur"
+],
+"e": "Le sens de circulation est toujours le même : compresseur, condenseur, détendeur, évaporateur, puis retour.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 1,
+"source": "Cours-de-theorie/T01-Le-circuit-frigorifique.html, partie 3 ; Interros/Interro-01-grand-format-Schema-fluidique-complet-PROFESSEUR.html, question 3"
+},
+{
+"id": "N1-023",
+"niveau": 1,
+"theme": "La ligne liquide",
+"q": "Dans la ligne liquide, entre le condenseur et le détendeur, le premier composant est :",
+"r": [
+"le réservoir de liquide",
+"le filtre déshydrateur",
+"le voyant liquide"
+],
+"e": "Le réservoir absorbe les variations de charge entre l'été et l'hiver.",
+"mfer": "C3",
+"cap": "C3.2",
+"tax": 1,
+"svg": "bouteille_liquide",
+"source": "Cours-de-theorie/T07-Le-detendeur-et-la-ligne-liquide.html, partie A"
+},
+{
+"id": "N1-024",
+"niveau": 1,
+"theme": "La ligne liquide",
+"q": "Dans la ligne liquide, le filtre déshydrateur sert à :",
+"r": [
+"retenir l'humidité et les impuretés",
+"voir l'état du fluide",
+"couper l'arrivée de liquide"
+],
+"e": "C'est l'organe de protection du détendeur : il retient ce qui pourrait le boucher.",
+"mfer": "C3",
+"cap": "C3.2",
+"tax": 1,
+"svg": "filtre_deshydrateur",
+"source": "Cours-de-theorie/T07-Le-detendeur-et-la-ligne-liquide.html, partie A"
+},
+{
+"id": "N1-025",
+"niveau": 1,
+"theme": "La ligne liquide",
+"q": "Un filtre déshydrateur monté à l'envers :",
+"r": [
+"relâche l'humidité et les impuretés qu'il avait retenues",
+"fonctionne normalement",
+"protège encore mieux le circuit"
+],
+"e": "Une flèche gravée indique le sens du fluide. À l'envers, le filtre pollue au lieu de protéger.",
+"mfer": "C3",
+"cap": "C3.2",
+"tax": 2,
+"source": "Cours-de-theorie/T07-Le-detendeur-et-la-ligne-liquide.html, partie A et exercice 3"
+},
+{
+"id": "N1-026",
+"niveau": 1,
+"theme": "La ligne liquide",
+"q": "Le voyant liquide sert à contrôler :",
+"r": [
+"si le fluide est pur et sans humidité",
+"la pression du circuit",
+"la température du compresseur"
+],
+"e": "On regarde s'il y a des bulles, et on lit la pastille d'humidité au centre.",
+"mfer": "C3",
+"cap": "C3.2",
+"tax": 1,
+"svg": "voyant_liquide",
+"source": "Cours-de-theorie/T07-Le-detendeur-et-la-ligne-liquide.html, partie A et B"
+},
+{
+"id": "N1-027",
+"niveau": 1,
+"theme": "La ligne liquide",
+"q": "Sur la pastille d'humidité d'un voyant liquide, pour connaître l'état du circuit, il faut :",
+"r": [
+"lire l'échelle imprimée sur le voyant",
+"se fier à la couleur verte de mémoire",
+"regarder la couleur du liquide"
+],
+"e": "Les couleurs et les seuils changent selon le fabricant et le fluide : on lit toujours l'échelle.",
+"mfer": "C2",
+"cap": "C2.2",
+"tax": 3,
+"source": "Cours-de-theorie/T07-Le-detendeur-et-la-ligne-liquide.html, partie B"
+},
+{
+"id": "N1-028",
+"niveau": 1,
+"theme": "La ligne liquide",
+"q": "L'électrovanne de la ligne liquide sert à :",
+"r": [
+"couper l'arrivée de liquide sur ordre électrique",
+"filtrer l'humidité du fluide",
+"montrer l'état du fluide"
+],
+"e": "Elle permet par exemple d'arrêter le circuit par tirage au vide.",
+"mfer": "C3",
+"cap": "C3.2",
+"tax": 1,
+"svg": "electrovanne_frigo",
+"source": "Cours-de-theorie/T07-Le-detendeur-et-la-ligne-liquide.html, partie A"
+},
+{
+"id": "N1-029",
+"niveau": 1,
+"theme": "La plaque signalétique",
+"q": "Sur la plaque signalétique, connaître la charge en fluide, en kg, sert surtout à :",
+"r": [
+"contrôler l'étanchéité du circuit",
+"calculer la puissance électrique",
+"choisir la couleur du câblage"
+],
+"e": "La charge en kg sert au contrôle d'étanchéité et à la réglementation sur les fluides.",
+"mfer": "C1",
+"cap": "C2.3",
+"tax": 2,
+"source": "Interros/Interros-P1-01-a-05-PROFESSEUR.html, corrigé interro 1, question 2"
+},
+{
+"id": "N1-030",
+"niveau": 1,
+"theme": "La plaque signalétique",
+"q": "Sur la plaque signalétique, le numéro de série sert surtout à :",
+"r": [
+"la traçabilité et la garantie",
+"calculer la surchauffe",
+"choisir le détendeur"
+],
+"e": "Le numéro de série identifie une machine précise, pour son suivi et sa garantie.",
+"mfer": "C1",
+"cap": "C2.3",
+"tax": 1,
+"source": "Interros/Interros-P1-01-a-05-PROFESSEUR.html, corrigé interro 1, question 2"
+},
+{
+"id": "N2-001",
+"niveau": 2,
+"theme": "Pression et température",
+"q": "Sur ton manomètre de chantier, la valeur affichée est la pression :",
+"r": [
+"relative",
+"absolue",
+"atmosphérique"
+],
+"e": "Le zéro du manomètre correspond à la pression atmosphérique, pas au vide parfait.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 1,
+"svg": "manometres",
+"source": "Cours-de-theorie/T03-Pression-et-temperature.html, partie A"
+},
+{
+"id": "N2-002",
+"niveau": 2,
+"theme": "Pression et température",
+"q": "Pour passer d'une pression relative à une pression absolue, il faut :",
+"r": [
+"ajouter environ 1 bar",
+"retirer environ 1 bar",
+"multiplier par 2"
+],
+"e": "P absolue ≈ P relative + 1 bar, car la pression atmosphérique vaut environ 1 bar.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 1,
+"source": "Cours-de-theorie/T03-Pression-et-temperature.html, partie A"
+},
+{
+"id": "N2-003",
+"niveau": 2,
+"theme": "Pression et température",
+"q": "La relation entre pression et température n'est valable que :",
+"r": [
+"pendant le changement d'état du fluide",
+"tout au long du circuit",
+"seulement côté haute pression"
+],
+"e": "Dans la ligne d'aspiration, où le fluide est déjà tout vapeur, la couronne ne donne plus la température réelle.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 2,
+"source": "Cours-de-theorie/T03-Pression-et-temperature.html, partie B"
+},
+{
+"id": "N2-004",
+"niveau": 2,
+"theme": "Pression et température",
+"q": "Pour un fluide corps pur, comme le R-134a, à une pression donnée :",
+"r": [
+"il n'y a qu'une seule température de changement d'état",
+"il y a deux températures possibles",
+"la température ne dépend pas de la pression"
+],
+"e": "Un corps pur n'a pas de glissement : bulle et rosée sont confondues.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 2,
+"svg": "sonde_temperature",
+"source": "Cours-de-theorie/T03-Pression-et-temperature.html, partie C"
+},
+{
+"id": "N2-005",
+"niveau": 2,
+"theme": "Pression et température",
+"q": "La zone rouge d'un manomètre signale :",
+"r": [
+"une zone de service à ne pas dépasser sans consigne du professeur",
+"une zone de mesure plus précise",
+"une panne de l'appareil"
+],
+"e": "Dans le rouge, on ne décide pas seul : on ferme et on appelle le professeur.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"svg": "manometres",
+"source": "Interros/Exercice-Vendredi-Lecture-manometre-PROFESSEUR.html"
+},
+{
+"id": "N2-006",
+"niveau": 2,
+"theme": "Surchauffe et sous-refroidissement",
+"q": "La surchauffe se calcule ainsi :",
+"r": [
+"température réelle du tube moins température de saturation à la BP",
+"température de saturation à la HP moins température réelle",
+"pression réelle moins pression de saturation"
+],
+"e": "On mesure à la sortie de l'évaporateur : le tube est plus chaud que la saturation.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 1,
+"source": "Cours-de-theorie/T05-Surchauffe-et-sous-refroidissement.html, partie A"
+},
+{
+"id": "N2-007",
+"niveau": 2,
+"theme": "Surchauffe et sous-refroidissement",
+"q": "Le sous-refroidissement se calcule ainsi :",
+"r": [
+"température de saturation à la HP moins température réelle du tube",
+"température réelle moins température de saturation à la BP",
+"pression de saturation moins pression réelle"
+],
+"e": "On mesure en sortie de condenseur : le liquide est un peu plus froid que sa condensation.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 1,
+"source": "Cours-de-theorie/T05-Surchauffe-et-sous-refroidissement.html, partie B"
+},
+{
+"id": "N2-008",
+"niveau": 2,
+"theme": "Surchauffe et sous-refroidissement",
+"q": "Le résultat d'un calcul de surchauffe ou de sous-refroidissement doit toujours être :",
+"r": [
+"positif",
+"négatif",
+"égal à zéro"
+],
+"e": "Un résultat négatif signale que la soustraction a été faite dans le mauvais sens.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 2,
+"source": "Cours-de-theorie/T05-Surchauffe-et-sous-refroidissement.html, partie A et B"
+},
+{
+"id": "N2-009",
+"niveau": 2,
+"theme": "Surchauffe et sous-refroidissement",
+"q": "Dans ce dossier, la surchauffe attendue sur une installation courante se situe entre :",
+"r": [
+"5 et 8 K",
+"1 et 3 K",
+"15 et 20 K"
+],
+"e": "La valeur qui fait vraiment foi reste celle de la documentation de la machine, ou celle du professeur.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 1,
+"source": "Documents/P1/12-tp-r1-mise-en-service/TP-R1-Mise-en-service-RESSOURCE.html"
+},
+{
+"id": "N2-010",
+"niveau": 2,
+"theme": "Surchauffe et sous-refroidissement",
+"q": "Dans ce dossier, le sous-refroidissement attendu sur une installation courante se situe entre :",
+"r": [
+"4 et 7 K",
+"10 et 15 K",
+"0 et 1 K"
+],
+"e": "Comme pour la surchauffe, c'est la documentation de la machine qui fait foi en priorité.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 1,
+"source": "Documents/P1/12-tp-r1-mise-en-service/TP-R1-Mise-en-service-RESSOURCE.html"
+},
+{
+"id": "N2-011",
+"niveau": 2,
+"theme": "Surchauffe et sous-refroidissement",
+"q": "Rosée BP à − 8 °C, tube d'aspiration à − 2 °C. La surchauffe est de :",
+"r": [
+"6 K",
+"10 K",
+"2 K"
+],
+"e": "Surchauffe = réelle − saturation = (− 2) − (− 8) = 6 K.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 2,
+"source": "Cours-de-theorie/T05-Surchauffe-et-sous-refroidissement.html, exercice 1 et corrigé"
+},
+{
+"id": "N2-012",
+"niveau": 2,
+"theme": "Le multimètre",
+"q": "Pour mesurer une résistance au multimètre, on se place en position :",
+"r": [
+"ohmmètre (Ω)",
+"voltmètre (V)",
+"ampèremètre (A)"
+],
+"e": "La position ohmmètre, notée Ω, sert à mesurer une résistance.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 1,
+"source": "Interros/Interros-P1-01-a-05-PROFESSEUR.html, corrigé interro 3"
+},
+{
+"id": "N2-013",
+"niveau": 2,
+"theme": "Le multimètre",
+"q": "Une mesure de résistance au multimètre se fait toujours :",
+"r": [
+"hors tension",
+"sous tension",
+"peu importe"
+],
+"e": "L'ohmmètre envoie lui-même un courant : une tension présente fausserait la mesure et peut détruire l'appareil.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "Interros/Interros-P1-01-a-05-PROFESSEUR.html, corrigé interro 3"
+},
+{
+"id": "N2-014",
+"niveau": 2,
+"theme": "L'azote et l'épreuve d'étanchéité",
+"q": "Pour une épreuve d'étanchéité à l'azote, la bouteille se branche toujours avec :",
+"r": [
+"un détendeur",
+"un manomètre seul",
+"rien, directement"
+],
+"e": "La bouteille d'azote est à très haute pression : un détendeur est obligatoire.",
+"mfer": "C4",
+"cap": "C3.9",
+"tax": 1,
+"source": "Interros/Interros-P3-08-a-13-PROFESSEUR.html, corrigé interro 12"
+},
+{
+"id": "N2-015",
+"niveau": 2,
+"theme": "L'azote et l'épreuve d'étanchéité",
+"q": "Pour une épreuve d'étanchéité, on ne met jamais dans le circuit :",
+"r": [
+"de l'oxygène",
+"de l'azote",
+"un mélange azote-air"
+],
+"e": "L'oxygène comprimé avec de l'huile crée un risque d'inflammation. C'est un geste interdit.",
+"mfer": "C4",
+"cap": "C3.9",
+"tax": 1,
+"source": "Interros/Interros-P3-08-a-13-PROFESSEUR.html, corrigé interro 12"
+},
+{
+"id": "N2-016",
+"niveau": 2,
+"theme": "L'azote et l'épreuve d'étanchéité",
+"q": "La pression de l'épreuve d'étanchéité se déduit :",
+"r": [
+"de la PS lue sur la plaque signalétique",
+"de la pression atmosphérique du jour",
+"de la taille de la bouteille d'azote"
+],
+"e": "On ne l'improvise pas : la plaque donne la pression maximale de service à respecter.",
+"mfer": "C4",
+"cap": "C3.9",
+"tax": 2,
+"source": "Interros/Interros-P3-08-a-13-PROFESSEUR.html, corrigé interro 12"
+},
+{
+"id": "N2-017",
+"niveau": 2,
+"theme": "Le brasage fort",
+"q": "Dans un assemblage brasé, contrairement au soudage, le métal de base :",
+"r": [
+"ne fond pas",
+"fond et se mélange à l'apport",
+"fond en dernier"
+],
+"e": "Seul le métal d'apport fond et pénètre entre les pièces par capillarité.",
+"mfer": "C6",
+"cap": "C3.4",
+"tax": 1,
+"source": "Cours-de-theorie/T10-Le-brasage-fort.html, partie A"
+},
+{
+"id": "N2-018",
+"niveau": 2,
+"theme": "Le brasage fort",
+"q": "Pour braser du cuivre sur cuivre avec un apport cuivre-phosphore, il faut :",
+"r": [
+"aucun flux, le phosphore en tient lieu",
+"toujours un flux à l'argent",
+"un flux différent selon la couleur du cuivre"
+],
+"e": "Le phosphore de l'apport joue lui-même le rôle du flux sur le cuivre.",
+"mfer": "C6",
+"cap": "C3.4",
+"tax": 1,
+"source": "Cours-de-theorie/T10-Le-brasage-fort.html, partie B"
+},
+{
+"id": "N2-019",
+"niveau": 2,
+"theme": "Le brasage fort",
+"q": "Un apport cuivre-phosphore ne doit jamais servir à braser :",
+"r": [
+"un acier",
+"du cuivre sur cuivre",
+"un tube de petit diamètre"
+],
+"e": "Le phosphore fragilise les alliages ferreux : la brasure paraît bonne puis casse.",
+"mfer": "C6",
+"cap": "C3.4",
+"tax": 2,
+"source": "Cours-de-theorie/T10-Le-brasage-fort.html, partie B"
+},
+{
+"id": "N2-020",
+"niveau": 2,
+"theme": "Le brasage fort",
+"q": "Sans balayage à l'azote pendant le brasage, l'intérieur du tube :",
+"r": [
+"s'oxyde et forme de la calamine",
+"reste couleur cuivre",
+"fond avec l'apport"
+],
+"e": "La calamine se détache plus tard en particules qui bouchent le détendeur et détruisent le compresseur.",
+"mfer": "C6",
+"cap": "C3.4",
+"tax": 2,
+"source": "Cours-de-theorie/T10-Le-brasage-fort.html, partie D"
+},
+{
+"id": "N2-021",
+"niveau": 2,
+"theme": "Le tirage au vide",
+"q": "Pour mesurer un vide profond, il faut :",
+"r": [
+"un vacuomètre électronique",
+"le manomètre BP du manifold",
+"une simple pression relative"
+],
+"e": "La graduation du manomètre s'arrête bien avant le niveau de vide utile.",
+"mfer": "C7",
+"cap": "C4.1",
+"tax": 1,
+"source": "Cours-de-theorie/T14-Le-vide.html, partie C"
+},
+{
+"id": "N2-022",
+"niveau": 2,
+"theme": "Le tirage au vide",
+"q": "Le tirage au vide chasse l'humidité en :",
+"r": [
+"faisant bouillir l'eau à basse pression",
+"gelant l'eau pour l'évacuer",
+"chauffant le circuit"
+],
+"e": "En abaissant la pression, on abaisse la température d'ébullition de l'eau sous la température ambiante.",
+"mfer": "C7",
+"cap": "C4.1",
+"tax": 2,
+"source": "Cours-de-theorie/T14-Le-vide.html, partie B"
+},
+{
+"id": "N2-023",
+"niveau": 2,
+"theme": "Le tirage au vide",
+"q": "Pour prouver que le vide est bon, après avoir isolé la pompe, la pression doit :",
+"r": [
+"rester stable pendant plusieurs minutes",
+"redescendre encore un peu",
+"remonter progressivement"
+],
+"e": "Si elle remonte sans jamais se stabiliser, c'est qu'il y a une fuite.",
+"mfer": "C7",
+"cap": "C4.1",
+"tax": 2,
+"source": "Cours-de-theorie/T14-Le-vide.html, partie D"
+},
+{
+"id": "N2-024",
+"niveau": 2,
+"theme": "Le tirage au vide",
+"q": "On ne tire jamais au vide un circuit :",
+"r": [
+"dont l'étanchéité n'a pas été prouvée",
+"qui vient d'être brasé",
+"qui contient de l'huile neuve"
+],
+"e": "On pomperait de l'air à travers la fuite, sans fin, en usant la pompe pour rien.",
+"mfer": "C7",
+"cap": "C4.1",
+"tax": 2,
+"source": "Cours-de-theorie/T14-Le-vide.html, partie 3 (la procédure)"
+},
+{
+"id": "N2-025",
+"niveau": 2,
+"theme": "Charger un circuit",
+"q": "La méthode de référence pour charger un circuit en fluide est :",
+"r": [
+"la pesée de la bouteille, avant et après",
+"le temps d'ouverture de la vanne",
+"le nombre de tours de vis du détendeur"
+],
+"e": "La différence de masse avant et après donne la quantité réellement introduite.",
+"mfer": "C7",
+"cap": "C4.2",
+"tax": 1,
+"source": "Cours-de-theorie/T18-Charger-un-circuit.html, partie A"
+},
+{
+"id": "N2-026",
+"niveau": 2,
+"theme": "Charger un circuit",
+"q": "Pour valider une charge de fluide, on lit ensemble :",
+"r": [
+"le voyant, le sous-refroidissement, la surchauffe et l'intensité",
+"seulement le voyant liquide",
+"seulement la pression basse"
+],
+"e": "Un seul indicateur ne suffit pas : un circuit surchargé peut aussi avoir un voyant clair.",
+"mfer": "C7",
+"cap": "C4.2",
+"tax": 2,
+"source": "Cours-de-theorie/T18-Charger-un-circuit.html, partie C"
+},
+{
+"id": "N2-027",
+"niveau": 2,
+"theme": "Charger un circuit",
+"q": "On ne recharge jamais un circuit qui fuit :",
+"r": [
+"sans avoir réparé la fuite d'abord",
+"sans avoir prévenu le client",
+"le matin"
+],
+"e": "Le fluide rechargé repartirait aussitôt à l'atmosphère par la même fuite.",
+"mfer": "C7",
+"cap": "C4.2",
+"tax": 2,
+"source": "Interros/Interros-P3-08-a-13-PROFESSEUR.html, corrigé interro 13"
+},
+{
+"id": "N2-028",
+"niveau": 2,
+"theme": "La mise en service",
+"q": "Le câblage d'une installation doit être vérifié au schéma, point par point, par :",
+"r": [
+"une deuxième personne, jamais par soi-même",
+"le même technicien qui a câblé",
+"personne, si le temps presse"
+],
+"e": "On croit voir ce qu'on a voulu faire : la vérification croisée est obligatoire avant toute mise sous tension.",
+"mfer": "C7",
+"cap": "C3.7",
+"tax": 2,
+"source": "Cours-de-theorie/T19-La-mise-en-service.html, partie B"
+},
+{
+"id": "N2-029",
+"niveau": 2,
+"theme": "La mise en service",
+"q": "Au démarrage d'une machine, un cognement sec à l'aspiration signale :",
+"r": [
+"un possible coup de liquide : on arrête",
+"un fonctionnement normal du compresseur",
+"un ventilateur qui tourne à l'envers seulement"
+],
+"e": "La plupart des casses de compresseur se jouent dans la première minute de marche.",
+"mfer": "C7",
+"cap": "C3.7",
+"tax": 3,
+"source": "Documents/P1/12-tp-r1-mise-en-service/TP-R1-Mise-en-service-RESSOURCE.html"
+},
+{
+"id": "N2-030",
+"niveau": 2,
+"theme": "La mise en service",
+"q": "Une machine qui tourne sans problème apparent :",
+"r": [
+"ne prouve rien : il faut les relevés après stabilisation",
+"prouve que l'installation fonctionne bien",
+"dispense du rapport de mise en service"
+],
+"e": "Le rapport de mise en service, avec les relevés, est le seul document qui prouve le bon fonctionnement.",
+"mfer": "C7",
+"cap": "C3.7",
+"tax": 2,
+"source": "Cours-de-theorie/T19-La-mise-en-service.html, partie D"
+},
+{
+"id": "N3-001",
+"niveau": 3,
+"theme": "Le circuit de puissance",
+"q": "Dans le circuit de puissance, quel organe vient juste après le sectionneur ?",
+"r": [
+"la protection : fusibles ou disjoncteur",
+"le relais thermique",
+"le moteur"
+],
+"e": "L'ordre est : sectionneur, protection, contacteur, relais thermique, puis moteur.",
+"mfer": "C2",
+"cap": "C3.2",
+"tax": 1,
+"svg": "sectionneur_3p",
+"source": "progression-1re-mfer/Cours-de-theorie/T15-Le-circuit-de-puissance.html, § 2A la chaîne de puissance"
+},
+{
+"id": "N3-002",
+"niveau": 3,
+"theme": "Le circuit de puissance",
+"q": "Pourquoi le sectionneur est-il l'organe de la consignation ?",
+"r": [
+"il coupe de façon visible et condamnable",
+"il protège le câble d'un court-circuit",
+"il alimente directement le moteur"
+],
+"e": "Le sectionneur sépare l'installation du réseau de façon visible et condamnable : il protège les personnes.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"svg": "sectionneur_3p",
+"source": "T15-Le-circuit-de-puissance.html, § 2A ; corrigé Interro n°15, question 4"
+},
+{
+"id": "N3-003",
+"niveau": 3,
+"theme": "Le circuit de puissance",
+"q": "Sur une platine, à quoi sert un disjoncteur moteur comme Q3 ?",
+"r": [
+"à protéger et séparer le compresseur, réglable sur son intensité",
+"à alimenter la bobine du contacteur",
+"à afficher la basse et la haute pression"
+],
+"e": "Le disjoncteur moteur protège et sépare le compresseur ; on le règle sur l'intensité du moteur.",
+"mfer": "C2",
+"cap": "C3.6",
+"tax": 1,
+"svg": "disjoncteur_3p",
+"source": "Documents/P1/14-tp-r3-cabler-le-pump-down/TP-R3-Cabler-le-pump-down-PROFESSEUR.html, corrigé partie A, repère Q3"
+},
+{
+"id": "N3-004",
+"niveau": 3,
+"theme": "Le circuit de puissance",
+"q": "Le contacteur d'un moteur sert-il à le protéger contre une surcharge ?",
+"r": [
+"non, c'est un organe de manœuvre, pas une protection",
+"oui, c'est sa fonction principale",
+"oui, comme le relais thermique"
+],
+"e": "Le contacteur manœuvre le moteur sur ordre de la commande. C'est le relais thermique qui protège de la surcharge.",
+"mfer": "C2",
+"cap": "C3.6",
+"tax": 2,
+"svg": "bobine_contacteur",
+"source": "T15-Le-circuit-de-puissance.html, § 2A tableau des organes"
+},
+{
+"id": "N3-005",
+"niveau": 3,
+"theme": "Le circuit de puissance",
+"q": "Que protège le relais thermique dans le circuit de puissance ?",
+"r": [
+"le moteur, contre une surcharge prolongée",
+"le câble, contre un court-circuit",
+"l'opérateur, contre l'électrisation"
+],
+"e": "Le relais thermique coupe en cas de surcharge prolongée du moteur : il évite qu'il chauffe trop.",
+"mfer": "C2",
+"cap": "C3.7",
+"tax": 1,
+"svg": "relais_thermique",
+"source": "T15-Le-circuit-de-puissance.html, § 2A tableau des organes"
+},
+{
+"id": "N3-006",
+"niveau": 3,
+"theme": "Le circuit de puissance",
+"q": "À quelle valeur règle-t-on le relais thermique d'un moteur ?",
+"r": [
+"à l'intensité nominale indiquée sur la plaque du moteur",
+"toujours à 10 ampères, quel que soit le moteur",
+"un peu au-dessus, pour éviter les déclenchements"
+],
+"e": "Le relais thermique se règle à l'intensité nominale de la plaque. Plus haut, il ne protège plus le moteur.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 2,
+"svg": "relais_thermique",
+"source": "T15-Le-circuit-de-puissance.html, corrigé exercice 2 et tableau des erreurs typiques"
+},
+{
+"id": "N3-007",
+"niveau": 3,
+"theme": "Le circuit de puissance",
+"q": "Une plaque moteur indique 230 V triangle, 400 V étoile. Réseau en 400 V : quel couplage choisir ?",
+"r": [
+"le couplage étoile",
+"le couplage triangle",
+"peu importe le couplage choisi"
+],
+"e": "Sur 400 V, l'étoile donne 230 V par enroulement, la tension prévue par le constructeur.",
+"mfer": "C6",
+"cap": "C3.6",
+"tax": 3,
+"svg": "moteur_triphase",
+"source": "T15-Le-circuit-de-puissance.html, § 2C le couplage ; Évaluation P4, question A.2"
+},
+{
+"id": "N3-008",
+"niveau": 3,
+"theme": "Le circuit de puissance",
+"q": "Un moteur 230 V triangle, 400 V étoile est couplé en triangle sur un réseau 400 V. Conséquence ?",
+"r": [
+"chaque enroulement reçoit 400 V : le moteur est détruit",
+"le moteur tourne plus vite, sans risque",
+"rien ne change, les deux couplages sont équivalents"
+],
+"e": "En triangle sur 400 V, chaque enroulement reçoit 400 V au lieu de 230 V : surintensité et destruction immédiate.",
+"mfer": "C6",
+"cap": "C3.6",
+"tax": 3,
+"source": "T15-Le-circuit-de-puissance.html, corrigé exercice 1 ; Interro n°15, question 3 et corrigé"
+},
+{
+"id": "N3-009",
+"niveau": 3,
+"theme": "Le circuit de commande",
+"q": "Pourquoi un circuit de commande, séparé du circuit de puissance ?",
+"r": [
+"un petit courant y pilote le gros courant du moteur",
+"il alimente directement le moteur, en plus fort",
+"il remplace le sectionneur en cas de panne"
+],
+"e": "La commande, en faible courant, pilote la bobine du contacteur qui établit le fort courant du moteur.",
+"mfer": "C2",
+"cap": "C3.6",
+"tax": 1,
+"source": "T16-Le-circuit-de-commande.html, § 2A deux circuits, deux rôles"
+},
+{
+"id": "N3-010",
+"niveau": 3,
+"theme": "Le circuit de commande",
+"q": "Qu'est-ce qu'un contact NO, comme celui d'un bouton marche ?",
+"r": [
+"un contact ouvert au repos : le courant passe si on agit dessus",
+"un contact fermé au repos : le courant passe déjà",
+"un contact toujours fermé, quoi qu'il arrive"
+],
+"e": "NO veut dire normalement ouvert : au repos, le courant ne passe pas. Le bouton marche est un contact NO.",
+"mfer": "C2",
+"cap": "C3.6",
+"tax": 1,
+"svg": "bp_no_marche",
+"source": "T16-Le-circuit-de-commande.html, § 2B les deux types de contacts"
+},
+{
+"id": "N3-011",
+"niveau": 3,
+"theme": "Le circuit de commande",
+"q": "Comment le contacteur reste-t-il collé après le relâchement du bouton marche ?",
+"r": [
+"un contact NO du contacteur, en parallèle, maintient la bobine",
+"le bouton marche reste enfoncé mécaniquement",
+"une minuterie retarde la coupure de la bobine"
+],
+"e": "En collant, le contacteur ferme un contact NO en parallèle du bouton : la bobine reste alimentée.",
+"mfer": "C6",
+"cap": "C3.6",
+"tax": 2,
+"svg": "contact_no_13_14",
+"source": "T16-Le-circuit-de-commande.html, § 2C l'auto-maintien ; corrigé Interro n°16, question 2a"
+},
+{
+"id": "N3-012",
+"niveau": 3,
+"theme": "Le circuit de commande",
+"q": "Sur une bobine de contacteur, comme KM1, quel repère porte les deux bornes ?",
+"r": [
+"A1 et A2",
+"1 et 3",
+"13 et 14"
+],
+"e": "La bobine d'un contacteur se raccorde toujours sur les bornes A1 et A2.",
+"mfer": "C2",
+"cap": "C3.6",
+"tax": 1,
+"svg": "bobine_contacteur",
+"source": "Documents/P1/14-tp-r3-cabler-le-pump-down/TP-R3-Cabler-le-pump-down-RESSOURCE.html, § 4 bornier et légende"
+},
+{
+"id": "N3-013",
+"niveau": 3,
+"theme": "Le circuit de commande",
+"q": "En quoi l'arrêt d'urgence est-il différent d'un bouton arrêt ordinaire ?",
+"r": [
+"son contact est à ouverture forcée, garantie même s'il a fondu",
+"il coupe directement le circuit de puissance, sans passer par la commande",
+"il ne peut jamais être verrouillé"
+],
+"e": "L'arrêt d'urgence a un contact à ouverture forcée, verrouillable : il ne se remplace jamais par un bouton ordinaire.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"svg": "arret_urgence",
+"source": "T16-Le-circuit-de-commande.html, § 2D la chaîne de sécurité ; corrigé Interro n°16, question 4"
+},
+{
+"id": "N3-014",
+"niveau": 3,
+"theme": "Le circuit de commande",
+"q": "Sur la palette électrique, quel symbole représente un voyant lumineux ?",
+"r": [
+"une petite lampe témoin, sur un schéma de commande",
+"un interrupteur à bascule",
+"une résistance de chauffage"
+],
+"e": "Le voyant lumineux est une lampe témoin, câblée dans le circuit de commande, comme la bobine ou les contacts.",
+"mfer": "C2",
+"cap": "C3.2",
+"tax": 1,
+"svg": "voyant_lumineux",
+"source": "BRIEF-BANQUE.md, § 4 la palette des symboles électriques"
+},
+{
+"id": "N3-015",
+"niveau": 3,
+"theme": "Les contacts NO et NF",
+"q": "Sur la palette électrique, quel repère porte un contact normalement ouvert ?",
+"r": [
+"13-14",
+"11-12",
+"95-96"
+],
+"e": "Le contact repéré 13-14 est normalement ouvert (NO) ; le contact 11-12 est normalement fermé (NF).",
+"mfer": "C2",
+"cap": "C3.6",
+"tax": 1,
+"svg": "contact_no_13_14",
+"source": "BRIEF-BANQUE.md, § 4 la palette ; TP-R3 pump-down RESSOURCE, contact de l'horloge H1"
+},
+{
+"id": "N3-016",
+"niveau": 3,
+"theme": "Les contacts NO et NF",
+"q": "Sur un relais thermique, quel repère est le contact NF utilisé pour la sécurité ?",
+"r": [
+"95-96",
+"97-98",
+"13-14"
+],
+"e": "Sur un relais thermique, le contact 95-96 est le NF de coupure ; le 97-98 est le NO d'alarme.",
+"mfer": "C2",
+"cap": "C3.6",
+"tax": 1,
+"svg": "relais_thermique",
+"source": "TP-R3 pump-down RESSOURCE, § 4 bornier et légende des symboles"
+},
+{
+"id": "N3-017",
+"niveau": 3,
+"theme": "La régulation du froid",
+"q": "Une chambre a une consigne de + 2 °C et un différentiel de 3 K. Température de redémarrage ?",
+"r": [
+"+ 5 °C",
+"+ 2 °C",
+"- 1 °C"
+],
+"e": "Le redémarrage se calcule ainsi : consigne + différentiel, soit 2 + 3 = 5 °C.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 2,
+"svg": "thermostat",
+"source": "T20-La-regulation-du-froid.html, § 2A consigne et différentiel ; corrigé exercice 1"
+},
+{
+"id": "N3-018",
+"niveau": 3,
+"theme": "La régulation du froid",
+"q": "Un compresseur démarre et s'arrête sans cesse : il pompe. Quel réglage revoir ?",
+"r": [
+"augmenter le différentiel, trop petit",
+"augmenter la consigne",
+"changer le fluide frigorigène"
+],
+"e": "Un différentiel trop petit fait pomper la machine. L'augmenter allonge les cycles et protège le compresseur.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 3,
+"source": "T20-La-regulation-du-froid.html, § 2A ; corrigé exercice 2"
+},
+{
+"id": "N3-019",
+"niveau": 3,
+"theme": "La régulation du froid",
+"q": "Pourquoi le pressostat HP a-t-il souvent un réarmement manuel ?",
+"r": [
+"pour qu'une personne cherche la cause avant de relancer la machine",
+"pour économiser de l'électricité",
+"parce que le réarmement automatique coûte plus cher"
+],
+"e": "Un réarmement automatique relancerait la machine en boucle sur un défaut non traité.",
+"mfer": "C9",
+"cap": "C4.6",
+"tax": 2,
+"svg": "pressostat_hp",
+"source": "T20-La-regulation-du-froid.html, § 2B les pressostats"
+},
+{
+"id": "N3-020",
+"niveau": 3,
+"theme": "La régulation du froid",
+"q": "Un pressostat HP coupe souvent. Un collègue propose de le shunter. Que fais-tu ?",
+"r": [
+"je refuse et je cherche la cause du défaut",
+"j'accepte, c'est temporaire et ça ne change rien",
+"je le shunte seulement pour la journée"
+],
+"e": "On ne shunte jamais un organe de sécurité : la pression monterait jusqu'à la casse d'un composant.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"svg": "pressostat_hp",
+"source": "T20-La-regulation-du-froid.html, exercice 5 et corrigé"
+},
+{
+"id": "N3-021",
+"niveau": 3,
+"theme": "La régulation du froid",
+"q": "Dans une installation en pump-down, quel rôle joue le pressostat BP ?",
+"r": [
+"la régulation du compresseur, pas seulement la protection",
+"seulement la protection contre le manque de fluide",
+"aucun rôle, il ne sert qu'en dégivrage"
+],
+"e": "En pump-down, le pressostat BP régule l'arrêt et le départ du compresseur, au-delà de sa fonction de protection.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 2,
+"svg": "pressostat_bp",
+"source": "T20-La-regulation-du-froid.html, § 2B et 2C ; TP-R3 pump-down"
+},
+{
+"id": "N3-022",
+"niveau": 3,
+"theme": "Le pump-down",
+"q": "Dans le pump-down, que fait le thermostat quand la consigne est atteinte ?",
+"r": [
+"il coupe l'électrovanne de la ligne liquide",
+"il arrête directement le compresseur",
+"il ouvre le pressostat BP"
+],
+"e": "Le thermostat coupe l'électrovanne : le liquide n'arrive plus à l'évaporateur, que le compresseur continue de vider.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 1,
+"svg": "electrovanne_frigo",
+"source": "TP-R3 pump-down PROFESSEUR, corrigé du cycle, étape 2 ; T20, § 2C"
+},
+{
+"id": "N3-023",
+"niveau": 3,
+"theme": "Le pump-down",
+"q": "Dans le pump-down, quel organe arrête finalement le compresseur ?",
+"r": [
+"le pressostat BP, quand la basse pression descend",
+"le pressostat HP, quand la haute pression monte",
+"le relais thermique, sur une surcharge"
+],
+"e": "Le compresseur vide l'évaporateur, la basse pression chute, et le pressostat BP l'arrête.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 1,
+"svg": "pressostat_bp",
+"source": "TP-R3 pump-down PROFESSEUR, corrigé du cycle, étapes 3 à 5"
+},
+{
+"id": "N3-024",
+"niveau": 3,
+"theme": "Le pump-down",
+"q": "Pourquoi fait-on un pump-down avant l'arrêt d'une machine ?",
+"r": [
+"pour stocker le fluide côté haute pression, sans coup de liquide",
+"pour économiser de l'électricité au redémarrage",
+"pour dégivrer automatiquement l'évaporateur"
+],
+"e": "Le pump-down stocke le fluide côté haute pression : rien ne peut migrer vers l'évaporateur au redémarrage.",
+"mfer": "C9",
+"cap": "C4.6",
+"tax": 2,
+"source": "T20-La-regulation-du-froid.html, § 2C le pump-down"
+},
+{
+"id": "N3-025",
+"niveau": 3,
+"theme": "Le schéma électrique",
+"q": "Sur un schéma de commande vertical, où sont dessinés la phase et le neutre ?",
+"r": [
+"la phase en haut, le neutre en bas",
+"le neutre en haut, la phase en bas",
+"cela dépend toujours du dessinateur"
+],
+"e": "Un schéma de commande vertical place la phase en haut et le neutre en bas, sur toute sa hauteur.",
+"mfer": "C2",
+"cap": "C3.6",
+"tax": 1,
+"source": "TP-R3 pump-down RESSOURCE, § 3 schéma de commande"
+},
+{
+"id": "N3-026",
+"niveau": 3,
+"theme": "L'habilitation électrique",
+"q": "Qui délivre le titre d'habilitation électrique à un salarié ?",
+"r": [
+"l'employeur",
+"l'organisme de formation",
+"l'élève lui-même, après son stage"
+],
+"e": "L'habilitation est délivrée par l'employeur, jamais par l'école ni par l'organisme de formation.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "T17-L-habilitation-electrique.html, § 2A ; hocourant/donnees/questions.js, module M6"
+},
+{
+"id": "N3-027",
+"niveau": 3,
+"theme": "L'habilitation électrique",
+"q": "Que signifient B, 1 et V dans le titre B1V ?",
+"r": [
+"basse tension, exécutant électrique, voisinage renforcé",
+"haute tension, chargé de travaux, voisinage simple",
+"basse tension, chargé de consignation, voisinage renforcé"
+],
+"e": "B = basse tension, 1 = exécutant d'opérations électriques, V = autorisé au voisinage de pièces nues sous tension.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "T17-L-habilitation-electrique.html, § 2B lire un titre ; corrigé Interro n°17, question 1b"
+},
+{
+"id": "N3-028",
+"niveau": 3,
+"theme": "L'habilitation électrique",
+"q": "Une habilitation BR correspond surtout à…",
+"r": [
+"une intervention générale en basse tension, de faible étendue",
+"un chantier de construction complet",
+"une opération uniquement d'ordre non électrique"
+],
+"e": "Le BR réalise des interventions générales BT de faible étendue : dépannage, connexion, remplacement.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "hocourant/donnees/questions.js, module M13 ; T17-L-habilitation-electrique.html, tableau des rôles"
+},
+{
+"id": "N3-029",
+"niveau": 3,
+"theme": "L'habilitation électrique",
+"q": "Titulaire d'un B0, peux-tu ouvrir une armoire électrique consignée ?",
+"r": [
+"non, la consignation ne change pas ton rôle",
+"oui, si tu ne touches à rien à l'intérieur",
+"oui, en te faisant accompagner"
+],
+"e": "B0 encadre des tâches non électriques. La mise hors tension ne transforme pas la tâche en opération électrique.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"source": "hocourant/donnees/questions.js, module M8"
+},
+{
+"id": "N3-030",
+"niveau": 3,
+"theme": "L'habilitation électrique",
+"q": "Titulaire d'un B0-B1V, peux-tu raccorder un moteur au bornier ?",
+"r": [
+"oui, avec le B1V, sur ordre d'un chargé de travaux",
+"oui, avec le B0 seul, sans autre condition",
+"non, aucun titre ne l'autorise avant la terminale"
+],
+"e": "Raccorder un moteur est une opération électrique : elle relève du B1V, sur ordre d'un chargé de travaux.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"source": "Interros-P4-14-a-18-PROFESSEUR.html, corrigé Interro n°17, question 3"
+},
+{
+"id": "N3-031",
+"niveau": 3,
+"theme": "Les zones électriques",
+"q": "En champ libre, à partir de quelle distance peux-tu approcher une pièce sous 20 000 V ?",
+"r": [
+"3 mètres",
+"30 centimètres",
+"1 mètre"
+],
+"e": "Jusqu'à 50 000 V, la distance de voisinage simple, en champ libre, est de 3 mètres.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "hocourant/donnees/questions.js, module M7, repère zone-limite"
+},
+{
+"id": "N3-032",
+"niveau": 3,
+"theme": "Les zones électriques",
+"q": "En basse tension, à partir de quelle distance d'une pièce nue commence le voisinage renforcé ?",
+"r": [
+"moins de 30 centimètres",
+"moins de 3 mètres",
+"moins d'un mètre"
+],
+"e": "En basse tension, le voisinage renforcé commence à moins de 0,30 mètre d'une pièce nue sous tension.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "hocourant/donnees/questions.js, module M7 ; QCM HAB ELECT.docx, question 2"
+},
+{
+"id": "N3-033",
+"niveau": 3,
+"theme": "La consignation",
+"q": "Dans une consignation, quel est l'ordre correct des quatre premières opérations ?",
+"r": [
+"séparer, condamner, identifier, vérifier l'absence de tension",
+"vérifier l'absence de tension, séparer, condamner",
+"condamner, séparer, identifier, vérifier l'absence de tension"
+],
+"e": "L'ordre est : séparer, condamner, identifier sur place, puis vérifier l'absence de tension.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"source": "hocourant/donnees/questions.js, module M9, repère condamnation ; QCM HAB ELECT.docx, question 42"
+},
+{
+"id": "N3-034",
+"niveau": 3,
+"theme": "La consignation",
+"q": "À quoi sert la condamnation, dans une consignation électrique ?",
+"r": [
+"empêcher une remise sous tension non voulue",
+"repérer la couleur du circuit",
+"remplacer la vérification d'absence de tension"
+],
+"e": "La condamnation, souvent par un cadenas personnel, empêche que l'installation soit remise sous tension sans le vouloir.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "hocourant/donnees/questions.js, module M9, repère condamnation"
+},
+{
+"id": "N3-035",
+"niveau": 3,
+"theme": "Le VAT",
+"q": "Le vérificateur d'absence de tension (VAT) se contrôle…",
+"r": [
+"avant et après son utilisation",
+"avant seulement",
+"après seulement"
+],
+"e": "On contrôle le VAT avant l'essai, pour vérifier qu'il fonctionne, et après, pour confirmer qu'il fonctionne encore.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "hocourant/donnees/questions.js, module M3, repère vat ; QCM HAB ELECT.docx, question 17"
+},
+{
+"id": "N3-036",
+"niveau": 3,
+"theme": "La consignation",
+"q": "Un collègue veut retirer le cadenas d'une autre personne pour gagner du temps. Que fais-tu ?",
+"r": [
+"tu refuses : on ne retire pas le cadenas d'autrui sans autorisation",
+"tu acceptes, si le travail semble terminé",
+"tu coupes le cadenas, puis tu préviens"
+],
+"e": "On ne retire jamais librement le dispositif de condamnation posé par une autre personne.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"source": "hocourant/donnees/questions.js, module M9, repère condamnation"
+},
+{
+"id": "N3-037",
+"niveau": 3,
+"theme": "Les EPI électriques",
+"q": "En tant que B1V, dois-tu porter des EPI dans la zone de voisinage renforcé en BT ?",
+"r": [
+"oui, gants isolants et écran facial notamment",
+"non, le titre B1V suffit à lui seul",
+"seulement si le chargé de travaux le demande"
+],
+"e": "Dans le voisinage renforcé, les gants isolants et l'écran facial restent nécessaires, même habilité B1V.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"source": "T17-L-habilitation-electrique.html, § 2D les équipements ; B0 BR B1V Greta EXAMEN 86 corrigé.pptx, question B1V"
+},
+{
+"id": "N3-038",
+"niveau": 3,
+"theme": "L'ordre de travail",
+"q": "Qui dirige l'opération et encadre les exécutants sur un chantier électrique ?",
+"r": [
+"le chargé de travaux",
+"le chargé de consignation",
+"l'exécutant le plus expérimenté"
+],
+"e": "Le chargé de travaux dirige l'opération, reçoit l'attestation de consignation et encadre les exécutants.",
+"mfer": "C12",
+"cap": "C1.2",
+"tax": 1,
+"source": "T17-L-habilitation-electrique.html, § 3 qui fait quoi sur un chantier"
+},
+{
+"id": "N3-039",
+"niveau": 3,
+"theme": "Les gestes de secours",
+"q": "Une personne semble en contact avec un conducteur électrique. Ton premier geste ?",
+"r": [
+"supprimer le risque par un moyen sûr, sans t'exposer",
+"la tirer immédiatement par le bras",
+"lui donner à boire pour la calmer"
+],
+"e": "On supprime le risque sans se mettre en danger, puis on alerte : sinon on crée une deuxième victime.",
+"mfer": "C4",
+"cap": "C1.3",
+"tax": 3,
+"source": "hocourant/donnees/questions.js, module M12, repère secours"
+},
+{
+"id": "N3-040",
+"niveau": 3,
+"theme": "Les gestes de secours",
+"q": "Quel numéro compose-t-on pour une urgence, en Europe ?",
+"r": [
+"le 112",
+"le 119",
+"le 911"
+],
+"e": "Le 112 est le numéro d'urgence unique, valable dans toute l'Union européenne.",
+"mfer": "C4",
+"cap": "C1.3",
+"tax": 1,
+"source": "hocourant/donnees/questions.js, module M12, repère alerte"
+},
+{
+"id": "N4-001",
+"niveau": 4,
+"theme": "Réglementation F-Gas",
+"q": "Quel règlement européen encadre aujourd'hui les fluides frigorigènes fluorés ?",
+"r": [
+"le F-Gas III (UE) 2024/573",
+"le F-Gas II (UE) 517/2014",
+"la directive DEEE seule"
+],
+"e": "Le F-Gas III remplace le F-Gas II ; l'arrêté de 2025 en tire les conséquences pour l'attestation.",
+"mfer": "C9",
+"cap": "C4.2",
+"tax": 1,
+"source": "questions-habilitation.json H-G1-Q05"
+},
+{
+"id": "N4-002",
+"niveau": 4,
+"theme": "Réglementation F-Gas",
+"q": "Laisser volontairement s'échapper du fluide frigorigène dans l'air est :",
+"r": [
+"interdit, quelle que soit la quantité",
+"toléré si la quantité est faible",
+"autorisé si on le note ensuite"
+],
+"e": "Aucune tolérance : tout rejet volontaire de fluide dans l'atmosphère est une infraction.",
+"mfer": "C9",
+"cap": "C4.2",
+"tax": 1,
+"source": "Evaluation-P5-attestation-A1-sujet-ELEVE.html et son corrigé, question 7"
+},
+{
+"id": "N4-003",
+"niveau": 4,
+"theme": "PRP et équivalent CO2",
+"q": "Le PRP du CO₂, qui sert de référence pour tous les autres fluides, vaut :",
+"r": [
+"1",
+"100",
+"1 430"
+],
+"e": "Le CO₂ est l'étalon du PRP : tous les autres fluides se comparent à lui.",
+"mfer": "C2",
+"cap": "C4.2",
+"tax": 1,
+"source": "T13-Fluides-et-reglementation.html ; questions-habilitation.json H-G2-Q02"
+},
+{
+"id": "N4-004",
+"niveau": 4,
+"theme": "PRP et équivalent CO2",
+"q": "Le PRP d'un fluide compare son effet de serre à celui :",
+"r": [
+"du CO₂",
+"de l'ammoniac",
+"de l'ozone"
+],
+"e": "Un fluide de PRP 2000 réchauffe 2000 fois plus que la même masse de CO₂.",
+"mfer": "C2",
+"cap": "C4.2",
+"tax": 1,
+"source": "T13-Fluides-et-reglementation.html"
+},
+{
+"id": "N4-005",
+"niveau": 4,
+"theme": "PRP et équivalent CO2",
+"q": "Deux documents donnent deux PRP différents pour le même fluide. Tu retiens :",
+"r": [
+"la valeur la plus élevée",
+"la valeur la plus basse",
+"la moyenne des deux valeurs"
+],
+"e": "Prendre la valeur basse ferait passer une installation sous un seuil qu'elle dépasse en réalité.",
+"mfer": "C2",
+"cap": "C4.2",
+"tax": 2,
+"source": "T13-Fluides-et-reglementation.html ; Evaluation-P5-sujet-ELEVE, question 6"
+},
+{
+"id": "N4-006",
+"niveau": 4,
+"theme": "PRP et équivalent CO2",
+"q": "Comment calcule-t-on l'équivalent CO₂, en tonnes, d'une charge de fluide ?",
+"r": [
+"charge en kg × PRP ÷ 1000",
+"charge en kg × PRP",
+"charge en kg ÷ PRP"
+],
+"e": "On multiplie la charge par le PRP, puis on divise par 1000 pour obtenir des tonnes.",
+"mfer": "C2",
+"cap": "C4.2",
+"tax": 1,
+"source": "T13-Fluides-et-reglementation.html"
+},
+{
+"id": "N4-007",
+"niveau": 4,
+"theme": "PRP et équivalent CO2",
+"q": "Une installation contient 4,5 kg d'un fluide de PRP 2 100. Son équivalent CO₂ est :",
+"r": [
+"9,45 tonnes",
+"4,5 tonnes",
+"94,5 tonnes"
+],
+"e": "4,5 × 2100 ÷ 1000 = 9,45 tonnes équivalent CO₂. Oublier de diviser par 1000 est l'erreur classique.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 2,
+"source": "T13-Fluides-et-reglementation.html, exercice 2 et corrigé"
+},
+{
+"id": "N4-008",
+"niveau": 4,
+"theme": "Seuils de contrôle d'étanchéité",
+"q": "Une installation de 6 kg de R-134a atteint 8,58 tonnes équivalent CO₂. Sa périodicité de contrôle est :",
+"r": [
+"12 mois",
+"6 mois",
+"24 mois"
+],
+"e": "6 × 1430 = 8580 kg, soit 8,58 t éq. CO₂ : le seuil de 5 t est franchi, celui de 50 t non atteint.",
+"mfer": "C9",
+"cap": "C4.5",
+"tax": 2,
+"source": "Evaluation-P5-attestation-A1-corrige-PROFESSEUR.html, question 11"
+},
+{
+"id": "N4-009",
+"niveau": 4,
+"theme": "Seuils de contrôle d'étanchéité",
+"q": "Un détecteur de fuite permanent est installé sur une machine contrôlée tous les 12 mois. Sa nouvelle périodicité est :",
+"r": [
+"24 mois",
+"6 mois",
+"3 mois"
+],
+"e": "Un système de détection permanent double la périodicité du contrôle d'étanchéité.",
+"mfer": "C9",
+"cap": "C4.3",
+"tax": 2,
+"source": "Evaluation-P5-attestation-A1-corrige-PROFESSEUR.html, question C-2"
+},
+{
+"id": "N4-010",
+"niveau": 4,
+"theme": "Seuils de contrôle d'étanchéité",
+"q": "La périodicité du contrôle d'étanchéité d'une installation dépend surtout :",
+"r": [
+"de son équivalent CO₂",
+"de la taille de la machine",
+"de l'âge de la machine"
+],
+"e": "Ce n'est pas la taille qui compte, mais l'effet climatique potentiel, calculé en équivalent CO₂.",
+"mfer": "C9",
+"cap": "C4.3",
+"tax": 2,
+"source": "T13-Fluides-et-reglementation.html ; T21-L-attestation-d-aptitude-A1.html"
+},
+{
+"id": "N4-011",
+"niveau": 4,
+"theme": "Catégories d'attestation",
+"q": "Quelle catégorie d'attestation couvre l'ammoniac (R-717) ?",
+"r": [
+"la catégorie C",
+"la catégorie B",
+"la catégorie A2"
+],
+"e": "L'ammoniac exige la catégorie C, une catégorie nouvelle créée par l'arrêté de 2025.",
+"mfer": "C9",
+"cap": "C4.2",
+"tax": 1,
+"source": "T21-L-attestation-d-aptitude-A1.html"
+},
+{
+"id": "N4-012",
+"niveau": 4,
+"theme": "Catégories d'attestation",
+"q": "Depuis le 1er janvier 2027, l'ancienne catégorie d'attestation « I » s'appelle :",
+"r": [
+"A1",
+"A2",
+"D"
+],
+"e": "L'arrêté du 21 novembre 2025 recode les catégories : la catégorie I devient A1.",
+"mfer": "C9",
+"cap": "C4.2",
+"tax": 1,
+"source": "T21-L-attestation-d-aptitude-A1.html"
+},
+{
+"id": "N4-013",
+"niveau": 4,
+"theme": "Catégories d'attestation",
+"q": "La catégorie d'attestation A1 autorise à intervenir sur :",
+"r": [
+"tous les équipements, sans limite de charge",
+"seulement les équipements de moins de 2 kg",
+"seulement le contrôle d'étanchéité"
+],
+"e": "A1 couvre tous les équipements sans limite de charge : contrôle, mise en service, maintenance, récupération.",
+"mfer": "C9",
+"cap": "C4.2",
+"tax": 1,
+"source": "T21-L-attestation-d-aptitude-A1.html"
+},
+{
+"id": "N4-014",
+"niveau": 4,
+"theme": "Catégories d'attestation",
+"q": "Quelle catégorie d'attestation n'autorise que la récupération, sur les équipements de moins de 2 kg ?",
+"r": [
+"la catégorie D",
+"la catégorie E",
+"la catégorie A2"
+],
+"e": "La catégorie D correspond à l'ancienne catégorie III : récupération seule, petits équipements.",
+"mfer": "C9",
+"cap": "C4.2",
+"tax": 1,
+"source": "T21-L-attestation-d-aptitude-A1.html"
+},
+{
+"id": "N4-015",
+"niveau": 4,
+"theme": "Catégories d'attestation",
+"q": "Quelle catégorie d'attestation n'autorise que le contrôle d'étanchéité, sur les équipements de moins de 2 kg ?",
+"r": [
+"la catégorie E",
+"la catégorie D",
+"la catégorie A1"
+],
+"e": "La catégorie E correspond à l'ancienne catégorie IV : contrôle d'étanchéité seul, petits équipements.",
+"mfer": "C9",
+"cap": "C4.3",
+"tax": 1,
+"source": "T21-L-attestation-d-aptitude-A1.html"
+},
+{
+"id": "N4-016",
+"niveau": 4,
+"theme": "Catégories d'attestation",
+"q": "Un titulaire de la seule catégorie A1 découvre une bouteille de CO₂ sur un chantier. Il doit :",
+"r": [
+"ne pas intervenir et prévenir un titulaire catégorie B",
+"ouvrir la vanne pour vérifier la pression",
+"utiliser ses outils habituels de fluide fluoré"
+],
+"e": "Le CO₂ relève de la catégorie B : sans elle, aucune manipulation, même pour un titulaire A1.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"source": "questions-habilitation.json H-G13-Q03"
+},
+{
+"id": "N4-017",
+"niveau": 4,
+"theme": "CERFA et registre",
+"q": "Quel document faut-il remplir à chaque intervention sur une installation frigorifique ?",
+"r": [
+"la fiche d'intervention CERFA n° 15497",
+"le carnet d'entretien du bâtiment",
+"le rapport de conformité électrique"
+],
+"e": "C'est la fiche d'intervention, CERFA n° 15497 : une copie au détenteur, une gardée par l'entreprise.",
+"mfer": "C11",
+"cap": "C1.3",
+"tax": 1,
+"source": "Evaluation-P5-attestation-A1-corrige-PROFESSEUR.html, question C-3"
+},
+{
+"id": "N4-018",
+"niveau": 4,
+"theme": "CERFA et registre",
+"q": "Le registre d'une installation frigorifique doit consigner :",
+"r": [
+"chaque charge, récupération et contrôle",
+"seulement le prix des interventions",
+"seulement le nom du client"
+],
+"e": "Chaque opération sur le fluide se trace dans le registre : c'est la mémoire de la machine.",
+"mfer": "C11",
+"cap": "C1.3",
+"tax": 1,
+"source": "T13-Fluides-et-reglementation.html"
+},
+{
+"id": "N4-019",
+"niveau": 4,
+"theme": "CERFA et registre",
+"q": "Après récupération d'un fluide contaminé destiné à la destruction, quel document accompagne l'opération ?",
+"r": [
+"un bordereau de suivi de déchet dangereux",
+"la fiche d'identité de la machine",
+"aucun document n'est nécessaire"
+],
+"e": "Le fluide part en filière agréée avec un bordereau de suivi de déchet dangereux.",
+"mfer": "C11",
+"cap": "C1.3",
+"tax": 1,
+"source": "T21-L-attestation-d-aptitude-A1.html, exercice 4"
+},
+{
+"id": "N4-020",
+"niveau": 4,
+"theme": "Récupération et bouteilles",
+"q": "Un cylindre pèse 12,0 kg vide, puis 14,3 kg après récupération. Masse récupérée ?",
+"r": [
+"2,3 kg",
+"12,0 kg",
+"26,3 kg"
+],
+"e": "14,3 − 12,0 = 2,3 kg : c'est la pesée qui donne la quantité réelle, pas le manomètre.",
+"mfer": "C9",
+"cap": "C4.2",
+"tax": 2,
+"source": "questions-habilitation.json H-G5-Q03"
+},
+{
+"id": "N4-021",
+"niveau": 4,
+"theme": "Récupération et bouteilles",
+"q": "Une bouteille de récupération ne doit jamais être remplie au-delà de son taux admissible car :",
+"r": [
+"le liquide se dilate et peut la faire éclater",
+"elle deviendrait trop lourde à porter",
+"le fluide se dégraderait"
+],
+"e": "Sans volume d'expansion, la dilatation du liquide fait courir un risque de surpression et d'éclatement.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"source": "questions-habilitation.json H-G5-Q06 ; Evaluation-P5-sujet-ELEVE, question 15"
+},
+{
+"id": "N4-022",
+"niveau": 4,
+"theme": "Récupération et bouteilles",
+"q": "Un reste de R-134a doit rejoindre une bouteille qui contient déjà du R-449A. Que fais-tu ?",
+"r": [
+"je refuse : deux fluides ne se mélangent jamais",
+"je les mélange, ce sont deux HFC proches",
+"je verse le tout dans un seul bidon"
+],
+"e": "Un mélange devient non identifiable et non régénérable : la bouteille entière devient un déchet.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"source": "Evaluation-P5-attestation-A1-corrige-PROFESSEUR.html, question D-2"
+},
+{
+"id": "N4-023",
+"niveau": 4,
+"theme": "Risques et EPI",
+"q": "Lors d'une décompression brutale, un fluide frigorigène peut atteindre une température de :",
+"r": [
+"-50 °C et moins",
+"-10 °C environ",
+"0 °C, la température ambiante"
+],
+"e": "La détente brutale d'un fluide provoque un refroidissement extrême, jusqu'à -50 °C et moins.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "quiz-fgas-securite-complet.html, question 12"
+},
+{
+"id": "N4-024",
+"niveau": 4,
+"theme": "Récupération et bouteilles",
+"q": "L'huile vidangée d'un compresseur doit être :",
+"r": [
+"remise à une filière de déchets dangereux",
+"réutilisée après un simple filtrage",
+"jetée avec les déchets d'atelier"
+],
+"e": "Elle contient du fluide dissous : elle se gère comme un déchet dangereux tracé.",
+"mfer": "C9",
+"cap": "C4.2",
+"tax": 1,
+"source": "questions-habilitation.json H-G5-Q02"
+},
+{
+"id": "N4-025",
+"niveau": 4,
+"theme": "Classes de sécurité NF EN 378",
+"q": "Dans la classe de sécurité NF EN 378 d'un fluide, la lettre indique :",
+"r": [
+"la toxicité",
+"l'inflammabilité",
+"la pression de service"
+],
+"e": "La lettre dit la toxicité (A faible, B élevée), le chiffre dit l'inflammabilité.",
+"mfer": "C2",
+"cap": "C4.2",
+"tax": 1,
+"source": "T13-Fluides-et-reglementation.html"
+},
+{
+"id": "N4-026",
+"niveau": 4,
+"theme": "Classes de sécurité NF EN 378",
+"q": "Dans la classe de sécurité NF EN 378 d'un fluide, le chiffre indique :",
+"r": [
+"l'inflammabilité",
+"la toxicité",
+"le PRP du fluide"
+],
+"e": "1 : pas de propagation de flamme. 2L : faiblement inflammable. 2 : inflammable. 3 : hautement inflammable.",
+"mfer": "C2",
+"cap": "C4.2",
+"tax": 1,
+"source": "T13-Fluides-et-reglementation.html"
+},
+{
+"id": "N4-027",
+"niveau": 4,
+"theme": "Classes de sécurité NF EN 378",
+"q": "Le R-290 (propane) est classé, en sécurité NF EN 378 :",
+"r": [
+"A3, hautement inflammable",
+"A2L, faiblement inflammable",
+"B2L, toxique"
+],
+"e": "Piège fréquent : le R-290 n'est pas A2L. Hydrocarbure, il est classé A3, hautement inflammable.",
+"mfer": "C2",
+"cap": "C4.2",
+"tax": 1,
+"source": "T13-Fluides-et-reglementation.html ; Evaluation-P5-sujet-ELEVE, question 18 ; questions-habilitation.json H-G1-Q04"
+},
+{
+"id": "N4-028",
+"niveau": 4,
+"theme": "Classes de sécurité NF EN 378",
+"q": "L'ammoniac (R-717) est classé, en sécurité NF EN 378 :",
+"r": [
+"B2L : toxique et faiblement inflammable",
+"A1 : non toxique et non inflammable",
+"A3 : hautement inflammable"
+],
+"e": "Le NH3 cumule une toxicité élevée et une inflammabilité faible : classe B2L.",
+"mfer": "C2",
+"cap": "C4.2",
+"tax": 1,
+"source": "questions-habilitation.json H-G14-Q01"
+},
+{
+"id": "N4-029",
+"niveau": 4,
+"theme": "Risques et EPI",
+"q": "En cas de contact de fluide frigorigène liquide avec la peau, le bon geste est :",
+"r": [
+"rincer à l'eau tiède 15 à 20 minutes",
+"appliquer de la glace sur la zone",
+"frotter avec un linge sec"
+],
+"e": "On rince à l'eau tiède, jamais chaude ni froide, sans frotter ni glacer la zone touchée.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 3,
+"source": "quiz-fgas-securite-complet.html, question 3"
+},
+{
+"id": "N4-030",
+"niveau": 4,
+"theme": "Risques et EPI",
+"q": "Pourquoi une fuite de fluide frigorigène est-elle particulièrement dangereuse dans un sous-sol ?",
+"r": [
+"le fluide est plus lourd que l'air et s'y accumule",
+"le fluide y devient plus toxique",
+"la pression y est plus élevée"
+],
+"e": "Plus lourds que l'air, les fluides s'accumulent dans les points bas et chassent l'oxygène.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 2,
+"source": "quiz-fgas-securite-complet.html, question 13"
+},
+{
+"id": "N4-031",
+"niveau": 4,
+"theme": "Risques et EPI",
+"q": "Avant d'entrer dans un local technique frigorifique confiné, le taux d'oxygène de l'air doit rester :",
+"r": [
+"au-dessus de 19 %",
+"en dessous de 19 %",
+"à exactement 21 %"
+],
+"e": "Sous 19 % d'oxygène, l'accès est interdit : les fluides ont pu déplacer l'air respirable.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "quiz-fgas-securite-complet.html, question 16"
+},
+{
+"id": "N4-032",
+"niveau": 4,
+"theme": "Risques et EPI",
+"q": "Quels équipements de protection individuelle protègent des projections de fluide liquide ?",
+"r": [
+"des gants et des lunettes",
+"un casque anti-bruit et des chaussures",
+"un masque à gaz et un harnais"
+],
+"e": "Les gants évitent la brûlure par le froid, les lunettes protègent les yeux des projections.",
+"mfer": "C4",
+"cap": "C2.4",
+"tax": 1,
+"source": "quiz-fgas-securite-complet.html, question 1 ; Evaluation-P5-corrige-PROFESSEUR, question D-1"
+},
+{
+"id": "N4-033",
+"niveau": 4,
+"theme": "Manipulation et stockage",
+"q": "Avant d'ouvrir un circuit ayant contenu du R-290 (propane), après récupération, il faut :",
+"r": [
+"inerter le circuit à l'azote",
+"ouvrir directement, le circuit est vide",
+"rincer le circuit à l'eau"
+],
+"e": "Il reste du propane dans l'huile et les points bas : récupérer ne suffit pas, il faut inerter.",
+"mfer": "C7",
+"cap": "C4.2",
+"tax": 2,
+"source": "questions-habilitation.json H-G12-Q03 ; Evaluation-P5-sujet-ELEVE, question 19"
+},
+{
+"id": "N4-034",
+"niveau": 4,
+"theme": "Manipulation et stockage",
+"q": "Un mélange zéotrope de fluide se charge dans le circuit :",
+"r": [
+"en phase liquide",
+"en phase vapeur",
+"indifféremment, liquide ou vapeur"
+],
+"e": "Charger un zéotrope en vapeur fausse la composition du mélange restant dans la bouteille.",
+"mfer": "C7",
+"cap": "C4.2",
+"tax": 2,
+"source": "Evaluation-P5-attestation-A1-corrige-PROFESSEUR.html, question 14"
+},
+{
+"id": "N4-035",
+"niveau": 4,
+"theme": "Manipulation et stockage",
+"q": "Une dépressurisation trop rapide d'un circuit au CO₂ (R-744) risque de provoquer :",
+"r": [
+"de la neige carbonique qui bouche la ligne",
+"une inflammation du fluide",
+"aucun risque, le CO₂ est inerte"
+],
+"e": "Sous son point triple, le CO₂ liquide se change en neige carbonique et peut boucher la ligne.",
+"mfer": "C7",
+"cap": "C4.2",
+"tax": 2,
+"source": "Evaluation-P5-attestation-A1-corrige-PROFESSEUR.html, question 20"
+},
+{
+"id": "N5-001",
+"niveau": 5,
+"theme": "Raisonnement de diagnostic",
+"q": "Une haute pression élevée avec une basse pression normale ou haute orientent d'abord vers un problème :",
+"r": [
+"au condenseur, qui n'évacue pas assez",
+"à l'évaporateur, mal alimenté en fluide",
+"au compresseur, qui ne comprime plus"
+],
+"e": "Condenseur encrassé, ventilateur arrêté ou surcharge de fluide : trois pistes à vérifier en premier.",
+"mfer": "C10",
+"cap": "C2.2",
+"tax": 2,
+"source": "T06-Le-raisonnement-de-diagnostic.html"
+},
+{
+"id": "N5-002",
+"niveau": 5,
+"theme": "Raisonnement de diagnostic",
+"q": "Une haute pression normale avec une basse pression basse orientent d'abord vers un problème :",
+"r": [
+"à l'évaporateur, mal alimenté en fluide",
+"au condenseur, qui n'évacue pas assez",
+"au compresseur, qui ne comprime plus"
+],
+"e": "Givre, filtre bouché ou détendeur trop fermé : on vérifie le voyant liquide et la surchauffe.",
+"mfer": "C10",
+"cap": "C2.2",
+"tax": 2,
+"source": "T06-Le-raisonnement-de-diagnostic.html"
+},
+{
+"id": "N5-003",
+"niveau": 5,
+"theme": "Raisonnement de diagnostic",
+"q": "Une basse pression basse avec une haute pression haute orientent d'abord vers :",
+"r": [
+"un compresseur qui ne comprime plus",
+"un manque de fluide",
+"un condenseur encrassé"
+],
+"e": "On contrôle alors l'intensité absorbée et la température de refoulement du compresseur.",
+"mfer": "C10",
+"cap": "C2.2",
+"tax": 2,
+"source": "T06-Le-raisonnement-de-diagnostic.html"
+},
+{
+"id": "N5-004",
+"niveau": 5,
+"theme": "Raisonnement de diagnostic",
+"q": "Une haute pression basse et une basse pression basse orientent d'abord vers :",
+"r": [
+"un manque de fluide, donc une fuite",
+"un compresseur trop puissant",
+"un évaporateur encrassé"
+],
+"e": "On cherche alors la fuite et les traces d'huile, signe classique d'une perte de fluide.",
+"mfer": "C10",
+"cap": "C2.2",
+"tax": 2,
+"source": "T06-Le-raisonnement-de-diagnostic.html"
+},
+{
+"id": "N5-005",
+"niveau": 5,
+"theme": "Calcul de mise en service",
+"q": "Sur un mélange zéotrope, en sortie d'évaporateur, la surchauffe se calcule à partir de la température :",
+"r": [
+"de rosée",
+"de bulle",
+"moyenne entre bulle et rosée"
+],
+"e": "En sortie d'évaporateur le fluide est entièrement vaporisé : c'est la rosée qui compte.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 2,
+"source": "Evaluation-P6-examen-blanc-E2-corrige-PROFESSEUR.html, question 5b"
+},
+{
+"id": "N5-006",
+"niveau": 5,
+"theme": "Calcul de mise en service",
+"q": "Sur un mélange zéotrope, en sortie de condenseur, le sous-refroidissement se calcule à partir de la température :",
+"r": [
+"de bulle",
+"de rosée",
+"moyenne entre bulle et rosée"
+],
+"e": "En sortie de condenseur le fluide est entièrement liquide : c'est la bulle qui compte.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 2,
+"source": "Evaluation-P6-examen-blanc-E2-corrige-PROFESSEUR.html, question 5d"
+},
+{
+"id": "N5-007",
+"niveau": 5,
+"theme": "Calcul de mise en service",
+"q": "Le glissement d'un mélange zéotrope, à une pression donnée, se calcule par :",
+"r": [
+"température de rosée moins température de bulle",
+"température de bulle moins température de rosée",
+"température de bulle plus température de rosée"
+],
+"e": "C'est l'écart de température entre le début et la fin du changement d'état, à pression constante.",
+"mfer": "C2",
+"cap": "C4.5",
+"tax": 1,
+"source": "Evaluation-P6-examen-blanc-E2-corrige-PROFESSEUR.html, question 6"
+},
+{
+"id": "N5-008",
+"niveau": 5,
+"theme": "Raisonnement de diagnostic",
+"q": "L'écart condenseur/air mesuré n'est que de 5 K, au lieu de 10 à 15 K attendus. Cela signifie :",
+"r": [
+"le condenseur n'a presque rien à évacuer",
+"le condenseur fonctionne normalement",
+"le compresseur est en surchauffe"
+],
+"e": "Un écart aussi faible ne veut pas dire que tout va bien : la machine ne produit presque plus de froid.",
+"mfer": "C10",
+"cap": "C4.5",
+"tax": 3,
+"source": "Evaluation-P6-examen-blanc-E2-corrige-PROFESSEUR.html, question 9"
+},
+{
+"id": "N5-009",
+"niveau": 5,
+"theme": "Régulation du froid",
+"q": "Le redémarrage d'un compresseur, après arrêt sur consigne, se produit à :",
+"r": [
+"consigne + différentiel",
+"consigne − différentiel",
+"la consigne, sans différentiel"
+],
+"e": "Exemple : consigne + 2 °C et différentiel 3 K donnent un redémarrage à + 5 °C.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 1,
+"source": "T20-La-regulation-du-froid.html"
+},
+{
+"id": "N5-010",
+"niveau": 5,
+"theme": "Régulation du froid",
+"q": "Un compresseur démarre et s'arrête toutes les deux minutes. Quel réglage revoir, et comment ?",
+"r": [
+"augmenter le différentiel",
+"diminuer le différentiel",
+"baisser la consigne"
+],
+"e": "Un différentiel trop petit fait « pomper » la machine : l'augmenter espace les démarrages.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 3,
+"source": "T20-La-regulation-du-froid.html, exercice 2"
+},
+{
+"id": "N5-011",
+"niveau": 5,
+"theme": "Régulation du froid",
+"q": "Le pressostat haute pression a le plus souvent un réarmement :",
+"r": [
+"manuel, pour qu'on aille chercher la cause",
+"automatique, pour ne pas gêner le client",
+"inexistant, ce n'est qu'un voyant"
+],
+"e": "Un réarmement automatique laisserait la machine repartir en boucle sur un défaut non traité.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 2,
+"source": "T20-La-regulation-du-froid.html"
+},
+{
+"id": "N5-012",
+"niveau": 5,
+"theme": "Régulation du froid",
+"q": "Un pressostat HP coupe souvent et énerve le client. Un collègue propose de le shunter. Que réponds-tu ?",
+"r": [
+"je refuse : on cherche la cause, sans masquer l'alarme",
+"j'accepte, ce n'est que temporaire",
+"j'accepte si le client insiste"
+],
+"e": "Shunter une sécurité laisse la pression monter jusqu'à la casse : geste interdit, même temporairement.",
+"mfer": "C8",
+"cap": "C2.4",
+"tax": 3,
+"source": "T20-La-regulation-du-froid.html, exercice 5"
+},
+{
+"id": "N5-013",
+"niveau": 5,
+"theme": "Régulation du froid",
+"q": "Après un dégivrage, de l'eau est projetée sur les produits et regèle aussitôt. Quel réglage est en cause ?",
+"r": [
+"le temps d'égouttage, trop court ou absent",
+"la consigne de température",
+"le type de fluide frigorigène"
+],
+"e": "Sans égouttage suffisant, les ventilateurs repartent avant que l'eau de dégivrage ait fini de s'écouler.",
+"mfer": "C8",
+"cap": "C4.6",
+"tax": 2,
+"source": "T20-La-regulation-du-froid.html, exercice 4"
+},
+{
+"id": "N5-014",
+"niveau": 5,
+"theme": "Chiffrer une intervention",
+"q": "Un devis d'intervention doit obligatoirement comporter un poste pour :",
+"r": [
+"le traitement des déchets",
+"la publicité de l'entreprise",
+"le salaire du responsable"
+],
+"e": "Fluide récupéré, huile usagée, pièce déposée : ce poste est obligatoire, pas optionnel.",
+"mfer": "C3",
+"cap": "C2.1",
+"tax": 1,
+"source": "T08-Chiffrer-une-intervention.html"
+},
+{
+"id": "N5-015",
+"niveau": 5,
+"theme": "Chiffrer une intervention",
+"q": "Sur un devis, une pièce souvent oubliée, indispensable à chaque ouverture de circuit, est :",
+"r": [
+"le filtre déshydrateur",
+"le thermostat",
+"le pressostat"
+],
+"e": "Il se remplace à chaque ouverture du circuit : sans lui, on ne referme pas l'installation.",
+"mfer": "C3",
+"cap": "C2.1",
+"tax": 1,
+"svg": "filtre_deshydrateur",
+"source": "T08-Chiffrer-une-intervention.html"
+},
+{
+"id": "N5-016",
+"niveau": 5,
+"theme": "Chiffrer une intervention",
+"q": "Une marge d'aléa sur un devis se justifie :",
+"r": [
+"par une raison précise, écrite",
+"par une estimation au hasard",
+"elle ne se justifie jamais"
+],
+"e": "Une marge sans justification n'est pas un devis, c'est un doute chiffré.",
+"mfer": "C3",
+"cap": "C2.1",
+"tax": 2,
+"source": "T08-Chiffrer-une-intervention.html"
+},
+{
+"id": "N5-017",
+"niveau": 5,
+"theme": "Chiffrer une intervention",
+"q": "Pour vérifier un devis avant de le rendre, le contrôle de vraisemblance consiste à :",
+"r": [
+"se demander si le montant a du sens pour ce chantier",
+"arrondir tous les prix à l'euro",
+"supprimer la marge d'aléa"
+],
+"e": "Un devis dix fois trop élevé ou trop faible signale une erreur d'unité ou de quantité.",
+"mfer": "C3",
+"cap": "C2.1",
+"tax": 2,
+"source": "T08-Chiffrer-une-intervention.html"
+},
+{
+"id": "N5-018",
+"niveau": 5,
+"theme": "Rendre compte et conseiller",
+"q": "Pour expliquer une panne à un client qui n'est pas du métier, la bonne méthode est :",
+"r": [
+"trois phrases sans jargon : symptôme, cause, action faite",
+"un vocabulaire technique précis",
+"un historique détaillé de l'intervention"
+],
+"e": "« La vanne qui dose le liquide ne s'ouvrait plus » se comprend mieux que « le détendeur ».",
+"mfer": "C12",
+"cap": "C1.3",
+"tax": 2,
+"source": "T22-Rendre-compte-et-conseiller.html"
+},
+{
+"id": "N5-019",
+"niveau": 5,
+"theme": "Rendre compte et conseiller",
+"q": "Conseiller un client, selon le référentiel, c'est notamment :",
+"r": [
+"expliquer le fonctionnement et les consignes de sécurité",
+"vendre le contrat le plus cher possible",
+"ne rien dire pour ne pas l'inquiéter"
+],
+"e": "Un exploitant qui comprend sa machine l'abîme moins et appelle plus tôt quand c'est grave.",
+"mfer": "C13",
+"cap": "C1.3",
+"tax": 2,
+"source": "T22-Rendre-compte-et-conseiller.html"
+},
+{
+"id": "N5-020",
+"niveau": 5,
+"theme": "Rendre compte et conseiller",
+"q": "En rendant compte d'une intervention, faut-il dire ce qui reste à faire ?",
+"r": [
+"oui, un client prévenu n'est pas mécontent",
+"non, cela inquiète inutilement",
+"seulement si le client le demande"
+],
+"e": "Cacher ce qui n'est pas résolu affaiblit la confiance ; le dire la renforce.",
+"mfer": "C12",
+"cap": "C1.3",
+"tax": 2,
+"source": "T22-Rendre-compte-et-conseiller.html"
+},
+{
+"id": "N5-021",
+"niveau": 5,
+"theme": "Rendre compte et conseiller",
+"q": "Le dossier machine remis au client sert surtout à :",
+"r": [
+"permettre au technicien suivant de ne pas tout refaire",
+"justifier le prix de l'intervention",
+"remplacer la garantie du fabricant"
+],
+"e": "Sans dossier, le technicien suivant doit tout relever et remesurer avant d'intervenir.",
+"mfer": "C11",
+"cap": "C1.3",
+"tax": 1,
+"source": "T22-Rendre-compte-et-conseiller.html"
+},
+{
+"id": "N5-022",
+"niveau": 5,
+"theme": "Réglementation avancée",
+"q": "Pourquoi fait-on circuler de l'azote à l'intérieur du tube pendant le brasage ?",
+"r": [
+"pour chasser l'oxygène et éviter la calamine",
+"pour refroidir le joint plus vite",
+"pour augmenter la pression du circuit"
+],
+"e": "Sans azote, l'oxygène de l'air forme de la calamine qui se détache et bouche filtres et détendeurs.",
+"mfer": "C6",
+"cap": "C3.5",
+"tax": 1,
+"source": "questions-habilitation.json H-G10-Q01"
+},
+{
+"id": "N5-023",
+"niveau": 5,
+"theme": "Réglementation avancée",
+"q": "Sur un système à boucle indirecte, la charge principale de fluide frigorigène est :",
+"r": [
+"confinée dans la zone technique primaire",
+"répartie dans tout le bâtiment",
+"totalement absente de l'installation"
+],
+"e": "Le principe de la boucle indirecte confine le fluide primaire et distribue le froid par un caloporteur.",
+"mfer": "C1",
+"cap": "C2.1",
+"tax": 2,
+"source": "questions-habilitation.json H-G11-Q02"
+},
+{
+"id": "N5-024",
+"niveau": 5,
+"theme": "Réglementation avancée",
+"q": "Les principales solutions de substitution aux gaz fluorés sont aujourd'hui :",
+"r": [
+"les fluides naturels et les HFO à faible PRP",
+"uniquement d'autres HFC",
+"l'air comprimé"
+],
+"e": "CO₂, ammoniac, hydrocarbures et HFO remplacent peu à peu les fluides à fort PRP.",
+"mfer": "C1",
+"cap": "C2.1",
+"tax": 1,
+"source": "questions-habilitation.json H-G11-Q08"
+},
+{
+"id": "N5-025",
+"niveau": 5,
+"theme": "Réglementation avancée",
+"q": "Un climatiseur au R-290 est prévu pour 150 g maximum. Un nouveau composant porterait la charge à 165 g. Tu :",
+"r": [
+"respectes les 150 g et revois le composant",
+"charges 165 g, c'est le calcul exact",
+"charges la moyenne des deux valeurs"
+],
+"e": "La plaque signalétique est la valeur contractuelle : elle n'est jamais dépassée, quel que soit le calcul.",
+"mfer": "C4",
+"cap": "C4.2",
+"tax": 3,
+"source": "questions-habilitation.json H-G12-Q02"
+}
+]

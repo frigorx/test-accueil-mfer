@@ -15,9 +15,10 @@ faire la cartographie des points forts, points faibles, attention aux attendus. 
 - **Six niveaux** : N0 accueil et sécurité (le test d'accueil, réduit) · N1 les bases (2nde TNE, CAP 1re
   année, entrée en 1re MFER) · N2 mesurer et agir (CAP 2e année, 1re MFER) · N3 électricité et régulation ·
   N4 habilitation fluide (Terminale, attestation A1) · N5 expert (sortie de Terminale, entrée BTS).
-- **Trois classes au départ** : CAP IFCA, 1re Bac Pro MFER, Terminale Bac Pro MFER. Les compétences sont
-  celles du référentiel de la classe (CAP IFCA C1.1 → C4.7 ; Bac Pro MFER C1 → C13), chaque question
-  portant un code pour chacun des deux référentiels.
+- **Quatre classes au départ** : CAP IFCA, 1re Bac Pro MFER, Terminale Bac Pro MFER, 2de TNE (« j'ai oublié
+  la TNE »). Les compétences sont celles du référentiel de la classe (CAP IFCA C1.1 → C4.7 ; Bac Pro MFER
+  C1 → C13 ; 2de TNE : compétences communes CC obtenues par correspondance depuis les codes Bac Pro),
+  chaque question portant un code pour chacun des deux référentiels.
 - **Échelle des compétences** : moins de 40 % de justes = non acquis · 40 à 64 % = en cours · 65 à 84 % =
   acquis · 85 % et plus = parfaitement maîtrisé · aucune question = non évalué.
 - **Rien d'inventé** : toute question vient d'une source de Franck ou du dossier, et la cite.
@@ -47,9 +48,28 @@ Réglage : Fable en cadrage, moteur et vérification ; trois rédacteurs Sonnet 
 | # | Étape | État |
 |---|---|---|
 | 1 | Plan, brief des rédacteurs, schéma de la banque, vérificateur `construire-banque.py` | ✅ |
-| 2 | Trois rédacteurs Sonnet : N0+N1+N2 · N3 · N4+N5 → `banque/niveau-N.json` | ⏳ |
-| 3 | Moteur `positionnement.html` (niveaux adaptatifs, symboles, compétences 0-4, exports) | ⏳ |
-| 4 | Fusion et contrôle de la banque, `banque.json` | ⏳ |
-| 5 | Serveur local : `/cartographie` et `/cartographie.csv` | ⏳ |
-| 6 | Essais dans le navigateur (CAP, MFER, arrêt de niveau, exports), publication GitHub Pages | ⏳ |
-| 7 | Journal, mémoire, relais | ⏳ |
+| 2 | Trois rédacteurs Sonnet : N0+N1+N2 · N3 · N4+N5 → `banque/niveau-N.json` | ✅ 10/09 (0 défaut chacun) |
+| 3 | Moteur `positionnement.html` (niveaux adaptatifs, symboles, compétences 0-4, exports) | ✅ |
+| 4 | Fusion et contrôle de la banque, `banque.json` | ✅ 172 questions |
+| 5 | Serveur local : `/cartographie` et `/cartographie.csv` | ✅ |
+| 6 | Essais dans le navigateur (CAP, MFER, arrêt de niveau, exports), publication GitHub Pages | ✅ 10/09 soir |
+| 7 | Journal, mémoire, relais | ✅ |
+
+## Résultat (10/09 au soir)
+
+**La banque** : 172 questions — N0 12 · N1 30 · N2 30 · N3 40 · N4 35 · N5 25 ; taxonomie « je sais » 89,
+« je comprends » 61, « je fais le bon geste » 22 ; 37 questions portent un symbole de la palette ; aucune
+question restreinte à un diplôme. Un élève tire 15 questions par niveau (les 12 du N0) : **87 questions au
+plus** pour celui qui va jusqu'au niveau 5, une trentaine pour celui qui s'arrête au niveau 1.
+
+**Les essais** (par script, serveur local) : CAP « tout juste » → N5 atteint, 87/87, dix-sept compétences CAP
+à « parfaitement maîtrisé », 19 symboles vus ; MFER qui échoue au N1 → arrêt, niveau atteint N0, 12/27 ;
+2de TNE mixte (N4 à moitié juste, N5 faux) → N4 atteint, 65/87, carte en codes CC (CC11 → CC82). Côté PC :
+`/resultats` (avec le bloc « En ce moment »), `/resultats.csv`, `/cartographie`, `/cartographie.csv` justes.
+
+**Relevé par les rédacteurs, à trancher par Franck** (aucune question n'a été écrite sur ces points) :
+1. `TP-R1-Mise-en-service-RESSOURCE` attribue au cours T05 les fourchettes « surchauffe 5-8 K,
+   sous-refroidissement 4-7 K » ; T05 ne donne aucun chiffre et renvoie au constructeur.
+2. Température de refoulement : 70 °C dans le corrigé des interros P1 (n° 1), 90 °C dans le cours T02.
+3. Identifier les organes sur un schéma : compétence C1 dans l'Évaluation P1, C2 dans l'interro grand format.
+4. « Purger le manifold » n'a pas de source au N2 ; la classification A2L/A3 est laissée au N4 (habilitation).
