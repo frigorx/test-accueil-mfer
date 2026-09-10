@@ -14,7 +14,7 @@ chaque résultat devient une ligne de la feuille de réponses, dans votre Google
 
 ## Sans Internet : le serveur local sur le PC du professeur (esprit SchoolRoom)
 
-`python serveur-test-accueil.py` dans ce dossier (Python seul, rien à installer). Le PC sert la page
+`Test-de-rentree.cmd` — ou `python serveur-test-accueil.py` — dans ce dossier (Python seul, rien à installer). Le PC sert la page
 aux téléphones du même réseau Wi-Fi (ou du point d'accès mobile du PC) et **reçoit les résultats** :
 
 - élèves : `http://ADRESSE-DU-PC:8765/` (l'adresse s'affiche au lancement ; les élèves la tapent) ;

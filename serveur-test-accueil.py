@@ -154,7 +154,8 @@ def adresse_eleves(chemin=''):
 
 
 def reglages():
-    """reglages.json à côté du serveur : {"ssid": "...", "motdepasse": "...", "adresse": "http://192.168.137.1:8765/"} — tout facultatif."""
+    """reglages.json à côté du serveur (jamais publié) : {"ssid": "...", "motdepasse": "...", "adresse": "http://192.168.137.1:8765/",
+    "whatsapp": "33612345678"} — tout facultatif. Le numéro voyage dans les liens en ligne (?wa=), jamais dans les pages."""
     p = os.path.join(ICI, 'reglages.json')
     try:
         return json.loads(io.open(p, encoding='utf-8').read()) if os.path.exists(p) else {}
@@ -195,17 +196,105 @@ def page_projeter():
         wifi = '<div class="col"><h2>1. Le Wi-Fi</h2><p class="pas">Je me connecte au Wi-Fi du professeur.</p><p style="font-size:14px;opacity:.7">Pour afficher le nom, le mot de passe et leur QR code : écrire <code>reglages.json</code> à côté du serveur.</p></div>'
     adresse = ('<div class="col"><h2>2. L\'adresse</h2><div class="adr">%s</div>%s<p class="pas">puis mon nom, ma classe, je commence</p></div>'
                % (html.escape(url), '<img src="/qr.png" alt="QR adresse">' if qr_ok else
-                  '<p style="font-size:18px;color:#ffd0bd">Pas de QR code : lancer une fois <code>pip install qrcode[pil]</code> (Lancer-le-serveur.cmd le fait s\'il y a Internet).</p>'))
-    return ('<meta charset="utf-8"><meta http-equiv="refresh" content="60"><title>Se connecter au test</title>'
-            '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:18px}'
-            'h1{font-size:30px;margin:6px 0 14px}h2{font-size:24px;margin:4px 0 8px}code{font-family:Consolas,monospace}'
-            '.cols{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}.col{flex:1;min-width:320px;max-width:640px;background:rgba(255,255,255,.06);border-radius:16px;padding:14px}'
-            '.adr{font-size:40px;font-weight:bold;background:#fff;color:#1b3a63;display:inline-block;padding:10px 22px;border-radius:14px;margin:8px 0;letter-spacing:.03em;word-break:break-all}'
-            'img{width:min(38vh,90%%);display:block;margin:8px auto;border-radius:10px}.pas{font-size:22px;margin:6px 0}</style>'
+                  '<p style="font-size:18px;color:#ffd0bd">Pas de QR code : lancer une fois <code>pip install qrcode[pil]</code> (Test-de-rentree.cmd le fait s\'il y a Internet).</p>'))
+    return (CSS_PROJETER + '<title>Se connecter au test</title>'
             '<h1>Pour faire le test sur mon téléphone</h1><div class="cols">%s%s</div>'
             '<p style="font-size:16px;opacity:.85">Positionnement : %spositionnement.html &nbsp;·&nbsp; Le professeur suit tout sur http://localhost:%d/resultats</p>'
             '<p style="font-size:14px;opacity:.7">Si l\'adresse ne répond pas, essayer : %s (point d\'accès mobile de Windows : 192.168.137.1 en général)</p>'
             % (wifi, adresse, html.escape(url), PORT, html.escape(' · '.join('http://%s:%d/' % (ip, PORT) for ip in adresses()) or '—')))
+
+
+PUBLIC = 'https://frigorx.github.io/test-accueil-mfer/'
+PAGES_PROF = ('/prof', '/projeter', '/resultats', '/cartographie', '/qr')   # ne s'ouvrent que sur le PC du professeur
+CSS_PROJETER = ('<meta charset="utf-8"><meta http-equiv="refresh" content="60">'
+                '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:18px}'
+                'h1{font-size:30px;margin:6px 0 14px}h2{font-size:24px;margin:4px 0 8px}code{font-family:Consolas,monospace}'
+                '.cols{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}.col{flex:1;min-width:320px;max-width:640px;background:rgba(255,255,255,.06);border-radius:16px;padding:14px}'
+                '.adr{font-size:40px;font-weight:bold;background:#fff;color:#1b3a63;display:inline-block;padding:10px 22px;border-radius:14px;margin:8px 0;letter-spacing:.03em;word-break:break-all}'
+                'img{width:min(38vh,90%);display:block;margin:8px auto;border-radius:10px}.pas{font-size:22px;margin:6px 0}</style>')
+CSS_PROF = ('<meta charset="utf-8"><style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;padding:18px 26px;color:#22303f;background:#f5f8fc}'
+            'h1{color:#1b3a63;font-size:28px;margin:0 0 4px}h2{color:#1b3a63;font-size:20px;margin:22px 0 8px}.etat{font-size:16px;color:#555;margin:0}'
+            '.grille{display:flex;flex-wrap:wrap;gap:12px}.b{flex:1;min-width:240px;max-width:420px;color:#fff;text-decoration:none;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}'
+            '.b b{font-size:20px}.b span{font-size:14px;opacity:.9}.mono{font-family:Consolas,monospace;font-size:15px;line-height:1.7}'
+            'code{font-family:Consolas,monospace;background:#e8eef6;padding:1px 4px;border-radius:3px}.pied{color:#777;font-size:14px;margin-top:26px}a{color:#1b3a63}</style>')
+
+
+def lisible(wa):
+    """33649243008 → 06 49 24 30 08 (numéro français) ; sinon +numéro."""
+    n = '0' + wa[2:] if wa.startswith('33') and len(wa) == 11 else '+' + wa
+    return ' '.join(n[i:i + 2] for i in range(0, len(n), 2)) if n.startswith('0') else n
+
+
+def liens_publics():
+    """Les deux tests en ligne ; le numéro WhatsApp du professeur voyage dans le lien (?wa=), jamais dans les pages."""
+    wa = str(reglages().get('whatsapp') or '')
+    q = '?wa=' + wa if wa.isdigit() else ''
+    return [("Test d'accueil", 'sécurité, règlement, règles de la classe · noté sur 20 · 1 h', PUBLIC + q),
+            ('Positionnement', 'six niveaux, non noté · le niveau atteint et mes compétences', PUBLIC + 'positionnement.html' + q)]
+
+
+def qr_data(texte):
+    """Le QR code en donnée incorporable (data:), ou '' sans le module qrcode."""
+    import base64
+    png = qr_png(texte)
+    return 'data:image/png;base64,' + base64.b64encode(png).decode('ascii') if png else ''
+
+
+def page_projeter_en_ligne():
+    """À projeter quand les élèves ont Internet (4G ou Wi-Fi du lycée) : les deux QR codes des tests en ligne."""
+    wa = str(reglages().get('whatsapp') or '')
+    cols = ''
+    for titre, sous, url in liens_publics():
+        img = qr_data(url)
+        cols += ('<div class="col"><h2>%s</h2><p class="pas" style="font-size:18px">%s</p>%s<div class="adr" style="font-size:22px">%s</div></div>'
+                 % (html.escape(titre), html.escape(sous),
+                    '<img src="%s" alt="QR code">' % img if img else '<p class="pas">(pas de QR code : module qrcode absent)</p>',
+                    html.escape(url.replace('https://', '').split('?')[0])))
+    num = ('WhatsApp du professeur : <b>%s</b>' % html.escape(lisible(wa))) if wa.isdigit() else "Numéro WhatsApp non réglé (reglages.json) : la capture d'écran suffit."
+    return (CSS_PROJETER + '<title>Les tests en ligne</title>'
+            '<h1>Pour faire le test sur mon téléphone (4G ou Wi-Fi)</h1><div class="cols">%s</div>'
+            '<ol class="pas" style="text-align:left;display:inline-block;margin:14px auto 0"><li>Je scanne le QR code, ou je tape l\'adresse.</li>'
+            '<li>Mon nom, ma classe, « Commencer ».</li><li>Je réponds. <b>Je ne quitte pas la page</b> : chaque sortie est comptée.</li>'
+            '<li>À la fin : capture d\'écran du cadre, puis « Envoyer par WhatsApp au professeur ».</li></ol>'
+            '<p class="pas">%s</p>' % (cols, num))
+
+
+def page_prof():
+    """Le poste de commande du professeur (sur son PC seulement) : projeter, suivre, vérifier, régler."""
+    import time
+    r = reglages()
+    vivants = sum(1 for d in SUIVI.values() if time.time() - d.get('_t', 0) < 90)
+    ip = (adresses() or ['localhost'])[0]
+
+    def bouton(href, titre, sous, couleur='#1b3a63'):
+        return ('<a class="b" href="%s" target="_blank" style="background:%s"><b>%s</b><span>%s</span></a>'
+                % (href, couleur, html.escape(titre), html.escape(sous)))
+    wa = str(r.get('whatsapp') or '')
+    etat = ('%d résultat(s) reçu(s) · %d connecté(s) en ce moment · WhatsApp %s · Wi-Fi du PC %s'
+            % (len(lire_resultats()), vivants,
+               ('réglé (%s)' % lisible(wa)) if wa.isdigit() else 'non réglé',
+               ('réglé (%s)' % html.escape(r['ssid'])) if r.get('ssid') else 'non réglé'))
+    return (CSS_PROF + '<title>Test de rentrée — poste du professeur</title>'
+            '<h1>Test de rentrée — poste du professeur</h1><p class="etat">%s</p>'
+            '<h2>1. Projeter au tableau</h2><div class="grille">%s%s</div>'
+            '<h2>2. Suivre</h2><div class="grille">%s%s%s%s</div>'
+            '<h2>3. Vérifier moi-même</h2><div class="grille">%s%s</div>'
+            '<h2>4. Les liens en ligne, à copier</h2><p class="mono">%s</p>'
+            '<h2>5. Réglages</h2><p>%s</p>'
+            '<p class="pied">Pour arrêter : fermer la fenêtre noire. Les résultats restent dans %s.</p>'
+            % (etat,
+               bouton('/projeter-en-ligne', 'Les tests en ligne (QR codes)', "les élèves ont Internet (4G ou Wi-Fi du lycée) ; résultats par WhatsApp et capture d'écran", '#128c7e'),
+               bouton('/projeter', "Le Wi-Fi du PC et l'adresse locale", 'mode fermé : tout arrive sur ce PC ; huit téléphones au plus sur le point d\'accès Windows'),
+               bouton('/resultats', 'Résultats en direct', 'qui est connecté, où il en est, les notes'),
+               bouton('/cartographie', 'Cartographie de la classe', 'élèves × compétences, de 1 à 4'),
+               bouton('/resultats.csv', 'Tableur des résultats', 'CSV pour Excel', '#555'),
+               bouton('/cartographie.csv', 'Tableur de la cartographie', 'CSV pour Excel', '#555'),
+               bouton('/', "Ouvrir le test d'accueil", 'sur ce PC, comme un élève', '#c8511b'),
+               bouton('/positionnement.html', 'Ouvrir le positionnement', 'sur ce PC, comme un élève', '#c8511b'),
+               '<br>'.join('%s : <a href="%s" target="_blank">%s</a>' % (html.escape(t), html.escape(u), html.escape(u)) for t, s, u in liens_publics()),
+               'Fichier <code>reglages.json</code> à côté du serveur, jamais publié : <code>whatsapp</code> (numéro au format international, sans + ni espaces), '
+               '<code>ssid</code> et <code>motdepasse</code> du Wi-Fi du PC pour le mode fermé, <code>adresse</code> si celle détectée (%s) n\'est pas la bonne.' % html.escape('http://%s:%d/' % (ip, PORT)),
+               html.escape(DOSSIER)))
 
 
 class Gestionnaire(SimpleHTTPRequestHandler):
@@ -226,6 +315,15 @@ class Gestionnaire(SimpleHTTPRequestHandler):
         self.wfile.write(b)
 
     def do_GET(self):
+        if any(self.path.startswith(p) for p in PAGES_PROF) and self.client_address[0] not in ('127.0.0.1', '::1'):
+            self.repondre(403, 'Page du professeur : elle ne s\'ouvre que sur son PC.')
+            return
+        if self.path.startswith('/prof'):
+            self.repondre(200, page_prof())
+            return
+        if self.path.startswith('/projeter-en-ligne'):
+            self.repondre(200, page_projeter_en_ligne())
+            return
         if self.path.startswith('/projeter'):
             self.repondre(200, page_projeter())
             return
@@ -327,18 +425,30 @@ def adresses():
 
 
 if __name__ == '__main__':
+    import webbrowser
     os.makedirs(DOSSIER, exist_ok=True)
+    ouvrir = sys.argv[sys.argv.index('--ouvrir') + 1] if '--ouvrir' in sys.argv[:-1] else ''   # --ouvrir /prof : ouvre le navigateur
     print('=' * 64)
-    print('  TEST D\'ACCUEIL — serveur local (Ctrl+C pour arrêter)')
+    print('  TEST DE RENTRÉE — serveur local (fermer la fenêtre pour arrêter)')
     print('=' * 64)
+    print('  Poste de commande : http://localhost:%d/prof   (projeter, suivre, vérifier, régler)' % PORT)
     for ip in adresses() or ['(pas de réseau détecté)']:
-        print('  Élèves     : http://%s:%d/' % (ip, PORT))
-    print('  Test d\'accueil    : http://%s:%d/' % ((adresses() or ['localhost'])[0], PORT))
-    print('  Positionnement    : http://%s:%d/positionnement.html' % ((adresses() or ['localhost'])[0], PORT))
-    print('  À projeter : http://localhost:%d/projeter   (adresse en grand, QR code si le module qrcode est installé)' % PORT)
-    print('  Professeur : http://localhost:%d/resultats   (qui est connecté, où il en est, les résultats)' % PORT)
-    print('  Cartographie : http://localhost:%d/cartographie   (CSV : /cartographie.csv)' % PORT)
-    print('  Tableau    : http://localhost:%d/resultats.csv' % PORT)
+        print('  Élèves, mode fermé : http://%s:%d/  et  /positionnement.html' % (ip, PORT))
+    print('  À projeter : /projeter-en-ligne (QR des tests en ligne) · /projeter (Wi-Fi du PC et adresse locale)')
+    print('  Professeur : /resultats · /cartographie · /resultats.csv · /cartographie.csv')
     print('  Résultats  : %s' % JSONL)
     print('=' * 64)
-    ThreadingHTTPServer(('0.0.0.0', PORT), Gestionnaire).serve_forever()
+    try:   # déjà lancé ? (sous Windows, un second serveur se lierait au même port sans erreur)
+        socket.create_connection(('127.0.0.1', PORT), timeout=0.5).close()
+        deja = True
+    except OSError:
+        deja = False
+    if deja:
+        print('  Le serveur tourne déjà (port %d) : j\'ouvre seulement le poste de commande.' % PORT)
+        if ouvrir:
+            webbrowser.open('http://localhost:%d%s' % (PORT, ouvrir))
+        sys.exit(0)
+    serveur = ThreadingHTTPServer(('0.0.0.0', PORT), Gestionnaire)
+    if ouvrir:
+        webbrowser.open('http://localhost:%d%s' % (PORT, ouvrir))
+    serveur.serve_forever()
