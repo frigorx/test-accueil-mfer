@@ -86,9 +86,11 @@
       <h2 style="margin:0 0 6px; color:var(--bleu); font-family:'Trebuchet MS',sans-serif">Résultat</h2>
       <p style="font-size:22px; margin:0"><b id="note"></b> / 20 — <span id="eleve"></span></p>
       <table id="parbloc"></table>
+      <p id="envoi" class="petit" style="font-size:15px; margin:6px 0 10px"></p>
       <p><b>Mon code de validation</b> (à recopier sur la feuille et à montrer au professeur) :</p>
       <div class="code" id="code"></div>
       <p class="petit">Le code dépend du nom, de la machine et des réponses : il ne se devine pas et ne se prête pas.</p>
+      <button class="suite" id="copier" style="background:var(--vert)">Copier mon résultat</button>
       <p id="conseil"></p>
       <button class="suite" id="revoir">Revoir mes erreurs</button>
     </div>
@@ -103,6 +105,29 @@
 </div>
 
 <script>
+// ---------------------------------------------------------------- la collecte des résultats
+// Un formulaire Google, rempli et envoyé par la page elle-même (sans que l'élève le voie) : chaque
+// résultat devient une ligne de la feuille de réponses du professeur. Tant que `formulaire` est vide,
+// rien n'est envoyé : l'élève montre l'écran ou recopie son code.
+// Pour remplir : ouvrir le lien « pré-rempli » du formulaire ; il contient l'identifiant du formulaire
+// (…/forms/d/e/IDENTIFIANT/viewform) et un numéro entry.XXXX par question.
+const COLLECTE = {
+  formulaire: '',                                   // ex. : '1FAIpQLSd…'
+  champs: { nom: '', machine: '', note: '', blocs: '', code: '', reponses: '' }   // ex. : 'entry.123456789'
+};
+
+function envoyerResultat(donnees){
+  const e = document.getElementById('envoi');
+  if (!COLLECTE.formulaire || !COLLECTE.champs.nom) { e.textContent = 'Résultat gardé sur ce téléphone : je montre cet écran au professeur ou je recopie le code.'; return; }
+  const fd = new FormData();
+  for (const k in COLLECTE.champs) { if (COLLECTE.champs[k]) fd.append(COLLECTE.champs[k], donnees[k]); }
+  const url = 'https://docs.google.com/forms/d/e/' + COLLECTE.formulaire + '/formResponse';
+  e.textContent = 'Envoi du résultat au professeur…';
+  fetch(url, { method: 'POST', mode: 'no-cors', body: fd })
+    .then(() => { e.textContent = 'Résultat envoyé au professeur ✓ (je recopie quand même mon code).'; })
+    .catch(() => { e.textContent = 'Pas de réseau : je montre cet écran au professeur ou je recopie le code.'; });
+}
+
 // ---------------------------------------------------------------- les questions
 // Chaque bloc : neuf questions (le bloc 5 en a quatre). Une seule bonne réponse, toujours la première ici ;
 // l'ordre des réponses est mélangé à l'affichage. « explication » est ce que l'élève lit après avoir répondu.
@@ -238,7 +263,14 @@ function terminer(){
   $('eleve').textContent = etat.nom + (etat.machine ? ' · ' + etat.machine : '');
   $('parbloc').innerHTML = '<tr><th>Bloc</th><th>Justes</th></tr>' + parBloc.map((x, b) => '<tr><td>' + BLOCS[b] + '</td><td>' + x.ok + ' / ' + x.n + '</td></tr>').join('');
   const h = graine(etat.nom.toLowerCase() + '|' + etat.machine.toLowerCase() + '|' + etat.choix.join(''));
-  $('code').textContent = (etat.nom.trim().slice(0, 3).toUpperCase() || 'XXX') + '-' + String(note).replace('.', ',') + '-' + (h % 9000 + 1000);
+  const code = (etat.nom.trim().slice(0, 3).toUpperCase() || 'XXX') + '-' + String(note).replace('.', ',') + '-' + (h % 9000 + 1000);
+  $('code').textContent = code;
+  const blocsTexte = parBloc.map((x, b) => BLOCS[b] + ' ' + x.ok + '/' + x.n).join(' · ');
+  etat.resultat = { nom: etat.nom, machine: etat.machine, note: String(note).replace('.', ','), blocs: blocsTexte, code: code,
+                    reponses: etat.ordre.map((i, n) => i + ':' + (etat.choix[n] === undefined ? '-' : etat.choix[n])).join(' ') };
+  sauver();
+  if (!etat.envoye) { envoyerResultat(etat.resultat); etat.envoye = true; sauver(); }
+  else { $('envoi').textContent = 'Résultat déjà transmis. Je recopie mon code si ce n\'est pas fait.'; }
   const faibles = parBloc.map((x, b) => x.ok / x.n < 0.6 ? BLOCS[b] : null).filter(Boolean);
   $('conseil').innerHTML = faibles.length
     ? '<b>À relire avant le prochain TP :</b> ' + faibles.join(', ') + '. La feuille de sécurité du TP se relit avec le professeur.'
@@ -265,6 +297,13 @@ $('commencer').addEventListener('click', () => {
 });
 $('suivant').addEventListener('click', suivante);
 $('revoir').addEventListener('click', revoir);
+$('copier').addEventListener('click', () => {
+  const r = etat && etat.resultat; if (!r) return;
+  const texte = r.nom + ' · ' + r.machine + ' · ' + r.note + '/20 · ' + r.blocs + ' · code ' + r.code;
+  const fini = () => { $('copier').textContent = 'Résultat copié : je le colle dans le message au professeur'; };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texte).then(fini, () => { prompt('À recopier :', texte); });
+  else prompt('À recopier :', texte);
+});
 $('autre').addEventListener('click', () => { try { localStorage.removeItem(CLE); } catch (e) {} location.reload(); });
 
 const repris = charger();
