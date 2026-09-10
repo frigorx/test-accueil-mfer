@@ -53,6 +53,28 @@ def ecrire_csv(lignes):
             w.writerow({k: l.get(k, '') for k in COLONNES})
 
 
+SUIVI = {}   # qui est connecté en ce moment : clé nom|classe → dernier signe de vie
+
+
+def bloc_suivi():
+    import time
+    maintenant = time.time()
+    vivants = [(k, v) for k, v in SUIVI.items() if maintenant - v.get('_t', 0) < 90]
+    if not vivants:
+        return '<p><b>En ce moment :</b> personne de connecté.</p>'
+    tr = []
+    for k, v in sorted(vivants, key=lambda x: x[1].get('nom', '')):
+        depuis = int(maintenant - v.get('_t', 0))
+        alerte = ' style="background:#fdf3f3"' if (v.get('sorties') or 0) >= 3 else ''
+        niveau = v.get('niveau', '')
+        niveau = ('N%s' % niveau) if isinstance(niveau, int) else html.escape(str(niveau))
+        tr.append('<tr%s><td><b>%s</b></td><td>%s</td><td>%s · question %s / %s</td><td>%s</td><td>%s min</td><td>%s</td><td>il y a %d s</td></tr>' % (
+            alerte, html.escape(str(v.get('nom', ''))), html.escape(str(v.get('classe', '')))[:18], niveau, v.get('question', ''), v.get('total', ''),
+            v.get('sorties', 0), v.get('minutes', ''), 'terminé' if v.get('fini') else 'en cours', depuis))
+    return ('<h2 style="font-size:17px;color:#1b3a63">En ce moment — %d connecté(s)</h2>'
+            '<table><tr><th>Nom</th><th>Classe</th><th>Où il en est</th><th>Sorties</th><th>Durée</th><th>État</th><th>Vu</th></tr>%s</table>' % (len(vivants), ''.join(tr)))
+
+
 def page_resultats(lignes):
     lignes = sorted(lignes, key=lambda l: l.get('recu', ''), reverse=True)
     tr = []
@@ -67,10 +89,12 @@ def page_resultats(lignes):
             '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:18px;color:#22303f}table{border-collapse:collapse;width:100%%}'
             'td,th{border:1px solid #d8dee6;padding:5px 8px;text-align:left;vertical-align:top}th{background:#f5f8fc;color:#1b3a63}'
             'h1{color:#1b3a63;font-size:20px}a{color:#1b3a63}</style>'
-            '<h1>Résultats du test d\'accueil — %d élève(s)</h1>'
-            '<p>Rafraîchi toutes les 10 secondes · <a href="/resultats.csv">télécharger le tableau (CSV)</a> · fichier : %s</p>'
+            '<h1>Résultats — %d reçu(s)</h1>'
+            '<p>Rafraîchi toutes les 10 secondes · <a href="/resultats.csv">télécharger le tableau (CSV)</a> · <a href="/cartographie">cartographie des compétences</a> · fichier : %s</p>'
+            '%s'
+            '<h2 style="font-size:17px;color:#1b3a63">Résultats reçus</h2>'
             '<table><tr><th>Heure</th><th>Nom</th><th>Classe · date</th><th>Note /20</th><th>Sorties</th><th>Répondu</th><th>Code</th><th>Compétences</th></tr>%s</table>'
-            % (len(lignes), html.escape(JSONL), ''.join(tr) or '<tr><td colspan="8">Aucun résultat pour l\'instant.</td></tr>'))
+            % (len(lignes), html.escape(JSONL), bloc_suivi(), ''.join(tr) or '<tr><td colspan="8">Aucun résultat pour l\'instant.</td></tr>'))
 
 
 ECHELLE = ['non évalué', 'non acquis', 'en cours', 'acquis', 'parfaitement maîtrisé']
@@ -124,12 +148,45 @@ def page_cartographie(codes, eleves):
             % (len(eleves), len(codes), th, ''.join(tr) or '<tr><td colspan="99">Aucun positionnement reçu pour l\'instant.</td></tr>', ''.join(bas)))
 
 
+def adresse_eleves(chemin=''):
+    ips = adresses()
+    return 'http://%s:%d/%s' % (ips[0] if ips else 'localhost', PORT, chemin)
+
+
+def qr_png():
+    """Le QR code de l'adresse élèves, si le module qrcode est installé (pip install qrcode[pil]) ; sinon None."""
+    try:
+        import qrcode
+    except ImportError:
+        return None
+    buf = io.BytesIO()
+    qrcode.make(adresse_eleves(), box_size=12, border=2).save(buf, format='PNG')
+    return buf.getvalue()
+
+
+def page_projeter():
+    """La page à projeter au tableau : l'adresse en très gros, le QR code s'il est possible."""
+    url = adresse_eleves()
+    qr = qr_png()
+    corps = ('<img src="/qr.png" alt="QR code" style="width:min(60vh,60vw)">' if qr else
+             '<p style="font-size:22px;color:#c9451a">Pas de QR code : sur ce PC, lancer une fois <code>pip install qrcode[pil]</code> puis relancer le serveur. En attendant, les élèves tapent l\'adresse.</p>')
+    return ('<meta charset="utf-8"><meta http-equiv="refresh" content="60"><title>Se connecter au test</title>'
+            '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:24px}'
+            'h1{font-size:34px;margin:10px 0}code{font-family:Consolas,monospace}.adr{font-size:48px;font-weight:bold;background:#fff;color:#1b3a63;'
+            'display:inline-block;padding:14px 28px;border-radius:14px;margin:14px 0;letter-spacing:.03em}.pas{font-size:24px;margin:8px 0}</style>'
+            '<h1>Je me connecte au Wi-Fi du professeur, puis j\'ouvre :</h1><div class="adr">%s</div><br>%s'
+            '<p class="pas">1. Wi-Fi du professeur &nbsp;·&nbsp; 2. cette adresse dans le navigateur &nbsp;·&nbsp; 3. mon nom, ma classe, je commence</p>'
+            '<p style="font-size:16px;opacity:.85">Positionnement : %spositionnement.html &nbsp;·&nbsp; Le professeur suit tout sur http://localhost:%d/resultats</p>'
+            '<p style="font-size:14px;opacity:.7">Si cette adresse ne répond pas, essayer : %s (avec le point d\'accès mobile de Windows, c\'est en général 192.168.137.1)</p>'
+            % (html.escape(url), corps, html.escape(url), PORT, html.escape(' · '.join('http://%s:%d/' % (ip, PORT) for ip in adresses()) or '—')))
+
+
 class Gestionnaire(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=ICI, **k)
 
-    def log_message(self, fmt, *args):  # journal court
-        if '/resultat' in (args[0] if args else ''):
+    def log_message(self, fmt, *args):  # journal court : seulement les résultats reçus
+        if args and 'POST /resultat' in args[0]:
             sys.stdout.write('%s %s\n' % (datetime.now().strftime('%H:%M:%S'), args[0]))
 
     def repondre(self, code, corps, type_='text/html; charset=utf-8'):
@@ -142,6 +199,20 @@ class Gestionnaire(SimpleHTTPRequestHandler):
         self.wfile.write(b)
 
     def do_GET(self):
+        if self.path.startswith('/projeter'):
+            self.repondre(200, page_projeter())
+            return
+        if self.path.startswith('/qr.png'):
+            png = qr_png()
+            if not png:
+                self.repondre(404, 'pas de QR : installer le module qrcode (pip install qrcode[pil])')
+                return
+            self.send_response(200)
+            self.send_header('Content-Type', 'image/png')
+            self.send_header('Content-Length', str(len(png)))
+            self.end_headers()
+            self.wfile.write(png)
+            return
         if self.path.startswith('/cartographie.csv'):
             codes, eleves = cartographie(lire_resultats())
             b = ('﻿' + csv_cartographie(codes, eleves)).encode('utf-8')
@@ -176,6 +247,18 @@ class Gestionnaire(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+        if self.path.startswith('/suivi'):
+            try:
+                import time
+                n = int(self.headers.get('Content-Length') or 0)
+                d = json.loads(self.rfile.read(n).decode('utf-8') or '{}')
+                if isinstance(d, dict) and d.get('nom'):
+                    d['_t'] = time.time()
+                    SUIVI['%s|%s' % (d.get('nom'), d.get('classe'))] = d
+                self.repondre(200, '{"ok":true}', 'application/json')
+            except Exception as e:
+                self.repondre(400, json.dumps({'ok': False, 'erreur': str(e)}), 'application/json')
+            return
         if not self.path.startswith('/resultat'):
             self.repondre(404, 'non')
             return
@@ -225,7 +308,8 @@ if __name__ == '__main__':
         print('  Élèves     : http://%s:%d/' % (ip, PORT))
     print('  Test d\'accueil    : http://%s:%d/' % ((adresses() or ['localhost'])[0], PORT))
     print('  Positionnement    : http://%s:%d/positionnement.html' % ((adresses() or ['localhost'])[0], PORT))
-    print('  Professeur : http://localhost:%d/resultats' % PORT)
+    print('  À projeter : http://localhost:%d/projeter   (adresse en grand, QR code si le module qrcode est installé)' % PORT)
+    print('  Professeur : http://localhost:%d/resultats   (qui est connecté, où il en est, les résultats)' % PORT)
     print('  Cartographie : http://localhost:%d/cartographie   (CSV : /cartographie.csv)' % PORT)
     print('  Tableau    : http://localhost:%d/resultats.csv' % PORT)
     print('  Résultats  : %s' % JSONL)

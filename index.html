@@ -331,7 +331,15 @@ function chrono(){
   const restant = Math.max(0, 60 * 60 - Math.floor((Date.now() - etat.debut) / 1000));
   const m = Math.floor(restant / 60), s = restant % 60;
   $('chrono').textContent = m + ':' + String(s).padStart(2, '0');
+  if (restant % 20 === 0) suivi();
   if (restant === 0 && !etat.fini) terminer();
+}
+// Servie par le PC du professeur : un signe de vie toutes les vingt secondes (qui est là, où il en est).
+function suivi(){
+  if (!etat || !(location.protocol === 'http:' && !/github\.io$/.test(location.hostname))) return;
+  fetch('/suivi', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+    type: 'accueil', nom: etat.nom, classe: (REF[etat.diplome] || REF.MFER).nom, niveau: BLOCS[(QUESTIONS[etat.ordre[etat.courante]] || {}).b] || '',
+    question: etat.courante + 1, total: etat.ordre.length, sorties: etat.sorties || 0, fini: !!etat.fini, minutes: Math.round((Date.now() - etat.debut) / 60000) }) }).catch(() => {});
 }
 
 // ---------------------------------------------------------------- le résultat

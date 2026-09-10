@@ -1068,6 +1068,15 @@ function lireVoixHaute(){
 function chrono(){
   const s = Math.floor((Date.now() - etat.debut) / 1000);
   $('chrono').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  if (s % 20 === 0) suivi();
+}
+// Servie par le PC du professeur : un signe de vie toutes les vingt secondes (qui est là, où il en est).
+function suivi(){
+  if (!etat || !(location.protocol === 'http:' && !/github\.io$/.test(location.hostname))) return;
+  const N = etat.niveaux[etat.n];
+  fetch('/suivi', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+    type: 'positionnement', nom: etat.nom, classe: (REF[etat.classe] || REF.MFER).nom, niveau: etat.n, question: etat.k + 1,
+    total: N ? N.ordre.length : 0, sorties: etat.sorties || 0, fini: !!etat.fini, minutes: Math.round((Date.now() - etat.debut) / 60000) }) }).catch(() => {});
 }
 
 // ---------------------------------------------------------------- les sorties de la page
