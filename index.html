@@ -91,6 +91,7 @@
       <div class="code" id="code"></div>
       <p class="petit">Le code dépend du nom, de la machine et des réponses : il ne se devine pas et ne se prête pas.</p>
       <button class="suite" id="copier" style="background:var(--vert)">Copier mon résultat</button>
+      <button class="suite" id="courriel" style="background:var(--orange-p)" hidden>Envoyer par courriel au professeur</button>
       <p id="conseil"></p>
       <button class="suite" id="revoir">Revoir mes erreurs</button>
     </div>
@@ -113,7 +114,8 @@
 // (…/forms/d/e/IDENTIFIANT/viewform) et un numéro entry.XXXX par question.
 const COLLECTE = {
   formulaire: '',                                   // ex. : '1FAIpQLSd…'
-  champs: { nom: '', machine: '', note: '', blocs: '', code: '', reponses: '' }   // ex. : 'entry.123456789'
+  champs: { nom: '', machine: '', note: '', blocs: '', code: '', reponses: '' },  // ex. : 'entry.123456789'
+  courriel: ''                                      // second canal : l'adresse du professeur → bouton « Envoyer par courriel »
 };
 
 function envoyerResultat(donnees){
@@ -297,6 +299,13 @@ $('commencer').addEventListener('click', () => {
 });
 $('suivant').addEventListener('click', suivante);
 $('revoir').addEventListener('click', revoir);
+$('courriel').addEventListener('click', () => {
+  const r = etat && etat.resultat; if (!r || !COLLECTE.courriel) return;
+  const sujet = 'Test accueil MFER — ' + r.nom + ' — ' + r.note + '/20 — ' + r.code;
+  const corps = r.nom + '\n' + r.machine + '\nNote : ' + r.note + '/20\n' + r.blocs + '\nCode : ' + r.code + '\nRéponses : ' + r.reponses;
+  location.href = 'mailto:' + COLLECTE.courriel + '?subject=' + encodeURIComponent(sujet) + '&body=' + encodeURIComponent(corps);
+});
+if (COLLECTE.courriel) $('courriel').hidden = false;
 $('copier').addEventListener('click', () => {
   const r = etat && etat.resultat; if (!r) return;
   const texte = r.nom + ' · ' + r.machine + ' · ' + r.note + '/20 · ' + r.blocs + ' · code ' + r.code;

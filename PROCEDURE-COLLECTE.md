@@ -43,6 +43,14 @@ se met à jour en une minute.
 | Code | le code de validation, le même que sur son écran : il prouve que la ligne vient bien de la page |
 | Réponses | `numéro:choix` pour les 40 questions (0 = juste), pour analyser les erreurs |
 
+## Second canal : le courriel
+
+Dans le même bloc `COLLECTE`, `courriel: 'adresse@…'` fait apparaître sur l'écran de résultat un bouton
+« Envoyer par courriel au professeur » : le téléphone ouvre sa messagerie avec le résultat déjà écrit
+(nom, machine, note, blocs, code, réponses), l'élève n'a qu'à envoyer. Utile si le formulaire n'est pas
+encore branché, ou pour les élèves sans réseau au moment du test. Mettre une adresse professionnelle,
+pas une adresse personnelle : la page est publique.
+
 ## Sans formulaire branché
 
 La page fonctionne quand même : l'élève montre son écran de résultat, recopie son code, ou
