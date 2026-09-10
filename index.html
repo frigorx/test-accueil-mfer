@@ -48,6 +48,9 @@
   .code{font-family:'Trebuchet MS',monospace; font-size:26px; letter-spacing:.12em; text-align:center; background:var(--doux); border:2px dashed var(--bleu);
     border-radius:9px; padding:10px; margin:10px 0}
   .petit{font-size:14px; color:var(--gris)}
+  .capture{border:3px solid var(--orange-p); padding:12px 14px}
+  .capture td,.capture th{padding:4px 7px; font-size:14px}
+  .consigne-capture{background:#fff7f3; border:1.5px dashed var(--orange-p); border-radius:8px; padding:8px 12px; font-weight:bold; color:var(--orange-p); font-size:16px}
   footer{font-size:12px; color:var(--gris); text-align:center; margin-top:20px}
   [hidden]{display:none!important}
 </style>
@@ -63,7 +66,7 @@
     <p><b>41 questions. 1 heure.</b> Une seule bonne réponse. Après chaque réponse, une explication courte.</p>
     <ul class="regles">
       <li>Je réponds seul. Mon voisin n'a pas les mêmes questions.</li>
-      <li>À la fin : une note sur 20, mes compétences, et un <b>code</b> à recopier sur ma feuille.</li>
+      <li>À la fin : une note sur 20 et mes compétences. Je fais une <b>capture d'écran</b> du résultat et je l'envoie au professeur.</li>
       <li>Si la page se ferme, je reviens : le test continue.</li>
       <li>Le bouton 🔊 lit la question à voix haute.</li>
     </ul>
@@ -95,18 +98,20 @@
 
   <!-- ===== écran 3 : le résultat ===== -->
   <section id="fin" hidden>
-    <div class="carte">
-      <h2 style="margin:0 0 6px; color:var(--bleu); font-family:'Trebuchet MS',sans-serif">Mon résultat</h2>
-      <p style="font-size:24px; margin:0"><b id="note"></b> / 20 — <span id="eleve"></span></p>
-      <p id="envoi" class="petit" style="font-size:15px; margin:6px 0 10px"></p>
-      <table id="parbloc"></table>
-      <h3 style="margin:14px 0 4px; color:var(--bleu); font-family:'Trebuchet MS',sans-serif">Mes compétences <span id="diplome" class="petit"></span></h3>
-      <p class="petit" style="margin:0 0 6px">Acquis : 3 réponses justes sur 4 au moins. En cours : la moitié. À revoir : moins de la moitié.</p>
+    <div class="carte capture" id="capture">
+      <div class="consigne-capture">📸 Je fais une capture d'écran de ce cadre et je l'envoie au professeur.</div>
+      <h2 style="margin:6px 0 2px; color:var(--bleu); font-family:'Trebuchet MS',sans-serif">Mon résultat</h2>
+      <p style="margin:0 0 4px; font-size:16px"><b id="eleve"></b><br><span id="diplome"></span> · <span id="quand"></span></p>
+      <p style="font-size:30px; margin:4px 0 8px; color:var(--bleu)"><b id="note"></b> / 20</p>
       <table id="parcomp"></table>
       <table id="parniveau"></table>
-      <p><b>Mon code de validation</b> (à recopier sur la feuille et à montrer au professeur) :</p>
+      <p style="margin:8px 0 2px"><b>Code de validation</b></p>
       <div class="code" id="code"></div>
-      <p class="petit">Le code dépend du nom, de la machine et des réponses : il ne se devine pas et ne se prête pas.</p>
+      <p id="envoi" class="petit" style="font-size:14px; margin:6px 0 0"></p>
+    </div>
+    <div class="carte">
+      <p class="petit" style="margin:0 0 6px">Acquis : 3 réponses justes sur 4 au moins. En cours : la moitié. À revoir : moins de la moitié. Le code dépend du nom, de la machine et des réponses : il ne se devine pas et ne se prête pas.</p>
+      <table id="parbloc"></table>
       <button class="suite" id="copier" style="background:var(--vert)">Copier mon résultat</button>
       <button class="suite" id="courriel" style="background:var(--orange-p)" hidden>Envoyer par courriel au professeur</button>
       <p id="conseil" style="margin-top:12px"></p>
@@ -136,7 +141,7 @@ const COLLECTE = {
 
 function envoyerResultat(d){
   const e = document.getElementById('envoi');
-  if (!COLLECTE.formulaire || !COLLECTE.champs.nom) { e.textContent = 'Résultat gardé sur ce téléphone : je montre cet écran au professeur ou je recopie le code.'; return; }
+  if (!COLLECTE.formulaire || !COLLECTE.champs.nom) { e.textContent = 'Ce résultat reste sur mon téléphone : la capture d\'écran est ma preuve.'; return; }
   const fd = new FormData();
   for (const k in COLLECTE.champs) { if (COLLECTE.champs[k]) fd.append(COLLECTE.champs[k], d[k]); }
   const url = 'https://docs.google.com/forms/d/e/' + COLLECTE.formulaire + '/formResponse';
@@ -315,7 +320,9 @@ function terminer(){
   const note = Math.round(20 * ok / total * 2) / 2, noteTxt = String(note).replace('.', ',');
   $('note').textContent = noteTxt;
   $('eleve').textContent = etat.nom + (etat.machine ? ' · ' + etat.machine : '');
-  $('diplome').textContent = '— ' + ref.nom;
+  $('diplome').textContent = ref.nom;
+  if (!etat.quand) { etat.quand = new Date().toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+  $('quand').textContent = etat.quand;
   $('parbloc').innerHTML = '<tr><th>Bloc</th><th>Justes</th></tr>' + parBloc.map((x, b) => '<tr><td>' + BLOCS[b] + '</td><td>' + x.ok + ' / ' + x.n + '</td></tr>').join('');
   const codes = Object.keys(ref.comp).filter(c => parComp[c]);
   $('parcomp').innerHTML = '<tr><th>Compétence</th><th>Justes</th><th>Où j\'en suis</th></tr>' + codes.map(c => {
@@ -329,7 +336,7 @@ function terminer(){
   $('code').textContent = code;
   const minutes = Math.round((Date.now() - etat.debut) / 60000);
   etat.resultat = {
-    nom: etat.nom, machine: etat.machine, note: noteTxt, code: code, diplome: ref.nom,
+    nom: etat.nom, machine: etat.machine, note: noteTxt, code: code, diplome: ref.nom + ' · ' + etat.quand,
     blocs: parBloc.map((x, b) => BLOCS[b] + ' ' + x.ok + '/' + x.n).join(' · '),
     competences: codes.map(c => c + ' ' + parComp[c].ok + '/' + parComp[c].n + ' ' + classe(parComp[c].ok, parComp[c].n)[0]).join(' · ')
                  + ' · niveaux ' + [1, 2, 3].map(l => NIVEAUX[l] + ' ' + parNiv[l].ok + '/' + parNiv[l].n).join(', '),

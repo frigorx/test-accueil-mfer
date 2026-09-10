@@ -1,5 +1,11 @@
 # Récupérer les notes du test d'accueil
 
+**Mode retenu le 10/09/2026 (F. Henninot) : la capture d'écran.** L'écran de résultat tient dans un
+cadre orange fait pour être capturé : nom, machine, classe, date et heure, note sur 20, compétences,
+niveaux, code de validation. L'élève l'envoie au professeur, qui note en direct. Le code protège
+contre une capture retouchée : il dépend du nom, de la machine et des réponses. Les deux canaux
+ci-dessous restent disponibles si un jour on veut automatiser.
+
 La page est servie par GitHub Pages : https://frigorx.github.io/test-accueil-mfer/
 
 Elle ne peut rien enregistrer par elle-même (pas de serveur). Les résultats partent donc dans
