@@ -153,32 +153,59 @@ def adresse_eleves(chemin=''):
     return 'http://%s:%d/%s' % (ips[0] if ips else 'localhost', PORT, chemin)
 
 
-def qr_png():
-    """Le QR code de l'adresse élèves, si le module qrcode est installé (pip install qrcode[pil]) ; sinon None."""
+def reglages():
+    """reglages.json à côté du serveur : {"ssid": "...", "motdepasse": "...", "adresse": "http://192.168.137.1:8765/"} — tout facultatif."""
+    p = os.path.join(ICI, 'reglages.json')
+    try:
+        return json.loads(io.open(p, encoding='utf-8').read()) if os.path.exists(p) else {}
+    except ValueError:
+        return {}
+
+
+def qr_png(texte=None):
+    """Un QR code (PNG) si le module qrcode est installé (pip install qrcode[pil]) ; sinon None."""
     try:
         import qrcode
     except ImportError:
         return None
     buf = io.BytesIO()
-    qrcode.make(adresse_eleves(), box_size=12, border=2).save(buf, format='PNG')
+    qrcode.make(texte or adresse_eleves(), box_size=12, border=2).save(buf, format='PNG')
     return buf.getvalue()
 
 
+def qr_wifi():
+    """Le QR « rejoindre le Wi-Fi » (lu par l'appareil photo des téléphones), si le SSID est réglé."""
+    r = reglages()
+    if not r.get('ssid'):
+        return None
+    mdp = r.get('motdepasse', '')
+    return qr_png('WIFI:T:%s;S:%s;P:%s;;' % ('WPA' if mdp else 'nopass', r['ssid'], mdp))
+
+
 def page_projeter():
-    """La page à projeter au tableau : l'adresse en très gros, le QR code s'il est possible."""
-    url = adresse_eleves()
-    qr = qr_png()
-    corps = ('<img src="/qr.png" alt="QR code" style="width:min(60vh,60vw)">' if qr else
-             '<p style="font-size:22px;color:#c9451a">Pas de QR code : sur ce PC, lancer une fois <code>pip install qrcode[pil]</code> puis relancer le serveur. En attendant, les élèves tapent l\'adresse.</p>')
+    """La page à projeter au tableau : le Wi-Fi à rejoindre (QR), puis l'adresse en très gros (QR)."""
+    r = reglages()
+    url = r.get('adresse') or adresse_eleves()
+    qr_ok = qr_png(url) is not None
+    wifi = ''
+    if r.get('ssid'):
+        wifi = ('<div class="col"><h2>1. Le Wi-Fi</h2><div class="adr" style="font-size:36px">%s</div>%s<p class="pas">mot de passe : <b>%s</b></p></div>'
+                % (html.escape(r['ssid']), '<img src="/qr-wifi.png" alt="QR Wi-Fi">' if qr_ok else '', html.escape(r.get('motdepasse', '') or '(aucun)')))
+    else:
+        wifi = '<div class="col"><h2>1. Le Wi-Fi</h2><p class="pas">Je me connecte au Wi-Fi du professeur.</p><p style="font-size:14px;opacity:.7">Pour afficher le nom, le mot de passe et leur QR code : écrire <code>reglages.json</code> à côté du serveur.</p></div>'
+    adresse = ('<div class="col"><h2>2. L\'adresse</h2><div class="adr">%s</div>%s<p class="pas">puis mon nom, ma classe, je commence</p></div>'
+               % (html.escape(url), '<img src="/qr.png" alt="QR adresse">' if qr_ok else
+                  '<p style="font-size:18px;color:#ffd0bd">Pas de QR code : lancer une fois <code>pip install qrcode[pil]</code> (Lancer-le-serveur.cmd le fait s\'il y a Internet).</p>'))
     return ('<meta charset="utf-8"><meta http-equiv="refresh" content="60"><title>Se connecter au test</title>'
-            '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:24px}'
-            'h1{font-size:34px;margin:10px 0}code{font-family:Consolas,monospace}.adr{font-size:48px;font-weight:bold;background:#fff;color:#1b3a63;'
-            'display:inline-block;padding:14px 28px;border-radius:14px;margin:14px 0;letter-spacing:.03em}.pas{font-size:24px;margin:8px 0}</style>'
-            '<h1>Je me connecte au Wi-Fi du professeur, puis j\'ouvre :</h1><div class="adr">%s</div><br>%s'
-            '<p class="pas">1. Wi-Fi du professeur &nbsp;·&nbsp; 2. cette adresse dans le navigateur &nbsp;·&nbsp; 3. mon nom, ma classe, je commence</p>'
+            '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:18px}'
+            'h1{font-size:30px;margin:6px 0 14px}h2{font-size:24px;margin:4px 0 8px}code{font-family:Consolas,monospace}'
+            '.cols{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}.col{flex:1;min-width:320px;max-width:640px;background:rgba(255,255,255,.06);border-radius:16px;padding:14px}'
+            '.adr{font-size:40px;font-weight:bold;background:#fff;color:#1b3a63;display:inline-block;padding:10px 22px;border-radius:14px;margin:8px 0;letter-spacing:.03em;word-break:break-all}'
+            'img{width:min(38vh,90%%);display:block;margin:8px auto;border-radius:10px}.pas{font-size:22px;margin:6px 0}</style>'
+            '<h1>Pour faire le test sur mon téléphone</h1><div class="cols">%s%s</div>'
             '<p style="font-size:16px;opacity:.85">Positionnement : %spositionnement.html &nbsp;·&nbsp; Le professeur suit tout sur http://localhost:%d/resultats</p>'
-            '<p style="font-size:14px;opacity:.7">Si cette adresse ne répond pas, essayer : %s (avec le point d\'accès mobile de Windows, c\'est en général 192.168.137.1)</p>'
-            % (html.escape(url), corps, html.escape(url), PORT, html.escape(' · '.join('http://%s:%d/' % (ip, PORT) for ip in adresses()) or '—')))
+            '<p style="font-size:14px;opacity:.7">Si l\'adresse ne répond pas, essayer : %s (point d\'accès mobile de Windows : 192.168.137.1 en général)</p>'
+            % (wifi, adresse, html.escape(url), PORT, html.escape(' · '.join('http://%s:%d/' % (ip, PORT) for ip in adresses()) or '—')))
 
 
 class Gestionnaire(SimpleHTTPRequestHandler):
@@ -202,8 +229,8 @@ class Gestionnaire(SimpleHTTPRequestHandler):
         if self.path.startswith('/projeter'):
             self.repondre(200, page_projeter())
             return
-        if self.path.startswith('/qr.png'):
-            png = qr_png()
+        if self.path.startswith('/qr-wifi.png') or self.path.startswith('/qr.png'):
+            png = qr_wifi() if self.path.startswith('/qr-wifi') else qr_png(reglages().get('adresse') or None)
             if not png:
                 self.repondre(404, 'pas de QR : installer le module qrcode (pip install qrcode[pil])')
                 return
