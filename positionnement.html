@@ -959,6 +959,9 @@
 // whatsapp : le numéro du professeur, format international sans + ni espaces (ex. : '33612345678') → bouton WhatsApp.
 // courriel : l'adresse (professionnelle) → bouton courriel. Vides : les boutons n'apparaissent pas.
 const COLLECTE = { whatsapp: '', courriel: '' };
+// Le numéro peut aussi venir du lien donné aux élèves (…positionnement.html?wa=33612345678) :
+// il n'est alors écrit nulle part dans la page publique, seulement dans le lien projeté.
+{ const wa = new URLSearchParams(location.search).get('wa') || ''; if (/^\d{8,15}$/.test(wa)) COLLECTE.whatsapp = wa; }
 const PAR_NIVEAU = 15;                      // questions tirées par niveau (toutes si le niveau en a moins)
 const SEUIL = 0.5;                          // part de bonnes réponses pour passer au niveau suivant
 const SORTIES_MAX = 5;

@@ -118,6 +118,7 @@
       <table id="parbloc"></table>
       <button class="suite" id="copier" style="background:var(--vert)">Copier mon résultat</button>
       <button class="suite" id="courriel" style="background:var(--orange-p)" hidden>Envoyer par courriel au professeur</button>
+      <button class="suite" id="whatsapp" style="background:#128c7e" hidden>Envoyer par WhatsApp au professeur</button>
       <p id="conseil" style="margin-top:12px"></p>
       <button class="suite" id="revoir">Revoir mes erreurs</button>
     </div>
@@ -140,8 +141,12 @@
 const COLLECTE = {
   formulaire: '',
   champs: { nom: '', note: '', blocs: '', code: '', reponses: '', diplome: '', competences: '' },
-  courriel: ''                                      // second canal : l'adresse du professeur → bouton « Envoyer par courriel »
+  courriel: '',                                     // second canal : l'adresse du professeur → bouton « Envoyer par courriel »
+  whatsapp: ''                                      // le numéro du professeur, format international sans + ni espaces (ex. : '33612345678') → bouton WhatsApp
 };
+// Le numéro peut aussi venir du lien donné aux élèves (…/?wa=33612345678) : il n'est alors écrit nulle part
+// dans la page publique, seulement dans le lien projeté.
+{ const wa = new URLSearchParams(location.search).get('wa') || ''; if (/^\d{8,15}$/.test(wa)) COLLECTE.whatsapp = wa; }
 
 function envoyerResultat(d){
   const e = document.getElementById('envoi');
@@ -432,6 +437,12 @@ $('courriel').addEventListener('click', () => {
   location.href = 'mailto:' + COLLECTE.courriel + '?subject=' + encodeURIComponent(sujet) + '&body=' + encodeURIComponent(corps);
 });
 if (COLLECTE.courriel) $('courriel').hidden = false;
+$('whatsapp').addEventListener('click', () => {
+  const r = etat && etat.resultat; if (!r || !COLLECTE.whatsapp) return;
+  const texte = 'TEST ACCUEIL — ' + r.nom + ' — ' + r.diplome + '\nNote : ' + r.note + '/20\n' + r.blocs + '\n' + r.competences + (r.sorties !== undefined ? '\nSorties de la page : ' + r.sorties : '') + '\nCode : ' + r.code;
+  location.href = 'https://wa.me/' + COLLECTE.whatsapp + '?text=' + encodeURIComponent(texte);
+});
+if (COLLECTE.whatsapp) $('whatsapp').hidden = false;
 $('copier').addEventListener('click', () => {
   const r = etat && etat.resultat; if (!r) return;
   const texte = r.nom + ' · ' + r.diplome + ' · ' + r.note + '/20 · ' + r.blocs + ' · ' + r.competences + ' · code ' + r.code;

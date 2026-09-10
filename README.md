@@ -45,6 +45,11 @@ Un cadre à capturer en photo d'écran (nom, classe, date et heure, niveau attei
 validation), et selon les réglages du bloc `COLLECTE` en tête de la page : un bouton WhatsApp
 (`wa.me`, numéro du professeur au format international), un bouton courriel, le bouton « copier ».
 
+**Le numéro du professeur ne s'écrit pas dans la page publique** : il se passe dans le lien donné aux élèves,
+`…/positionnement.html?wa=33612345678` (pareil pour `index.html`), et la page le lit. La page à projeter en
+classe, avec les deux QR codes portant ce lien, est dans `a-projeter/` (non versionné, refait par
+`python faire-la-page-a-projeter.py NUMERO`).
+
 ## Les sorties de la page
 
 Chaque sortie (autre application, écran verrouillé, page fermée) est comptée. Test d'accueil : un point en
