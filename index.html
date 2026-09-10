@@ -1,0 +1,276 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Test d'accueil — sécurité et règles de la classe — 1re Bac Pro MFER</title>
+<style>
+  :root{--bleu:#1b3a63; --orange:#ff6b35; --orange-p:#c9451a; --vert:#0e7a5f; --rouge:#b3261e; --encre:#22303f; --gris:#5d6b7c;
+    --filet:#d8dee6; --fond:#eef1f5; --doux:#f5f8fc}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--fond); color:var(--encre); font-family:Calibri,'Segoe UI',Arial,sans-serif; font-size:17px; line-height:1.45}
+  .page{max-width:640px; margin:0 auto; padding:14px 14px 40px}
+  header{background:var(--bleu); color:#fff; border-radius:0 0 10px 10px; padding:12px 16px; margin:0 -14px 14px}
+  header .lycee{font-family:'Trebuchet MS',sans-serif; font-weight:bold; letter-spacing:.06em; font-size:13px; opacity:.9}
+  header h1{margin:2px 0 0; font-family:'Trebuchet MS',sans-serif; font-size:19px; line-height:1.25}
+  .barre{display:flex; justify-content:space-between; align-items:center; gap:10px; margin:6px 0 10px; font-size:14px; color:var(--gris)}
+  .barre b{color:var(--bleu)}
+  .jauge{height:10px; background:#dfe5ee; border-radius:5px; overflow:hidden; margin:0 0 14px}
+  .jauge div{height:100%; background:var(--orange); width:0%}
+  .carte{background:#fff; border-radius:10px; box-shadow:0 2px 12px rgba(27,58,99,.12); padding:16px; margin-bottom:14px}
+  .bloc{display:inline-block; background:var(--doux); border:1px solid var(--filet); border-radius:9px; padding:1px 10px; font-size:13px;
+    font-family:'Trebuchet MS',sans-serif; font-weight:bold; color:var(--bleu); margin-bottom:8px}
+  .q{font-size:18px; font-weight:bold; margin:0 0 12px; line-height:1.35}
+  button{font:inherit; cursor:pointer}
+  .rep{display:block; width:100%; text-align:left; background:#fff; border:2px solid var(--filet); border-radius:9px; padding:12px 14px; margin:8px 0;
+    font-size:17px; line-height:1.35; color:var(--encre); min-height:52px}
+  .rep .l{display:inline-block; width:26px; height:26px; border-radius:50%; background:var(--doux); border:1px solid var(--filet); text-align:center;
+    line-height:24px; font-weight:bold; margin-right:10px; font-family:'Trebuchet MS',sans-serif; color:var(--bleu)}
+  .rep.juste{border-color:var(--vert); background:#f2faf7}
+  .rep.faux{border-color:var(--rouge); background:#fdf3f3}
+  .rep:disabled{cursor:default}
+  .retour{border-left:6px solid var(--vert); background:#f2faf7; border-radius:0 8px 8px 0; padding:10px 14px; margin:10px 0 4px; font-size:16px}
+  .retour.faux{border-left-color:var(--rouge); background:#fdf3f3}
+  .retour b{font-family:'Trebuchet MS',sans-serif}
+  .suite{display:block; width:100%; background:var(--bleu); color:#fff; border:none; border-radius:9px; padding:14px; font-size:18px; font-weight:bold; margin-top:12px}
+  .suite.o{background:var(--orange-p)}
+  input[type=text]{font:inherit; width:100%; padding:12px; border:2px solid var(--filet); border-radius:9px; margin:4px 0 12px; font-size:18px}
+  label{font-weight:bold; color:var(--bleu); font-family:'Trebuchet MS',sans-serif; font-size:14px}
+  .regles{margin:6px 0 0 18px; padding:0; font-size:16px}
+  .regles li{margin:4px 0}
+  table{border-collapse:collapse; width:100%; margin:8px 0}
+  td,th{border:1px solid var(--filet); padding:7px 9px; text-align:left; font-size:15px}
+  th{background:var(--doux); color:var(--bleu); font-family:'Trebuchet MS',sans-serif}
+  .code{font-family:'Trebuchet MS',monospace; font-size:26px; letter-spacing:.12em; text-align:center; background:var(--doux); border:2px dashed var(--bleu);
+    border-radius:9px; padding:10px; margin:10px 0}
+  .petit{font-size:13px; color:var(--gris)}
+  footer{font-size:12px; color:var(--gris); text-align:center; margin-top:20px}
+  [hidden]{display:none!important}
+</style>
+
+<div class="page">
+  <header>
+    <div class="lycee">LPP JACQUES RAYNAUD · 1<sup>re</sup> Bac Pro MFER</div>
+    <h1>Test d'accueil — sécurité et règles de la classe</h1>
+  </header>
+
+  <!-- ===== écran 1 : le départ ===== -->
+  <section id="depart" class="carte">
+    <p><b>Quarante questions, une heure.</b> Une seule bonne réponse à chaque fois. La réponse est expliquée tout de suite : ce test sert à apprendre, pas seulement à noter.</p>
+    <ul class="regles">
+      <li>Je réponds seul : l'ordre des questions n'est pas le même que celui de mon voisin.</li>
+      <li>À la fin, j'obtiens une note sur 20 et un <b>code de validation</b> à recopier sur ma feuille et à montrer au professeur.</li>
+      <li>Si la page se ferme, je reviens dessus : le test reprend où il en était.</li>
+    </ul>
+    <label for="nom">Nom et prénom</label>
+    <input type="text" id="nom" autocomplete="off" placeholder="ex. : DUPONT Léa">
+    <label for="machine">Machine n° (équipe)</label>
+    <input type="text" id="machine" autocomplete="off" placeholder="ex. : M4" style="max-width:160px">
+    <button class="suite o" id="commencer">Commencer le test</button>
+  </section>
+
+  <!-- ===== écran 2 : les questions ===== -->
+  <section id="quiz" hidden>
+    <div class="barre"><span>Question <b id="numero">1</b> / <span id="total">40</span></span><span>Temps restant <b id="chrono">60:00</b></span></div>
+    <div class="jauge"><div id="jauge"></div></div>
+    <div class="carte">
+      <span class="bloc" id="bloc"></span>
+      <p class="q" id="question"></p>
+      <div id="reponses"></div>
+      <div id="retour" hidden></div>
+      <button class="suite" id="suivant" hidden>Question suivante</button>
+    </div>
+  </section>
+
+  <!-- ===== écran 3 : le résultat ===== -->
+  <section id="fin" hidden>
+    <div class="carte">
+      <h2 style="margin:0 0 6px; color:var(--bleu); font-family:'Trebuchet MS',sans-serif">Résultat</h2>
+      <p style="font-size:22px; margin:0"><b id="note"></b> / 20 — <span id="eleve"></span></p>
+      <table id="parbloc"></table>
+      <p><b>Mon code de validation</b> (à recopier sur la feuille et à montrer au professeur) :</p>
+      <div class="code" id="code"></div>
+      <p class="petit">Le code dépend du nom, de la machine et des réponses : il ne se devine pas et ne se prête pas.</p>
+      <p id="conseil"></p>
+      <button class="suite" id="revoir">Revoir mes erreurs</button>
+    </div>
+    <div class="carte" id="erreurs" hidden></div>
+    <div class="carte">
+      <p class="petit" style="margin:0 0 8px">Ce téléphone doit servir à un autre élève ? Le test repart de zéro, le code ci-dessus doit déjà être recopié.</p>
+      <button class="suite" id="autre" style="background:var(--gris)">Autre élève sur ce téléphone</button>
+    </div>
+  </section>
+
+  <footer>LPP Jacques Raynaud — Campus ÉQUATIO · F. Henninot · P. Warton · créé le 10/09/2026 · © F. Henninot 2026</footer>
+</div>
+
+<script>
+// ---------------------------------------------------------------- les questions
+// Chaque bloc : neuf questions (le bloc 5 en a quatre). Une seule bonne réponse, toujours la première ici ;
+// l'ordre des réponses est mélangé à l'affichage. « explication » est ce que l'élève lit après avoir répondu.
+const BLOCS = ["Les règles de la classe", "Le règlement du lycée", "La sécurité à l'atelier", "Les gestes qui sauvent", "Le projet de l'année"];
+const QUESTIONS = [
+  // ---- bloc 0 : les règles de la classe
+  [0, "Pendant le cours et à l'atelier, mon téléphone est :", ["dans mon sac, éteint ou en silencieux", "dans ma poche, en silencieux", "sur la table, écran vers le bas"], "Le téléphone reste dans le sac. Il ne sort que sur autorisation du professeur, par exemple pour photographier une plaque signalétique."],
+  [0, "J'arrive en retard. Je :", ["passe par la vie scolaire, puis je rejoins la classe sans bruit", "entre directement pour ne pas perdre de temps", "attends la récréation dans le couloir"], "Un retard passe par la vie scolaire : c'est le règlement, et cela évite de couper la séance."],
+  [0, "Avant d'entrer à l'atelier, j'ai :", ["ma tenue de travail et mes chaussures de sécurité", "ma tenue de ville et des baskets propres", "seulement mes gants"], "Tenue de travail et chaussures de sécurité, sinon je n'entre pas à l'atelier : c'est aussi la règle en entreprise."],
+  [0, "Le passage au vestiaire se fait :", ["par vagues, comme le professeur l'organise, sans attendre dans le couloir", "tous en même temps, le plus vite possible", "quand j'ai fini de discuter"], "Le vestiaire se vide par vagues pendant que les autres commencent : zéro temps mort, et le professeur voit qui a oublié sa tenue."],
+  [0, "Ma caisse à outils, en arrivant :", ["sous l'établi, passage dégagé, et je vérifie son contenu", "sur l'établi, ouverte", "dans le vestiaire, je la prends si besoin"], "La caisse est sous l'établi, le passage reste libre. Un outil manquant se signale tout de suite, sinon c'est moi qui le dois."],
+  [0, "Il manque un outil dans ma caisse. Je :", ["le signale au professeur immédiatement", "le prends dans la caisse d'un camarade", "attends la fin de la séance pour le dire"], "Un manque se signale tout de suite : la caisse est vérifiée à l'arrivée et au départ."],
+  [0, "Avant de quitter mon poste en fin de séance :", ["je range, je nettoie, je fais vérifier", "je pars dès la sonnerie", "je laisse les outils pour le groupe suivant"], "Un poste se rend propre et rangé, vérifié par le professeur. Le ménage de l'atelier fait partie du travail."],
+  [0, "Pour demander Internet, de l'aide ou pour sortir :", ["je lève la main et j'attends", "je me déplace vers le professeur", "je demande à un camarade de demander"], "Main levée : le professeur tient la liste et vient à moi. Cela vaut pour Internet pendant un travail sur catalogue."],
+  [0, "Le poste de travail d'un autre binôme :", ["je n'y touche pas sans lui demander", "je peux y prendre un outil s'il n'est pas là", "je peux y déplacer une machine"], "Chaque binôme est responsable de son poste : on ne touche pas au poste d'un autre."],
+  // ---- bloc 1 : le règlement du lycée
+  [1, "J'ai été absent. À mon retour :", ["je présente un justificatif à la vie scolaire", "je ne fais rien, le professeur a vu que j'étais absent", "j'envoie un message au professeur"], "Toute absence se justifie à la vie scolaire. C'est aussi ce qu'une entreprise attendra en PFMP."],
+  [1, "Un objet dangereux (couteau, briquet-torche, laser) au lycée :", ["est interdit, même dans le sac", "est toléré s'il reste dans le sac", "est autorisé à l'atelier"], "Interdit. L'atelier a ses propres outils, contrôlés, et rien d'autre."],
+  [1, "Les équipements de protection individuelle à l'atelier sont :", ["obligatoires : sans EPI, pas d'atelier", "conseillés", "réservés aux travaux dangereux"], "Les EPI sont obligatoires. Le professeur a le droit et le devoir d'interdire l'atelier à qui ne les porte pas."],
+  [1, "Manger ou boire à l'atelier :", ["est interdit", "est autorisé pendant les pauses", "est autorisé loin des machines"], "Ni nourriture ni boisson à l'atelier : produits, copeaux, fluides. On mange dehors, aux pauses."],
+  [1, "Un camarade se moque d'un autre à cause d'une erreur au poste :", ["je ne participe pas, j'aide, et je le dis si ça continue", "c'est normal, ça fait partie de l'atelier", "je filme pour rire"], "Le respect des personnes est la première règle du règlement intérieur. L'erreur est le moyen d'apprendre, pas une cible."],
+  [1, "Je casse ou j'abîme du matériel du lycée sans le vouloir. Je :", ["préviens tout de suite le professeur", "le remets en place sans rien dire", "le cache dans la réserve"], "On prévient. Un matériel abîmé et caché devient dangereux pour le suivant. Une casse déclarée n'est pas une faute."],
+  [1, "Les sorties du lycée pendant les heures de cours :", ["ne sont possibles qu'avec l'autorisation prévue par le règlement", "sont libres pendant les trous de l'emploi du temps", "sont libres si un adulte est prévenu par message"], "Le règlement fixe qui peut sortir et quand. En cas de doute, la vie scolaire répond."],
+  [1, "Photographier ou filmer une personne au lycée :", ["seulement avec son accord et celui du professeur", "est libre si c'est pour un exposé", "est libre entre élèves"], "Le droit à l'image s'applique à tous. Les photos du chantier concernent les machines, pas les personnes."],
+  [1, "Les sanctions du règlement intérieur :", ["sont graduées : rappel, punition, sanction", "commencent toujours par l'exclusion", "n'existent pas en lycée professionnel"], "Le règlement prévoit une échelle. Le premier niveau, c'est le rappel de la règle, et c'est ce que ce test prépare."],
+  // ---- bloc 2 : la sécurité à l'atelier
+  [2, "Avant de toucher une machine du parc, la première chose à faire :", ["vérifier qu'elle est à l'arrêt et consignée par le professeur", "mettre mes gants et commencer", "couper le disjoncteur moi-même"], "Une machine se touche à l'arrêt, consignée par le professeur. Le cadenas et la vérification d'absence de tension viendront avec le titre d'habilitation."],
+  [2, "Un coffret électrique de machine :", ["seul le professeur l'ouvre", "je l'ouvre si la plaque n'est pas lisible", "je l'ouvre avec un camarade"], "Cette année, le professeur seul ouvre un coffret et met sous tension. Vous n'êtes pas encore habilités."],
+  [2, "Sur une machine en marche, le tube de refoulement du compresseur :", ["est chaud : risque de brûlure", "est froid, sans risque", "est à la température de la salle"], "Le refoulement peut dépasser 70 °C. On ne le touche pas ; gants anti-chaleur pour s'en approcher."],
+  [2, "Un ventilateur de condenseur qui tourne :", ["je reste à distance, je ne mets rien dedans", "je peux le bloquer à la main pour regarder", "je le nettoie avec un chiffon"], "Pales en rotation : coupure. Rien ne s'approche d'un ventilateur en marche, ni main, ni chiffon, ni sonde."],
+  [2, "Une bouteille d'azote pour une épreuve d'étanchéité :", ["toujours avec un détendeur, et jamais d'oxygène", "peut être remplacée par de l'oxygène si l'azote manque", "se branche directement sur le circuit"], "Azote seulement, jamais d'oxygène (explosion avec l'huile), et toujours par un détendeur : la bouteille est à 200 bar."],
+  [2, "Une bouteille de fluide frigorigène ne doit jamais :", ["être chauffée à la flamme ni laissée au soleil", "être posée debout", "être attachée"], "Chauffer une bouteille fait monter sa pression jusqu'à l'éclatement. Debout, attachée, à l'ombre."],
+  [2, "Du fluide frigorigène liquide sur la peau provoque :", ["une brûlure par le froid : lunettes et gants obligatoires", "rien, il s'évapore", "une simple rougeur"], "Le fluide se détend à très basse température : brûlure froide. Lunettes et gants à chaque manipulation."],
+  [2, "Le brasage au chalumeau se fait :", ["bouteilles debout et attachées, extincteur à portée, lunettes", "sur l'établi, près des chiffons", "sans lunettes si la flamme est petite"], "Le poste de brasage est préparé avant d'allumer : bouteilles debout, attachées, extincteur à portée, rien d'inflammable autour."],
+  [2, "Pour déplacer une machine ou une bouteille lourde :", ["à deux, dos droit, ou avec le chariot", "seul, vite, en tirant", "en la faisant rouler sur le côté"], "Une charge lourde se déplace à deux ou au chariot, dos droit, jambes fléchies. Une bouteille couchée qui roule est un danger."],
+  // ---- bloc 3 : les gestes qui sauvent
+  [3, "Brûlure à la main sur un tube chaud. Je :", ["passe la main sous l'eau froide 15 minutes et j'alerte le professeur", "mets de la crème et je continue", "frotte avec un chiffon propre"], "Eau froide, quinze minutes, sans glace ni crème. Et le professeur est prévenu, toujours."],
+  [3, "Projection de fluide dans l'œil. Je :", ["rince à l'eau claire 15 minutes, paupière ouverte, et j'alerte", "frotte l'œil", "attends que ça passe"], "Rinçage immédiat, long, paupière ouverte. Le professeur appelle si nécessaire. C'est pour cela que les lunettes sont obligatoires."],
+  [3, "Coupure qui saigne. Je :", ["comprime avec un linge propre et j'alerte le professeur", "mets la main sous le robinet et je reprends", "cherche un pansement dans la réserve"], "Compression, alerte. La trousse de secours est au poste du professeur, pas dans la réserve."],
+  [3, "Un camarade se sent mal près d'une fuite de fluide. Je :", ["l'emmène à l'air, j'alerte le professeur, personne ne reste dans la zone", "le laisse assis et je vais chercher de l'eau", "ouvre la bouteille pour voir d'où ça vient"], "Le fluide chasse l'oxygène et peut faire perdre connaissance. À l'air, et on alerte. Personne n'entre dans la zone."],
+  [3, "Le numéro à composer pour les pompiers, et celui du SAMU :", ["18 et 15 (ou le 112 pour les deux)", "17 et 18", "15 et 17"], "18 pompiers, 15 SAMU, 112 numéro européen. Au lycée, c'est le professeur ou la vie scolaire qui appelle : je préviens d'abord."],
+  [3, "Un début de feu sur un poste de brasage. Je :", ["ferme la bouteille si je le peux sans risque, j'utilise l'extincteur, j'alerte", "souffle dessus", "jette de l'eau sur les bouteilles"], "Extincteur à portée du poste, bouteilles fermées, alerte. L'eau sur une bouteille de gaz chaude ne sert à rien."],
+  [3, "Le bouton d'arrêt d'urgence de l'atelier :", ["je l'actionne dès qu'une personne est en danger, sans demander", "seul le professeur peut l'actionner", "sert seulement pour les incendies"], "Un arrêt d'urgence, c'est pour tout le monde, tout de suite, dès qu'une personne est en danger. On s'explique après."],
+  [3, "Où est la trousse de secours de l'atelier ?", ["au poste du professeur", "dans la réserve", "dans chaque caisse à outils"], "Au poste du professeur, avec le registre. C'est lui qui donne les soins et qui note l'accident."],
+  [3, "Après un accident, même sans gravité :", ["il est noté au registre par le professeur", "on n'en parle pas si personne n'est blessé", "l'élève le note dans son carnet"], "Tout accident et tout presque-accident se déclare : c'est ce qui permet d'éviter le suivant."],
+  // ---- bloc 4 : le projet de l'année
+  [4, "Le projet de l'année, c'est :", ["remettre en état neuf machines du parc et les présenter à un jury le 14 avril", "réviser pour le bac", "construire une chambre froide neuve"], "Neuf machines, neuf équipes, une date : la recette du parc le mercredi 14 avril 2027. Chaque équipe a sa machine."],
+  [4, "Un « permis de chantier », c'est :", ["un geste validé par le professeur, signé dans mon livret, qui m'ouvre la suite", "une autorisation de sortie", "une note sur 20"], "Vingt-six permis dans l'année : le manifold, le multimètre, le brasage… Sans le permis, on ne fait pas le geste sur le chantier."],
+  [4, "Le dossier de ma machine :", ["se remplit à chaque séance : schémas, relevés, bons de commande, PV", "se fait à la fin, avant le jury", "est écrit par le professeur"], "Chaque TP produit une pièce du dossier. Le jury du 14 avril lit ce dossier."],
+  [4, "Le vendredi, je rends :", ["le rapport de semaine, et je passe une interro de 20 minutes", "rien : le vendredi c'est théorie", "mon carnet de bord seulement"], "Rapport de semaine chaque vendredi, interro courte chaque vendredi : c'est le rythme de l'année."],
+];
+
+// ---------------------------------------------------------------- l'ordre propre à chaque élève
+function graine(texte){ let h = 2166136261; for (const c of texte) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return h; }
+function alea(seed){ let s = seed || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
+function melange(tab, r){ const t = tab.slice(); for (let i = t.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [t[i], t[j]] = [t[j], t[i]]; } return t; }
+
+let etat = null;
+const CLE = 'mfer-test-accueil-2026';
+
+function preparer(nom, machine){
+  const r = alea(graine((nom + '|' + machine).toLowerCase()));
+  const ordre = [];
+  for (let b = 0; b < BLOCS.length; b++) {
+    const idx = QUESTIONS.map((q, i) => q[0] === b ? i : -1).filter(i => i >= 0);
+    ordre.push(...melange(idx, r));
+  }
+  const reponses = ordre.map(i => melange([0, 1, 2], r));      // ordre d'affichage des trois réponses
+  return { nom, machine, ordre, reponses, courante: 0, choix: [], debut: Date.now(), fini: false };
+}
+
+function sauver(){ try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }
+function charger(){ try { const s = localStorage.getItem(CLE); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+
+// ---------------------------------------------------------------- l'écran des questions
+const $ = (id) => document.getElementById(id);
+let minuteur = null;
+
+function afficher(){
+  $('depart').hidden = true; $('quiz').hidden = false; $('fin').hidden = true;
+  const n = etat.courante, i = etat.ordre[n], q = QUESTIONS[i];
+  $('numero').textContent = n + 1; $('total').textContent = etat.ordre.length;
+  $('jauge').style.width = Math.round(100 * n / etat.ordre.length) + '%';
+  $('bloc').textContent = BLOCS[q[0]];
+  $('question').textContent = q[1];
+  const zone = $('reponses'); zone.innerHTML = '';
+  etat.reponses[n].forEach((k, pos) => {
+    const b = document.createElement('button'); b.className = 'rep'; b.dataset.k = k;
+    b.innerHTML = '<span class="l">' + 'abc'[pos] + '</span>' + q[2][k];
+    b.addEventListener('click', () => repondre(k));
+    zone.appendChild(b);
+  });
+  $('retour').hidden = true; $('suivant').hidden = true;
+}
+
+function repondre(k){
+  const n = etat.courante, q = QUESTIONS[etat.ordre[n]];
+  if (etat.choix[n] !== undefined) return;
+  etat.choix[n] = k; sauver();
+  document.querySelectorAll('#reponses .rep').forEach(b => {
+    b.disabled = true;
+    if (+b.dataset.k === 0) b.classList.add('juste');
+    else if (+b.dataset.k === k) b.classList.add('faux');
+  });
+  const r = $('retour'); r.hidden = false;
+  r.className = 'retour' + (k === 0 ? '' : ' faux');
+  r.innerHTML = (k === 0 ? '<b>Juste.</b> ' : '<b>Non.</b> La bonne réponse est en vert. ') + q[3];
+  const s = $('suivant'); s.hidden = false;
+  s.textContent = n + 1 < etat.ordre.length ? 'Question suivante' : 'Voir mon résultat';
+}
+
+function suivante(){
+  if (etat.courante + 1 < etat.ordre.length) { etat.courante++; sauver(); afficher(); }
+  else terminer();
+}
+
+function chrono(){
+  const restant = Math.max(0, 60 * 60 - Math.floor((Date.now() - etat.debut) / 1000));
+  const m = Math.floor(restant / 60), s = restant % 60;
+  $('chrono').textContent = m + ':' + String(s).padStart(2, '0');
+  if (restant === 0 && !etat.fini) terminer();
+}
+
+// ---------------------------------------------------------------- le résultat
+function terminer(){
+  etat.fini = true; sauver(); clearInterval(minuteur);
+  $('depart').hidden = true; $('quiz').hidden = true; $('fin').hidden = false;
+  const parBloc = BLOCS.map(() => ({ ok: 0, n: 0 }));
+  etat.ordre.forEach((i, n) => { const b = QUESTIONS[i][0]; parBloc[b].n++; if (etat.choix[n] === 0) parBloc[b].ok++; });
+  const ok = parBloc.reduce((a, x) => a + x.ok, 0), total = etat.ordre.length;
+  const note = Math.round(20 * ok / total * 2) / 2;
+  $('note').textContent = String(note).replace('.', ',');
+  $('eleve').textContent = etat.nom + (etat.machine ? ' · ' + etat.machine : '');
+  $('parbloc').innerHTML = '<tr><th>Bloc</th><th>Justes</th></tr>' + parBloc.map((x, b) => '<tr><td>' + BLOCS[b] + '</td><td>' + x.ok + ' / ' + x.n + '</td></tr>').join('');
+  const h = graine(etat.nom.toLowerCase() + '|' + etat.machine.toLowerCase() + '|' + etat.choix.join(''));
+  $('code').textContent = (etat.nom.trim().slice(0, 3).toUpperCase() || 'XXX') + '-' + String(note).replace('.', ',') + '-' + (h % 9000 + 1000);
+  const faibles = parBloc.map((x, b) => x.ok / x.n < 0.6 ? BLOCS[b] : null).filter(Boolean);
+  $('conseil').innerHTML = faibles.length
+    ? '<b>À relire avant le prochain TP :</b> ' + faibles.join(', ') + '. La feuille de sécurité du TP se relit avec le professeur.'
+    : '<b>Les règles sont sues.</b> Reste à les tenir chaque mercredi.';
+}
+
+function revoir(){
+  const z = $('erreurs'); z.hidden = false;
+  const lignes = [];
+  etat.ordre.forEach((i, n) => {
+    const q = QUESTIONS[i];
+    if (etat.choix[n] !== 0) lignes.push('<p><b>' + q[1] + '</b><br><span style="color:var(--vert)">' + q[2][0] + '</span><br><span class="petit">' + q[3] + '</span></p>');
+  });
+  z.innerHTML = lignes.length ? '<h3 style="margin:0 0 6px; color:var(--bleu)">Mes erreurs et leur explication</h3>' + lignes.join('') : '<p>Aucune erreur.</p>';
+  $('revoir').hidden = true;
+}
+
+// ---------------------------------------------------------------- le démarrage
+$('commencer').addEventListener('click', () => {
+  const nom = $('nom').value.trim(), machine = $('machine').value.trim();
+  if (nom.length < 3) { $('nom').focus(); $('nom').style.borderColor = 'var(--rouge)'; return; }
+  etat = preparer(nom, machine); sauver();
+  minuteur = setInterval(chrono, 1000); chrono(); afficher();
+});
+$('suivant').addEventListener('click', suivante);
+$('revoir').addEventListener('click', revoir);
+$('autre').addEventListener('click', () => { try { localStorage.removeItem(CLE); } catch (e) {} location.reload(); });
+
+const repris = charger();
+if (repris && repris.nom) {
+  etat = repris;
+  if (etat.fini) terminer();
+  else { minuteur = setInterval(chrono, 1000); chrono(); afficher(); }
+}
+</script>
