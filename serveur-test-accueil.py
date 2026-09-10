@@ -63,7 +63,7 @@ def page_resultats(lignes):
             html.escape(str(l.get('repondu', ''))), html.escape(str(l.get('total', ''))), html.escape(str(l.get('code', ''))),
             html.escape(str(l.get('competences', '')))))
     return ('<meta charset="utf-8"><meta http-equiv="refresh" content="10"><title>Résultats du test d\'accueil</title>'
-            '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:18px;color:#22303f}table{border-collapse:collapse;width:100%}'
+            '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:18px;color:#22303f}table{border-collapse:collapse;width:100%%}'
             'td,th{border:1px solid #d8dee6;padding:5px 8px;text-align:left;vertical-align:top}th{background:#f5f8fc;color:#1b3a63}'
             'h1{color:#1b3a63;font-size:20px}a{color:#1b3a63}</style>'
             '<h1>Résultats du test d\'accueil — %d élève(s)</h1>'
