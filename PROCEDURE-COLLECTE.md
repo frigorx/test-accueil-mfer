@@ -9,8 +9,8 @@ chaque résultat devient une ligne de la feuille de réponses, dans votre Google
 ## 1. Créer le formulaire (cinq minutes, une seule fois)
 
 1. https://forms.google.com → « Formulaire vierge ». Titre : `Test d'accueil MFER — résultats`.
-2. Créer **six questions**, toutes de type **« Réponse courte »**, dans cet ordre et avec ces titres :
-   `Nom` · `Machine` · `Note` · `Blocs` · `Code` · `Réponses`.
+2. Créer **huit questions**, toutes de type **« Réponse courte »**, dans cet ordre et avec ces titres :
+   `Nom` · `Machine` · `Note` · `Blocs` · `Code` · `Réponses` · `Diplome` · `Competences`.
    Aucune n'est obligatoire. Pas de connexion requise : dans « Paramètres » → « Réponses »,
    laisser **« Limiter à 1 réponse » décoché** et **ne pas** cocher « Collecter les adresses e-mail ».
 3. En haut à droite, les trois points → **« Obtenir le lien pré-rempli »**. Écrire `a` dans chaque
@@ -25,8 +25,8 @@ Le lien pré-rempli ressemble à :
 `https://docs.google.com/forms/d/e/1FAIpQLSd…/viewform?usp=pp_url&entry.111=a&entry.222=a&…`
 
 - la partie entre `/d/e/` et `/viewform` est l'identifiant du formulaire → `COLLECTE.formulaire` ;
-- les six `entry.NNN`, dans l'ordre des questions → `COLLECTE.champs.nom`, `machine`, `note`,
-  `blocs`, `code`, `reponses`.
+- les huit `entry.NNN`, dans l'ordre des questions → `COLLECTE.champs.nom`, `machine`, `note`,
+  `blocs`, `code`, `reponses`, `diplome`, `competences`.
 
 Dans `index.html`, bloc `const COLLECTE = {…}`, puis `git commit` et `git push` : la page en ligne
 se met à jour en une minute.
@@ -41,7 +41,9 @@ se met à jour en une minute.
 | Note | sur 20 |
 | Blocs | justes par bloc, ex. `Les règles de la classe 6/9 · …` |
 | Code | le code de validation, le même que sur son écran : il prouve que la ligne vient bien de la page |
-| Réponses | `numéro:choix` pour les 40 questions (0 = juste), pour analyser les erreurs |
+| Réponses | la durée passée, puis `numéro:choix` pour les 41 questions (0 = juste), pour analyser les erreurs et repérer qui n'a pas travaillé |
+| Diplome | `1re Bac Pro MFER` ou `2e année CAP IFCA` (choisi par l'élève au départ) |
+| Competences | par compétence du référentiel choisi : justes / total et « acquis · en cours · à revoir » ; puis les trois niveaux « Je sais · Je comprends · Je fais le bon geste » |
 
 ## Second canal : le courriel
 
