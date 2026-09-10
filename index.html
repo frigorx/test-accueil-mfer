@@ -49,6 +49,9 @@
     border-radius:9px; padding:10px; margin:10px 0}
   .petit{font-size:14px; color:var(--gris)}
   .capture{border:3px solid var(--orange-p); padding:12px 14px}
+  .sorties{font-size:15px; color:var(--gris); margin:-6px 0 12px}
+  .sorties.alerte{color:var(--rouge); font-weight:bold}
+  .arret{background:#fdf3f3; border:2px solid var(--rouge); border-radius:8px; padding:10px 12px; color:var(--rouge); font-weight:bold; margin:0 0 8px}
   .capture td,.capture th{padding:4px 7px; font-size:14px}
   .consigne-capture{background:#fff7f3; border:1.5px dashed var(--orange-p); border-radius:8px; padding:8px 12px; font-weight:bold; color:var(--orange-p); font-size:16px}
   footer{font-size:12px; color:var(--gris); text-align:center; margin-top:20px}
@@ -67,8 +70,8 @@
     <ul class="regles">
       <li>Je réponds seul. Mon voisin n'a pas les mêmes questions.</li>
       <li>À la fin : une note sur 20 et mes compétences. Je fais une <b>capture d'écran</b> du résultat et je l'envoie au professeur.</li>
-      <li>Si la page se ferme, je reviens : le test continue.</li>
       <li>Le bouton 🔊 lit la question à voix haute.</li>
+      <li><b>Je reste sur la page.</b> Si je sors (autre appli, écran verrouillé, page fermée), je perds <b>1 point</b>. À <b>5 sorties</b>, le test s'arrête et je vais à la vie scolaire.</li>
     </ul>
     <label>Ma classe</label>
     <div class="choix">
@@ -77,8 +80,6 @@
     </div>
     <label for="nom">Nom et prénom</label>
     <input type="text" id="nom" autocomplete="off" placeholder="ex. : DUPONT Léa">
-    <label for="machine">Machine n° (équipe)</label>
-    <input type="text" id="machine" autocomplete="off" placeholder="ex. : M4" style="max-width:160px">
     <button class="suite o" id="commencer">Commencer le test</button>
   </section>
 
@@ -86,6 +87,7 @@
   <section id="quiz" hidden>
     <div class="barre"><span>Question <b id="numero">1</b> / <span id="total">40</span></span><span>Temps <b id="chrono">60:00</b></span></div>
     <div class="jauge"><div id="jauge"></div></div>
+    <div class="sorties" id="sorties">Sorties de la page : <b>0</b> / 5</div>
     <div class="carte">
       <span class="etiq" id="bloc"></span><span class="etiq niv" id="niveau"></span>
       <p class="q" id="question"></p>
@@ -99,10 +101,12 @@
   <!-- ===== écran 3 : le résultat ===== -->
   <section id="fin" hidden>
     <div class="carte capture" id="capture">
+      <div class="arret" id="arret" hidden></div>
       <div class="consigne-capture">📸 Je fais une capture d'écran de ce cadre et je l'envoie au professeur.</div>
       <h2 style="margin:6px 0 2px; color:var(--bleu); font-family:'Trebuchet MS',sans-serif">Mon résultat</h2>
       <p style="margin:0 0 4px; font-size:16px"><b id="eleve"></b><br><span id="diplome"></span> · <span id="quand"></span></p>
-      <p style="font-size:30px; margin:4px 0 8px; color:var(--bleu)"><b id="note"></b> / 20</p>
+      <p style="font-size:30px; margin:4px 0 2px; color:var(--bleu)"><b id="note"></b> / 20</p>
+      <p id="detailnote" class="petit" style="margin:0 0 8px"></p>
       <table id="parcomp"></table>
       <table id="parniveau"></table>
       <p style="margin:8px 0 2px"><b>Code de validation</b></p>
@@ -135,12 +139,20 @@
 // et un numéro entry.XXXX par question (huit questions : Nom, Machine, Note, Blocs, Code, Réponses, Diplome, Competences).
 const COLLECTE = {
   formulaire: '',
-  champs: { nom: '', machine: '', note: '', blocs: '', code: '', reponses: '', diplome: '', competences: '' },
+  champs: { nom: '', note: '', blocs: '', code: '', reponses: '', diplome: '', competences: '' },
   courriel: ''                                      // second canal : l'adresse du professeur → bouton « Envoyer par courriel »
 };
 
 function envoyerResultat(d){
   const e = document.getElementById('envoi');
+  // Servie par le PC du professeur (serveur local) : le résultat part directement vers lui.
+  if (location.protocol === 'http:' && !/github\.io$/.test(location.hostname)) {
+    e.textContent = 'Envoi du résultat au PC du professeur…';
+    fetch('/resultat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+      .then(r => { e.textContent = r.ok ? 'Résultat envoyé au PC du professeur ✓ — je fais quand même la capture.' : 'Envoi refusé : la capture d\'écran est ma preuve.'; })
+      .catch(() => { e.textContent = 'Pas de liaison avec le PC : la capture d\'écran est ma preuve.'; });
+    return;
+  }
   if (!COLLECTE.formulaire || !COLLECTE.champs.nom) { e.textContent = 'Ce résultat reste sur mon téléphone : la capture d\'écran est ma preuve.'; return; }
   const fd = new FormData();
   for (const k in COLLECTE.champs) { if (COLLECTE.champs[k]) fd.append(COLLECTE.champs[k], d[k]); }
@@ -230,16 +242,35 @@ function melange(tab, r){ const t = tab.slice(); for (let i = t.length - 1; i > 
 let etat = null, diplome = 'MFER';
 const CLE = 'mfer-test-accueil-2026';
 
-function preparer(nom, machine, dipl){
-  const r = alea(graine((nom + '|' + machine + '|' + dipl).toLowerCase()));
+function preparer(nom, dipl){
+  const r = alea(graine((nom + '|' + dipl).toLowerCase()));
   const ordre = [];
   for (let b = 0; b < BLOCS.length; b++) {
     const idx = QUESTIONS.map((q, i) => (q.b === b && (!q.d || q.d === dipl)) ? i : -1).filter(i => i >= 0);
     ordre.push(...melange(idx, r));
   }
   const reponses = ordre.map(() => melange([0, 1, 2], r));
-  return { nom, machine, diplome: dipl, ordre, reponses, courante: 0, choix: [], debut: Date.now(), fini: false };
+  return { nom, diplome: dipl, ordre, reponses, courante: 0, choix: [], debut: Date.now(), fini: false, sorties: 0 };
 }
+
+// ---------------------------------------------------------------- les sorties de la page
+// Chaque sortie (autre application, écran verrouillé, page fermée ou rechargée) coûte un point ;
+// à la cinquième, le test s'arrête. Le compte est gardé sur le téléphone : recharger ne l'efface pas.
+const SORTIES_MAX = 5;
+let enSortie = false;
+function afficherSorties(){
+  const z = document.getElementById('sorties'); if (!z || !etat) return;
+  z.innerHTML = 'Sorties de la page : <b>' + etat.sorties + '</b> / ' + SORTIES_MAX + (etat.sorties ? ' — ' + etat.sorties + ' point' + (etat.sorties > 1 ? 's' : '') + ' en moins' : '');
+  z.className = 'sorties' + (etat.sorties >= 3 ? ' alerte' : '');
+}
+function sortie(){
+  if (!etat || etat.fini || enSortie) return;
+  enSortie = true; etat.sorties = (etat.sorties || 0) + 1; sauver(); afficherSorties();
+  if (etat.sorties >= SORTIES_MAX) { etat.arret = true; sauver(); terminer(); }
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden) sortie(); else enSortie = false; });
+window.addEventListener('pagehide', () => { sortie(); });
+window.addEventListener('blur', () => { if (document.hidden) sortie(); });
 
 function sauver(){ try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }
 function charger(){ try { const s = localStorage.getItem(CLE); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
@@ -263,6 +294,7 @@ function afficher(){
     zone.appendChild(b);
   });
   $('retour').hidden = true; $('suivant').hidden = true;
+  afficherSorties();
 }
 
 function lireVoixHaute(){
@@ -316,10 +348,15 @@ function terminer(){
     const c = q[cle]; parComp[c] = parComp[c] || { ok: 0, n: 0 }; parComp[c].n++; if (juste) parComp[c].ok++;
     parNiv[q.n].n++; if (juste) parNiv[q.n].ok++;
   });
-  const ok = parBloc.reduce((a, x) => a + x.ok, 0), total = etat.ordre.length;
-  const note = Math.round(20 * ok / total * 2) / 2, noteTxt = String(note).replace('.', ',');
+  const ok = parBloc.reduce((a, x) => a + x.ok, 0), total = etat.ordre.length, sorties = etat.sorties || 0;
+  const brute = Math.round(20 * ok / total * 2) / 2;
+  const note = Math.max(0, brute - sorties), noteTxt = String(note).replace('.', ',');
   $('note').textContent = noteTxt;
-  $('eleve').textContent = etat.nom + (etat.machine ? ' · ' + etat.machine : '');
+  const repondu = etat.choix.filter(c => c !== undefined).length;
+  $('detailnote').textContent = repondu + ' réponses sur ' + total + (sorties ? ' · ' + String(brute).replace('.', ',') + ' − ' + sorties + ' (' + sorties + ' sortie' + (sorties > 1 ? 's' : '') + ' de la page)' : ' · aucune sortie de la page');
+  const a = $('arret'); a.hidden = !etat.arret;
+  if (etat.arret) a.textContent = 'TEST ARRÊTÉ : ' + SORTIES_MAX + ' sorties de la page. Je vais voir le professeur, puis la vie scolaire.';
+  $('eleve').textContent = etat.nom;
   $('diplome').textContent = ref.nom;
   if (!etat.quand) { etat.quand = new Date().toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
   $('quand').textContent = etat.quand;
@@ -331,16 +368,17 @@ function terminer(){
   $('parniveau').innerHTML = '<tr><th>Niveau</th><th>Justes</th><th>Où j\'en suis</th></tr>' + [1, 2, 3].map(l => {
     const x = parNiv[l], [lib, cls] = classe(x.ok, x.n);
     return '<tr><td>' + NIVEAUX[l] + '</td><td>' + x.ok + ' / ' + x.n + '</td><td class="' + cls + '">' + lib + '</td></tr>'; }).join('');
-  const h = graine(etat.nom.toLowerCase() + '|' + etat.machine.toLowerCase() + '|' + etat.choix.join(''));
+  const h = graine(etat.nom.toLowerCase() + '|' + (etat.diplome || '') + '|' + etat.choix.join('') + '|' + sorties);
   const code = (etat.nom.trim().slice(0, 3).toUpperCase() || 'XXX') + '-' + noteTxt + '-' + (h % 9000 + 1000);
   $('code').textContent = code;
   const minutes = Math.round((Date.now() - etat.debut) / 60000);
   etat.resultat = {
-    nom: etat.nom, machine: etat.machine, note: noteTxt, code: code, diplome: ref.nom + ' · ' + etat.quand,
+    nom: etat.nom, note: noteTxt, code: code, diplome: ref.nom + ' · ' + etat.quand,
     blocs: parBloc.map((x, b) => BLOCS[b] + ' ' + x.ok + '/' + x.n).join(' · '),
     competences: codes.map(c => c + ' ' + parComp[c].ok + '/' + parComp[c].n + ' ' + classe(parComp[c].ok, parComp[c].n)[0]).join(' · ')
                  + ' · niveaux ' + [1, 2, 3].map(l => NIVEAUX[l] + ' ' + parNiv[l].ok + '/' + parNiv[l].n).join(', '),
-    reponses: 'durée ' + minutes + ' min · ' + etat.ordre.map((i, n) => i + ':' + (etat.choix[n] === undefined ? '-' : etat.choix[n])).join(' ')
+    sorties: sorties, arret: !!etat.arret, repondu: repondu, total: total,
+    reponses: 'durée ' + minutes + ' min · sorties ' + sorties + (etat.arret ? ' (test arrêté)' : '') + ' · ' + etat.ordre.map((i, n) => i + ':' + (etat.choix[n] === undefined ? '-' : etat.choix[n])).join(' ')
   };
   sauver();
   if (!etat.envoye) { envoyerResultat(etat.resultat); etat.envoye = true; sauver(); }
@@ -369,10 +407,10 @@ document.querySelector('.choix').addEventListener('click', (ev) => {
   document.querySelectorAll('.choix button').forEach(x => { x.classList.toggle('on', x === b); x.style.borderColor = ''; });
 });
 $('commencer').addEventListener('click', () => {
-  const nom = $('nom').value.trim(), machine = $('machine').value.trim();
+  const nom = $('nom').value.trim();
   if (!document.querySelector('.choix button.on')) { document.querySelectorAll('.choix button').forEach(x => x.style.borderColor = 'var(--rouge)'); return; }
   if (nom.length < 3) { $('nom').focus(); $('nom').style.borderColor = 'var(--rouge)'; return; }
-  etat = preparer(nom, machine, diplome); sauver();
+  etat = preparer(nom, diplome); sauver();
   minuteur = setInterval(chrono, 1000); chrono(); afficher();
 });
 $('suivant').addEventListener('click', suivante);
@@ -382,13 +420,13 @@ $('autre').addEventListener('click', () => { try { localStorage.removeItem(CLE);
 $('courriel').addEventListener('click', () => {
   const r = etat && etat.resultat; if (!r || !COLLECTE.courriel) return;
   const sujet = 'Test accueil — ' + r.nom + ' — ' + r.note + '/20 — ' + r.code;
-  const corps = r.nom + '\n' + r.machine + '\n' + r.diplome + '\nNote : ' + r.note + '/20\n' + r.blocs + '\n' + r.competences + '\nCode : ' + r.code + '\n' + r.reponses;
+  const corps = r.nom + '\n' + r.diplome + '\nNote : ' + r.note + '/20\n' + r.blocs + '\n' + r.competences + '\nCode : ' + r.code + '\n' + r.reponses;
   location.href = 'mailto:' + COLLECTE.courriel + '?subject=' + encodeURIComponent(sujet) + '&body=' + encodeURIComponent(corps);
 });
 if (COLLECTE.courriel) $('courriel').hidden = false;
 $('copier').addEventListener('click', () => {
   const r = etat && etat.resultat; if (!r) return;
-  const texte = r.nom + ' · ' + r.machine + ' · ' + r.diplome + ' · ' + r.note + '/20 · ' + r.blocs + ' · ' + r.competences + ' · code ' + r.code;
+  const texte = r.nom + ' · ' + r.diplome + ' · ' + r.note + '/20 · ' + r.blocs + ' · ' + r.competences + ' · code ' + r.code;
   const fini = () => { $('copier').textContent = 'Résultat copié : je le colle dans le message au professeur'; };
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texte).then(fini, () => { prompt('À recopier :', texte); });
   else prompt('À recopier :', texte);

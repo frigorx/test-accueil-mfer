@@ -12,6 +12,25 @@ Elle ne peut rien enregistrer par elle-même (pas de serveur). Les résultats pa
 **un formulaire Google à vous**, que la page remplit et envoie toute seule quand l'élève termine :
 chaque résultat devient une ligne de la feuille de réponses, dans votre Google Drive.
 
+## Sans Internet : le serveur local sur le PC du professeur (esprit SchoolRoom)
+
+`python serveur-test-accueil.py` dans ce dossier (Python seul, rien à installer). Le PC sert la page
+aux téléphones du même réseau Wi-Fi (ou du point d'accès mobile du PC) et **reçoit les résultats** :
+
+- élèves : `http://ADRESSE-DU-PC:8765/` (l'adresse s'affiche au lancement ; les élèves la tapent) ;
+- professeur : `http://localhost:8765/resultats` (tableau vivant : heure, nom, classe, note, sorties,
+  répondu, code, compétences) et `http://localhost:8765/resultats.csv` pour le tableur ;
+- fichiers : `resultats/test-accueil.jsonl` (jamais effacé) et `resultats/test-accueil.csv`.
+
+La page détecte qu'elle est servie par le PC et y envoie le résultat toute seule ; la capture d'écran
+reste demandée par sécurité. Au premier lancement, Windows demande d'autoriser Python sur le réseau :
+autoriser. Aucun forfait, rien ne sort du PC.
+
+**Les sorties de la page** (dans la page, quel que soit le mode) : chaque fois que l'élève quitte la
+page (autre application, écran verrouillé, page fermée ou rechargée), il perd un point ; à la
+cinquième sortie le test s'arrête, l'écran l'envoie voir le professeur puis la vie scolaire. Le
+compte est gardé sur le téléphone et apparaît dans le résultat.
+
 ## 1. Créer le formulaire (cinq minutes, une seule fois)
 
 1. https://forms.google.com → « Formulaire vierge ». Titre : `Test d'accueil MFER — résultats`.
