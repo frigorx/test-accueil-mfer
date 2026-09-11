@@ -62,4 +62,10 @@ classe, avec les deux QR codes portant ce lien, est dans `a-projeter/` (non vers
 Chaque sortie (autre application, écran verrouillé, page fermée) est comptée. Test d'accueil : un point en
 moins par sortie, arrêt à la cinquième. Positionnement : comptées et affichées, arrêt à la cinquième.
 
+**Un écran qui s'éteint tout seul compte comme une sortie.** Les deux pages demandent donc au téléphone de
+garder l'écran allumé pendant le test (Wake Lock : Android, et iPhone à partir d'iOS 16.4, en https donc sur
+les pages en ligne ; pas en mode fermé, qui est en http). Partout où cela ne marche pas, la consigne est
+écrite au départ et sur les pages à projeter : verrouillage automatique sur « Jamais ». Le serveur du PC
+n'autorise aucun cache : après une modification, les téléphones voient tout de suite la nouvelle page.
+
 Voir aussi `PROCEDURE-COLLECTE.md` (les modes de récupération) et `_PLAN-QUIZ-POSITIONNEMENT.md`.

@@ -32,6 +32,13 @@ Le dépôt est **public** : jamais de nom d'élève, de numéro de téléphone n
   deux CSV), vérifier, régler. Les pages du professeur ne s'ouvrent que sur le PC (403 ailleurs).
 - **Le numéro WhatsApp** est dans `reglages.json` (hors dépôt) et voyage dans les liens (`?wa=`), jamais
   dans les pages. Le lanceur repose lui-même le raccourci sur le Bureau et installe le module `qrcode`.
+- **Téléphones** (question de Franck, 11/09 : « et les iPhone ? ») : rien de récent dans le code (pas de
+  syntaxe qui manquerait aux vieux iOS), viewport posé, champs à 18 px (pas de zoom forcé), symboles en ligne
+  (Safari refuse les `use` externes), copie par `prompt` quand le presse-papiers est refusé (http local),
+  WhatsApp et courriel par lien. **Piège trouvé** : l'écran qui s'éteint tout seul compte comme une sortie →
+  garde d'écran (Wake Lock, https ; iPhone dès iOS 16.4) + consigne « verrouillage automatique sur Jamais »
+  au départ et sur les pages à projeter. Le serveur du PC n'autorise plus aucun cache. Ce qui n'a pas pu être
+  prouvé depuis le PC : la garde d'écran effective sur un téléphone (à voir le jour J).
 - **Vérifié** : parcours CAP, MFER et TNE rejoués par script sur la vraie banque ; serveur (résultats, CSV,
   cartographie, suivi « En ce moment ») ; refus des pages du professeur depuis le réseau ; relancement quand
   le serveur tourne déjà ; pages publiées (GitHub Pages construit).
