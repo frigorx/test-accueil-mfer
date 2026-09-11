@@ -72,6 +72,7 @@
       <li>À la fin : une note sur 20 et mes compétences. Je fais une <b>capture d'écran</b> du résultat et je l'envoie au professeur.</li>
       <li>Le bouton 🔊 lit la question à voix haute.</li>
       <li><b>Je reste sur la page.</b> Si je sors (autre appli, écran verrouillé, page fermée), je perds <b>1 point</b>. À <b>5 sorties</b>, le test s'arrête et je vais à la vie scolaire.</li>
+      <li><b>Mon téléphone ne doit pas s'éteindre tout seul.</b> Je mets le verrouillage automatique sur « Jamais » (Réglages).</li>
     </ul>
     <label>Ma classe</label>
     <div class="choix">
@@ -262,7 +263,13 @@ function preparer(nom, dipl){
 // Chaque sortie (autre application, écran verrouillé, page fermée ou rechargée) coûte un point ;
 // à la cinquième, le test s'arrête. Le compte est gardé sur le téléphone : recharger ne l'efface pas.
 const SORTIES_MAX = 5;
-let enSortie = false;
+let enSortie = false, veille = null;
+// L'écran ne doit pas se verrouiller tout seul pendant le test (un écran éteint compte comme une sortie).
+// Marche sur Android et sur iPhone à partir d'iOS 16.4, en https ; ailleurs, l'élève règle son téléphone.
+function garderEcranAllume(){
+  if (!('wakeLock' in navigator) || !etat || etat.fini) return;
+  navigator.wakeLock.request('screen').then(v => { veille = v; }).catch(() => {});
+}
 function afficherSorties(){
   const z = document.getElementById('sorties'); if (!z || !etat) return;
   z.innerHTML = 'Sorties de la page : <b>' + etat.sorties + '</b> / ' + SORTIES_MAX + (etat.sorties ? ' — ' + etat.sorties + ' point' + (etat.sorties > 1 ? 's' : '') + ' en moins' : '');
@@ -273,7 +280,7 @@ function sortie(){
   enSortie = true; etat.sorties = (etat.sorties || 0) + 1; sauver(); afficherSorties();
   if (etat.sorties >= SORTIES_MAX) { etat.arret = true; sauver(); terminer(); }
 }
-document.addEventListener('visibilitychange', () => { if (document.hidden) sortie(); else enSortie = false; });
+document.addEventListener('visibilitychange', () => { if (document.hidden) sortie(); else { enSortie = false; garderEcranAllume(); } });
 window.addEventListener('pagehide', () => { sortie(); });
 window.addEventListener('blur', () => { if (document.hidden) sortie(); });
 
@@ -424,7 +431,7 @@ $('commencer').addEventListener('click', () => {
   if (!document.querySelector('.choix button.on')) { document.querySelectorAll('.choix button').forEach(x => x.style.borderColor = 'var(--rouge)'); return; }
   if (nom.length < 3) { $('nom').focus(); $('nom').style.borderColor = 'var(--rouge)'; return; }
   etat = preparer(nom, diplome); sauver();
-  minuteur = setInterval(chrono, 1000); chrono(); afficher();
+  minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume();
 });
 $('suivant').addEventListener('click', suivante);
 $('lire').addEventListener('click', lireVoixHaute);
@@ -455,6 +462,6 @@ const repris = charger();
 if (repris && repris.nom) {
   etat = repris; diplome = etat.diplome || 'MFER';
   if (etat.fini) terminer();
-  else { minuteur = setInterval(chrono, 1000); chrono(); afficher(); }
+  else { minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume(); }
 }
 </script>

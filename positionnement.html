@@ -887,6 +887,7 @@
 
   <section id="depart" class="carte">
     <p><b>Ce test n'est pas noté.</b> Il dit à quel niveau je suis et ce que je maîtrise déjà. Une seule bonne réponse, une explication après chaque réponse.</p>
+    <p><b>Mon téléphone ne doit pas s'éteindre tout seul.</b> Je mets le verrouillage automatique sur « Jamais » (Réglages). Un écran éteint compte comme une sortie.</p>
     <ul class="regles">
       <li>Six niveaux, du niveau 0 (l'atelier et les règles) au niveau 5 (expert). Je monte tant que je réussis au moins la moitié d'un niveau. Personne n'est censé tout réussir.</li>
       <li>Je réponds seul. Mon voisin n'a pas les mêmes questions.</li>
@@ -987,7 +988,13 @@ function alea(seed){ let s = seed || 1; return () => { s = (Math.imul(s, 1664525
 function melange(tab, r){ const t = tab.slice(); for (let i = t.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [t[i], t[j]] = [t[j], t[i]]; } return t; }
 function echelle(ok, n){ if (!n) return 0; const t = ok / n; return t >= 0.85 ? 4 : t >= 0.65 ? 3 : t >= 0.4 ? 2 : 1; }
 
-let BANQUE = null, etat = null, classe = null, minuteur = null, enSortie = false;
+let BANQUE = null, etat = null, classe = null, minuteur = null, enSortie = false, veille = null;
+// L'écran ne doit pas se verrouiller tout seul pendant le test (un écran éteint compte comme une sortie).
+// Marche sur Android et sur iPhone à partir d'iOS 16.4, en https ; ailleurs, l'élève règle son téléphone.
+function garderEcranAllume(){
+  if (!('wakeLock' in navigator) || !etat || etat.fini) return;
+  navigator.wakeLock.request('screen').then(v => { veille = v; }).catch(() => {});
+}
 const CLE = 'positionnement-froid-2026';
 function sauver(){ try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }
 function charger(){ try { const s = localStorage.getItem(CLE); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
@@ -998,7 +1005,7 @@ fetch('banque.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw new Err
   $('chargement').textContent = b.length + ' questions prêtes.';
   $('commencer').disabled = false;
   const repris = charger();
-  if (repris && repris.nom) { etat = repris; classe = etat.classe; if (etat.fini) terminer(); else { minuteur = setInterval(chrono, 1000); afficher(); } }
+  if (repris && repris.nom) { etat = repris; classe = etat.classe; if (etat.fini) terminer(); else { minuteur = setInterval(chrono, 1000); afficher(); garderEcranAllume(); } }
 }).catch(() => { $('chargement').textContent = "Les questions ne se chargent pas : ouvrir cette page depuis l'adresse donnée par le professeur, pas depuis un fichier."; });
 
 // ---------------------------------------------------------------- la préparation : un tirage par niveau, propre à l'élève
@@ -1093,7 +1100,7 @@ function sortie(){
   enSortie = true; etat.sorties = (etat.sorties || 0) + 1; sauver(); afficherSorties();
   if (etat.sorties >= SORTIES_MAX) { etat.arret = 'sorties'; sauver(); terminer(); }
 }
-document.addEventListener('visibilitychange', () => { if (document.hidden) sortie(); else enSortie = false; });
+document.addEventListener('visibilitychange', () => { if (document.hidden) sortie(); else { enSortie = false; garderEcranAllume(); } });
 window.addEventListener('pagehide', () => { sortie(); });
 
 // ---------------------------------------------------------------- le résultat
@@ -1182,7 +1189,7 @@ $('commencer').addEventListener('click', () => {
   if (!classe) { document.querySelectorAll('.choix button').forEach(x => x.style.borderColor = 'var(--rouge)'); return; }
   if (nom.length < 3) { $('nom').focus(); $('nom').style.borderColor = 'var(--rouge)'; return; }
   etat = preparer(nom, classe); sauver();
-  minuteur = setInterval(chrono, 1000); chrono(); afficher();
+  minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume();
 });
 $('suivant').addEventListener('click', suivante);
 $('lire').addEventListener('click', lireVoixHaute);

@@ -199,6 +199,7 @@ def page_projeter():
                   '<p style="font-size:18px;color:#ffd0bd">Pas de QR code : lancer une fois <code>pip install qrcode[pil]</code> (Test-de-rentree.cmd le fait s\'il y a Internet).</p>'))
     return (CSS_PROJETER + '<title>Se connecter au test</title>'
             '<h1>Pour faire le test sur mon téléphone</h1><div class="cols">%s%s</div>'
+            '<p class="pas">Mon téléphone ne s\'éteint pas tout seul : verrouillage automatique sur « Jamais ». Un écran éteint compte comme une sortie.</p>'
             '<p style="font-size:16px;opacity:.85">Positionnement : %spositionnement.html &nbsp;·&nbsp; Le professeur suit tout sur http://localhost:%d/resultats</p>'
             '<p style="font-size:14px;opacity:.7">Si l\'adresse ne répond pas, essayer : %s (point d\'accès mobile de Windows : 192.168.137.1 en général)</p>'
             % (wifi, adresse, html.escape(url), PORT, html.escape(' · '.join('http://%s:%d/' % (ip, PORT) for ip in adresses()) or '—')))
@@ -254,6 +255,7 @@ def page_projeter_en_ligne():
     return (CSS_PROJETER + '<title>Les tests en ligne</title>'
             '<h1>Pour faire le test sur mon téléphone (4G ou Wi-Fi)</h1><div class="cols">%s</div>'
             '<ol class="pas" style="text-align:left;display:inline-block;margin:14px auto 0"><li>Je scanne le QR code, ou je tape l\'adresse.</li>'
+            '<li>Mon téléphone ne s\'éteint pas tout seul : verrouillage automatique sur « Jamais ».</li>'
             '<li>Mon nom, ma classe, « Commencer ».</li><li>Je réponds. <b>Je ne quitte pas la page</b> : chaque sortie est comptée.</li>'
             '<li>À la fin : capture d\'écran du cadre, puis « Envoyer par WhatsApp au professeur ».</li></ol>'
             '<p class="pas">%s</p>' % (cols, num))
@@ -305,12 +307,15 @@ class Gestionnaire(SimpleHTTPRequestHandler):
         if args and 'POST /resultat' in args[0]:
             sys.stdout.write('%s %s\n' % (datetime.now().strftime('%H:%M:%S'), args[0]))
 
+    def end_headers(self):   # jamais de cache : les téléphones voient toujours la dernière version des pages
+        self.send_header('Cache-Control', 'no-store')
+        super().end_headers()
+
     def repondre(self, code, corps, type_='text/html; charset=utf-8'):
         b = corps.encode('utf-8')
         self.send_response(code)
         self.send_header('Content-Type', type_)
         self.send_header('Content-Length', str(len(b)))
-        self.send_header('Cache-Control', 'no-store')
         self.end_headers()
         self.wfile.write(b)
 
