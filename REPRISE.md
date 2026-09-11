@@ -39,6 +39,13 @@ Le dépôt est **public** : jamais de nom d'élève, de numéro de téléphone n
   garde d'écran (Wake Lock, https ; iPhone dès iOS 16.4) + consigne « verrouillage automatique sur Jamais »
   au départ et sur les pages à projeter. Le serveur du PC n'autorise plus aucun cache. Ce qui n'a pas pu être
   prouvé depuis le PC : la garde d'écran effective sur un téléphone (à voir le jour J).
+- **Deux modes, une seule remontée automatique** (retour de Franck, 11/09 : « la remontée des notes n'aurait
+  pas pu se faire toute seule ? … ça m'a demandé WhatsApp Business ») : quand les téléphones ouvrent la page
+  **servie par le PC** (son Wi-Fi ou le Wi-Fi du lycée), le résultat part tout seul dans `resultats/` à la fin,
+  rien à envoyer, pas de bouton WhatsApp. La page **en ligne** (GitHub) ne peut rien envoyer au PC (https vers
+  http, bloqué par les navigateurs) : capture d'écran, WhatsApp ou courriel seulement, et WhatsApp est un
+  canal faible (application absente, ou version Business qui réclame un choix). Le poste de commande propose
+  donc le mode « téléphones sur ce PC » en premier, en vert ; les tests en ligne sont le secours.
 - **Vérifié** : parcours CAP, MFER et TNE rejoués par script sur la vraie banque ; serveur (résultats, CSV,
   cartographie, suivi « En ce moment ») ; refus des pages du professeur depuis le réseau ; relancement quand
   le serveur tourne déjà ; pages publiées (GitHub Pages construit).

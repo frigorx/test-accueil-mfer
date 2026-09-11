@@ -194,7 +194,7 @@ def page_projeter():
                 % (html.escape(r['ssid']), '<img src="/qr-wifi.png" alt="QR Wi-Fi">' if qr_ok else '', html.escape(r.get('motdepasse', '') or '(aucun)')))
     else:
         wifi = '<div class="col"><h2>1. Le Wi-Fi</h2><p class="pas">Je me connecte au Wi-Fi du professeur.</p><p style="font-size:14px;opacity:.7">Pour afficher le nom, le mot de passe et leur QR code : écrire <code>reglages.json</code> à côté du serveur.</p></div>'
-    adresse = ('<div class="col"><h2>2. L\'adresse</h2><div class="adr">%s</div>%s<p class="pas">puis mon nom, ma classe, je commence</p></div>'
+    adresse = ('<div class="col"><h2>2. L\'adresse</h2><div class="adr">%s</div>%s<p class="pas">puis mon nom, ma classe, je commence. À la fin, mon résultat part tout seul vers le PC du professeur.</p></div>'
                % (html.escape(url), '<img src="/qr.png" alt="QR adresse">' if qr_ok else
                   '<p style="font-size:18px;color:#ffd0bd">Pas de QR code : lancer une fois <code>pip install qrcode[pil]</code> (Test-de-rentree.cmd le fait s\'il y a Internet).</p>'))
     return (CSS_PROJETER + '<title>Se connecter au test</title>'
@@ -285,8 +285,8 @@ def page_prof():
             '<h2>5. Réglages</h2><p>%s</p>'
             '<p class="pied">Pour arrêter : fermer la fenêtre noire. Les résultats restent dans %s.</p>'
             % (etat,
-               bouton('/projeter-en-ligne', 'Les tests en ligne (QR codes)', "les élèves ont Internet (4G ou Wi-Fi du lycée) ; résultats par WhatsApp et capture d'écran", '#128c7e'),
-               bouton('/projeter', "Le Wi-Fi du PC et l'adresse locale", 'mode fermé : tout arrive sur ce PC ; huit téléphones au plus sur le point d\'accès Windows'),
+               bouton('/projeter', 'Les téléphones sur ce PC (Wi-Fi et adresse)', 'les notes arrivent toutes seules sur ce PC, rien à envoyer ; point d\'accès Windows : huit téléphones, ou le Wi-Fi du lycée', '#128c7e'),
+               bouton('/projeter-en-ligne', 'Les tests en ligne (QR codes)', "sans liaison avec ce PC : l'élève envoie une capture d'écran, un WhatsApp (s'il a l'application) ou un courriel", '#555'),
                bouton('/resultats', 'Résultats en direct', 'qui est connecté, où il en est, les notes'),
                bouton('/cartographie', 'Cartographie de la classe', 'élèves × compétences, de 1 à 4'),
                bouton('/resultats.csv', 'Tableur des résultats', 'CSV pour Excel', '#555'),

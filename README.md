@@ -23,9 +23,10 @@ Le lancer une deuxième fois rouvre seulement le poste de commande. Sur un autre
 
 Le poste de commande, en cinq blocs :
 
-1. **Projeter au tableau** — soit `/projeter-en-ligne` : les deux QR codes des tests en ligne (les élèves
-   ont Internet, 4G ou Wi-Fi du lycée ; résultats par WhatsApp et capture d'écran) ; soit `/projeter` :
-   le Wi-Fi du PC et l'adresse locale (mode fermé, tout arrive sur ce PC).
+1. **Projeter au tableau** — d'abord `/projeter` : les téléphones se connectent à ce PC (son Wi-Fi, ou le
+   Wi-Fi du lycée s'il laisse les appareils se parler) et **les notes arrivent toutes seules**, rien à
+   envoyer ; sinon `/projeter-en-ligne` : les deux QR codes des tests en ligne, sans liaison avec le PC, où
+   l'élève envoie une capture d'écran, un WhatsApp (s'il a l'application) ou un courriel.
 2. **Suivre** — `/resultats` : qui est connecté, à quel niveau, à quelle question, combien de sorties de la
    page (rouge à partir de trois), et les résultats reçus au fur et à mesure ; `/cartographie` : élèves ×
    compétences, colorée de 1 (non acquis) à 4 (parfaitement maîtrisé), part de la classe à « acquis » par
