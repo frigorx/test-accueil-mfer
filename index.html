@@ -122,6 +122,7 @@
       <button class="suite" id="whatsapp" style="background:#128c7e" hidden>Envoyer par WhatsApp au professeur</button>
       <p id="conseil" style="margin-top:12px"></p>
       <button class="suite" id="revoir">Revoir mes erreurs</button>
+      <a class="suite" id="accueil" href="/" hidden style="text-decoration:none;text-align:center">Retour à l'accueil : la suite des activités</a>
     </div>
     <div class="carte" id="erreurs" hidden></div>
     <div class="carte">
@@ -398,6 +399,7 @@ function terminer(){
     competences: codes.map(c => c + ' ' + parComp[c].ok + '/' + parComp[c].n + ' ' + classe(parComp[c].ok, parComp[c].n)[0]).join(' · ')
                  + ' · niveaux ' + [1, 2, 3].map(l => NIVEAUX[l] + ' ' + parNiv[l].ok + '/' + parNiv[l].n).join(', '),
     sorties: sorties, arret: !!etat.arret, repondu: repondu, total: total,
+    erreurs: etat.ordre.map((i, n) => (etat.choix[n] !== undefined && etat.choix[n] !== 0) ? BLOCS[QUESTIONS[i].b] + ' · ' + QUESTIONS[i].q : null).filter(Boolean),
     reponses: 'durée ' + minutes + ' min · sorties ' + sorties + (etat.arret ? ' (test arrêté)' : '') + ' · ' + etat.ordre.map((i, n) => i + ':' + (etat.choix[n] === undefined ? '-' : etat.choix[n])).join(' ')
   };
   sauver();
@@ -464,4 +466,5 @@ if (repris && repris.nom) {
   if (etat.fini) terminer();
   else { minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume(); }
 }
+if (location.protocol === 'http:' && !/github\.io$/.test(location.hostname)) document.getElementById('accueil').hidden = false;   // servi par le PC : la suite des activités
 </script>

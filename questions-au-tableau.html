@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Projeter les questions, une à une</title>
+<style>
+  :root{--bleu:#1b3a63; --orange:#c9451a; --vert:#0e7a5f; --rouge:#b3261e; --encre:#22303f; --gris:#5d6b7c; --filet:#d8dee6; --doux:#f5f8fc}
+  *{box-sizing:border-box}
+  body{margin:0; background:#fff; color:var(--encre); font-family:Calibri,'Segoe UI',Arial,sans-serif; line-height:1.3}
+  header{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:10px 24px; background:var(--bleu); color:#fff; font-size:22px}
+  header b{font-size:26px}
+  header .src{display:flex; gap:6px; flex-wrap:wrap}
+  header .src button{font:inherit; font-size:15px; padding:6px 10px; border-radius:8px; border:2px solid rgba(255,255,255,.5); background:transparent; color:#fff; cursor:pointer}
+  header .src button.on{background:#fff; color:var(--bleu); border-color:#fff; font-weight:bold}
+  main{max-width:1500px; margin:0 auto; padding:26px 40px 120px}
+  .bloc{font-family:'Trebuchet MS',sans-serif; font-weight:bold; color:var(--orange); font-size:24px; letter-spacing:.03em; margin:0 0 10px}
+  .q{font-size:46px; font-weight:bold; line-height:1.25; margin:0 0 26px; color:var(--bleu)}
+  .rep{display:flex; align-items:flex-start; gap:18px; font-size:36px; line-height:1.3; padding:16px 22px; margin:12px 0; border:3px solid var(--filet); border-radius:14px; background:var(--doux)}
+  .rep .l{flex:none; width:56px; height:56px; border-radius:50%; background:var(--bleu); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-family:'Trebuchet MS',sans-serif; font-size:30px}
+  .rep.juste{border-color:var(--vert); background:#e6f6ef}
+  .rep.juste .l{background:var(--vert)}
+  .rep.faux{opacity:.5}
+  .expl{margin:26px 0 0; padding:18px 24px; border-left:10px solid var(--vert); background:#f2faf7; font-size:30px; line-height:1.35}
+  .expl b{color:var(--vert); font-family:'Trebuchet MS',sans-serif}
+  .barre{position:fixed; left:0; right:0; bottom:0; display:flex; gap:12px; justify-content:center; padding:14px; background:#fff; border-top:2px solid var(--filet)}
+  .barre button{font:inherit; font-size:24px; font-weight:bold; padding:14px 26px; border-radius:12px; border:none; cursor:pointer; color:#fff; background:var(--bleu); min-width:190px}
+  .barre button.o{background:var(--orange)} .barre button.v{background:var(--vert)} .barre button.g{background:var(--gris)}
+  .aide{font-size:16px; color:var(--gris); text-align:center; margin-top:8px}
+  table{border-collapse:collapse; font-size:26px; margin:10px 0}
+  td,th{border:1px solid var(--filet); padding:8px 16px; text-align:center}
+  th{background:var(--doux); color:var(--bleu)}
+  .corr td:first-child{font-weight:bold; color:var(--bleu)}
+  [hidden]{display:none!important}
+</style>
+<header>
+  <div>Question <b id="num">–</b> / <span id="total">–</span> <span id="theme" style="opacity:.85; margin-left:12px"></span></div>
+  <div class="src" id="sources"></div>
+</header>
+<main>
+  <p class="bloc" id="bloc"></p>
+  <p class="q" id="question">Chargement des questions…</p>
+  <div id="reponses"></div>
+  <div class="expl" id="expl" hidden></div>
+  <div id="correction" hidden></div>
+</main>
+<div class="barre">
+  <button class="g" id="prec">◀ Précédente</button>
+  <button class="v" id="reveler">Réponse (Entrée)</button>
+  <button class="o" id="suiv">Suivante ▶ (Espace)</button>
+  <button id="feuille">Feuille de correction</button>
+</div>
+<script>
+// Les mêmes questions que sur les téléphones, projetées une à une au tableau : les élèves répondent sur papier (a, b, c),
+// le professeur révèle. Jour où le Wi-Fi de classe est resté muet (18/09/2026). Sources : le test d'accueil (index.html)
+// et le quiz de positionnement (banque.json), servis par le même PC. Aucune dépendance distante.
+const $ = (id) => document.getElementById(id);
+const graine = (t) => { let h = 2166136261; for (const c of String(t)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return h; };
+const alea = (s) => () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+function melange(tab, r) { const t = tab.slice(); for (let i = t.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [t[i], t[j]] = [t[j], t[i]]; } return t; }
+
+let SOURCES = {}, source = 'accueil', Q = [], k = 0, revele = false, ordre = [];
+async function charger() {
+  // 1. le test d'accueil : le bloc BLOCS…QUESTIONS de index.html, évalué tel quel
+  const html = await fetch('/index.html', { cache: 'no-store' }).then((r) => r.text());
+  const deb = html.indexOf('const BLOCS'), finQ = html.indexOf('\n];', html.indexOf('const QUESTIONS'));
+  const code = html.slice(deb, finQ + 3);
+  const acc = new Function(code + '\nreturn { BLOCS, QUESTIONS };')();
+  SOURCES.accueil = { titre: "Test d'accueil", questions: acc.QUESTIONS.map((q) => ({ theme: acc.BLOCS[q.b], q: q.q, r: q.r, e: q.e })) };
+  // 2. le positionnement : banque.json, un onglet par niveau
+  try {
+    const banque = await fetch('/banque.json', { cache: 'no-store' }).then((r) => r.json());
+    const noms = ["N0 · L'atelier et les règles", 'N1 · Les bases du froid', 'N2 · Mesurer et agir', 'N3 · Électricité et habilitation', 'N4 · Habilitation fluide', 'N5 · Expert'];
+    for (let n = 0; n <= 5; n++) { const qs = banque.filter((q) => q.niveau === n); if (qs.length) SOURCES['N' + n] = { titre: noms[n], questions: qs.map((q) => ({ theme: q.theme, q: q.q, r: q.r, e: q.e })) }; }
+  } catch (e) {}
+  const z = $('sources'); z.innerHTML = '';
+  for (const [cle, s] of Object.entries(SOURCES)) { const b = document.createElement('button'); b.textContent = s.titre + ' (' + s.questions.length + ')'; b.dataset.cle = cle; b.addEventListener('click', () => choisir(cle)); z.appendChild(b); }
+  choisir(new URLSearchParams(location.search).get('source') || 'accueil');
+}
+function choisir(cle) {
+  if (!SOURCES[cle]) cle = Object.keys(SOURCES)[0];
+  source = cle; Q = SOURCES[cle].questions; k = 0;
+  ordre = Q.map((q, i) => melange(q.r.map((_, j) => j), alea(graine(cle + '|' + i + '|' + q.q))));   // la bonne réponse (r[0]) change de place à chaque question
+  document.querySelectorAll('#sources button').forEach((b) => b.classList.toggle('on', b.dataset.cle === cle));
+  afficher();
+}
+function afficher() {
+  revele = false; $('correction').hidden = true; $('expl').hidden = true;
+  const q = Q[k]; if (!q) return;
+  $('num').textContent = k + 1; $('total').textContent = Q.length; $('theme').textContent = SOURCES[source].titre;
+  $('bloc').textContent = q.theme || ''; $('question').textContent = q.q;
+  const z = $('reponses'); z.innerHTML = '';
+  ordre[k].forEach((j, pos) => { const d = document.createElement('div'); d.className = 'rep'; d.dataset.j = j; d.innerHTML = '<span class="l">' + 'abcd'[pos] + '</span><span></span>'; d.lastChild.textContent = q.r[j]; z.appendChild(d); });
+  $('reveler').disabled = false;
+}
+function reveler() {
+  if (revele) return; revele = true; const q = Q[k];
+  document.querySelectorAll('#reponses .rep').forEach((d) => d.classList.add(+d.dataset.j === 0 ? 'juste' : 'faux'));
+  const lettre = 'abcd'[ordre[k].indexOf(0)];
+  $('expl').hidden = false; $('expl').innerHTML = '<b>Réponse ' + lettre + '.</b> '; $('expl').appendChild(document.createTextNode(q.e || ''));
+}
+function suivante() { if (!revele) { reveler(); return; } if (k + 1 < Q.length) { k++; afficher(); } else feuille(); }
+function precedente() { if (k > 0) { k--; afficher(); } }
+function feuille() {
+  const z = $('correction'); z.hidden = false; $('expl').hidden = true; $('reponses').innerHTML = ''; $('bloc').textContent = ''; $('question').textContent = 'Feuille de correction — ' + SOURCES[source].titre;
+  const lignes = Q.map((q, i) => (i + 1) + ' : ' + 'abcd'[ordre[i].indexOf(0)]);
+  const colonnes = 4, parCol = Math.ceil(lignes.length / colonnes);
+  let h = '<table class="corr"><tr>' + Array.from({ length: colonnes }, () => '<th>Question : réponse</th>').join('') + '</tr>';
+  for (let l = 0; l < parCol; l++) { h += '<tr>'; for (let c = 0; c < colonnes; c++) h += '<td>' + (lignes[c * parCol + l] || '') + '</td>'; h += '</tr>'; }
+  z.innerHTML = h + '</table><p class="aide">Barème conseillé : une bonne réponse = 1 point, note = justes × 20 / ' + Q.length + '. Les questions de règles fausses se relèvent sur la copie pour la remédiation.</p>';
+}
+$('suiv').addEventListener('click', suivante); $('prec').addEventListener('click', precedente); $('reveler').addEventListener('click', reveler); $('feuille').addEventListener('click', feuille);
+document.addEventListener('keydown', (e) => { if (e.key === ' ' || e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); suivante(); } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { precedente(); } else if (e.key === 'Enter' || e.key.toLowerCase() === 'r') { e.preventDefault(); reveler(); } else if (e.key.toLowerCase() === 'f') feuille(); });
+charger().catch((e) => { $('question').textContent = 'Les questions ne se chargent pas : ' + e.message; });
+</script>
+</html>

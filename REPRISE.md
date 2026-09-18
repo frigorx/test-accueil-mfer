@@ -4,7 +4,29 @@
 https://frigorx.github.io/test-accueil-mfer/ (test d'accueil) et `…/positionnement.html` (positionnement).
 **Ce fichier est le point d'entrée.** Mode d'emploi : `README.md` · plan, décisions et restes du positionnement :
 `_PLAN-QUIZ-POSITIONNEMENT.md` · les modes de récupération des notes : `PROCEDURE-COLLECTE.md`.
-**Dernière mise à jour : 11/09/2026.**
+**Dernière mise à jour : 18/09/2026, 9 h — voir « État au 18/09 » juste dessous, puis le reste.**
+
+## État au 18/09/2026 — le premier essai en classe a ÉCHOUÉ sur le Wi-Fi : à dépanner et à tester à l'école
+
+**Ce qui existe et marche (vérifié depuis le PC et depuis le téléphone de Franck le 17/09 au soir, chez lui) :**
+- Un raccourci Bureau **« Séance sur téléphone »** (`Test-de-rentree.cmd`) lance le serveur (port 8765) et ouvre le poste de commande `http://127.0.0.1:8765/prof` (127.0.0.1 et non localhost : un vieux service worker « inerWeb Édu » traîne sur `localhost:8765` dans les navigateurs ; `/sw.js` sert un coupe-circuit).
+- Le poste de commande porte un **formulaire** (Wi-Fi, mot de passe, numéro WhatsApp, lien du groupe, code de surveillance, liste de la classe collée) qui écrit `reglages.json` (ignoré par git). Réglé au 18/09 : Wi-Fi `inerweb.fr`, 26 élèves, groupe WhatsApp, code.
+- L'accueil `/` des téléphones = menu : test d'accueil, positionnement (noté, barème dégressif), **`manometres.html`** (10 questions, cadrans à aiguille, notée), **`jeux/schema-frigo/`** (symboles normalisés, 2 niveaux), groupe WhatsApp. `jeux/` est ignoré par git (contient aussi une copie de la station ÉlectroRézo, retirée de l'accueil : marque inerWeb dans un outil du lycée).
+- Pages du professeur (PC seul) : `/projeter` (3 QR : Wi-Fi, adresse, groupe), `/surveillance` (aussi sur téléphone avec le code : rouge après 60 s de silence, coupures comptées), `/bilan` + `/bilan.csv` (note du jour : le meilleur total vaut 20 ; alertes ; questions de règles fausses), `/resultats` (« qui a fait quoi »).
+- **`questions-au-tableau.html`** : les questions projetées une à une au tableau, réponse révélée par Entrée, feuille de correction. **C'est ce qui a sauvé la séance du 18/09.** Son nom ne doit pas commencer par `/projeter`, `/prof`, `/qr`, `/bilan`, `/resultats`, `/surveillance`, `/groupe`, `/cartographie` (routes du serveur).
+- Banque du positionnement : 196 questions (`banque/niveau-x-cuivre-et-bornes.json` ajouté : cuivre, cintrage, repérage des bornes, symboles).
+- HAL Claw lit tout cela (incrément 303 : section « Séance sur téléphone » dans la fiche de séance du Mur, bouton d'activation, bilan ; bloc « Sur son téléphone » dans la fiche élève).
+
+**Ce qui a échoué le 18/09 à 8 h, en classe :** les téléphones ne voient aucun réseau Wi-Fi du routeur (« impossible de se connecter au réseau »). Constats depuis le PC, câble branché : le routeur répond en `192.168.8.1`, le PC a bien `192.168.8.184`, le panneau dit SSID `inerweb.fr` avec le mot de passe réglé, **mais aucun SSID du routeur n'est visible par la carte Wi-Fi du PC** (seul « frigor » l'était, 2,4 GHz canal 9). Donc : radio Wi-Fi du routeur éteinte, SSID masqué, réglage non appliqué après renommage, ou canal inutilisable. Non résolu en séance ; repli sur `questions-au-tableau.html`.
+
+**À faire dans le prochain chat, À L'ÉCOLE, routeur allumé et câble branché, avant toute autre chose :**
+1. Panneau `http://192.168.8.1` (Franck se connecte) → Sans fil : 2,4 GHz **activé**, SSID visible (pas masqué), canal 1, 6 ou 11, WPA2 ; 5 GHz activé sur un canal non DFS (36 à 48) ou désactivé pour l'essai. Appliquer. Si le panneau a un « programmateur Wi-Fi » ou un mode « répéteur / client », le couper.
+2. Depuis le PC : `netsh wlan show networks mode=bssid` doit lister `inerweb.fr`. Puis connecter la carte Wi-Fi du PC dessus (`netsh wlan connect`) pour prouver le mot de passe, puis revenir sur le Wi-Fi Internet.
+3. Un téléphone : réseau visible → connexion → `http://192.168.8.184:8765/` s'ouvre. Puis cinq téléphones, puis la classe.
+4. Si le routeur reste muet : remise d'usine (bouton reset 10 s), reconfigurer SSID `inerweb.fr` + mot de passe, refaire 2 et 3. Plan B pour ≤ 8 téléphones : point d'accès mobile Windows (`reglages.json` → `adresse` `http://192.168.137.1:8765/`).
+5. Seulement ensuite : la suite (marche 3 côté HAL Claw : `C:\git\HAL-Claw\CHANTIER-SEANCE-TELEPHONE-2026-09-18.md`).
+
+**Commits** : le travail des 17 et 18/09 est commité localement, rien n'est poussé (dépôt public : feu vert de Franck avant tout push). Le dossier de classe : `C:\git\progression-1re-mfer\_carte-commune\chantier-vendredi-18-09.md`.
 
 ## Avant d'écrire
 

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lire un manomètre — pression, fluide, température</title>
+<style>
+  :root{--bleu:#1b3a63; --orange:#ff6b35; --orange-p:#c9451a; --vert:#0e7a5f; --rouge:#b3261e; --encre:#22303f; --gris:#5d6b7c;
+    --filet:#d8dee6; --fond:#eef1f5; --doux:#f5f8fc}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--fond); color:var(--encre); font-family:Calibri,'Segoe UI',Arial,sans-serif; font-size:18px; line-height:1.45}
+  .page{max-width:640px; margin:0 auto; padding:14px 14px 40px}
+  header{background:var(--bleu); color:#fff; border-radius:0 0 10px 10px; padding:12px 16px; margin:0 -14px 14px}
+  header .lycee{font-family:'Trebuchet MS',sans-serif; font-weight:bold; letter-spacing:.06em; font-size:13px; opacity:.9}
+  header h1{margin:2px 0 0; font-family:'Trebuchet MS',sans-serif; font-size:19px; line-height:1.25}
+  .barre{display:flex; justify-content:space-between; align-items:center; gap:10px; margin:6px 0 10px; font-size:15px; color:var(--gris)}
+  .barre b{color:var(--bleu)}
+  .jauge{height:10px; background:#dfe5ee; border-radius:5px; overflow:hidden; margin:0 0 14px}
+  .jauge div{height:100%; background:var(--orange); width:0%}
+  .carte{background:#fff; border-radius:10px; box-shadow:0 2px 12px rgba(27,58,99,.12); padding:16px; margin-bottom:14px}
+  .etiq{display:inline-block; background:var(--doux); border:1px solid var(--filet); border-radius:9px; padding:1px 10px; font-size:13px;
+    font-family:'Trebuchet MS',sans-serif; font-weight:bold; color:var(--bleu); margin:0 6px 8px 0}
+  .etiq.niv{background:#fff7f3; border-color:#f3c9b6; color:var(--orange-p)}
+  .q{font-size:20px; font-weight:bold; margin:0 0 10px; line-height:1.35}
+  button{font:inherit; cursor:pointer}
+  .rep{display:block; width:100%; text-align:left; background:#fff; border:2px solid var(--filet); border-radius:9px; padding:13px 14px; margin:8px 0;
+    font-size:18px; line-height:1.35; color:var(--encre); min-height:54px}
+  .rep .l{display:inline-block; width:28px; height:28px; border-radius:50%; background:var(--doux); border:1px solid var(--filet); text-align:center;
+    line-height:26px; font-weight:bold; margin-right:10px; font-family:'Trebuchet MS',sans-serif; color:var(--bleu)}
+  .rep.juste{border-color:var(--vert); background:#f2faf7}
+  .rep.faux{border-color:var(--rouge); background:#fdf3f3}
+  .rep:disabled{cursor:default}
+  .retour{border-left:6px solid var(--vert); background:#f2faf7; border-radius:0 8px 8px 0; padding:10px 14px; margin:10px 0 4px; font-size:17px}
+  .retour.faux{border-left-color:var(--rouge); background:#fdf3f3}
+  .retour b{font-family:'Trebuchet MS',sans-serif}
+  .suite{display:block; width:100%; background:var(--bleu); color:#fff; border:none; border-radius:9px; padding:14px; font-size:19px; font-weight:bold; margin-top:12px; text-align:center; text-decoration:none}
+  .suite.o{background:var(--orange-p)}
+  .choix{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:6px 0 12px}
+  .choix button{border:2px solid var(--filet); background:#fff; border-radius:9px; padding:14px 8px; font-size:17px; font-weight:bold; color:var(--bleu)}
+  .choix button.on{border-color:var(--orange-p); background:#fff7f3; color:var(--orange-p)}
+  input[type=text],input[type=number]{font:inherit; width:100%; padding:12px; border:2px solid var(--filet); border-radius:9px; margin:4px 0 12px; font-size:22px}
+  label{font-weight:bold; color:var(--bleu); font-family:'Trebuchet MS',sans-serif; font-size:14px}
+  .regles{margin:6px 0 0 18px; padding:0; font-size:17px}
+  .regles li{margin:4px 0}
+  table{border-collapse:collapse; width:100%; margin:8px 0}
+  td,th{border:1px solid var(--filet); padding:7px 9px; text-align:left; font-size:15px}
+  th{background:var(--doux); color:var(--bleu); font-family:'Trebuchet MS',sans-serif}
+  .ok{color:var(--vert); font-weight:bold} .non{color:var(--rouge); font-weight:bold}
+  .code{font-family:'Trebuchet MS',monospace; font-size:26px; letter-spacing:.12em; text-align:center; background:var(--doux); border:2px dashed var(--bleu);
+    border-radius:9px; padding:10px; margin:10px 0}
+  .petit{font-size:14px; color:var(--gris)}
+  .capture{border:3px solid var(--orange-p); padding:12px 14px}
+  .consigne-capture{background:#fff7f3; border:1.5px dashed var(--orange-p); border-radius:8px; padding:8px 12px; font-weight:bold; color:var(--orange-p); font-size:16px}
+  .cadran{display:block; width:100%; max-width:360px; margin:4px auto 6px}
+  .legende{font-size:14px; color:var(--gris); text-align:center; margin:0 0 10px}
+  .legende span{display:inline-block; padding:0 8px; font-weight:bold}
+  .saisie{display:flex; gap:10px; align-items:center}
+  .saisie input{margin:0; flex:1}
+  .saisie button{background:var(--vert); color:#fff; border:none; border-radius:9px; padding:12px 16px; font-size:18px; font-weight:bold}
+  .unite{font-weight:bold; color:var(--bleu); font-size:18px}
+  .verdict{background:var(--doux); border:1px solid var(--filet); border-radius:9px; padding:12px 14px; margin:10px 0; font-size:17px}
+  footer{font-size:12px; color:var(--gris); text-align:center; margin-top:20px}
+  [hidden]{display:none!important}
+</style>
+
+<div class="page">
+  <header>
+    <div class="lycee">LPP JACQUES RAYNAUD</div>
+    <h1>Lire un manomètre — pression, fluide, température</h1>
+  </header>
+
+  <!-- ===== écran 1 : le départ ===== -->
+  <section id="depart" class="carte">
+    <p><b>10 questions, noté sur 20.</b> Je lis des manomètres comme sur un vrai manifold : l'aiguille, puis l'échelle du fluide.</p>
+    <ul class="regles">
+      <li><b>Barème qui va crescendo :</b> « je sais » vaut 3 points, « je comprends » 2 points, « je fais le bon geste » 1 point. Plus c'est dur, moins ça pèse.</li>
+      <li>Pour une lecture, j'ai droit à une petite marge : une graduation sur la pression, 2 °C sur la température.</li>
+      <li>Je réponds seul. Mon voisin n'a pas les mêmes aiguilles.</li>
+      <li>À la fin, la page « Et sur la machine ? » me sert avec mes vrais relevés.</li>
+    </ul>
+    <label>Ma classe</label>
+    <div class="choix">
+      <button type="button" data-d="MFER">1<sup>re</sup> Bac Pro MFER</button>
+      <button type="button" data-d="CAP">2<sup>e</sup> année CAP IFCA</button>
+    </div>
+    <label for="nom">Nom et prénom</label>
+    <input type="text" id="nom" autocomplete="off" placeholder="ex. : DUPONT Léa">
+    <button class="suite o" id="commencer">Commencer</button>
+  </section>
+
+  <!-- ===== écran 2 : les questions ===== -->
+  <section id="quiz" hidden>
+    <div class="barre"><span>Question <b id="numero">1</b> / <span id="total">10</span></span><span>Temps <b id="chrono">0:00</b></span></div>
+    <div class="jauge"><div id="jauge"></div></div>
+    <div class="carte">
+      <span class="etiq" id="theme"></span><span class="etiq niv" id="tax"></span>
+      <p class="q" id="question"></p>
+      <div id="figure"></div>
+      <p class="legende" id="legende" hidden></p>
+      <div id="saisie" class="saisie" hidden>
+        <input type="number" id="valeur" step="0.1" inputmode="decimal" placeholder="…"><span class="unite" id="unite">bar</span>
+        <button type="button" id="valider">Valider</button>
+      </div>
+      <div id="reponses"></div>
+      <div id="retour" hidden></div>
+      <button class="suite" id="suivant" hidden>Question suivante</button>
+    </div>
+  </section>
+
+  <!-- ===== écran 3 : le résultat ===== -->
+  <section id="fin" hidden>
+    <div class="carte capture" id="capture">
+      <div class="consigne-capture">📸 Je fais une capture d'écran de ce cadre si le professeur me le demande.</div>
+      <h2 style="margin:6px 0 2px; color:var(--bleu); font-family:'Trebuchet MS',sans-serif">Mon résultat</h2>
+      <p style="margin:0 0 4px; font-size:16px"><b id="eleve"></b><br><span id="classe"></span> · <span id="quand"></span></p>
+      <p style="font-size:30px; margin:4px 0 2px; color:var(--bleu)"><b id="note"></b> / 20</p>
+      <p id="detail" class="petit" style="margin:0 0 8px"></p>
+      <table id="parquestion"></table>
+      <p style="margin:8px 0 2px"><b>Code de validation</b></p>
+      <div class="code" id="code"></div>
+      <p id="envoi" class="petit" style="font-size:14px; margin:6px 0 0"></p>
+    </div>
+
+    <div class="carte">
+      <h2 style="margin:0 0 6px; color:var(--bleu); font-family:'Trebuchet MS',sans-serif; font-size:20px">Et sur la machine ?</h2>
+      <p class="petit" style="margin:0 0 8px">Pas noté. J'entre ce que j'ai relevé pour de vrai : le fluide, la pression au manomètre, la température au thermomètre au même endroit.</p>
+      <label>Le fluide de la machine</label>
+      <div class="choix" id="fluide-outil" style="grid-template-columns:1fr 1fr 1fr"></div>
+      <label for="p-outil">Pression lue au manomètre (bar, relative)</label>
+      <input type="number" id="p-outil" step="0.1" inputmode="decimal" placeholder="ex. : 2,4">
+      <label for="t-outil">Température au thermomètre, au même endroit (°C)</label>
+      <input type="number" id="t-outil" step="0.5" inputmode="decimal" placeholder="ex. : -2">
+      <button class="suite" id="verdict-bouton" style="background:var(--vert)">Que fait le fluide à cet endroit ?</button>
+      <div class="verdict" id="verdict" hidden></div>
+    </div>
+
+    <div class="carte">
+      <button class="suite" id="copier" style="background:var(--vert)">Copier mon résultat</button>
+      <a class="suite" id="accueil" href="/" hidden>Retour à l'accueil : la suite des activités</a>
+      <p class="petit" style="margin:12px 0 6px">Ce téléphone doit servir à un autre élève ? Tout repart de zéro.</p>
+      <button class="suite" id="autre" style="background:var(--gris)">Autre élève sur ce téléphone</button>
+    </div>
+  </section>
+
+  <footer>1re Bac Pro MFER — tâches A1T2 · A5T2 — compétence C2 — savoirs S3 · S4 · CAP IFCA C4.5<br>LPP Jacques Raynaud — Campus ÉQUATIO · F. Henninot · créé le 17/09/2026 · © F. Henninot 2026</footer>
+</div>
+
+<script>
+// ---------------------------------------------------------------- les fluides : pression ABSOLUE de saturation (bar) selon la température (°C)
+// Tables reprises de la réglette Frigolo (inerweb-frigolo/outils/reglette-fluides.html). Le manomètre lit la pression RELATIVE : Prel = Pabs - 1,013.
+const FLUIDES = {
+  R134a: { couleur:'#3b82f6', securite:'A1', famille:'HFC', mots:'le fluide standard des frigos et des clim auto', table:[[-40,0.512],[-30,0.844],[-20,1.327],[-10,2.006],[0,2.928],[10,4.146],[20,5.717],[30,7.702],[40,10.166],[50,13.179]] },
+  R404A: { couleur:'#f97316', securite:'A1', famille:'mélange HFC', mots:'le fluide du froid négatif, en restriction', table:[[-40,1.353],[-30,2.078],[-20,3.071],[-10,4.391],[0,6.102],[10,8.271],[20,10.971],[30,14.284],[40,18.295],[50,23.0]] },
+  R449A: { couleur:'#0d9488', securite:'A1', famille:'mélange HFC/HFO', mots:'le remplaçant du R404A', table:[[-40,1.252],[-30,1.928],[-20,2.855],[-10,4.083],[0,5.674],[10,7.688],[20,10.19],[30,13.25],[40,16.94],[50,21.3]] },
+  R410A: { couleur:'#ec4899', securite:'A1', famille:'mélange HFC', mots:'le fluide des climatiseurs, haute pression', table:[[-40,1.755],[-30,2.703],[-20,4.007],[-10,5.746],[0,8.007],[10,10.883],[20,14.475],[30,18.891],[40,24.256],[50,30.6]] },
+  R32:   { couleur:'#dc2626', securite:'A2L', famille:'HFC', mots:'le fluide des pompes à chaleur récentes, faiblement inflammable', table:[[-40,1.774],[-30,2.734],[-20,4.058],[-10,5.826],[0,8.131],[10,11.069],[20,14.746],[30,19.275],[40,24.783],[50,31.412]] },
+  R290:  { couleur:'#7c3aed', securite:'A3', famille:'naturel (propane)', mots:'le propane : très inflammable', table:[[-40,1.111],[-30,1.678],[-20,2.445],[-10,3.453],[0,4.745],[10,6.366],[20,8.365],[30,10.790],[40,13.694],[50,17.133]] }
+};
+const ATMO = 1.013;
+const GROUPES = { A1:'A1 : non inflammable, peu toxique', A2L:'A2L : faiblement inflammable', A3:'A3 : très inflammable' };
+function interp(tab, x, ix, iy){                       // interpolation linéaire dans une table [[t,p],...]
+  if (x <= tab[0][ix]) { const a = tab[0], b = tab[1]; return a[iy] + (x - a[ix]) * (b[iy] - a[iy]) / (b[ix] - a[ix]); }
+  for (let i = 1; i < tab.length; i++) if (x <= tab[i][ix]) { const a = tab[i - 1], b = tab[i]; return a[iy] + (x - a[ix]) * (b[iy] - a[iy]) / (b[ix] - a[ix]); }
+  const a = tab[tab.length - 2], b = tab[tab.length - 1]; return a[iy] + (x - a[ix]) * (b[iy] - a[iy]) / (b[ix] - a[ix]);
+}
+const tsat = (f, prel) => interp(FLUIDES[f].table, prel + ATMO, 1, 0);   // °C de saturation pour une pression relative
+const prel = (f, t) => interp(FLUIDES[f].table, t, 0, 1) - ATMO;        // pression relative de saturation pour une température
+
+// ---------------------------------------------------------------- les deux cadrans (comme un manifold : bleu BP, rouge HP)
+const CADRANS = {
+  BP: { pmin:0, pmax:10, grad:0.2, moyen:1, majeur:1, couleur:'#1d4ed8', nom:'BP', fluides:['R134a','R404A'], tmin:-40, tmax:30, marge:0.2 },
+  HP: { pmin:0, pmax:30, grad:1, moyen:5, majeur:5, couleur:'#b3261e', nom:'HP', fluides:['R404A','R410A'], tmin:-10, tmax:50, marge:0.5, rouge:25 }
+};
+function angle(c, p){ return -135 + 270 * (p - c.pmin) / (c.pmax - c.pmin); }
+function pol(r, deg){ const a = (deg - 90) * Math.PI / 180; return [100 + r * Math.cos(a), 100 + r * Math.sin(a)]; }
+function arc(r, d1, d2){ const [x1, y1] = pol(r, d1), [x2, y2] = pol(r, d2); return 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' A' + r + ' ' + r + ' 0 ' + (d2 - d1 > 180 ? 1 : 0) + ' 1 ' + x2.toFixed(1) + ' ' + y2.toFixed(1); }
+function dessinerCadran(type, p, avecFluides){
+  const c = CADRANS[type]; let s = '';
+  s += '<circle cx="100" cy="100" r="98" fill="#fff" stroke="' + c.couleur + '" stroke-width="4"/>';
+  s += '<path d="' + arc(88, -135, 135) + '" fill="none" stroke="#22303f" stroke-width="1.2"/>';
+  if (c.rouge) s += '<path d="' + arc(88, angle(c, c.rouge), 135) + '" fill="none" stroke="#b3261e" stroke-width="5" opacity=".8"/>';
+  for (let v = c.pmin; v <= c.pmax + 1e-9; v = +(v + c.grad).toFixed(3)) {
+    const a = angle(c, v), maj = Math.abs(v / c.majeur - Math.round(v / c.majeur)) < 1e-6, moy = Math.abs(v / c.moyen - Math.round(v / c.moyen)) < 1e-6;
+    const [x1, y1] = pol(88, a), [x2, y2] = pol(maj ? 76 : moy ? 80 : 83, a);
+    s += '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="#22303f" stroke-width="' + (maj ? 2 : 1) + '"/>';
+    if (maj) { const [tx, ty] = pol(68, a); s += '<text x="' + tx.toFixed(1) + '" y="' + (ty + 3.2).toFixed(1) + '" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#22303f">' + v + '</text>'; }
+  }
+  s += '<text x="100" y="186" text-anchor="middle" font-size="9" font-weight="bold" fill="' + c.couleur + '">' + c.nom + ' · bar</text>';
+  if (avecFluides) c.fluides.forEach((f, i) => {
+    const r = 60 - 15 * i, col = FLUIDES[f].couleur;
+    s += '<path d="' + arc(r, -135, 135) + '" fill="none" stroke="' + col + '" stroke-width=".8" opacity=".55"/>';
+    for (let t = c.tmin; t <= c.tmax; t += 5) {
+      const pr = prel(f, t); if (pr < c.pmin || pr > c.pmax) continue;
+      const a = angle(c, pr), dix = t % 10 === 0, [x1, y1] = pol(r, a), [x2, y2] = pol(r - (dix ? 4 : 2.2), a);
+      s += '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="' + col + '" stroke-width="' + (dix ? 1.3 : .7) + '"/>';
+      if (dix) { const [tx, ty] = pol(r - 8.5, a); s += '<text x="' + tx.toFixed(1) + '" y="' + (ty + 2.3).toFixed(1) + '" text-anchor="middle" font-size="6.8" font-weight="bold" fill="' + col + '">' + t + '</text>'; }
+    }
+    s += '<text x="100" y="' + (100 + r - 3) + '" text-anchor="middle" font-size="7" font-weight="bold" fill="' + col + '">' + f + '</text>';
+  });
+  const a = angle(c, p), [nx, ny] = pol(80, a), [qx, qy] = pol(14, a + 180);
+  s += '<line x1="' + qx.toFixed(1) + '" y1="' + qy.toFixed(1) + '" x2="' + nx.toFixed(1) + '" y2="' + ny.toFixed(1) + '" stroke="#111" stroke-width="2.4" stroke-linecap="round"/>';
+  s += '<circle cx="100" cy="100" r="5" fill="#111"/><circle cx="100" cy="100" r="2" fill="#fff"/>';
+  return '<svg class="cadran" viewBox="0 0 200 200" role="img" aria-label="manomètre ' + c.nom + '">' + s + '</svg>';
+}
+function legende(type){ const c = CADRANS[type]; return 'Échelles de température : ' + c.fluides.map((f, i) => '<span style="color:' + FLUIDES[f].couleur + '">' + ['extérieure', 'intérieure'][i] + ' = ' + f + '</span>').join(' · '); }
+
+// ---------------------------------------------------------------- outils : tirage propre à l'élève (même graine, mêmes aiguilles ; le voisin non)
+const $ = (id) => document.getElementById(id);
+function graine(t){ let h = 2166136261; for (const c of t) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return h; }
+function alea(seed){ let s = seed || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
+function melange(tab, r){ const t = tab.slice(); for (let i = t.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [t[i], t[j]] = [t[j], t[i]]; } return t; }
+const pas = (r, a, b, p) => +(a + Math.round(r() * ((b - a) / p)) * p).toFixed(2);
+const fr = (x, d = 1) => (+x).toFixed(d).replace('.', ',').replace(/,0$/, '');
+const TAXN = { 1:'Je sais · 3 pts', 2:'Je comprends · 2 pts', 3:'Je fais le bon geste · 1 pt' };
+const POINTS = { 1:3, 2:2, 3:1 };
+
+// ---------------------------------------------------------------- les 10 questions
+function preparer(nom, cl){
+  const r = alea(graine((nom + '|' + cl).toLowerCase() + '|mano'));
+  const Q = [];
+  // 1-3 : lire l'aiguille
+  Q.push({ tax:1, theme:'Lire la pression', type:'num', cadran:'BP', p:pas(r, 0.6, 6, 0.2), fluides:false, unite:'bar', marge:0.2,
+    q:'Lis la pression sur ce manomètre BP.', e:'Une graduation fine vaut 0,2 bar. On lit d\'abord le grand trait avant l\'aiguille, puis on compte les petits.' });
+  Q.push({ tax:1, theme:'Lire la pression', type:'num', cadran:'HP', p:pas(r, 8, 22, 0.5), fluides:false, unite:'bar', marge:0.5,
+    q:'Lis la pression sur ce manomètre HP.', e:'Une graduation vaut 1 bar, un chiffre tous les 5 bar. À mi-chemin entre deux traits : un demi-bar.' });
+  Q.push({ tax:1, theme:'Lire la pression', type:'num', cadran:'BP', p:pas(r, 1, 8, 0.2), fluides:false, unite:'bar', marge:0.2,
+    q:'Encore un manomètre BP. Quelle pression ?', e:'Toujours la même méthode : le grand trait, puis les petits. Je vérifie que je lis bien la bonne échelle : celle des bar.' });
+  // 4 : relative ou absolue
+  Q.push({ tax:1, theme:'Relative ou absolue', type:'qcm', q:'Le manomètre de mon manifold affiche 0 quand il est à l\'air libre. Il lit une pression :',
+    r:['relative : le zéro, c\'est la pression de l\'air autour de nous', 'absolue : le zéro, c\'est le vide parfait', 'ni l\'une ni l\'autre, c\'est une température'],
+    e:'Le manomètre de chantier lit en relatif. Pression absolue = relative + 1,013 bar. Les tables des fluides sont souvent en absolu : attention au piège.' });
+  // 5-6 : l'échelle du fluide
+  const f5 = CADRANS.BP.fluides[Math.floor(r() * 2)], p5 = pas(r, 0.8, 5, 0.2);
+  Q.push({ tax:2, theme:'L\'échelle du fluide', type:'num', cadran:'BP', p:p5, fluides:true, fluide:f5, unite:'°C', marge:2, attendu:tsat(f5, p5),
+    q:'La machine est au ' + f5 + '. Sur l\'échelle ' + f5 + ', lis la température d\'ébullition du fluide (°C).',
+    e:'À cette pression, le ' + f5 + ' bout à cette température : c\'est ce que le manomètre me dit sans thermomètre.' });
+  const f6 = CADRANS.HP.fluides[Math.floor(r() * 2)], p6 = pas(r, 10, 22, 0.5);
+  Q.push({ tax:2, theme:'L\'échelle du fluide', type:'num', cadran:'HP', p:p6, fluides:true, fluide:f6, unite:'°C', marge:2, attendu:tsat(f6, p6),
+    q:'Côté HP, la machine est au ' + f6 + '. Sur l\'échelle ' + f6 + ', lis la température de condensation (°C).',
+    e:'À cette pression, la vapeur de ' + f6 + ' redevient liquide à cette température : c\'est la température de condensation.' });
+  // 7 : le fluide, ce que je sais déjà
+  const f7 = Object.keys(FLUIDES)[Math.floor(r() * 6)], g7 = FLUIDES[f7].securite;
+  Q.push({ tax:2, theme:'Le fluide', type:'qcm', q:'Le ' + f7 + ', ' + FLUIDES[f7].mots + '. Son groupe de sécurité (NF EN 378) est :',
+    r:[GROUPES[g7]].concat(Object.keys(GROUPES).filter(g => g !== g7).map(g => GROUPES[g])),
+    e:'Le ' + f7 + ' est ' + FLUIDES[f7].famille + ', groupe ' + g7 + '. Le groupe se lit sur la bouteille et sur la fiche de données de sécurité.' });
+  // 8 : la question de la semaine
+  const trio = melange(Object.keys(FLUIDES), r).slice(0, 3), p8 = pas(r, 2, 5, 0.5);
+  const tri = trio.map(f => ({ f, t: tsat(f, p8) })).sort((a, b) => a.t - b.t);
+  Q.push({ tax:2, theme:'La question de la semaine', type:'qcm', q:'Trois machines affichent la même BP : ' + fr(p8) + ' bar. Laquelle a le fluide qui bout le plus froid ?',
+    r:tri.map(x => 'la machine au ' + x.f + ' (' + fr(x.t, 0) + ' °C)'),
+    e:'Même pression, trois températures d\'ébullition : chaque fluide a sa courbe. C\'est pour ça qu\'un manomètre porte plusieurs échelles.' });
+  // 9-10 : la vraie prise de température
+  const f9 = CADRANS.BP.fluides[Math.floor(r() * 2)], p9 = pas(r, 1, 4, 0.2), t9 = tsat(f9, p9), mes9 = Math.round(t9 + 5 + r() * 6);
+  Q.push({ tax:3, theme:'Sur la machine', type:'qcm', q:'BP : ' + fr(p9) + ' bar au ' + f9 + ', ébullition à ' + fr(t9, 0) + ' °C. Mon thermomètre, sortie d\'évaporateur : ' + mes9 + ' °C. Ce qui sort est :',
+    r:['de la vapeur, plus chaude que son ébullition : le fluide a fini de bouillir', 'du liquide, qui n\'a pas encore bouilli', 'un mélange exactement à l\'ébullition'],
+    e:'Plus chaud que sa température d\'ébullition à cette pression : c\'est de la vapeur. L\'écart, ' + (mes9 - Math.round(t9)) + ' K ici, s\'appelle la surchauffe : cours T05, bientôt.' });
+  const f10 = CADRANS.HP.fluides[Math.floor(r() * 2)], p10 = pas(r, 10, 18, 0.5), t10 = tsat(f10, p10), mes10 = Math.round(t10 - 3 - r() * 5);
+  Q.push({ tax:3, theme:'Sur la machine', type:'qcm', q:'HP : ' + fr(p10) + ' bar au ' + f10 + ', condensation à ' + fr(t10, 0) + ' °C. Mon thermomètre, sortie de condenseur : ' + mes10 + ' °C. Ce qui sort est :',
+    r:['du liquide, plus froid que sa condensation : tout s\'est condensé', 'de la vapeur, qui n\'a pas encore condensé', 'un mélange exactement à la condensation'],
+    e:'Plus froid que la température de condensation à cette pression : c\'est du liquide. L\'écart s\'appelle le sous-refroidissement : cours T05 aussi.' });
+  Q.forEach((q, i) => { q.id = 'M' + (i + 1); if (q.type === 'num' && q.attendu === undefined) q.attendu = q.p; if (q.type === 'qcm') q.ordre = melange(q.r.map((_, k) => k), r); });
+  return { nom, classe:cl, Q, k:0, rep:[], debut:Date.now(), fini:false };
+}
+
+// ---------------------------------------------------------------- l'écran des questions
+const REF = { MFER:'1re Bac Pro MFER', CAP:'2e année CAP IFCA' };
+let etat = null, classe = 'MFER', minuteur = null;
+function afficher(){
+  $('depart').hidden = true; $('quiz').hidden = false; $('fin').hidden = true;
+  const q = etat.Q[etat.k];
+  $('numero').textContent = etat.k + 1; $('total').textContent = etat.Q.length;
+  $('jauge').style.width = Math.round(100 * etat.k / etat.Q.length) + '%';
+  $('theme').textContent = q.theme; $('tax').textContent = TAXN[q.tax]; $('question').textContent = q.q;
+  $('figure').innerHTML = q.cadran ? dessinerCadran(q.cadran, q.p, q.fluides) : '';
+  $('legende').hidden = !q.fluides; if (q.fluides) $('legende').innerHTML = legende(q.cadran);
+  $('saisie').hidden = q.type !== 'num'; $('reponses').innerHTML = '';
+  $('valeur').value = ''; $('valeur').disabled = false; $('valider').disabled = false; $('unite').textContent = q.unite || '';
+  if (q.type === 'qcm') q.ordre.forEach((k, pos) => {
+    const b = document.createElement('button'); b.className = 'rep'; b.dataset.k = k;
+    b.innerHTML = '<span class="l">' + 'abcd'[pos] + '</span>' + q.r[k];
+    b.addEventListener('click', () => repondre(k)); $('reponses').appendChild(b);
+  });
+  $('retour').hidden = true; $('suivant').hidden = true;
+  if (q.type === 'num') setTimeout(() => $('valeur').focus(), 50);
+}
+function repondre(k){
+  const q = etat.Q[etat.k]; if (etat.rep[etat.k] !== undefined) return;
+  let juste, attendu;
+  if (q.type === 'num') {
+    const v = parseFloat(String($('valeur').value).replace(',', '.')); if (isNaN(v)) { $('valeur').focus(); return; }
+    attendu = q.attendu; juste = Math.abs(v - attendu) <= q.marge + 1e-9; etat.rep[etat.k] = v;
+    $('valeur').disabled = true; $('valider').disabled = true;
+  } else {
+    attendu = 0; juste = k === 0; etat.rep[etat.k] = k;
+    document.querySelectorAll('#reponses .rep').forEach(b => { b.disabled = true; if (+b.dataset.k === 0) b.classList.add('juste'); else if (+b.dataset.k === k) b.classList.add('faux'); });
+  }
+  etat.juste = etat.juste || []; etat.juste[etat.k] = juste; sauver();
+  const r = $('retour'); r.hidden = false; r.className = 'retour' + (juste ? '' : ' faux');
+  const lu = q.type === 'num' ? (juste ? '<b>Juste.</b> L\'aiguille indique ' + fr(attendu, q.unite === '°C' ? 0 : 1) + ' ' + q.unite + '. ' : '<b>Non.</b> L\'aiguille indique ' + fr(attendu, q.unite === '°C' ? 0 : 1) + ' ' + q.unite + '. ')
+                                : (juste ? '<b>Juste.</b> ' : '<b>Non.</b> La bonne réponse est en vert. ');
+  r.innerHTML = lu + q.e;
+  const s = $('suivant'); s.hidden = false; s.textContent = etat.k + 1 < etat.Q.length ? 'Question suivante' : 'Voir mon résultat';
+}
+function suivante(){ if (etat.k + 1 < etat.Q.length) { etat.k++; sauver(); afficher(); } else terminer(); }
+function chrono(){ const s = Math.floor((Date.now() - etat.debut) / 1000); $('chrono').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); if (s % 20 === 0) suivi(); }
+const surLePC = () => location.protocol === 'http:' && !/github\.io$/.test(location.hostname);
+function suivi(){
+  if (!etat || !surLePC()) return;
+  fetch('/suivi', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify({ type:'manometres', nom:etat.nom, classe:REF[etat.classe],
+    niveau:'Manomètres', question:etat.k + 1, total:etat.Q.length, sorties:0, fini:!!etat.fini, minutes:Math.round((Date.now() - etat.debut) / 60000) }) }).catch(() => {});
+}
+const CLE = 'manometres-2026';
+function sauver(){ try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }
+function charger(){ try { const s = localStorage.getItem(CLE); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+
+// ---------------------------------------------------------------- le résultat
+function terminer(){
+  etat.fini = true; clearInterval(minuteur);
+  $('depart').hidden = true; $('quiz').hidden = true; $('fin').hidden = false;
+  let pts = 0, max = 0, justes = 0;
+  const lignes = etat.Q.map((q, i) => { const j = !!(etat.juste || [])[i]; max += POINTS[q.tax]; if (j) { pts += POINTS[q.tax]; justes++; }
+    return '<tr><td>' + (i + 1) + '. ' + q.theme + '</td><td>' + TAXN[q.tax].split(' · ')[0] + '</td><td class="' + (j ? 'ok' : 'non') + '">' + (j ? 'juste' : 'faux') + '</td></tr>'; });
+  const note = Math.round(20 * pts / max * 2) / 2;
+  if (!etat.quand) etat.quand = new Date().toLocaleString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  const minutes = Math.round((Date.now() - etat.debut) / 60000);
+  $('eleve').textContent = etat.nom; $('classe').textContent = REF[etat.classe]; $('quand').textContent = etat.quand;
+  $('note').textContent = String(note).replace('.', ','); $('detail').textContent = justes + ' justes sur ' + etat.Q.length + ' · ' + pts + ' points sur ' + max + ' · ' + minutes + ' min';
+  $('parquestion').innerHTML = '<tr><th>Question</th><th>Niveau</th><th></th></tr>' + lignes.join('');
+  const h = graine(etat.nom.toLowerCase() + '|mano|' + etat.rep.join(',') + '|' + (etat.juste || []).join(''));
+  const code = (etat.nom.trim().slice(0, 3).toUpperCase() || 'XXX') + '-MANO-' + (h % 9000 + 1000);
+  $('code').textContent = code;
+  const parTax = [1, 2, 3].map(t => { const qs = etat.Q.filter(q => q.tax === t); return TAXN[t].split(' · ')[0] + ' ' + qs.filter((q, i) => (etat.juste || [])[etat.Q.indexOf(q)]).length + '/' + qs.length; });
+  etat.resultat = { type:'manometres', nom:etat.nom, classe:REF[etat.classe], diplome:REF[etat.classe] + ' · ' + etat.quand, quand:etat.quand, niveau_nom:'Manomètres',
+    note:String(note).replace('.', ','), justes:justes, repondu:etat.Q.length, total:etat.Q.length, minutes:minutes, sorties:0, code:code,
+    competences:'C2 ' + justes + '/' + etat.Q.length + ' · ' + parTax.join(' · '),
+    reponses:etat.Q.map((q, i) => q.id + '=' + (etat.rep[i] === undefined ? '-' : etat.rep[i]) + (q.type === 'num' ? '(' + fr(q.attendu, 1) + ')' : '')).join(' ') };
+  sauver();
+  if (!etat.envoye) { envoyer(etat.resultat); etat.envoye = true; sauver(); } else $('envoi').textContent = 'Résultat déjà transmis.';
+  $('accueil').hidden = !surLePC();
+}
+function envoyer(d){
+  const e = $('envoi');
+  if (surLePC()) {
+    e.textContent = 'Envoi du résultat au PC du professeur…';
+    fetch('/resultat', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(d) })
+      .then(r => { e.textContent = r.ok ? 'Résultat envoyé au PC du professeur ✓' : 'Envoi refusé : je fais une capture d\'écran.'; })
+      .catch(() => { e.textContent = 'Pas de liaison avec le PC : je fais une capture d\'écran.'; });
+    return;
+  }
+  e.textContent = 'Ce résultat reste sur mon téléphone : la capture d\'écran est ma preuve.';
+}
+
+// ---------------------------------------------------------------- « Et sur la machine ? » : l'outil, pas noté
+let fluideOutil = 'R134a';
+function poserFluides(){
+  $('fluide-outil').innerHTML = '';
+  Object.keys(FLUIDES).forEach(f => { const b = document.createElement('button'); b.type = 'button'; b.textContent = f; b.className = f === fluideOutil ? 'on' : '';
+    b.addEventListener('click', () => { fluideOutil = f; poserFluides(); }); $('fluide-outil').appendChild(b); });
+}
+function verdict(){
+  const p = parseFloat(String($('p-outil').value).replace(',', '.')), t = parseFloat(String($('t-outil').value).replace(',', '.'));
+  const z = $('verdict'); z.hidden = false;
+  if (isNaN(p)) { z.textContent = 'Il me manque la pression lue au manomètre.'; return; }
+  const ts = tsat(fluideOutil, p);
+  let s = 'À ' + fr(p) + ' bar (relatifs), le ' + fluideOutil + ' change d\'état à <b>' + fr(ts, 0) + ' °C</b>.';
+  if (!isNaN(t)) {
+    const d = t - ts;
+    if (d > 1.5) s += '<br>Le thermomètre dit ' + fr(t) + ' °C, soit <b>' + fr(d, 0) + ' K de plus</b> : à cet endroit, le fluide est de la <b>vapeur</b>, plus chaude que son ébullition.';
+    else if (d < -1.5) s += '<br>Le thermomètre dit ' + fr(t) + ' °C, soit <b>' + fr(-d, 0) + ' K de moins</b> : à cet endroit, le fluide est du <b>liquide</b>, plus froid que sa condensation.';
+    else s += '<br>Le thermomètre dit ' + fr(t) + ' °C : le fluide est <b>en train de changer d\'état</b>, liquide et vapeur ensemble.';
+  } else s += '<br>Ajoute la température du thermomètre au même endroit pour savoir ce que fait le fluide.';
+  z.innerHTML = s;
+}
+
+// ---------------------------------------------------------------- le câblage des boutons
+document.querySelectorAll('#depart .choix button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#depart .choix button').forEach(x => x.classList.remove('on')); b.classList.add('on'); classe = b.dataset.d; }));
+document.querySelector('#depart .choix button').classList.add('on');
+$('commencer').addEventListener('click', () => {
+  const nom = $('nom').value.trim(); if (nom.length < 3) { $('nom').focus(); $('nom').placeholder = 'Mon nom et mon prénom, s\'il te plaît'; return; }
+  etat = preparer(nom, classe); sauver(); minuteur = setInterval(chrono, 1000); afficher(); suivi();
+});
+$('valider').addEventListener('click', () => repondre());
+$('valeur').addEventListener('keydown', (e) => { if (e.key === 'Enter') repondre(); });
+$('suivant').addEventListener('click', suivante);
+$('copier').addEventListener('click', () => { const r = etat && etat.resultat; if (!r) return;
+  const t = 'MANOMÈTRES — ' + r.nom + ' — ' + r.classe + ' — ' + r.quand + '\nNote : ' + r.note + '/20 · ' + r.justes + '/' + r.total + '\n' + r.competences + '\nCode : ' + r.code;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { $('copier').textContent = 'Copié ✓'; }, () => { prompt('Copie ce texte :', t); }); });
+$('autre').addEventListener('click', () => { if (confirm('Tout effacer pour un autre élève ?')) { try { localStorage.removeItem(CLE); } catch (e) {} location.reload(); } });
+$('verdict-bouton').addEventListener('click', verdict);
+poserFluides();
+const repris = charger();
+if (repris && repris.nom && repris.Q) { etat = repris; classe = etat.classe; if (etat.fini) terminer(); else { minuteur = setInterval(chrono, 1000); afficher(); } }
+</script>
+</html>

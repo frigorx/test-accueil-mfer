@@ -1,9 +1,9 @@
 @echo off
 chcp 65001 >nul
-title Test de rentree - le PC du professeur
+title Seance sur telephone - le PC du professeur
 cd /d "%~dp0"
 echo ============================================================
-echo   TEST DE RENTREE - le PC lance les tests et recoit tout
+echo   SEANCE SUR TELEPHONE - le PC lance les activites et recoit tout
 echo ============================================================
 echo.
 echo Le poste de commande s'ouvre dans le navigateur.
@@ -15,6 +15,6 @@ if errorlevel 1 (
   python -m pip install --user --quiet "qrcode[pil]" 2>nul
 )
 rem Le raccourci du Bureau se (re)pose a chaque lancement : utile sur l'autre poste.
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$n='Test de rentr'+[char]0xE9+'e.lnk'; $s=(New-Object -ComObject WScript.Shell).CreateShortcut((Join-Path ([Environment]::GetFolderPath('Desktop')) $n)); $s.TargetPath='%~dp0Test-de-rentree.cmd'; $s.WorkingDirectory='%~dp0'; $s.IconLocation='%~dp0test-de-rentree.ico,0'; $s.Description='Un clic : le PC lance les tests sur telephone et recoit tout'; $s.Save()" >nul 2>nul
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$n='S'+[char]0xE9+'ance sur t'+[char]0xE9+'l'+[char]0xE9+'phone.lnk'; $s=(New-Object -ComObject WScript.Shell).CreateShortcut((Join-Path ([Environment]::GetFolderPath('Desktop')) $n)); $s.TargetPath='%~dp0Test-de-rentree.cmd'; $s.WorkingDirectory='%~dp0'; $s.IconLocation='%~dp0test-de-rentree.ico,0'; $s.Description='Un clic : le PC lance la seance sur telephone et recoit tout'; $s.Save()" >nul 2>nul
 python serveur-test-accueil.py 8765 --ouvrir /prof
 pause

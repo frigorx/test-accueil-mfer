@@ -886,7 +886,7 @@
   </header>
 
   <section id="depart" class="carte">
-    <p><b>Ce test n'est pas noté.</b> Il dit à quel niveau je suis et ce que je maîtrise déjà. Une seule bonne réponse, une explication après chaque réponse.</p>
+    <p><b>Ce test est noté sur 20, avec un barème dégressif :</b> les premiers niveaux pèsent plus que les niveaux experts. Il dit à quel niveau je suis et ce que je maîtrise déjà. Une seule bonne réponse, une explication après chaque réponse.</p>
     <p><b>Mon téléphone ne doit pas s'éteindre tout seul.</b> Je mets le verrouillage automatique sur « Jamais » (Réglages). Un écran éteint compte comme une sortie.</p>
     <ul class="regles">
       <li>Six niveaux, du niveau 0 (l'atelier et les règles) au niveau 5 (expert). Je monte tant que je réussis au moins la moitié d'un niveau. Personne n'est censé tout réussir.</li>
@@ -944,6 +944,7 @@
       <button class="suite" id="courriel" style="background:var(--orange-p)" hidden>Envoyer par courriel au professeur</button>
       <button class="suite" id="copier" style="background:var(--vert)">Copier mon résultat</button>
       <button class="suite" id="revoir">Revoir mes erreurs</button>
+      <a class="suite" id="accueil" href="/" hidden style="text-decoration:none;text-align:center">Retour à l'accueil : la suite des activités</a>
     </div>
     <div class="carte" id="erreurs" hidden></div>
     <div class="carte">
@@ -966,6 +967,7 @@ const COLLECTE = { whatsapp: '', courriel: '' };
 const PAR_NIVEAU = 15;                      // questions tirées par niveau (toutes si le niveau en a moins)
 const SEUIL = 0.5;                          // part de bonnes réponses pour passer au niveau suivant
 const SORTIES_MAX = 5;
+const POIDS = [3, 2.5, 2, 1.5, 1, 0.5];       // barème dégressif : les premiers niveaux pèsent plus que les niveaux experts (Franck, 17/09/2026)
 const NIVEAUX = ["N0 · L'atelier et les règles", "N1 · Les bases du froid", "N2 · Mesurer et agir", "N3 · Électricité et habilitation", "N4 · Habilitation fluide", "N5 · Expert"];
 const NOMS_COURTS = ['0 Règles', '1 Bases', '2 Mesures', '3 Élec', '4 Fluides', '5 Expert'];
 const TAX = { 1: 'Je sais', 2: 'Je comprends', 3: 'Je fais le bon geste' };
@@ -1109,13 +1111,13 @@ function terminer(){
   $('depart').hidden = true; $('quiz').hidden = true; $('fin').hidden = false;
   const ref = REF[etat.classe] || REF.MFER;
   const parNiv = [], parComp = {}, parTax = { 1: { ok: 0, n: 0 }, 2: { ok: 0, n: 0 }, 3: { ok: 0, n: 0 } };
-  let okTotal = 0, nTotal = 0, atteint = -1;
+  let okTotal = 0, nTotal = 0, atteint = -1, okPond = 0, nPond = 0;
   etat.niveaux.forEach((N, n) => {
     const repondu = N.choix.filter(c => c !== undefined).length;
     if (!repondu) return;
     const ok = N.choix.filter(c => c === 0).length;
     parNiv.push({ n, ok, total: N.ordre.length, repondu });
-    okTotal += ok; nTotal += N.ordre.length;
+    okTotal += ok; nTotal += N.ordre.length; okPond += ok * POIDS[n]; nPond += N.ordre.length * POIDS[n];
     if (repondu === N.ordre.length && ok / N.ordre.length >= SEUIL) atteint = n;
     N.ordre.forEach((i, k) => {
       const q = BANQUE[i], juste = N.choix[k] === 0, c = codeDe(q, ref);
@@ -1123,13 +1125,13 @@ function terminer(){
       parTax[q.tax] = parTax[q.tax] || { ok: 0, n: 0 }; parTax[q.tax].n++; if (juste) parTax[q.tax].ok++;
     });
   });
-  const note = nTotal ? Math.round(20 * okTotal / nTotal * 2) / 2 : 0;
+  const note = nPond ? Math.round(20 * okPond / nPond * 2) / 2 : 0;   // pondérée par POIDS
   if (!etat.quand) etat.quand = new Date().toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
   $('eleve').textContent = etat.nom; $('classe').textContent = ref.nom; $('quand').textContent = etat.quand;
   const nomAtteint = atteint >= 0 ? NIVEAUX[atteint] : 'aucun niveau validé';
   $('atteint').textContent = nomAtteint;
   const minutes = Math.round((Date.now() - etat.debut) / 60000);
-  $('detail').textContent = okTotal + ' justes sur ' + nTotal + ' · ' + minutes + ' min · sorties de la page : ' + (etat.sorties || 0) + (etat.arret ? ' (test arrêté)' : '');
+  $('detail').textContent = okTotal + ' justes sur ' + nTotal + ' · ' + minutes + ' min · sorties de la page : ' + (etat.sorties || 0) + (etat.arret ? ' (test arrêté)' : '') + ' · barème dégressif : les premiers niveaux pèsent plus';
   const a = $('arret'); a.hidden = etat.arret !== 'sorties';
   if (etat.arret === 'sorties') a.textContent = 'TEST ARRÊTÉ : ' + SORTIES_MAX + ' sorties de la page. Je vais voir le professeur.';
   $('parniveau').innerHTML = '<tr><th>Niveau</th><th>Justes</th><th></th></tr>' + parNiv.map(x => '<tr><td>' + NIVEAUX[x.n] + '</td><td>' + x.ok + ' / ' + x.total + '</td><td class="' + (x.ok / x.total >= SEUIL ? 'n3' : 'n1') + '">' + (x.repondu < x.total ? 'inachevé' : x.ok / x.total >= SEUIL ? 'validé' : 'non validé') + '</td></tr>').join('');
@@ -1202,4 +1204,5 @@ $('copier').addEventListener('click', () => {
   const fini = () => { $('copier').textContent = 'Résultat copié : je le colle dans le message au professeur'; };
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(fini, () => prompt('À recopier :', t)); else prompt('À recopier :', t);
 });
+if (location.protocol === 'http:' && !/github\.io$/.test(location.hostname)) document.getElementById('accueil').hidden = false;   // servi par le PC : la suite des activités
 </script>
