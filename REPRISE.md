@@ -54,6 +54,46 @@ téléphone d'élève, qui ne connaît pas cette box, n'a pas ce conflit.
 
 **Commits** : le travail des 17 et 18/09 est commité localement, rien n'est poussé (dépôt public : feu vert de Franck avant tout push). Le dossier de classe : `C:\git\progression-1re-mfer\_carte-commune\chantier-vendredi-18-09.md`.
 
+## Décision du 21/09/2026 — deux produits, dont « inerWeb QCM » à mettre en ligne
+
+Franck tranche : l'outil se coupe en deux, et la frontière n'est pas « ouvert / fermé » mais **où vont les
+résultats**. Formulé pour un collègue : *réviser* d'un côté, *évaluer* de l'autre.
+
+- **inerWeb QCM** — version ouverte, en ligne sur inerweb.fr, dans l'esprit des stations (HoCourant). L'élève
+  ouvre l'adresse, répond, voit son score ; **rien ne remonte au professeur** — une page en https ne peut pas
+  écrire vers un PC en http, et c'est précisément ce qui définit la version. Outil de **révision en autonomie**,
+  sans compte ni donnée collectée, donc rien à déclarer. Se diffuse librement. À terme : beaucoup de QCM, par
+  thèmes et par types d'exercice.
+- **inerWeb Classe** — version téléchargeable qui tourne sur le PC du professeur : les notes arrivent seules,
+  surveillance, bilan, CSV, « qui a fait quoi ». Outil d'**évaluation**. C'est elle qui porte l'argument RGPD
+  (rien ne sort du PC, pas de compte élève, pas de sous-traitant) et qui mérite un code d'accès par produit.
+  La version ouverte lui sert de démonstration : on essaie le QCM en ligne, on télécharge celle qui relève les notes.
+
+**Périmètre publiable, relevé le 21/09** (règle : aucune trace de l'établissement sur le site public) :
+
+| Activité | Publiable | Pourquoi |
+|---|---|---|
+| `positionnement.html` — « Où j'en suis » | ✅ | neutre, 196 questions, chaque question cite sa source |
+| `manometres.html` | ✅ | neutre |
+| `jeux/schema-frigo/` | ✅ | neutre — **mais hors git** aujourd'hui, à intégrer avant |
+| `index.html` — test d'accueil | ❌ | « sécurité et règles de la classe » : 2 × Henninot, 1 × Raynaud, 7 × lycée, 14 × MFER. Reste scolaire. |
+
+**Ce que la mise en ligne demande vraiment.** inerweb.fr est servi par GitHub Pages depuis `C:\git\pilote-fluides`
+(DNS chez Cloudflare). Une station n'y est pas un fichier déposé : il y a la chaîne de construction (`build/`,
+source unique `moteur/reseaux.js`), le sitemap, le registre, `sw.js`, la charte, et la livraison par
+`outils/publier-le-site.bat`. **À traiter comme l'ajout d'une station, dans son propre chantier**, pas en marge
+de celui-ci. Feu vert de publication requis, comme pour tout le reste du site.
+
+**Pour la version téléchargeable, quatre points, du plus dur au plus simple :** (1) un exécutable autonome, car
+l'outil ne démarre aujourd'hui que si Python est installé ; (2) **le programme doit lire lui-même le nom du
+réseau** au lieu de le faire saisir — le défaut qui a coûté la séance du 18/09 est exactement celui qui ferait
+abandonner un collègue au premier essai ; (3) séparer le moteur du dossier de questions, pour qu'un collègue
+pose les siennes ; (4) une page « ce que c'est, à quoi ça sert, trois étapes ». Reste à trancher : la licence du
+moteur (les contenus sont en CC BY-NC-ND, le MIT du moteur n'est pas décidé).
+
+**Rien de tout cela ne commence avant la preuve qui manque** : un téléphone qui ouvre `http://192.168.8.184:8765/`.
+Diffuser un outil jamais vu fonctionner en classe, ce serait le 18/09 multiplié par le nombre de collègues.
+
 ## Avant d'écrire
 
 ```bash
