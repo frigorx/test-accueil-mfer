@@ -665,10 +665,14 @@ def page_prof(ok=False):
     classe = r.get('classe') or []
     etat = ('%d résultat(s) reçu(s) · %d téléphone(s) connecté(s) en ce moment · %d élève(s) dans la liste'
             % (len(lire_resultats()), vivants, len(classe)))
-    form = ('<form method="post" action="/reglages" class="form">%s%s%s%s%s%s'
+    form = ('<form method="post" action="/reglages" class="form">%s%s%s%s%s%s%s'
             '<button type="submit">Enregistrer mes réglages</button>'
             '<p class="etat">Tout reste sur ce PC, dans <code>reglages.json</code>, jamais publié. Adresse des téléphones : <code>%s</code>%s</p></form>'
-            % (champ('ssid', 'Nom du Wi-Fi de classe', 'celui du routeur : inerWeb-Classe', r.get('ssid') or ''),
+            % (champ('nom_classe', 'Quelle classe passe le test aujourd\'hui ?',
+                     'par exemple 1re MFER — chaque résultat reçu est marqué avec ce nom, ce qui permet de faire passer '
+                     'plusieurs classes sans jamais les mélanger, et de les retrouver plus tard',
+                     r.get('nom_classe') or ''),
+               champ('ssid', 'Nom du Wi-Fi de classe', 'celui du routeur : inerWeb-Classe', r.get('ssid') or ''),
                champ('motdepasse', 'Mot de passe du Wi-Fi', 'il fait le QR code que les téléphones scannent', r.get('motdepasse') or ''),
                champ('whatsapp', 'Mon numéro WhatsApp', 'format 33612345678, pour le bouton « envoyer au professeur » des tests en ligne', str(r.get('whatsapp') or '')),
                champ('groupe_whatsapp', 'Lien du groupe WhatsApp de la classe', "dans le groupe : Inviter via un lien, copier", r.get('groupe_whatsapp') or ''),
@@ -828,7 +832,7 @@ class Gestionnaire(SimpleHTTPRequestHandler):
             n = int(self.headers.get('Content-Length') or 0)
             form = parse_qs(self.rfile.read(n).decode('utf-8'), keep_blank_values=True)
             r = reglages()
-            for k in ('ssid', 'motdepasse', 'whatsapp', 'groupe_whatsapp', 'code_prof'):
+            for k in ('nom_classe', 'ssid', 'motdepasse', 'whatsapp', 'groupe_whatsapp', 'code_prof'):
                 r[k] = (form.get(k) or [''])[0].strip()
             r['whatsapp'] = re.sub(r'\D', '', r['whatsapp'])
             r['classe'] = [x.strip() for x in (form.get('classe') or [''])[0].splitlines() if x.strip()]
@@ -861,6 +865,9 @@ class Gestionnaire(SimpleHTTPRequestHandler):
             noter_signe_de_vie({'nom': d.get('nom'), 'classe': d.get('classe'), 'type': d.get('type') or 'accueil', 'sorties': d.get('sorties', 0)}, fini=True)
             d['recu'] = datetime.now().isoformat(timespec='seconds')
             d['ip'] = self.client_address[0]
+            # Le poste de commande estampille la séance : c'est lui qui sait quelle classe passe, pas le téléphone.
+            # Rien n'est jamais effacé du .jsonl — plusieurs classes cohabitent, et on retrouve chacune plus tard.
+            d['seance'] = str(reglages().get('nom_classe') or '').strip() or 'sans nom'
             os.makedirs(DOSSIER, exist_ok=True)
             with io.open(JSONL, 'a', encoding='utf-8') as f:
                 f.write(json.dumps(d, ensure_ascii=False) + '\n')
