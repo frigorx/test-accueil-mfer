@@ -94,6 +94,40 @@ moteur (les contenus sont en CC BY-NC-ND, le MIT du moteur n'est pas décidé).
 **Rien de tout cela ne commence avant la preuve qui manque** : un téléphone qui ouvre `http://192.168.8.184:8765/`.
 Diffuser un outil jamais vu fonctionner en classe, ce serait le 18/09 multiplié par le nombre de collègues.
 
+## 22/09/2026 — l'outil est pret pour une seance ; il manque toujours UN telephone
+
+Fait ce jour, tout verifie contre le serveur, tout commite, **rien pousse** (depot public, feu vert requis) :
+
+- **Page projetee refaite** (`/projeter`) : les trois etapes visibles ensemble, QR en grand, consignes
+  **Android et iPhone cote a cote**, l'ecran qui ne doit pas s'eteindre, et le rattrapage. Pas de diaporama :
+  personne ne pilote de pages pendant que la classe se connecte, et rien ne disparait pour le retardataire.
+- **Garde-fou rouge** si l'adresse projetee n'est pas en `192.168.8.x` : sans lui on projette l'adresse d'une
+  carte Hyper-V et aucun telephone ne repond. C'est le piege qui aurait rejoue le 18/09.
+- **Page `/aide`** sur le telephone de l'eleve, depuis son accueil (ecran qui s'eteint, « pas d'Internet »,
+  page perdue, reconnexion). Ne remplace pas le tableau : un eleve vraiment deconnecte ne peut plus l'ouvrir.
+- **Chaque resultat est estampille** (`seance`) par le poste de commande, pas par le telephone.
+- **Les reglages sont devenus des reglages DE CLASSE** : chaque classe a ses eleves, son groupe WhatsApp,
+  le nom affiche de ce groupe, et le choix de le montrer ou non. Les cles de premier niveau restent celles de
+  la classe ACTIVE, donc les douze points d'usage du serveur n'ont pas bouge ; `classes` archive les autres.
+  **Une classe se choisit d'un clic, elle ne se retape jamais** (un champ distinct, vide, sert a en ajouter une).
+  Une classe creee nait vide. Retirer une classe ne touche pas a ses resultats deja recus.
+
+Deux defauts trouves par les tests et corriges le jour meme : en Python `%` lie plus fort que `+`, donc le
+formulaire ne se formatait qu'en partie ; et creer une classe effacait l'archive de celle qu'on quittait.
+
+**Cote HAL Claw : rien a construire.** L'increment 303 est charge dans le HAL qui tourne (la route
+`/api/seance-telephone` repond 401, pas 404). Bouton sur la fiche de seance du Mur, lecture des resultats,
+bloc « Sur son telephone » dans la fiche eleve. La case « verifie sur le vrai Mur » du chantier peut etre cochee.
+Pas fait : le bilan vers le cahier de textes Ecole Directe (marche 3, point 2), et l'envoi d'une classe de HAL
+vers l'outil — **HAL lit deja `reglages.json`, il peut donc aussi y ecrire** : c'est la bonne suite, cote HAL.
+
+**Ce qui n'est TOUJOURS pas prouve, et qui commande tout le reste :** `resultats/test-accueil.jsonl` est vide.
+Aucun telephone ne s'est jamais connecte, aucune note n'est jamais remontee. Franck n'a qu'un telephone, et
+c'est celui du professeur (conflits constates) : **le premier essai se fera avec le telephone d'un eleve**,
+avant de lancer la classe, pas devant elle. Repli connu si ca coince : `questions-au-tableau.html`.
+
+**Etat git au 22/09 : 7 commits locaux d'avance sur `origin/main`, rien pousse.**
+
 ## Avant d'écrire
 
 ```bash
