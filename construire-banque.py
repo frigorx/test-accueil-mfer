@@ -68,6 +68,18 @@ def controler(chemin, deja=None):
                     defauts.append('%s : réponse de %d mots (12 au plus) : « %s »' % (ou, mots(x), x[:40]))
                 if re.search(r'toutes les r[ée]ponses|aucune de|aucune r[ée]ponse', x, re.I):
                     defauts.append('%s : réponse « toutes / aucune » interdite' % ou)
+            # La bonne réponse ne doit pas se reconnaître à sa longueur. Défaut relevé par les
+            # élèves eux-mêmes le 22/09/2026 : sur le test d'accueil, 73 % des bonnes réponses
+            # étaient la plus longue, avec +17 caractères de moyenne. Cocher la plus longue sans
+            # lire rapportait environ 14/20. Seuil : la bonne ne dépasse pas la plus longue des
+            # fausses de plus d'un quart, et n'est pas non plus ridiculement plus courte.
+            bonne, fausses = len(r[0]), [len(x) for x in r[1:]]
+            if bonne > max(fausses) * 1.25 and bonne - max(fausses) > 8:
+                defauts.append('%s : la bonne réponse est la plus longue (%d contre %d) — étoffer les fausses ou resserrer la bonne'
+                               % (ou, bonne, max(fausses)))
+            if bonne * 1.25 < min(fausses) and min(fausses) - bonne > 8:
+                defauts.append('%s : la bonne réponse est nettement la plus courte (%d contre %d) — même biais, à l\'envers'
+                               % (ou, bonne, min(fausses)))
         if q.get('mfer') not in MFER:
             defauts.append('%s : code MFER inconnu « %s »' % (ou, q.get('mfer')))
         if q.get('cap') not in CAP:
