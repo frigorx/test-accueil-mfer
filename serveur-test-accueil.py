@@ -26,6 +26,9 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 DOSSIER = os.path.join(ICI, 'resultats')
 JSONL = os.path.join(DOSSIER, 'test-accueil.jsonl')
 CSV = os.path.join(DOSSIER, 'test-accueil.csv')
+# Les engagements sont une TRACE, pas une donnée de travail : fichier à part, on n'y ajoute
+# que des lignes, jamais de filtrage ni de réécriture, et le CSV ne le touche pas.
+ENGAGEMENTS = os.path.join(DOSSIER, 'engagements.jsonl')
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 8765
 COLONNES = ['recu', 'type', 'nom', 'diplome', 'classe', 'niveau', 'niveau_nom', 'note', 'justes', 'total', 'sorties', 'arret', 'repondu',
             'minutes', 'code', 'competences', 'niveaux', 'tax', 'blocs', 'reponses', 'ip']
@@ -493,6 +496,68 @@ def page_accueil():
             '<footer>LPP Jacques Raynaud — Campus ÉQUATIO · F. Henninot · P. Warton · © F. Henninot 2026</footer></div>' % b)
 
 
+def lire_engagements(toutes_les_classes=False):
+    lignes = []
+    if os.path.exists(ENGAGEMENTS):
+        with io.open(ENGAGEMENTS, encoding='utf-8') as f:
+            for l in f:
+                l = l.strip()
+                if l:
+                    try:
+                        lignes.append(json.loads(l))
+                    except ValueError:
+                        pass
+    if toutes_les_classes:
+        return lignes
+    active = str(reglages().get('nom_classe') or '').strip()
+    return lignes if not active else [l for l in lignes if str(l.get('seance') or '').strip() == active]
+
+
+def page_engagements():
+    """Qui s'est engagé à respecter les règles, et qui ne l'a pas fait. Page du professeur.
+
+    Ce n'est pas une signature : c'est une trace horodatée, à lire avec le test lui-même,
+    qui prouve, lui, que l'élève a répondu aux questions de sécurité."""
+    r = reglages()
+    active = (r.get('nom_classe') or '').strip()
+    classe = [n for n in (r.get('classe') or []) if str(n).strip()]
+    signes = {}
+    for l in lire_engagements():
+        signes[cle_nom(l.get('nom'))] = l
+    lignes = ''
+    for l in sorted(lire_engagements(), key=lambda x: str(x.get('quand') or '')):
+        q = str(l.get('quand') or '')
+        lisible_q = (q[8:10] + '/' + q[5:7] + '/' + q[0:4] + ' à ' + q[11:16].replace(':', ' h ')) if len(q) >= 16 else q
+        lignes += ('<tr><td>%s</td><td>%s</td><td>%s</td></tr>'
+                   % (html.escape(str(l.get('nom') or '')), lisible_q, html.escape(str(l.get('note') or ''))))
+    manquants = [n for n in classe if cle_nom(n) not in signes]
+    bloc_manquants = ''
+    if classe:
+        bloc_manquants = ('<h2>N\'ont pas coché (%d)</h2>' % len(manquants)
+                          + ('<p class="etat">Personne : toute la classe s\'est engagée.</p>' if not manquants else
+                             '<p class="etat">À reprendre avec eux. Ne pas cocher n\'est pas une faute : c\'est une information.</p>'
+                             '<ul class="manque">' + ''.join('<li>%s</li>' % html.escape(n) for n in manquants) + '</ul>'))
+    autres = len(lire_engagements(True)) - len(lire_engagements())
+    return (CSS_PROF + '<style>table{border-collapse:collapse;margin:8px 0}td,th{border:1px solid #d8dee6;padding:6px 12px;font-size:16px;text-align:left}'
+            'th{background:#eef3f9;color:#1b3a63}.manque{font-size:17px;line-height:1.6}'
+            '.avert{background:#fff6e6;border-left:6px solid #c9821a;border-radius:8px;padding:10px 14px;max-width:760px;font-size:15px}</style>'
+            '<title>Engagements sur les règles</title><h1>Engagements sur les règles</h1>'
+            '<p class="etat">%s%s · fichier <code>%s</code>, jamais modifié ni purgé%s</p>'
+            '<p class="avert"><b>Ce n\'est pas une signature.</b> C\'est une trace horodatée, à lire avec le test lui-même : '
+            'ce sont les réponses aux questions de sécurité qui établissent que l\'élève a été informé. '
+            'Le règlement intérieur, lui, est signé au dossier d\'inscription, par l\'élève et son responsable légal.</p>'
+            '<h2>Ont coché (%d)</h2>%s%s'
+            '<p class="pied"><a href="/prof">← Retour au poste de commande</a></p>'
+            % (('Classe <b>%s</b>' % html.escape(active)) if active else 'Toutes classes',
+               (' · %d élève(s) dans la liste' % len(classe)) if classe else '',
+               html.escape(ENGAGEMENTS),
+               (' · %d engagement(s) gardé(s) pour les autres classes' % autres) if autres else '',
+               len(lire_engagements()),
+               ('<table><tr><th>Élève</th><th>Quand</th><th>Note du test</th></tr>' + lignes + '</table>') if lignes else
+               '<p class="etat">Aucun engagement enregistré pour cette classe.</p>',
+               bloc_manquants))
+
+
 def page_aide():
     """La même aide que sur le tableau, mais sur le téléphone de l'élève (celui qui est encore connecté).
 
@@ -625,7 +690,7 @@ def page_projeter():
 
 
 PUBLIC = 'https://frigorx.github.io/test-accueil-mfer/'
-PAGES_PROF = ('/prof', '/projeter', '/resultats', '/cartographie', '/qr', '/bilan')   # ne s'ouvrent que sur le PC du professeur
+PAGES_PROF = ('/prof', '/projeter', '/resultats', '/cartographie', '/qr', '/bilan', '/engagements')   # ne s'ouvrent que sur le PC du professeur
 CSS_PROJETER = ('<meta charset="utf-8"><meta http-equiv="refresh" content="60">'
                 '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:14px 16px 20px}'
                 'h1{font-size:28px;margin:4px 0 12px}h2{font-size:23px;margin:2px 0 8px}h3{font-size:20px;margin:0 0 6px;color:#ffd9a8}'
@@ -789,7 +854,7 @@ def page_prof(ok=False):
             '<h1>Ma séance sur téléphone</h1><p class="etat">%s</p>'
             '<h2>1. Je règle (une fois)</h2>%s'
             '<h2>2. Je projette au tableau</h2><div class="grille">%s</div>'
-            '<h2>3. Je suis la classe</h2><div class="grille">%s%s%s%s%s</div>%s'
+            '<h2>3. Je suis la classe</h2><div class="grille">%s%s%s%s%s%s</div>%s'
             '<h2>4. Si besoin</h2><div class="grille">%s%s%s</div>'
             '<p class="pied">Les élèves scannent le QR, l\'accueil leur donne les activités dans l\'ordre. Pour arrêter : fermer la fenêtre noire. Les résultats restent dans %s.</p>'
             % (etat, form,
@@ -798,6 +863,7 @@ def page_prof(ok=False):
                bouton('/surveillance', 'Surveiller la classe', 'qui est en ligne, qui est hors ligne depuis combien de temps (rouge après une minute), qui a fini', '#b3261e'),
                bouton('/resultats', 'Qui a fait quoi, résultats en direct', 'élève par élève, activité par activité, les notes'),
                bouton('/cartographie', 'Cartographie des compétences', 'élèves × compétences, de 1 à 4'),
+               bouton('/engagements', 'Engagements sur les règles', "qui a coché « je m'engage à respecter les règles », quand — et qui ne l'a pas fait", '#6b3fa0'),
                bouton('/resultats.csv', 'Tableur des résultats', 'CSV pour Excel', '#555'),
                (('<div class="form" style="margin-top:10px"><b style="color:#1b3a63">La même surveillance sur mon téléphone</b> (connecté au Wi-Fi de classe) : je scanne, ou je tape <code>%s</code><br><img src="/qr-surveillance.png" alt="QR surveillance" style="width:180px;margin-top:6px"></div>' % html.escape(url_surveillance()))
                 if url_surveillance() else '<p class="etat">Pour surveiller depuis mon téléphone : remplir le code dans les réglages ci-dessus.</p>'),
@@ -868,6 +934,9 @@ class Gestionnaire(SimpleHTTPRequestHandler):
             self.send_header('Content-Length', str(len(b)))
             self.end_headers()
             self.wfile.write(b)
+            return
+        if self.path.startswith('/engagements'):
+            self.repondre(200, page_engagements())
             return
         if self.path.startswith('/bilan'):
             self.repondre(200, page_bilan(lire_resultats()))
@@ -972,6 +1041,25 @@ class Gestionnaire(SimpleHTTPRequestHandler):
                 if isinstance(d, dict) and d.get('nom'):
                     noter_signe_de_vie(d)
                 self.repondre(200, '{"ok":true}', 'application/json')
+            except Exception as e:
+                self.repondre(400, json.dumps({'ok': False, 'erreur': str(e)}), 'application/json')
+            return
+        if self.path.startswith('/engagement'):
+            try:
+                n = int(self.headers.get('Content-Length') or 0)
+                d = json.loads(self.rfile.read(n).decode('utf-8') or '{}')
+                if not isinstance(d, dict) or not str(d.get('nom') or '').strip():
+                    raise ValueError('engagement sans nom')
+                quand = datetime.now()
+                ligne = {'nom': str(d.get('nom')).strip(), 'note': d.get('note', ''), 'code': d.get('code', ''),
+                         'texte': str(d.get('texte') or '').strip(),
+                         'seance': str(reglages().get('nom_classe') or '').strip() or 'sans nom',
+                         'quand': quand.isoformat(timespec='seconds'), 'ip': self.client_address[0]}
+                os.makedirs(DOSSIER, exist_ok=True)
+                with io.open(ENGAGEMENTS, 'a', encoding='utf-8') as f:
+                    f.write(json.dumps(ligne, ensure_ascii=False) + '\n')
+                self.repondre(200, json.dumps({'ok': True, 'quand': quand.strftime('%d/%m/%Y à %H h %M')},
+                                              ensure_ascii=False), 'application/json')
             except Exception as e:
                 self.repondre(400, json.dumps({'ok': False, 'erreur': str(e)}), 'application/json')
             return

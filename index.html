@@ -122,6 +122,15 @@
       <button class="suite" id="whatsapp" style="background:#128c7e" hidden>Envoyer par WhatsApp au professeur</button>
       <p id="conseil" style="margin-top:12px"></p>
       <button class="suite" id="revoir">Revoir mes erreurs</button>
+    </div>
+    <div class="carte" id="carte-engagement">
+      <!-- Jamais pré-cochée, et ne bloque rien : le résultat est déjà parti. Ne pas cocher est
+           une information en soi, pas une punition ; le professeur en parle avec l'élève. -->
+      <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer">
+        <input type="checkbox" id="engagement" style="width:22px; height:22px; flex:0 0 auto; margin-top:2px">
+        <span>J'ai lu les règles de sécurité de l'atelier, j'ai répondu aux questions, et je m'engage à les respecter.</span>
+      </label>
+      <p id="engagement-etat" class="petit" style="font-size:14px; margin:8px 0 0"></p>
       <a class="suite" id="accueil" href="/" hidden style="text-decoration:none;text-align:center">Retour à l'accueil : la suite des activités</a>
     </div>
     <div class="carte" id="erreurs" hidden></div>
@@ -467,4 +476,29 @@ if (repris && repris.nom) {
   else { minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume(); }
 }
 if (location.protocol === 'http:' && !/github\.io$/.test(location.hostname)) document.getElementById('accueil').hidden = false;   // servi par le PC : la suite des activités
+
+// L'engagement part dans SON fichier, à part des résultats : c'est une trace qu'on garde,
+// pas une donnée de travail. Il ne conditionne rien — le résultat est déjà transmis.
+{
+  const sur_le_pc = location.protocol === 'http:' && !/github\.io$/.test(location.hostname);
+  const carte = document.getElementById('carte-engagement');
+  const boite = document.getElementById('engagement');
+  const dit = document.getElementById('engagement-etat');
+  if (!sur_le_pc) { carte.hidden = true; }          // page en ligne : rien à enregistrer, rien à promettre
+  else {
+    boite.addEventListener('change', () => {
+      if (!boite.checked) { dit.textContent = ''; return; }
+      boite.disabled = true;
+      dit.textContent = 'Enregistrement…';
+      const r = (etat && etat.resultat) || {};
+      fetch('/engagement', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nom: (etat && etat.nom) || r.nom || '', note: r.note || '', code: r.code || '',
+                               texte: document.querySelector('#carte-engagement span').textContent.trim() }) })
+        .then(x => x.ok ? x.json() : Promise.reject())
+        .then(x => { dit.innerHTML = '<b>Engagement enregistré ✓</b> le ' + (x.quand || '') + '.'; })
+        .catch(() => { boite.disabled = false; boite.checked = false;
+                       dit.textContent = 'Pas de liaison avec le PC : je le dis au professeur.'; });
+    });
+  }
+}
 </script>
