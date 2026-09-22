@@ -384,6 +384,46 @@ def reglages():
         return {}
 
 
+# Ce qui appartient à UNE classe et change avec elle : sa liste d'élèves, son groupe WhatsApp
+# (chaque classe a le sien), le nom affiché de ce groupe, et le fait de le montrer ou non.
+# Le reste (Wi-Fi, numéro du professeur, code de surveillance) est commun à toutes les classes.
+CHAMPS_CLASSE = ('classe', 'groupe_whatsapp', 'nom_groupe', 'afficher_whatsapp')
+
+
+def ecrire_reglages(r):
+    io.open(os.path.join(ICI, 'reglages.json'), 'w', encoding='utf-8').write(json.dumps(r, ensure_ascii=False, indent=1))
+
+
+def archiver_classe(r, nom):
+    """Range les réglages de la classe `nom` dans r['classes'], sans rien perdre.
+
+    Les clés de premier niveau restent celles de la CLASSE ACTIVE : tout le reste du serveur
+    continue de lire reglages()['classe'] ou ['groupe_whatsapp'] sans savoir qu'il y a des archives."""
+    nom = (nom or '').strip()
+    if not nom:
+        return r
+    r.setdefault('classes', {})[nom] = dict((k, r.get(k)) for k in CHAMPS_CLASSE)
+    return r
+
+
+def charger_classe(r, nom):
+    """Remonte les réglages archivés de `nom` au premier niveau ; classe inconnue = classe neuve, vide."""
+    arch = (r.get('classes') or {}).get((nom or '').strip()) or {}
+    for k in CHAMPS_CLASSE:
+        r[k] = arch.get(k) if k in arch else ([] if k == 'classe' else ('' if k != 'afficher_whatsapp' else True))
+    r['nom_classe'] = (nom or '').strip()
+    return r
+
+
+def classes_connues(r=None):
+    """Les noms de classe déjà enregistrés, la classe active comprise, par ordre alphabétique."""
+    r = r if r is not None else reglages()
+    noms = set((r.get('classes') or {}).keys())
+    if (r.get('nom_classe') or '').strip():
+        noms.add(r['nom_classe'].strip())
+    return sorted(noms, key=lambda s: s.lower())
+
+
 def qr_png(texte=None):
     """Un QR code (PNG) si le module qrcode est installé (pip install qrcode[pil]) ; sinon None."""
     try:
@@ -422,8 +462,12 @@ def page_accueil():
     """L'accueil des téléphones : les activités dans l'ordre, un bouton chacune, le groupe WhatsApp si réglé."""
     r = reglages()
     boutons = list(ACTIVITES)
-    if r.get('groupe_whatsapp'):
-        boutons.append(('/groupe', 'Rejoindre le groupe WhatsApp de la classe', 'ouvre WhatsApp · une seule fois', '#128c7e'))
+    # Le groupe est celui de la classe active, et le professeur décide de le montrer ou non
+    # (réglages d'avant cette version : pas de clé, donc affiché comme avant).
+    if r.get('groupe_whatsapp') and r.get('afficher_whatsapp', True):
+        nom_g = (r.get('nom_groupe') or '').strip()
+        boutons.append(('/groupe', 'Rejoindre ' + ('le groupe ' + nom_g if nom_g else 'le groupe WhatsApp de la classe'),
+                        'ouvre WhatsApp · une seule fois', '#128c7e'))
     boutons.append(('/aide', 'Un problème ?', "mon écran s'éteint, j'ai perdu la page, mon téléphone dit qu'il n'y a pas Internet", '#5d6b7c'))
     b = ''.join('<a class="b" href="%s" style="background:%s"><b>%s</b><span>%s</span></a>' % (h, c, html.escape(t), html.escape(d))
                 for h, t, d, c in boutons)
@@ -552,10 +596,12 @@ def page_projeter():
 
     # le groupe de la classe, discret
     groupe = ''
-    if r.get('groupe_whatsapp') and qr_ok:
+    if r.get('groupe_whatsapp') and qr_ok and r.get('afficher_whatsapp', True):
+        nom_g = (r.get('nom_groupe') or '').strip()
         groupe = ('<div class="groupe"><img src="/qr-groupe.png" alt="QR du groupe WhatsApp">'
-                  '<span>Le groupe WhatsApp de la classe &mdash; je le scanne avec WhatsApp '
-                  '(appareil photo, ou &laquo;&nbsp;Scanner le code&nbsp;&raquo;).</span></div>')
+                  '<span>' + (html.escape(nom_g) if nom_g else 'Le groupe WhatsApp de la classe')
+                  + ' &mdash; je le scanne avec WhatsApp (appareil photo, ou '
+                  '&laquo;&nbsp;Scanner le code&nbsp;&raquo;).</span></div>')
 
     return (CSS_PROJETER + '<title>Se connecter au test</title>'
             '<h1>Séance sur téléphone &mdash; ce que je fais, dans l\'ordre</h1>'
@@ -663,27 +709,65 @@ def page_prof(ok=False):
                    ('<textarea name="%s" rows="8" placeholder="un élève par ligne">%s</textarea>' % (nom, html.escape(valeur))) if large else
                    ('<input name="%s" value="%s" autocomplete="off">' % (nom, html.escape(valeur)))))
     classe = r.get('classe') or []
+    active = (r.get('nom_classe') or '').strip()
     etat = ('%d résultat(s) reçu(s) · %d téléphone(s) connecté(s) en ce moment · %d élève(s) dans la liste'
             % (len(lire_resultats()), vivants, len(classe)))
-    form = ('<form method="post" action="/reglages" class="form">%s%s%s%s%s%s%s'
+
+    # Mes classes : un bouton chacune, jamais un menu déroulant. Changer de classe range la
+    # précédente (élèves, groupe WhatsApp) et sort celle qu'on demande : rien n'est perdu.
+    autres = [n for n in classes_connues(r) if n != active]
+    bascules = ''.join('<button type="submit" name="basculer" value="%s" class="cl">%s</button>'
+                       % (html.escape(n, True), html.escape(n)) for n in autres)
+    barre = ('<div class="classes"><b>Mes classes</b>'
+             + ('<span class="cl actif">%s</span>' % html.escape(active) if active else
+                '<span class="vide">aucune classe nommée pour l\'instant</span>')
+             + bascules
+             + ('<button type="submit" name="supprimer" value="%s" class="cl sup" '
+                'onclick="return confirm(\'Retirer la classe %s de la liste ? Ses résultats déjà reçus sont gardés.\')"'
+                '>Retirer « %s »</button>' % (html.escape(active, True), html.escape(active, True), html.escape(active))
+                if active else '')
+             + '<span class="aide">Pour créer une classe : écrire son nom ci-dessous et enregistrer.</span></div>')
+
+    coche = ('<label class="ch coche"><input type="checkbox" name="afficher_whatsapp" value="1"%s> '
+             '<b>Montrer le groupe WhatsApp aux élèves</b>'
+             '<span>Décoché, le groupe n\'apparaît ni sur leur accueil ni sur la page projetée. '
+             'Le lien reste gardé pour cette classe.</span></label>'
+             % (' checked' if r.get('afficher_whatsapp') else ''))
+
+    # Tout passe par des %s (barre et case comprises) : en Python « % » lie plus fort que « + »,
+    # et une concaténation mêlée au formatage ne remplacerait que le dernier morceau.
+    form = ('<form method="post" action="/reglages" class="form">%s%s%s%s%s%s%s%s%s%s'
             '<button type="submit">Enregistrer mes réglages</button>'
             '<p class="etat">Tout reste sur ce PC, dans <code>reglages.json</code>, jamais publié. Adresse des téléphones : <code>%s</code>%s</p></form>'
-            % (champ('nom_classe', 'Quelle classe passe le test aujourd\'hui ?',
+            % (barre,
+               champ('nom_classe', 'Quelle classe passe le test aujourd\'hui ?',
                      'par exemple 1re MFER — chaque résultat reçu est marqué avec ce nom, ce qui permet de faire passer '
-                     'plusieurs classes sans jamais les mélanger, et de les retrouver plus tard',
-                     r.get('nom_classe') or ''),
-               champ('ssid', 'Nom du Wi-Fi de classe', 'celui du routeur : inerWeb-Classe', r.get('ssid') or ''),
+                     'plusieurs classes sans jamais les mélanger, et de les retrouver plus tard. Un nom nouveau crée la classe.',
+                     active),
+               champ('classe', 'La liste de cette classe', 'collée depuis École Directe, un nom par ligne : les résultats se rangent élève par élève. Un élève arrive en cours d\'année ? une ligne de plus.', '\n'.join(classe), True),
+               champ('groupe_whatsapp', 'Lien du groupe WhatsApp de CETTE classe', "chaque classe a le sien. Dans le groupe : Inviter via un lien, copier. C'est ce lien qui fabrique le QR code.", r.get('groupe_whatsapp') or ''),
+               champ('nom_groupe', 'Nom du groupe, tel que les élèves le verront', 'par exemple MFER 26-27 ; laissé vide, on écrit simplement « le groupe WhatsApp de la classe »', r.get('nom_groupe') or ''),
+               coche,
+               champ('ssid', 'Nom du Wi-Fi de classe', 'celui du routeur : inerWeb-Classe. Commun à toutes les classes.', r.get('ssid') or ''),
                champ('motdepasse', 'Mot de passe du Wi-Fi', 'il fait le QR code que les téléphones scannent', r.get('motdepasse') or ''),
                champ('whatsapp', 'Mon numéro WhatsApp', 'format 33612345678, pour le bouton « envoyer au professeur » des tests en ligne', str(r.get('whatsapp') or '')),
-               champ('groupe_whatsapp', 'Lien du groupe WhatsApp de la classe', "dans le groupe : Inviter via un lien, copier", r.get('groupe_whatsapp') or ''),
                champ('code_prof', 'Code pour surveiller depuis mon téléphone', 'quatre chiffres ou plus, à moi seul : la page de surveillance s\'ouvre sur mon téléphone avec ce code', str(r.get('code_prof') or '')),
-               champ('classe', 'La liste de ma classe', 'collée depuis École Directe, un nom par ligne : les résultats se rangent élève par élève', '\n'.join(classe), True),
                html.escape('http://%s:%d/' % (ip, PORT)),
                ' — <b style="color:#0e7a5f">réglages enregistrés ✓</b>' if ok else ''))
     return (CSS_PROF + '<style>.form{background:#fff;border:1px solid #d8dee6;border-radius:12px;padding:16px 18px;max-width:760px}'
             '.ch{display:block;margin:0 0 12px}.ch b{display:block;color:#1b3a63;font-size:16px}.ch span{display:block;color:#666;font-size:13px;margin:0 0 4px}'
             '.ch input,.ch textarea{width:100%%;font:inherit;font-size:16px;padding:8px 10px;border:1.5px solid #c9d3df;border-radius:8px;box-sizing:border-box}'
-            '.form button{font:inherit;font-size:17px;font-weight:bold;background:#0e7a5f;color:#fff;border:none;border-radius:10px;padding:12px 20px;cursor:pointer}</style>'
+            '.form button{font:inherit;font-size:17px;font-weight:bold;background:#0e7a5f;color:#fff;border:none;border-radius:10px;padding:12px 20px;cursor:pointer}'
+            '.classes{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#eef3f9;border-radius:10px;padding:10px 12px;margin:0 0 16px}'
+            '.classes>b{color:#1b3a63;font-size:15px;margin-right:4px}'
+            '.form button.cl,.cl{font:inherit;font-size:15px;font-weight:normal;background:#fff;color:#1b3a63;'
+            'border:1.5px solid #c9d3df;border-radius:20px;padding:6px 14px;cursor:pointer}'
+            '.cl.actif{background:#1b3a63;color:#fff;border-color:#1b3a63;font-weight:bold;cursor:default}'
+            '.form button.cl.sup{background:#fff;color:#a11b1b;border-color:#e0bcbc}'
+            '.classes .vide{color:#777;font-size:14px;font-style:italic}'
+            '.classes .aide{flex-basis:100%%;color:#666;font-size:13px}'
+            '.ch.coche{background:#f5f8fc;border:1.5px solid #d8dee6;border-radius:8px;padding:10px 12px}'
+            '.ch.coche input{width:auto;margin-right:6px}.ch.coche b{display:inline}</style>'
             '<title>Ma séance sur téléphone — poste du professeur</title>'
             '<h1>Ma séance sur téléphone</h1><p class="etat">%s</p>'
             '<h2>1. Je règle (une fois)</h2>%s'
@@ -832,11 +916,30 @@ class Gestionnaire(SimpleHTTPRequestHandler):
             n = int(self.headers.get('Content-Length') or 0)
             form = parse_qs(self.rfile.read(n).decode('utf-8'), keep_blank_values=True)
             r = reglages()
-            for k in ('nom_classe', 'ssid', 'motdepasse', 'whatsapp', 'groupe_whatsapp', 'code_prof'):
-                r[k] = (form.get(k) or [''])[0].strip()
-            r['whatsapp'] = re.sub(r'\D', '', r['whatsapp'])
-            r['classe'] = [x.strip() for x in (form.get('classe') or [''])[0].splitlines() if x.strip()]
-            io.open(os.path.join(ICI, 'reglages.json'), 'w', encoding='utf-8').write(json.dumps(r, ensure_ascii=False, indent=1))
+            actuelle = (r.get('nom_classe') or '').strip()
+            bascule = (form.get('basculer') or [''])[0].strip()
+            supprimer = (form.get('supprimer') or [''])[0].strip()
+            if bascule:                                   # bouton « passer à cette classe »
+                archiver_classe(r, actuelle)
+                charger_classe(r, bascule)
+            elif supprimer:                               # bouton « supprimer cette classe »
+                (r.setdefault('classes', {})).pop(supprimer, None)
+                if supprimer == actuelle:                 # on retombe sur une classe restante, ou sur rien
+                    restantes = sorted((r.get('classes') or {}).keys(), key=lambda s: s.lower())
+                    charger_classe(r, restantes[0] if restantes else '')
+            else:                                         # enregistrement normal
+                nouvelle = (form.get('nom_classe') or [''])[0].strip()
+                # Un nom nouveau CRÉE une classe, il ne renomme pas : on range d'abord l'ancienne
+                # avec ses propres élèves et son propre groupe, avant que le formulaire ne les écrase.
+                if actuelle and nouvelle and nouvelle != actuelle:
+                    archiver_classe(r, actuelle)
+                for k in ('nom_classe', 'ssid', 'motdepasse', 'whatsapp', 'groupe_whatsapp', 'nom_groupe', 'code_prof'):
+                    r[k] = (form.get(k) or [''])[0].strip()
+                r['whatsapp'] = re.sub(r'\D', '', r['whatsapp'])
+                r['afficher_whatsapp'] = bool(form.get('afficher_whatsapp'))
+                r['classe'] = [x.strip() for x in (form.get('classe') or [''])[0].splitlines() if x.strip()]
+                archiver_classe(r, (r.get('nom_classe') or '').strip() or actuelle)
+            ecrire_reglages(r)
             self.send_response(303)
             self.send_header('Location', '/prof?ok=1')
             self.send_header('Content-Length', '0')
