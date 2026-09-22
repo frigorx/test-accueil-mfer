@@ -800,7 +800,14 @@ def page_prof(ok=False):
 
     # Tout passe par des %s (barre et case comprises) : en Python « % » lie plus fort que « + »,
     # et une concaténation mêlée au formatage ne remplacerait que le dernier morceau.
-    form = ('<form method="post" action="/reglages" class="form">%s%s%s%s%s%s%s%s%s%s'
+    # Sans liste, les téléphones retombent sur la saisie libre — et c'est par là que sont
+    # arrivés « Mini sicario » et « Waayyyli » le 22/09. On le dit avant la séance, pas après.
+    alerte_liste = ''
+    if not classe:
+        alerte_liste = ('<p class="alerte-liste">&#9888;&#65039; <b>Aucune liste d\'élèves pour cette classe.</b> '
+                        'Les téléphones laisseront chacun <b>taper</b> son nom, et vous récupérerez des pseudos '
+                        'impossibles à rattacher. Collez la liste ci-dessous avant de lancer la séance.</p>')
+    form = (alerte_liste + '<form method="post" action="/reglages" class="form">%s%s%s%s%s%s%s%s%s%s'
             '<button type="submit">Enregistrer mes réglages</button>'
             '<p class="etat">Tout reste sur ce PC, dans <code>reglages.json</code>, jamais publié. Adresse des téléphones : <code>%s</code>%s</p></form>'
             % (barre,
@@ -831,6 +838,8 @@ def page_prof(ok=False):
             '.classes .vide{color:#777;font-size:14px;font-style:italic}'
             '.classes .fleche{color:#666;font-size:13px;margin:0 2px 0 8px}'
             '.classes .aide{flex-basis:100%%;color:#666;font-size:13px}'
+            '.alerte-liste{background:#fdf3f3;border:2px solid #b3261e;border-radius:10px;padding:12px 16px;'
+            'max-width:760px;margin:0 0 14px;color:#b3261e;font-size:16px;line-height:1.45}'
             '.ch.coche{background:#f5f8fc;border:1.5px solid #d8dee6;border-radius:8px;padding:10px 12px}'
             '.ch.coche input{width:auto;margin-right:6px}.ch.coche b{display:inline}</style>'
             '<title>Ma séance sur téléphone — poste du professeur</title>'

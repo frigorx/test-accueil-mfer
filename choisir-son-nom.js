@@ -44,18 +44,37 @@
         zone.appendChild(b);
       });
 
-      // Sortie de secours : un élève arrivé en cours d'année, un remplaçant, un oubli de liste.
+      // Pas de sortie de secours qui rouvre la saisie libre : c'est par là que passeraient
+      // les pseudos. Un élève absent de la liste lève la main, le professeur l'ajoute en dix
+      // secondes dans le poste de commande — c'est plus court que de démêler un « Waayyyli ».
       var autre = document.createElement('button');
       autre.type = 'button';
       autre.className = 'nom-autre';
       autre.textContent = "Mon nom n'est pas dans la liste";
       autre.addEventListener('click', function () {
-        champ.hidden = false;
-        champ.value = '';
-        champ.focus();
-        autre.hidden = true;
+        autre.textContent = '✋ Je lève la main : le professeur ajoute mon nom à la liste, puis je recharge la page.';
+        autre.classList.add('appel');
       });
       zone.appendChild(autre);
+
+      // Le champ est caché : y mettre le focus ne montrerait rien à l'élève. On l'avertit
+      // nous-mêmes, avant que la page ne refuse silencieusement de démarrer.
+      var rappel = document.createElement('p');
+      rappel.className = 'nom-rappel';
+      rappel.hidden = true;
+      rappel.textContent = '👆 Je touche mon nom dans la liste avant de commencer.';
+      zone.appendChild(rappel);
+
+      var demarrer = document.getElementById('commencer');
+      if (demarrer) {
+        demarrer.addEventListener('click', function (ev) {
+          if (champ.value.trim()) { rappel.hidden = true; return; }
+          ev.preventDefault();
+          ev.stopPropagation();
+          rappel.hidden = false;
+          zone.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, true);                                       // en capture : passe avant le code de la page
+      }
 
       champ.hidden = true;                              // caché, pas supprimé : il reste la source de vérité
       if (etiquette) etiquette.textContent = 'Je touche mon nom' + (d.classe ? ' — ' + d.classe : '');
@@ -68,7 +87,10 @@
         'background:#fff;color:#1b3a63;border:2px solid #c9d3df;border-radius:10px;padding:10px 12px;cursor:pointer;text-align:left}' +
         '.liste-classe .nom-eleve.choisi{background:#1b3a63;color:#fff;border-color:#1b3a63;font-weight:bold}' +
         '.liste-classe .nom-autre{flex:1 1 100%;font:inherit;font-size:15px;background:transparent;' +
-        'color:#5d6b7c;border:1px dashed #c9d3df;border-radius:10px;padding:10px;cursor:pointer}';
+        'color:#5d6b7c;border:1px dashed #c9d3df;border-radius:10px;padding:10px;cursor:pointer;text-align:left}' +
+        '.liste-classe .nom-autre.appel{background:#fff7f3;border:2px solid #c9451a;color:#c9451a;font-weight:bold}' +
+        '.liste-classe .nom-rappel{flex:1 1 100%;margin:0;background:#fdf3f3;border:2px solid #b3261e;' +
+        'border-radius:10px;padding:10px 12px;color:#b3261e;font-weight:bold;font-size:16px}';
       document.head.appendChild(css);
     })
     .catch(function () { /* pas de serveur : la saisie libre reste, rien à signaler à l'élève */ });
