@@ -13,6 +13,11 @@
   if (!champ) return;
   var etiquette = document.querySelector('label[for="nom"]');
 
+  // Servie par le PC du professeur ? Même test que le reste des pages. Ailleurs (version en
+  // ligne, fichier ouvert seul) on ne demande rien : pas de liste à obtenir, et pas de 404
+  // inutile dans la console.
+  if (!(location.protocol === 'http:' && !/github\.io$/.test(location.hostname))) return;
+
   fetch('/classe.json', { cache: 'no-store' })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
     .then(function (d) {
