@@ -718,15 +718,17 @@ def page_prof(ok=False):
     autres = [n for n in classes_connues(r) if n != active]
     bascules = ''.join('<button type="submit" name="basculer" value="%s" class="cl">%s</button>'
                        % (html.escape(n, True), html.escape(n)) for n in autres)
-    barre = ('<div class="classes"><b>Mes classes</b>'
+    barre = ('<div class="classes"><b>Classe du jour</b>'
              + ('<span class="cl actif">%s</span>' % html.escape(active) if active else
-                '<span class="vide">aucune classe nommée pour l\'instant</span>')
+                '<span class="vide">aucune classe enregistrée pour l\'instant</span>')
+             + ('<span class="fleche">changer pour</span>' if bascules else '')
              + bascules
              + ('<button type="submit" name="supprimer" value="%s" class="cl sup" '
                 'onclick="return confirm(\'Retirer la classe %s de la liste ? Ses résultats déjà reçus sont gardés.\')"'
                 '>Retirer « %s »</button>' % (html.escape(active, True), html.escape(active, True), html.escape(active))
                 if active else '')
-             + '<span class="aide">Pour créer une classe : écrire son nom ci-dessous et enregistrer.</span></div>')
+             + '<span class="aide">Une classe se choisit d\'un clic et ne se retape jamais. '
+               'Pour en ajouter une : le champ « Ajouter une classe » juste dessous, une seule fois.</span></div>')
 
     coche = ('<label class="ch coche"><input type="checkbox" name="afficher_whatsapp" value="1"%s> '
              '<b>Montrer le groupe WhatsApp aux élèves</b>'
@@ -740,10 +742,10 @@ def page_prof(ok=False):
             '<button type="submit">Enregistrer mes réglages</button>'
             '<p class="etat">Tout reste sur ce PC, dans <code>reglages.json</code>, jamais publié. Adresse des téléphones : <code>%s</code>%s</p></form>'
             % (barre,
-               champ('nom_classe', 'Quelle classe passe le test aujourd\'hui ?',
-                     'par exemple 1re MFER — chaque résultat reçu est marqué avec ce nom, ce qui permet de faire passer '
-                     'plusieurs classes sans jamais les mélanger, et de les retrouver plus tard. Un nom nouveau crée la classe.',
-                     active),
+               champ('nouvelle_classe', 'Ajouter une classe à la liste',
+                     'seulement pour en créer une nouvelle : j\'écris son nom une fois, par exemple 2A CAP IFCA, et elle '
+                     'devient un bouton là-haut. Ensuite je la choisis d\'un clic, sans jamais la retaper. '
+                     'Laisser vide pour enregistrer la classe en cours.', ''),
                champ('classe', 'La liste de cette classe', 'collée depuis École Directe, un nom par ligne : les résultats se rangent élève par élève. Un élève arrive en cours d\'année ? une ligne de plus.', '\n'.join(classe), True),
                champ('groupe_whatsapp', 'Lien du groupe WhatsApp de CETTE classe', "chaque classe a le sien. Dans le groupe : Inviter via un lien, copier. C'est ce lien qui fabrique le QR code.", r.get('groupe_whatsapp') or ''),
                champ('nom_groupe', 'Nom du groupe, tel que les élèves le verront', 'par exemple MFER 26-27 ; laissé vide, on écrit simplement « le groupe WhatsApp de la classe »', r.get('nom_groupe') or ''),
@@ -765,6 +767,7 @@ def page_prof(ok=False):
             '.cl.actif{background:#1b3a63;color:#fff;border-color:#1b3a63;font-weight:bold;cursor:default}'
             '.form button.cl.sup{background:#fff;color:#a11b1b;border-color:#e0bcbc}'
             '.classes .vide{color:#777;font-size:14px;font-style:italic}'
+            '.classes .fleche{color:#666;font-size:13px;margin:0 2px 0 8px}'
             '.classes .aide{flex-basis:100%%;color:#666;font-size:13px}'
             '.ch.coche{background:#f5f8fc;border:1.5px solid #d8dee6;border-radius:8px;padding:10px 12px}'
             '.ch.coche input{width:auto;margin-right:6px}.ch.coche b{display:inline}</style>'
@@ -927,18 +930,20 @@ class Gestionnaire(SimpleHTTPRequestHandler):
                 if supprimer == actuelle:                 # on retombe sur une classe restante, ou sur rien
                     restantes = sorted((r.get('classes') or {}).keys(), key=lambda s: s.lower())
                     charger_classe(r, restantes[0] if restantes else '')
-            else:                                         # enregistrement normal
-                nouvelle = (form.get('nom_classe') or [''])[0].strip()
-                # Un nom nouveau CRÉE une classe, il ne renomme pas : on range d'abord l'ancienne
-                # avec ses propres élèves et son propre groupe, avant que le formulaire ne les écrase.
-                if actuelle and nouvelle and nouvelle != actuelle:
-                    archiver_classe(r, actuelle)
-                for k in ('nom_classe', 'ssid', 'motdepasse', 'whatsapp', 'groupe_whatsapp', 'nom_groupe', 'code_prof'):
+            else:
+                # Le nom de la classe active ne se retape JAMAIS : on la choisit par son bouton.
+                # Un seul champ crée une classe, et il est vide par défaut — pas de classe fantôme
+                # née d'une lettre changée par inadvertance.
+                for k in ('ssid', 'motdepasse', 'whatsapp', 'groupe_whatsapp', 'nom_groupe', 'code_prof'):
                     r[k] = (form.get(k) or [''])[0].strip()
                 r['whatsapp'] = re.sub(r'\D', '', r['whatsapp'])
                 r['afficher_whatsapp'] = bool(form.get('afficher_whatsapp'))
                 r['classe'] = [x.strip() for x in (form.get('classe') or [''])[0].splitlines() if x.strip()]
-                archiver_classe(r, (r.get('nom_classe') or '').strip() or actuelle)
+                archiver_classe(r, actuelle)          # ce que le formulaire montrait appartient à la classe en cours
+                nouvelle = (form.get('nouvelle_classe') or [''])[0].strip()
+                if nouvelle and nouvelle != actuelle:
+                    charger_classe(r, nouvelle)       # la nouvelle naît vide : elle n'hérite de rien
+                    archiver_classe(r, nouvelle)
             ecrire_reglages(r)
             self.send_response(303)
             self.send_header('Location', '/prof?ok=1')
