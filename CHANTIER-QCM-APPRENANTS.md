@@ -1,103 +1,123 @@
-# Chantier — « Accueil sécurité apprenant » (MPI · Étancheur · TP CVC)
+# Les trois QCM « Accueil sécurité apprenant »
 
-> Cadré le 22/09/2026 au soir. **Écrit et vérifié le 22/09/2026 au soir** : 40 questions, page
-> `apprentis/`, contrôle à 0 défaut. Ce fichier dit ce qui existe, ce qui a été tranché, et ce qui
-> reste à décider par F. Henninot.
+> Cadré le 22/09/2026, écrit et découpé en **trois QCM** le 22/09 au soir.
+> À tester le vendredi 25/09.
 
-## Ce qui existe maintenant
+## Trois QCM, un par formation
+
+L'apprenti clique sur **son** bouton à l'accueil des téléphones et entre directement dans son QCM.
+Il ne choisit rien à l'intérieur de la page : il n'a qu'un seul parcours.
+
+| Formation | Lien | Questions |
+|---|---|---|
+| CAP Métiers du plâtre et de l'isolation | `/apprentis/?f=mpi` | 36 |
+| CAP Étancheur du bâtiment | `/apprentis/?f=etancheur` | 36 |
+| Titre pro Technicien d'études CVC | `/apprentis/?f=cvc` | 36 |
+
+Sans formation dans l'adresse, `/apprentis/` montre les trois portes — filet de sécurité si un
+apprenti arrive par l'adresse nue.
+
+## Les fichiers
 
 | Fichier | Ce que c'est |
 |---|---|
-| `apprentis/questions.json` | **40 questions**, six thèmes, codées CAP MPI et CAP Étancheur, chacune avec sa source |
-| `apprentis/index.html` | La page de l'apprenti : même charte et même mécanique que le test d'accueil des élèves |
-| `controler-apprentis.py` | Le contrôle : forme, longueurs, codes, doublons, **et le biais de longueur** |
-| `serveur-test-accueil.py` | Une ligne ajoutée : l'activité n° 5 de l'accueil des téléphones, `/apprentis/` |
+| `apprentis/commun.json` | **28 questions** communes aux trois : règles du lycée, entreprise, EPI, hauteur, responsabilité, accident |
+| `apprentis/mpi.json` | 8 questions métier : poussières et silice, plaques, cutter, plateforme, laine, carter, tri du plâtre |
+| `apprentis/etancheur.json` | 8 questions métier : permis de feu, extincteur, bouteilles à 10 m, accès, bitume, bord de terrasse |
+| `apprentis/cvc.json` | 8 questions métier : accueil chantier, EPI de visiteur, terrasse, coffret ouvert, engin, écran, plans du client |
+| `apprentis/index.html` | Le moteur des trois QCM |
+| `controler-apprentis.py` | Le contrôle des quatre fichiers **et** des trois QCM assemblés |
 
-`PYTHONIOENCODING=utf-8 python controler-apprentis.py` → **40 questions, 0 défaut.**
-Parcours vérifié au navigateur le 22/09 : départ, questions mélangées, explication, résultat,
-compétences codées, code de validation, case d'engagement.
+Le tronc commun est écrit **une seule fois** : une correction s'y fait à un seul endroit et vaut pour
+les trois QCM. C'est la seule chose qui soit mise en commun — chaque apprenti, lui, ne voit que le sien.
 
 ### Les six thèmes
 
-| # | Thème | Questions |
+0. Les règles du lycée valent aussi pour moi (6) · 1. En entreprise, avec mon tuteur (5) ·
+2. Mes équipements de protection (4) · 3. Le travail en hauteur (5) ·
+4. **Les risques de mon métier** (8, propre à la formation) · 5. Ma responsabilité et l'accident (8).
+
+## Le contrôle
+
+`PYTHONIOENCODING=utf-8 python controler-apprentis.py` → **0 défaut**, et pour chacun des trois QCM :
+
+| QCM | Bonne réponse la plus longue | Bonne réponse la plus courte |
 |---|---|---|
-| 0 | Les règles du lycée valent aussi pour moi | 9 |
-| 1 | Mon comportement en entreprise | 7 |
-| 2 | Mes équipements de protection | 6 |
-| 3 | Le travail en hauteur | 7 |
-| 4 | Ce que j'engage : ma responsabilité | 5 |
-| 5 | S'il arrive un accident | 6 |
+| MPI | 25 % | 17 % |
+| Étancheur | 31 % | 6 % |
+| CVC | 28 % | 14 % |
 
-## Ce qui a été tranché (et pourquoi)
+Le hasard donne 33 %. **Aucune stratégie de longueur ne paie plus que de répondre au hasard** :
+c'était le défaut relevé par les élèves le 22/09, il est fermé.
 
-- **Une seule banque**, pas trois. Chaque question porte son code MPI *et* son code Étancheur.
-  Aucune question n'est propre à une filière : un accueil sécurité est le même pour les trois.
-  Le champ `filiere` du cadrage n'a donc pas été créé — il n'aurait rien porté.
-- **Le nom retenu** : « Accueil sécurité apprenant ».
-- **Le travail en hauteur n'a pas été réécrit** : les sept questions viennent du QCM existant
-  (`C:\git\qcm-travail-hauteur`, questions 8, 11, 13, 15, 17, 22, 25), du référentiel R408 du RAG
-  (items 2.4, 3.4, écrans « protection collective », « harnais, longe, point d'ancrage ») et des
-  articles D4153-30 et D4153-31 pour les moins de 18 ans. Chaque question cite laquelle.
-- **Durée 45 minutes**, mêmes règles que le test d'accueil : sorties de page comptées (−1 point,
-  arrêt à 5), écran maintenu allumé, code de validation, capture d'écran comme preuve.
+Parcours vérifiés au navigateur le 22/09 pour les trois QCM : départ direct, questions mélangées,
+explication, résultat, compétences codées (MPI et Étancheur), code de validation, engagement.
 
-## 🔴 Trois points qui appellent une décision
+## Ce qui a changé après la remarque sur la logique des questions
 
-### 1. Le TP CVC n'a pas de code de compétence à porter
+Les questions d'un accueil sécurité racontent un moment réel. Celles qui supposaient un état
+impossible ont été retirées ou réécrites :
 
-Le REAC du titre (arrêté du 15/12/2022) ne code que des compétences de **bureau d'études**
-(CP1 à CP10 : plans, calculs, études). Aucune ne porte la sécurité. Les questions ne peuvent donc
-pas lui être rattachées sans inventer un code. La page le dit à l'apprenti CVC — son résultat se
-lit par thème et par niveau — et le contrôle n'en réclame pas. **À trancher** : garder le TP CVC
-dans cette banque, ou lui faire un accueil à part.
+- **Supprimé** : « Pour entrer à l'atelier, il me faut ma tenue et mes chaussures ». On entre à
+  l'atelier **pour** se changer — le vestiaire y est. On n'y arrive pas déjà habillé.
+- **Supprimé** : « Ma caisse à outils, à l'arrivée ». Même raison : à l'arrivée, on n'a pas encore
+  sa caisse, et on n'est pas encore en tenue.
+- **Ajouté à la place** : l'évacuation incendie, vraie en salle comme à l'atelier, et qui est de la
+  sécurité d'établissement au sens strict.
+- Chaque question du tronc commun **situe son moment** : « Je sais que je vais arriver en retard »,
+  « L'échafaudage était déjà monté hier. Ce matin », « Je me coupe un doigt sur le chantier ».
 
-### 2. La banque du positionnement porte encore le biais que les élèves ont trouvé
+### 🔴 Le même défaut est resté dans le test d'accueil des élèves
 
-Le contrôle du 22/09 refuse une bonne réponse *nettement* plus longue (plus d'un quart, plus de
-8 caractères). Il ne voit pas le biais d'ensemble : **sur les 196 questions du positionnement, la
-bonne réponse est strictement la plus longue dans 133 cas, soit 68 %** — le hasard en donnerait 33 %.
-Les écarts sont petits (+3,6 caractères en moyenne), donc chaque question passe le contrôle une par
-une ; mais cocher la plus longue sans lire rapporte encore 68 %.
+`index.html` porte encore les deux questions ci-dessus, bloc « Les règles de la classe » :
+« Pour entrer à l'atelier, il me faut… » et « Ma caisse à outils, à l'arrivée… ». Elles supposent un
+élève déjà en tenue, sa caisse à la main, avant d'être entré. **Non corrigées** : ce test tourne déjà
+avec les classes, la correction se décide. Proposition : « Une fois en tenue, ma caisse à outils… » et
+« J'arrive à l'atelier. Avant de travailler, je passe au vestiaire quand le professeur le dit ».
 
-`controler-apprentis.py` ajoute ce contrôle d'ensemble (défaut au-delà de 45 %). La banque
-apprenant est à **32 %, écart moyen −1,5 caractère**. **À trancher** : porter le même contrôle dans
-`construire-banque.py` et rééquilibrer les 196 questions du positionnement (c'est du travail de
-réécriture, pas un réglage).
+## Les points ouverts
 
-### 3. Un fait écarté faute de source vérifiée
-
-La durée maximale de travail d'un apprenti mineur (8 h par jour, 35 h par semaine, avec dérogation
-possible dans le bâtiment) n'a **pas** été posée en question : la vérification en ligne n'a pas
-confirmé l'article. À ajouter si la source est retrouvée — le fait est utile à un apprenti.
+1. **Le QCM CVC ne porte aucun code de compétence.** Le REAC du titre (arrêté du 15/12/2022) code
+   dix compétences de bureau d'études — plans, calculs, études — et aucune de sécurité. La page le
+   dit à l'apprenti : son résultat se lit par thème et par niveau. Le contrôle n'en réclame pas.
+2. **La banque du positionnement porte encore le biais de longueur.** Sur ses 196 questions, la
+   bonne réponse est strictement la plus longue dans **133 cas (68 %)**. Les écarts sont petits, donc
+   chaque question passe le contrôle une par une — c'est l'ensemble qui trahit. Le contrôle
+   d'ensemble existe maintenant dans `controler-apprentis.py` ; le porter dans
+   `construire-banque.py` demande ensuite de rééquilibrer les 196 questions.
+3. **Un fait écarté faute de source vérifiée** : la durée maximale de travail d'un apprenti mineur
+   (8 h par jour, 35 h par semaine, dérogation possible dans le bâtiment). La vérification en ligne
+   n'a pas confirmé l'article — la question n'est pas posée.
+4. **Le bilan du professeur ne sépare pas les apprentis des élèves.** Les résultats partent sur la
+   même route `/resultat`, avec `type: 'apprenti'` dans le suivi.
+5. **La liste des noms** (`choisir-son-nom.js`) prend la classe réglée dans le poste de commande.
+   Sans liste correspondant au groupe d'apprentis, la saisie reste libre.
 
 ## D'où viennent les questions
 
-- **Règles du lycée** : règlement intérieur et test d'accueil des élèves (`index.html`), dont les
-  questions sont déjà validées en classe. Le doublon avec le test des élèves est voulu : un apprenti
-  croit souvent que ces règles ne le concernent pas.
+- **Règles du lycée** : règlement intérieur, consignes d'évacuation.
 - **Entreprise, EPI** : Code du travail, art. R4321-4 et R4323-95 (l'employeur fournit gratuitement,
   entretient, remplace), R4228-20 et R4228-21 (alcool), L4121-2 (protection collective d'abord),
-  L4122-1, R4153-40 (encadrement du jeune).
-- **Hauteur** : voir plus haut.
-- **Responsabilité** : Code civil, art. 1240 et 1242 (« les artisans [répondent] du dommage causé par
-  leurs élèves et apprentis pendant le temps qu'ils sont sous leur surveillance ») ; Code des
-  assurances, art. L113-1 (la faute intentionnelle n'est pas assurée) et L124-1.
+  R4153-40 (encadrement du jeune).
+- **Hauteur** — rien n'a été réécrit : QCM existant `C:\git\qcm-travail-hauteur` (questions 10, 13, 17),
+  référentiel R408 du RAG (item 3.4 vérification journalière, « protection collective et harnais »),
+  articles D4153-30 et D4153-31 pour les moins de 18 ans, dérogation R4153-38.
+- **Plâtre et isolation** : INRS (silice cristalline), Prévention BTP (ponçage avant peinture),
+  Code du travail R4541-1 et suivants (manutention), R4322-1 (équipements maintenus conformes),
+  filière REP PMCB pour le tri du plâtre.
+- **Étanchéité** : INRS ED 6030 (permis de feu), Prévention BTP « Réaliser les travaux d'étanchéité
+  sur toits-terrasses en toute sécurité » — extincteur poudre ABC par poste chaud, 10 m entre
+  bouteilles et matériaux inflammables, accès dégagés, gants à manchettes, bitume nettoyé à la crème
+  lavante et jamais au solvant.
+- **CVC** : Code du travail R4511-1 et suivants (entreprise extérieure), R4542-3 et R4542-4 (travail
+  sur écran), R4534-1 et suivants (chantiers), NF C 18-510 pour le coffret ouvert.
+- **Responsabilité** : Code civil art. 1240 et 1242 ; Code des assurances art. L113-1 et L124-1.
 - **Accident** : 24 h pour informer l'employeur, 48 h pour sa déclaration à la CPAM (dimanches et
-  jours fériés non comptés), feuille d'accident S6201 (soins sans avance de frais), et un accident
-  survenu **au CFA** est un accident du travail — l'apprenti est couvert dès le premier jour
-  (service-public.gouv.fr, ameli.fr).
-
-## Ce qui n'est pas fait
-
-- **Le bilan du professeur ne distingue pas encore les apprentis.** Les résultats partent sur la même
-  route `/resultat` que ceux des élèves, avec `type: 'apprenti'` dans le suivi. Ils se mélangent au
-  bilan du jour. À séparer si la séance d'accueil des apprentis se tient hors d'un cours de classe.
-- **La liste des noms** (`choisir-son-nom.js`) prend la classe réglée dans le poste de commande. Pour
-  un groupe d'apprentis, il faut y coller leur liste avant la séance, sinon la saisie reste libre.
-- Aucun essai sur un téléphone réel : même réserve que pour le reste du dépôt (voir `REPRISE.md`).
+  jours fériés non comptés), feuille d'accident S6201, et un accident au CFA est un accident du
+  travail — l'apprenti est couvert dès le premier jour (service-public.gouv.fr, ameli.fr).
 
 ## Le rappel qui vaut pour tout ce dispositif
 
 Une trace horodatée — résultat, code de validation, case d'engagement — **établit que l'information
-a été reçue, et quand**. Elle ne vaut pas signature. C'est le même avertissement que pour
+a été reçue, et quand**. Elle ne vaut pas signature. Même avertissement que pour
 `resultats/engagements.jsonl` du test d'accueil.

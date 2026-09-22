@@ -1,0 +1,82 @@
+[
+  {
+    "id": "E-1",
+    "b": 4,
+    "n": 1,
+    "q": "Avant de souder au chalumeau sur une toiture, il faut :",
+    "r": ["un permis de feu signé avant de commencer", "l'accord verbal du chef de chantier sur place", "une bouteille de secours sur la terrasse"],
+    "e": "Le permis de feu se signe avant les travaux par point chaud. Il dit qui surveille, avec quels moyens.",
+    "etanch": "C3.2",
+    "source": "INRS ED 6030, Le permis de feu ; Prévention BTP, travaux d'étanchéité sur toits-terrasses"
+  },
+  {
+    "id": "E-2",
+    "b": 4,
+    "n": 3,
+    "q": "Au poste chalumeau, l'extincteur se trouve :",
+    "r": ["à portée de main, vérifié avant de commencer", "au pied de l'échelle d'accès, en bas", "dans le camion de l'équipe, garé devant le bâtiment"],
+    "e": "Un extincteur à poudre ABC par poste chaud, et on vérifie son état à chaque prise de poste.",
+    "etanch": "C4.3",
+    "source": "Prévention BTP, réaliser les travaux d'étanchéité sur toits-terrasses en toute sécurité"
+  },
+  {
+    "id": "E-3",
+    "b": 4,
+    "n": 1,
+    "q": "Les bouteilles de propane stockées se tiennent loin des isolants, à :",
+    "r": ["10 mètres au moins", "2 mètres au moins", "5 mètres au moins"],
+    "e": "Dix mètres entre les bouteilles stockées et les matériaux inflammables, panneaux isolants compris.",
+    "etanch": "C3.2",
+    "source": "Prévention BTP, travaux d'étanchéité sur toits-terrasses (distances de sécurité)"
+  },
+  {
+    "id": "E-4",
+    "b": 4,
+    "n": 2,
+    "q": "Sur une toiture-terrasse, les accès doivent :",
+    "r": ["rester libres, pour sortir en urgence", "être fermés pour éviter les intrusions", "servir aussi à stocker le matériel"],
+    "e": "Un départ de feu peut couper un accès. Il en faut deux, dégagés, utilisables tout de suite.",
+    "etanch": "C3.2",
+    "source": "Prévention BTP, travaux d'étanchéité sur toits-terrasses (accès et évacuation)"
+  },
+  {
+    "id": "E-5",
+    "b": 4,
+    "n": 1,
+    "q": "Contre les projections de bitume chaud, je porte :",
+    "r": ["des gants à manchettes et un pantalon long", "des gants courts, plus pratiques l'été", "des gants de manutention en tissu"],
+    "e": "Le bitume chaud colle à la peau et continue de brûler. Manchettes, manches longues, chaussures montantes.",
+    "etanch": "C3.8",
+    "source": "Prévention BTP, travaux d'étanchéité sur toits-terrasses (EPI) ; Code du travail, art. R4321-4"
+  },
+  {
+    "id": "E-6",
+    "b": 4,
+    "n": 3,
+    "q": "J'ai du bitume sur la peau. Je le retire :",
+    "r": ["avec une crème lavante, jamais au solvant", "avec du diluant du chantier, cela part plus vite", "en grattant dès qu'il a durci"],
+    "e": "Le solvant attaque la peau et fait pénétrer le produit. On nettoie avec une crème lavante.",
+    "etanch": "C3.8",
+    "source": "Prévention BTP, travaux d'étanchéité sur toits-terrasses (risques liés au bitume)"
+  },
+  {
+    "id": "E-7",
+    "b": 4,
+    "n": 3,
+    "q": "Je dois travailler au bord d'une terrasse sans acrotère haut :",
+    "r": ["le garde-corps se pose avant de commencer", "il suffit de rester à un mètre du bord", "le harnais peut se mettre après le premier relevé"],
+    "e": "Rien ne commence avant la protection du bord. Se fier à sa prudence n'est pas une protection.",
+    "etanch": "C3.14",
+    "source": "Code du travail, art. L4121-2 et R4323-58 ; référentiel R408 (RAG)"
+  },
+  {
+    "id": "E-8",
+    "b": 4,
+    "n": 2,
+    "q": "Le chalumeau est éteint, la journée est finie. La zone :",
+    "r": ["reste surveillée avant de quitter le chantier", "peut être quittée, le chalumeau est bien éteint", "est simplement arrosée à l'eau du chantier"],
+    "e": "Un feu couvant se déclare après le départ. Le permis de feu dit qui surveille, et jusqu'à quand.",
+    "etanch": "C3.2",
+    "source": "INRS ED 6030, Le permis de feu (mesures après travaux)"
+  }
+]

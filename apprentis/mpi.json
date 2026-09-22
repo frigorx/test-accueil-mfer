@@ -1,0 +1,82 @@
+[
+  {
+    "id": "M-1",
+    "b": 4,
+    "n": 3,
+    "q": "Je ponce les joints d'un plafond. Je me protège :",
+    "r": ["avec la ponceuse aspirante et un masque FFP2", "avec un masque en tissu et la fenêtre ouverte", "en arrosant la surface avant de poncer"],
+    "e": "Le plâtre contient un peu de silice. On aspire à la source, et le masque FFP2 est le minimum.",
+    "mpi": "C3.9",
+    "source": "INRS, silice cristalline ; Prévention BTP, ponçage de surfaces avant mise en peinture"
+  },
+  {
+    "id": "M-2",
+    "b": 4,
+    "n": 3,
+    "q": "Une plaque de plâtre de grande hauteur se porte :",
+    "r": ["à deux, ou avec un lève-plaque", "seul, tenue à plat sur le côté", "seul, posée sur l'épaule"],
+    "e": "Une plaque est lourde et encombrante. À deux ou au lève-plaque : le dos ne se répare pas.",
+    "mpi": "C3.5",
+    "source": "Code du travail, art. R4541-1 et suivants (manutention manuelle des charges)"
+  },
+  {
+    "id": "M-3",
+    "b": 4,
+    "n": 3,
+    "q": "Je coupe une plaque au cutter. Je :",
+    "r": ["coupe en écartant la main qui tient la règle", "tire la lame vers moi pour mieux voir le trait", "pose la plaque sur mes genoux pour la tenir"],
+    "e": "La lame part toujours loin du corps, et la main qui tient la règle reste hors de sa trajectoire.",
+    "mpi": "C3.5",
+    "source": "Prévention BTP, travaux de plaques de plâtre ; règles d'usage des outils tranchants"
+  },
+  {
+    "id": "M-4",
+    "b": 4,
+    "n": 2,
+    "q": "Pour visser un plafond, je monte sur :",
+    "r": ["une plateforme avec garde-corps", "un escabeau posé sur deux tréteaux", "une échelle tenue par un camarade"],
+    "e": "Une plateforme avec garde-corps laisse les deux mains libres et retient la chute.",
+    "mpi": "C3.13",
+    "source": "Code du travail, art. R4323-58 et R4323-63 ; QCM « Le travail en hauteur » (question 10)"
+  },
+  {
+    "id": "M-5",
+    "b": 4,
+    "n": 1,
+    "q": "Je pose de la laine minérale en isolation. Je porte :",
+    "r": ["gants, manches longues et masque", "seulement des gants de manutention", "seulement des lunettes de protection"],
+    "e": "Les fibres irritent la peau, les yeux et la gorge. On se couvre, et on ne travaille pas torse nu.",
+    "mpi": "C3.8",
+    "source": "INRS, fibres minérales artificielles ; Code du travail, art. R4321-4"
+  },
+  {
+    "id": "M-6",
+    "b": 4,
+    "n": 2,
+    "q": "La scie n'a plus son carter de protection. Je :",
+    "r": ["ne l'utilise pas et je préviens mon tuteur", "l'utilise en faisant vraiment très attention", "remets le carter avec du ruban adhésif"],
+    "e": "Un outil sans sa protection se met de côté. On ne répare pas une sécurité soi-même.",
+    "mpi": "C2.2",
+    "source": "Code du travail, art. R4322-1 (maintien en état de conformité des équipements de travail)"
+  },
+  {
+    "id": "M-7",
+    "b": 4,
+    "n": 2,
+    "q": "Pour nettoyer la poussière de plâtre au sol, j'utilise :",
+    "r": ["un aspirateur à filtre, pas le balai", "le balai, c'est bien plus rapide à faire", "la soufflette branchée sur le compresseur"],
+    "e": "Le balai et la soufflette remettent la poussière en l'air, là où on respire. L'aspirateur la retient.",
+    "mpi": "C3.12",
+    "source": "INRS, silice cristalline (prévention des empoussièrements)"
+  },
+  {
+    "id": "M-8",
+    "b": 4,
+    "n": 1,
+    "q": "À la fin du chantier, les chutes de plaques de plâtre :",
+    "r": ["vont dans la benne prévue pour le plâtre", "partent avec les déchets de chantier ordinaires", "restent sur place pour la prochaine équipe"],
+    "e": "Le plâtre se trie à part. Mélangé aux autres déchets, il n'est plus recyclable et il coûte plus cher.",
+    "mpi": "C3.12",
+    "source": "Filière REP produits et matériaux de construction du bâtiment (PMCB) ; CAP MPI, C3.12 Replier le chantier"
+  }
+]

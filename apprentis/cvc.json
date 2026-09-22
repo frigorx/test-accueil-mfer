@@ -1,0 +1,74 @@
+[
+  {
+    "id": "V-1",
+    "b": 4,
+    "n": 3,
+    "q": "Je vais relever des cotes sur un chantier. J'entre :",
+    "r": ["après l'accueil sécurité, accompagné", "seul, j'ai l'adresse et le code du portail", "par l'accès livraison, c'est plus rapide"],
+    "e": "Un chantier n'est pas un bureau. On s'annonce, on reçoit les consignes, et on est accompagné.",
+    "source": "Code du travail, art. R4511-1 et suivants (intervention d'une entreprise extérieure)"
+  },
+  {
+    "id": "V-2",
+    "b": 4,
+    "n": 1,
+    "q": "Pour une visite de chantier, il me faut :",
+    "r": ["casque, chaussures de sécurité et gilet", "un gilet, cela suffit pour une visite", "rien, je ne fais que regarder et noter"],
+    "e": "Le visiteur porte les mêmes protections que ceux qui travaillent. Un objet tombe sans prévenir.",
+    "source": "Code du travail, art. R4321-4 ; plan de prévention du chantier"
+  },
+  {
+    "id": "V-3",
+    "b": 4,
+    "n": 3,
+    "q": "Je monte en terrasse relever une centrale de traitement d'air. Avant :",
+    "r": ["je vérifie la protection du bord", "je regarde la météo du jour", "je préviens que j'en ai pour dix minutes"],
+    "e": "Une visite tombe d'aussi haut qu'un chantier. La protection du bord se vérifie avant de monter.",
+    "source": "Code du travail, art. R4323-58 ; référentiel R408 (RAG)"
+  },
+  {
+    "id": "V-4",
+    "b": 4,
+    "n": 3,
+    "q": "Dans un local technique, un coffret électrique est ouvert. Je :",
+    "r": ["n'y touche pas et je préviens", "le referme moi-même, c'est plus sûr", "photographie l'intérieur pour mon dossier"],
+    "e": "Un coffret ouvert veut dire intervention en cours. Seul celui qui l'a ouvert le referme.",
+    "source": "Norme NF C 18-510 ; station « Mettre en sécurité : la consignation » (HoCourant M9)"
+  },
+  {
+    "id": "V-5",
+    "b": 4,
+    "n": 2,
+    "q": "Sur le chantier, un engin manœuvre devant moi. Je :",
+    "r": ["m'arrête hors de sa zone et j'attends", "passe vite derrière lui", "fais un signe de la main et je continue"],
+    "e": "Le conducteur ne voit pas tout autour de lui. On reste hors de la zone tant qu'il manœuvre.",
+    "source": "Code du travail, art. R4534-1 et suivants (chantiers du bâtiment) ; plan de prévention"
+  },
+  {
+    "id": "V-6",
+    "b": 4,
+    "n": 2,
+    "q": "Une journée entière de plans sur écran demande :",
+    "r": ["des pauses ou un changement d'activité", "de baisser la lumière de toute la pièce", "de travailler plus vite pour finir plus tôt"],
+    "e": "L'employeur doit couper le temps d'écran par des pauses ou par une autre tâche.",
+    "source": "Code du travail, art. R4542-4 (travail sur écran)"
+  },
+  {
+    "id": "V-7",
+    "b": 4,
+    "n": 1,
+    "q": "Mon écran est bien placé quand :",
+    "r": ["son haut arrive à hauteur des yeux", "il est juste devant la fenêtre", "il est le plus loin possible de moi"],
+    "e": "Haut de l'écran à hauteur des yeux, fenêtre sur le côté : ni reflet, ni nuque pliée toute la journée.",
+    "source": "Code du travail, art. R4542-3 et suivants ; INRS, travail sur écran"
+  },
+  {
+    "id": "V-8",
+    "b": 4,
+    "n": 2,
+    "q": "Les plans du client sur lesquels je travaille :",
+    "r": ["ne sortent pas de l'entreprise sans accord", "peuvent servir d'exemple sur mon site", "m'appartiennent, c'est moi qui les dessine"],
+    "e": "Un plan appartient au client et à l'entreprise. Rien ne sort sans autorisation écrite.",
+    "source": "Contrat d'apprentissage, obligation de discrétion ; Code de la propriété intellectuelle"
+  }
+]

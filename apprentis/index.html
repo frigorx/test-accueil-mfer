@@ -34,9 +34,10 @@
   .suite{display:block; width:100%; background:var(--bleu); color:#fff; border:none; border-radius:9px; padding:14px; font-size:19px; font-weight:bold; margin-top:12px}
   .suite.o{background:var(--orange-p)}
   .lire{background:#fff; border:2px solid var(--filet); border-radius:9px; padding:6px 12px; font-size:15px; color:var(--bleu); margin:0 0 8px}
-  .choix{display:grid; grid-template-columns:1fr; gap:10px; margin:6px 0 12px}
-  .choix button{border:2px solid var(--filet); background:#fff; border-radius:9px; padding:14px 10px; font-size:17px; font-weight:bold; color:var(--bleu); text-align:left}
-  .choix button.on{border-color:var(--orange-p); background:#fff7f3; color:var(--orange-p)}
+  .porte{display:block; text-decoration:none; color:#fff; border-radius:9px; padding:14px 16px; margin:10px 0; font-size:19px; font-weight:bold}
+  .porte span{display:block; font-size:15px; font-weight:normal; opacity:.92; margin-top:2px}
+  .formation{background:var(--doux); border:1px solid var(--filet); border-left:6px solid var(--orange-p); border-radius:0 8px 8px 0;
+    padding:10px 14px; margin:0 0 12px; font-family:'Trebuchet MS',sans-serif; font-weight:bold; color:var(--bleu)}
   input[type=text]{font:inherit; width:100%; padding:12px; border:2px solid var(--filet); border-radius:9px; margin:4px 0 12px; font-size:18px}
   label{font-weight:bold; color:var(--bleu); font-family:'Trebuchet MS',sans-serif; font-size:14px}
   .regles{margin:6px 0 0 18px; padding:0; font-size:17px}
@@ -61,12 +62,21 @@
 <div class="page">
   <header>
     <div class="lycee">LPP JACQUES RAYNAUD</div>
-    <h1>Accueil sécurité apprenant</h1>
+    <h1 id="titre">Accueil sécurité apprenant</h1>
   </header>
 
+  <!-- ===== écran 0 : aucune formation dans l'adresse — les trois portes ===== -->
+  <section id="portes" class="carte" hidden>
+    <p style="margin:0 0 4px"><b>Trois QCM, un par formation.</b> Je clique sur la mienne.</p>
+    <a class="porte" style="background:#1b3a63" href="?f=mpi">CAP Métiers du plâtre et de l'isolation<span>règles, chantier, hauteur, poussières, accident</span></a>
+    <a class="porte" style="background:#0e7a5f" href="?f=etancheur">CAP Étancheur du bâtiment<span>règles, toiture-terrasse, chalumeau, hauteur, accident</span></a>
+    <a class="porte" style="background:#7a4b8f" href="?f=cvc">Titre pro Technicien d'études CVC<span>règles, visite de chantier, bureau d'études, accident</span></a>
+  </section>
+
   <!-- ===== écran 1 : le départ ===== -->
-  <section id="depart" class="carte">
-    <p><b>40 questions. 45 minutes.</b> Une seule bonne réponse. Après chaque réponse, une explication courte.</p>
+  <section id="depart" class="carte" hidden>
+    <div class="formation" id="ma-formation"></div>
+    <p><b><span id="combien">36</span> questions. <span id="duree">40</span> minutes.</b> Une seule bonne réponse. Après chaque réponse, une explication courte.</p>
     <ul class="regles">
       <li>Le lycée et l'entreprise : les deux comptent. Les questions portent sur les deux.</li>
       <li>À la fin : une note sur 20 et mes compétences. Je fais une <b>capture d'écran</b> du résultat et je l'envoie au formateur.</li>
@@ -74,12 +84,6 @@
       <li><b>Je reste sur la page.</b> Si je sors (autre appli, écran verrouillé, page fermée), je perds <b>1 point</b>. À <b>5 sorties</b>, le test s'arrête.</li>
       <li><b>Mon téléphone ne doit pas s'éteindre tout seul.</b> Je mets le verrouillage automatique sur « Jamais » (Réglages).</li>
     </ul>
-    <label>Ma formation</label>
-    <div class="choix">
-      <button type="button" data-f="MPI">CAP Métiers du plâtre et de l'isolation</button>
-      <button type="button" data-f="ETANCH">CAP Étancheur du bâtiment</button>
-      <button type="button" data-f="CVC">Titre pro Technicien d'études CVC</button>
-    </div>
     <label for="nom">Nom et prénom</label>
     <input type="text" id="nom" autocomplete="off" placeholder="ex. : DUPONT Léa">
     <button class="suite o" id="commencer">Commencer</button>
@@ -88,7 +92,7 @@
 
   <!-- ===== écran 2 : les questions ===== -->
   <section id="quiz" hidden>
-    <div class="barre"><span>Question <b id="numero">1</b> / <span id="total">40</span></span><span>Temps <b id="chrono">45:00</b></span></div>
+    <div class="barre"><span>Question <b id="numero">1</b> / <span id="total">36</span></span><span>Temps <b id="chrono">40:00</b></span></div>
     <div class="jauge"><div id="jauge"></div></div>
     <div class="sorties" id="sorties">Sorties de la page : <b>0</b> / 5</div>
     <div class="carte">
@@ -145,31 +149,45 @@
 </div>
 
 <script>
-// ---------------------------------------------------------------- les référentiels
-// CAP MPI : arrêté du 15 avril 2019. CAP Étancheur : arrêté du 29 août 2022 (l'arrêté de 2002
-// est abrogé, ses codes n'existent plus). Le titre professionnel CVC (arrêté du 15/12/2022) ne
-// code que des compétences de bureau d'études : aucun code de sécurité à lui rattacher — c'est
-// un constat de référentiel, pas un oubli.
-const REF = {
-  MPI: { nom: 'CAP Métiers du plâtre et de l\'isolation', cle: 'mpi', comp: {
-    'C1.1': 'Compléter et transmettre des documents', 'C1.2': 'Échanger, rendre compte oralement',
-    'C3.1': 'Organiser son intervention et son poste de travail', 'C3.2': 'Sécuriser son intervention',
-    'C3.13': 'Monter, démonter et utiliser des échafaudages' } },
-  ETANCH: { nom: 'CAP Étancheur du bâtiment et des travaux publics', cle: 'etanch', comp: {
-    'C1.1': 'Compléter et transmettre des documents', 'C1.2': 'Échanger et rendre compte oralement',
-    'C3.1': 'Organiser son poste de travail', 'C3.2': 'Sécuriser son intervention',
-    'C3.4': 'Utiliser des échafaudages', 'C4.3': 'Entretenir et contrôler les matériels et outillages' } },
-  CVC: { nom: 'Titre professionnel Technicien d\'études en chauffage, ventilation et climatisation', cle: null, comp: {} }
+// ---------------------------------------------------------------- les trois QCM
+// Un QCM par formation : le tronc commun (commun.json) plus le fichier du métier. L'apprenti
+// n'en voit qu'un — celui de son lien — et ne choisit rien : c'est le bouton de l'accueil qui décide.
+//
+// CAP MPI : arrêté du 15 avril 2019. CAP Étancheur : arrêté du 29 août 2022 (l'arrêté de 2002 est
+// abrogé, ses codes n'existent plus). Le titre professionnel CVC (arrêté du 15/12/2022) ne code que
+// des compétences de bureau d'études — plans, calculs, études : aucune compétence de sécurité à lui
+// rattacher. Le QCM CVC ne porte donc pas de code, et son résultat se lit par thème et par niveau.
+const FILIERES = {
+  mpi: {
+    nom: 'CAP Métiers du plâtre et de l\'isolation', fichier: 'mpi.json', cle: 'mpi',
+    metier: 'Les risques du plâtre et de l\'isolation',
+    comp: { 'C1.1': 'Compléter et transmettre des documents', 'C1.2': 'Échanger, rendre compte oralement',
+            'C2.2': 'Choisir les matériels et les outillages', 'C3.1': 'Organiser son intervention et son poste de travail',
+            'C3.2': 'Sécuriser son intervention', 'C3.5': 'Construire des ouvrages en plaques de plâtre sur ossature',
+            'C3.8': 'Réaliser une isolation thermo-acoustique intérieure', 'C3.9': 'Traiter les joints et réaliser les enduits',
+            'C3.12': 'Replier le chantier', 'C3.13': 'Monter, démonter et utiliser des échafaudages' } },
+  etancheur: {
+    nom: 'CAP Étancheur du bâtiment et des travaux publics', fichier: 'etancheur.json', cle: 'etanch',
+    metier: 'Les risques de l\'étanchéité',
+    comp: { 'C1.1': 'Compléter et transmettre des documents', 'C1.2': 'Échanger et rendre compte oralement',
+            'C3.1': 'Organiser son poste de travail', 'C3.2': 'Sécuriser son intervention',
+            'C3.4': 'Utiliser des échafaudages', 'C3.8': 'Mettre en œuvre une étanchéité',
+            'C3.14': 'Poser des éléments de sécurité permanents', 'C4.3': 'Entretenir et contrôler les matériels' } },
+  cvc: {
+    nom: 'Titre professionnel Technicien d\'études en chauffage, ventilation et climatisation',
+    fichier: 'cvc.json', cle: null, metier: 'Le bureau d\'études et les visites de chantier', comp: {} }
 };
 const NIVEAUX = { 1: 'Je sais', 2: 'Je comprends', 3: 'Je fais le bon geste' };
-const BLOCS = ["Les règles du lycée valent aussi pour moi", "Mon comportement en entreprise",
+const BLOCS = ["Les règles du lycée valent aussi pour moi", "En entreprise, avec mon tuteur",
                "Mes équipements de protection", "Le travail en hauteur",
-               "Ce que j'engage : ma responsabilité", "S'il arrive un accident"];
-const MINUTES = 45;
+               "Les risques de mon métier", "Ma responsabilité et l'accident"];
+const BLOC_METIER = 4;
+const MINUTES = 40;
 
-// Les questions vivent dans questions.json, contrôlé par controler-apprentis.py : on ne corrige
-// une question qu'à un seul endroit, et le contrôle refuse une bonne réponse reconnaissable à sa longueur.
+const filiere = (new URLSearchParams(location.search).get('f') || '').toLowerCase();
+const REF = FILIERES[filiere] || null;
 let QUESTIONS = [];
+const CLE = 'apprentis-' + filiere + '-2026';
 
 // ---------------------------------------------------------------- la collecte des résultats
 function surLePC(){ return location.protocol === 'http:' && !/github\.io$/.test(location.hostname); }
@@ -188,17 +206,16 @@ function graine(texte){ let h = 2166136261; for (const c of texte) { h ^= c.char
 function alea(seed){ let s = seed || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
 function melange(tab, r){ const t = tab.slice(); for (let i = t.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [t[i], t[j]] = [t[j], t[i]]; } return t; }
 
-let etat = null, filiere = 'MPI';
-const CLE = 'apprentis-accueil-2026';
+let etat = null;
 
-function preparer(nom, f){
-  const r = alea(graine((nom + '|' + f).toLowerCase()));
+function preparer(nom){
+  const r = alea(graine((nom + '|' + filiere).toLowerCase()));
   const ordre = [];
   for (let b = 0; b < BLOCS.length; b++) {
     ordre.push(...melange(QUESTIONS.map((q, i) => q.b === b ? i : -1).filter(i => i >= 0), r));
   }
   const reponses = ordre.map(i => melange(QUESTIONS[i].r.map((_, k) => k), r));
-  return { nom, filiere: f, ordre, reponses, courante: 0, choix: [], debut: Date.now(), fini: false, sorties: 0 };
+  return { nom, ordre, reponses, courante: 0, choix: [], debut: Date.now(), fini: false, sorties: 0 };
 }
 
 // ---------------------------------------------------------------- les sorties de la page
@@ -229,12 +246,14 @@ function charger(){ try { const s = localStorage.getItem(CLE); return s ? JSON.p
 const $ = (id) => document.getElementById(id);
 let minuteur = null;
 
+function nomDuBloc(b){ return b === BLOC_METIER ? REF.metier : BLOCS[b]; }
+
 function afficher(){
-  $('depart').hidden = true; $('quiz').hidden = false; $('fin').hidden = true;
+  $('portes').hidden = true; $('depart').hidden = true; $('quiz').hidden = false; $('fin').hidden = true;
   const n = etat.courante, q = QUESTIONS[etat.ordre[n]];
   $('numero').textContent = n + 1; $('total').textContent = etat.ordre.length;
   $('jauge').style.width = Math.round(100 * n / etat.ordre.length) + '%';
-  $('bloc').textContent = BLOCS[q.b]; $('niveau').textContent = NIVEAUX[q.n];
+  $('bloc').textContent = nomDuBloc(q.b); $('niveau').textContent = NIVEAUX[q.n];
   $('question').textContent = q.q;
   const zone = $('reponses'); zone.innerHTML = '';
   etat.reponses[n].forEach((k, pos) => {
@@ -287,7 +306,7 @@ function chrono(){
 function suivi(){
   if (!etat || !surLePC()) return;
   fetch('/suivi', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-    type: 'apprenti', nom: etat.nom, classe: (REF[etat.filiere] || REF.MPI).nom, niveau: BLOCS[(QUESTIONS[etat.ordre[etat.courante]] || {}).b] || '',
+    type: 'apprenti', nom: etat.nom, classe: REF.nom, niveau: nomDuBloc((QUESTIONS[etat.ordre[etat.courante]] || {}).b) || '',
     question: etat.courante + 1, total: etat.ordre.length, sorties: etat.sorties || 0, fini: !!etat.fini, minutes: Math.round((Date.now() - etat.debut) / 60000) }) }).catch(() => {});
 }
 
@@ -296,13 +315,13 @@ function classe(ok, n){ const t = n ? ok / n : 0; return t >= 0.75 ? ['acquis', 
 
 function terminer(){
   etat.fini = true; sauver(); clearInterval(minuteur);
-  $('depart').hidden = true; $('quiz').hidden = true; $('fin').hidden = false;
-  const f = etat.filiere || 'MPI', ref = REF[f], cle = ref.cle;
+  $('portes').hidden = true; $('depart').hidden = true; $('quiz').hidden = true; $('fin').hidden = false;
+  const cle = REF.cle;
   const parBloc = BLOCS.map(() => ({ ok: 0, n: 0 })), parComp = {}, parNiv = { 1: { ok: 0, n: 0 }, 2: { ok: 0, n: 0 }, 3: { ok: 0, n: 0 } };
   etat.ordre.forEach((i, n) => {
     const q = QUESTIONS[i], juste = etat.choix[n] === 0;
     parBloc[q.b].n++; if (juste) parBloc[q.b].ok++;
-    if (cle) { const c = q[cle]; parComp[c] = parComp[c] || { ok: 0, n: 0 }; parComp[c].n++; if (juste) parComp[c].ok++; }
+    if (cle && q[cle]) { const c = q[cle]; parComp[c] = parComp[c] || { ok: 0, n: 0 }; parComp[c].n++; if (juste) parComp[c].ok++; }
     parNiv[q.n].n++; if (juste) parNiv[q.n].ok++;
   });
   const ok = parBloc.reduce((a, x) => a + x.ok, 0), total = etat.ordre.length, sorties = etat.sorties || 0;
@@ -314,35 +333,35 @@ function terminer(){
   const a = $('arret'); a.hidden = !etat.arret;
   if (etat.arret) a.textContent = 'TEST ARRÊTÉ : ' + SORTIES_MAX + ' sorties de la page. Je vais voir le formateur.';
   $('eleve').textContent = etat.nom;
-  $('formation').textContent = ref.nom;
+  $('formation').textContent = REF.nom;
   if (!etat.quand) { etat.quand = new Date().toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
   $('quand').textContent = etat.quand;
-  $('parbloc').innerHTML = '<tr><th>Thème</th><th>Justes</th></tr>' + parBloc.map((x, b) => '<tr><td>' + BLOCS[b] + '</td><td>' + x.ok + ' / ' + x.n + '</td></tr>').join('');
-  const codes = Object.keys(ref.comp).filter(c => parComp[c]);
+  $('parbloc').innerHTML = '<tr><th>Thème</th><th>Justes</th></tr>' + parBloc.map((x, b) => '<tr><td>' + nomDuBloc(b) + '</td><td>' + x.ok + ' / ' + x.n + '</td></tr>').join('');
+  const codes = Object.keys(REF.comp).filter(c => parComp[c]);
   $('parcomp').hidden = !codes.length; $('sanscodes').hidden = !!codes.length;
   $('parcomp').innerHTML = '<tr><th>Compétence</th><th>Justes</th><th>Où j\'en suis</th></tr>' + codes.map(c => {
     const x = parComp[c], [lib, cls] = classe(x.ok, x.n);
-    return '<tr><td><b>' + c + '</b> ' + ref.comp[c] + '</td><td>' + x.ok + ' / ' + x.n + '</td><td class="' + cls + '">' + lib + '</td></tr>'; }).join('');
+    return '<tr><td><b>' + c + '</b> ' + REF.comp[c] + '</td><td>' + x.ok + ' / ' + x.n + '</td><td class="' + cls + '">' + lib + '</td></tr>'; }).join('');
   $('parniveau').innerHTML = '<tr><th>Niveau</th><th>Justes</th><th>Où j\'en suis</th></tr>' + [1, 2, 3].map(l => {
     const x = parNiv[l], [lib, cls] = classe(x.ok, x.n);
     return '<tr><td>' + NIVEAUX[l] + '</td><td>' + x.ok + ' / ' + x.n + '</td><td class="' + cls + '">' + lib + '</td></tr>'; }).join('');
-  const h = graine(etat.nom.toLowerCase() + '|' + f + '|' + etat.choix.join('') + '|' + sorties);
+  const h = graine(etat.nom.toLowerCase() + '|' + filiere + '|' + etat.choix.join('') + '|' + sorties);
   const code = (etat.nom.trim().slice(0, 3).toUpperCase() || 'XXX') + '-' + noteTxt + '-' + (h % 9000 + 1000);
   $('code').textContent = code;
   const minutes = Math.round((Date.now() - etat.debut) / 60000);
   etat.resultat = {
-    nom: etat.nom, note: noteTxt, code: code, diplome: ref.nom + ' · ' + etat.quand,
-    blocs: parBloc.map((x, b) => BLOCS[b] + ' ' + x.ok + '/' + x.n).join(' · '),
+    nom: etat.nom, note: noteTxt, code: code, diplome: REF.nom + ' · ' + etat.quand,
+    blocs: parBloc.map((x, b) => nomDuBloc(b) + ' ' + x.ok + '/' + x.n).join(' · '),
     competences: (codes.length ? codes.map(c => c + ' ' + parComp[c].ok + '/' + parComp[c].n + ' ' + classe(parComp[c].ok, parComp[c].n)[0]).join(' · ') + ' · ' : '')
                  + 'niveaux ' + [1, 2, 3].map(l => NIVEAUX[l] + ' ' + parNiv[l].ok + '/' + parNiv[l].n).join(', '),
     sorties: sorties, arret: !!etat.arret, repondu: repondu, total: total,
-    erreurs: etat.ordre.map((i, n) => (etat.choix[n] !== undefined && etat.choix[n] !== 0) ? BLOCS[QUESTIONS[i].b] + ' · ' + QUESTIONS[i].q : null).filter(Boolean),
+    erreurs: etat.ordre.map((i, n) => (etat.choix[n] !== undefined && etat.choix[n] !== 0) ? nomDuBloc(QUESTIONS[i].b) + ' · ' + QUESTIONS[i].q : null).filter(Boolean),
     reponses: 'durée ' + minutes + ' min · sorties ' + sorties + (etat.arret ? ' (test arrêté)' : '') + ' · ' + etat.ordre.map((i, n) => i + ':' + (etat.choix[n] === undefined ? '-' : etat.choix[n])).join(' ')
   };
   sauver();
   if (!etat.envoye) { envoyerResultat(etat.resultat); etat.envoye = true; sauver(); }
   else { $('envoi').textContent = 'Résultat déjà transmis. Je recopie mon code si ce n\'est pas fait.'; }
-  const faibles = parBloc.map((x, b) => classe(x.ok, x.n)[0] === 'à revoir' ? BLOCS[b] : null).filter(Boolean);
+  const faibles = parBloc.map((x, b) => classe(x.ok, x.n)[0] === 'à revoir' ? nomDuBloc(b) : null).filter(Boolean);
   $('conseil').innerHTML = faibles.length
     ? '<b>À reprendre avec le formateur :</b> ' + faibles.join(' ; ') + '.'
     : '<b>Les règles sont sues.</b> Reste à les tenir chaque jour, au lycée comme en entreprise.';
@@ -360,19 +379,6 @@ function revoir(){
 }
 
 // ---------------------------------------------------------------- le démarrage
-document.querySelector('.choix').addEventListener('click', (ev) => {
-  const b = ev.target.closest('button'); if (!b) return;
-  filiere = b.dataset.f;
-  document.querySelectorAll('.choix button').forEach(x => { x.classList.toggle('on', x === b); x.style.borderColor = ''; });
-});
-$('commencer').addEventListener('click', () => {
-  const nom = $('nom').value.trim();
-  if (!QUESTIONS.length) { $('chargement').textContent = 'Les questions ne sont pas encore chargées : je rafraîchis la page.'; return; }
-  if (!document.querySelector('.choix button.on')) { document.querySelectorAll('.choix button').forEach(x => x.style.borderColor = 'var(--rouge)'); return; }
-  if (nom.length < 3) { $('nom').focus(); $('nom').style.borderColor = 'var(--rouge)'; return; }
-  etat = preparer(nom, filiere); sauver();
-  minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume();
-});
 $('suivant').addEventListener('click', suivante);
 $('lire').addEventListener('click', lireVoixHaute);
 $('revoir').addEventListener('click', revoir);
@@ -383,6 +389,13 @@ $('copier').addEventListener('click', () => {
   const fini = () => { $('copier').textContent = 'Résultat copié : je le colle dans le message au formateur'; };
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texte).then(fini, () => { prompt('À recopier :', texte); });
   else prompt('À recopier :', texte);
+});
+$('commencer').addEventListener('click', () => {
+  const nom = $('nom').value.trim();
+  if (!QUESTIONS.length) { $('chargement').textContent = 'Les questions ne sont pas encore chargées : je rafraîchis la page.'; return; }
+  if (nom.length < 3) { $('nom').focus(); $('nom').style.borderColor = 'var(--rouge)'; return; }
+  etat = preparer(nom); sauver();
+  minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume();
 });
 
 if (surLePC()) $('accueil').hidden = false;
@@ -411,21 +424,29 @@ if (surLePC()) $('accueil').hidden = false;
   }
 }
 
-// Les questions d'abord : tant qu'elles ne sont pas là, « Commencer » le dit au lieu d'ouvrir un test vide.
-$('chargement').textContent = 'Chargement des questions…';
-fetch('questions.json', { cache: 'no-store' })
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(qs => {
-    QUESTIONS = qs;
-    $('total').textContent = qs.length;
-    $('chargement').textContent = '';
-    const repris = charger();
-    if (repris && repris.nom) {
-      etat = repris; filiere = etat.filiere || 'MPI';
-      if (etat.fini) terminer();
-      else { minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume(); }
-    }
-  })
-  .catch(() => { $('chargement').textContent = 'Les questions n\'ont pas pu être chargées. Je préviens le formateur.'; });
+// Sans formation dans l'adresse, on montre les trois portes et on ne charge rien.
+if (!REF) {
+  $('portes').hidden = false;
+} else {
+  $('depart').hidden = false;
+  $('titre').textContent = 'Accueil sécurité — ' + (filiere === 'cvc' ? 'Technicien d\'études CVC' : REF.nom);
+  document.title = 'Accueil sécurité — ' + REF.nom;
+  $('ma-formation').textContent = REF.nom;
+  $('duree').textContent = MINUTES;
+  $('chargement').textContent = 'Chargement des questions…';
+  Promise.all(['commun.json', REF.fichier].map(f => fetch(f, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); })))
+    .then(([commun, metier]) => {
+      QUESTIONS = commun.concat(metier);
+      $('combien').textContent = QUESTIONS.length; $('total').textContent = QUESTIONS.length;
+      $('chargement').textContent = '';
+      const repris = charger();
+      if (repris && repris.nom) {
+        etat = repris;
+        if (etat.fini) terminer();
+        else { minuteur = setInterval(chrono, 1000); chrono(); afficher(); garderEcranAllume(); }
+      }
+    })
+    .catch(() => { $('chargement').textContent = 'Les questions n\'ont pas pu être chargées. Je préviens le formateur.'; });
+}
 </script>
 <script src="../choisir-son-nom.js"></script>

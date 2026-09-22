@@ -1,0 +1,314 @@
+[
+  {
+    "id": "C0-1",
+    "b": 0,
+    "n": 1,
+    "q": "Je suis apprenti. Le règlement intérieur du lycée :",
+    "r": ["s'applique à moi comme à tous les élèves", "ne concerne que les élèves à temps plein", "ne vaut que pendant les heures de cours"],
+    "e": "Un apprenti au CFA est dans le lycée. Le même règlement s'applique à lui, aux mêmes heures.",
+    "mpi": "C3.1",
+    "etanch": "C3.1",
+    "source": "Règlement intérieur du LP Jacques Raynaud"
+  },
+  {
+    "id": "C0-2",
+    "b": 0,
+    "n": 3,
+    "q": "J'arrive en retard au CFA. Je :",
+    "r": ["passe par la vie scolaire, puis j'entre", "entre directement, mon employeur est prévenu", "reste dans le couloir jusqu'à la fin de l'heure"],
+    "e": "Un retard passe par la vie scolaire. C'est la règle du lycée, apprenti ou non.",
+    "mpi": "C1.2",
+    "etanch": "C1.2",
+    "source": "Règlement intérieur du LP Jacques Raynaud"
+  },
+  {
+    "id": "C0-3",
+    "b": 0,
+    "n": 3,
+    "q": "Je suis absent un jour de CFA. Je préviens :",
+    "r": ["le CFA et mon employeur, les deux", "mon employeur seulement, il le dira", "le CFA seulement, il le dira"],
+    "e": "L'apprenti a deux lieux. Une absence se justifie des deux côtés, avec un papier.",
+    "mpi": "C1.1",
+    "etanch": "C1.1",
+    "source": "Contrat d'apprentissage ; règlement intérieur du LP Jacques Raynaud"
+  },
+  {
+    "id": "C0-4",
+    "b": 0,
+    "n": 1,
+    "q": "Pendant un cours au CFA, mon téléphone est :",
+    "r": ["dans mon sac, en silencieux", "dans ma poche, en vibreur", "sur la table, écran retourné"],
+    "e": "Le téléphone reste dans le sac. Il sort si le formateur le demande, pour photographier un plan.",
+    "mpi": "C3.1",
+    "etanch": "C3.1",
+    "source": "Règlement intérieur du LP Jacques Raynaud"
+  },
+  {
+    "id": "C0-5",
+    "b": 0,
+    "n": 3,
+    "q": "L'alarme incendie sonne pendant le cours. Je :",
+    "r": ["sors avec le groupe, sans rien prendre", "prends mes affaires avant de sortir avec le groupe", "attends de savoir si c'est un exercice"],
+    "e": "On sort tout de suite, sans rien prendre, et on reste groupé : c'est là qu'on compte les présents.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "Consignes d'évacuation du LP Jacques Raynaud ; Code du travail, art. R4227-37"
+  },
+  {
+    "id": "C0-6",
+    "b": 0,
+    "n": 2,
+    "q": "Sortir du lycée entre deux cours :",
+    "r": ["suit ce que le règlement intérieur autorise", "est libre pour un apprenti majeur", "est libre si je préviens la vie scolaire par message"],
+    "e": "Le règlement dit qui sort et quand. En cas de doute, la vie scolaire répond.",
+    "mpi": "C3.1",
+    "etanch": "C3.1",
+    "source": "Règlement intérieur du LP Jacques Raynaud"
+  },
+
+  {
+    "id": "C1-1",
+    "b": 1,
+    "n": 3,
+    "q": "Je sais que je vais arriver en retard chez mon employeur. Je :",
+    "r": ["l'appelle avant l'heure d'embauche", "m'explique en arrivant sur le chantier", "le dis à mon tuteur en fin de journée"],
+    "e": "Prévenir avant, c'est ce qui sépare un retard d'un abandon de poste.",
+    "mpi": "C1.2",
+    "etanch": "C1.2",
+    "source": "Contrat d'apprentissage ; règlement intérieur de l'entreprise"
+  },
+  {
+    "id": "C1-2",
+    "b": 1,
+    "n": 3,
+    "q": "Mon tuteur donne une consigne que je n'ai pas comprise. Je :",
+    "r": ["lui demande de la répéter tout de suite", "fais comme je pense et je verrai après", "demande à un autre apprenti du chantier"],
+    "e": "Demander n'est pas une faiblesse. Une consigne mal comprise finit en retouche ou en accident.",
+    "mpi": "C1.2",
+    "etanch": "C1.2",
+    "source": "Code du travail, art. R4153-40 (encadrement du jeune par une personne compétente)"
+  },
+  {
+    "id": "C1-3",
+    "b": 1,
+    "n": 3,
+    "q": "On me demande un travail que je n'ai jamais appris. Je :",
+    "r": ["le dis à mon tuteur avant de commencer", "essaie quand même, c'est comme cela qu'on apprend", "refuse et je quitte le chantier"],
+    "e": "Un apprenti apprend accompagné. Un geste inconnu se fait avec quelqu'un, jamais seul.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "Code du travail, art. R4153-40 (encadrement par une personne compétente)"
+  },
+  {
+    "id": "C1-4",
+    "b": 1,
+    "n": 2,
+    "q": "L'alcool sur le lieu de travail :",
+    "r": ["peut être totalement interdit par l'entreprise", "est permis au repas de midi, en petite quantité", "est permis en dehors des machines"],
+    "e": "Le règlement de l'entreprise peut tout interdire. Et un salarié qui a bu est écarté du poste.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "Code du travail, art. R4228-20 et R4228-21"
+  },
+  {
+    "id": "C1-5",
+    "b": 1,
+    "n": 2,
+    "q": "Je veux mettre une photo du chantier sur les réseaux. Je :",
+    "r": ["demande d'abord l'accord de mon employeur", "la publie, le chantier se voit de la rue", "la publie si aucune personne n'apparaît"],
+    "e": "Le chantier, le client et l'entreprise ne m'appartiennent pas. On demande avant de publier.",
+    "mpi": "C1.2",
+    "etanch": "C1.2",
+    "source": "Contrat d'apprentissage, obligation de discrétion ; droit à l'image"
+  },
+
+  {
+    "id": "C2-1",
+    "b": 2,
+    "n": 1,
+    "q": "Mes équipements de protection sur le chantier :",
+    "r": ["sont fournis gratuitement par l'employeur", "sont à ma charge, comme mes vêtements de ville", "sont partagés entre les apprentis"],
+    "e": "Le code du travail l'impose : l'employeur les fournit, les entretient et les remplace, sans rien me faire payer.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "Code du travail, art. R4321-4 et R4323-95"
+  },
+  {
+    "id": "C2-2",
+    "b": 2,
+    "n": 3,
+    "q": "Mon casque a reçu un choc. Je :",
+    "r": ["le signale, l'entreprise le remplace", "continue, la coque n'est pas percée", "le garde et je fais plus attention"],
+    "e": "Un casque qui a pris un choc ne protège plus. Il se remplace, il ne se répare pas.",
+    "mpi": "C3.2",
+    "etanch": "C4.3",
+    "source": "Code du travail, art. R4323-95 (entretien et remplacement à la charge de l'employeur)"
+  },
+  {
+    "id": "C2-3",
+    "b": 2,
+    "n": 3,
+    "q": "Il me manque un équipement de protection. Je :",
+    "r": ["le demande avant de commencer le travail", "emprunte celui d'un autre apprenti de l'équipe", "commence et je le prends après"],
+    "e": "Sans l'équipement, le travail ne commence pas. Le demander fait partie du travail.",
+    "mpi": "C1.2",
+    "etanch": "C1.2",
+    "source": "Code du travail, art. R4321-4"
+  },
+  {
+    "id": "C2-4",
+    "b": 2,
+    "n": 2,
+    "q": "Un équipement de protection individuelle protège :",
+    "r": ["moi seul, et seulement si je le porte", "toute l'équipe qui travaille autour", "moi, même rangé dans le camion"],
+    "e": "Individuelle veut dire : moi seul. Rangé ou mal mis, il ne protège personne.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "Référentiel R408 (RAG), « Protection collective et harnais »"
+  },
+
+  {
+    "id": "C3-1",
+    "b": 3,
+    "n": 1,
+    "q": "Un apprenti de moins de 18 ans travaille en hauteur :",
+    "r": ["si une protection collective est en place", "s'il porte un harnais et qu'il est formé", "s'il est accompagné d'un collègue au sol"],
+    "e": "La loi l'écrit : sans protection collective, un mineur ne monte pas. Une dérogation existe, encadrée.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "Code du travail, art. D4153-30 ; dérogation R4153-38 et suivants"
+  },
+  {
+    "id": "C3-2",
+    "b": 3,
+    "n": 1,
+    "q": "Monter ou démonter un échafaudage, à moins de 18 ans :",
+    "r": ["est interdit sans dérogation déclarée", "est permis si un collègue formé m'accompagne", "est permis sous l'œil du tuteur"],
+    "e": "C'est un travail réglementé. L'employeur doit déclarer une dérogation à l'inspection du travail.",
+    "mpi": "C3.13",
+    "etanch": "C3.4",
+    "source": "Code du travail, art. D4153-31 ; dérogation R4153-38 (valable trois ans)"
+  },
+  {
+    "id": "C3-3",
+    "b": 3,
+    "n": 2,
+    "q": "Entre un garde-corps et un harnais, on installe d'abord :",
+    "r": ["le garde-corps, qui protège tout le monde", "le harnais, qui se met en place bien plus vite", "celui que le chef a sous la main"],
+    "e": "La protection collective passe avant l'individuelle : elle protège même celui qui oublie.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "Code du travail, art. L4121-2 ; référentiel R408 (RAG)"
+  },
+  {
+    "id": "C3-4",
+    "b": 3,
+    "n": 3,
+    "q": "L'échafaudage était déjà monté hier. Ce matin :",
+    "r": ["on vérifie l'état : plancher, garde-corps, appuis", "on regarde la date sur l'étiquette de contrôle", "on monte, il n'a pas bougé de la nuit"],
+    "e": "C'est l'examen journalier de l'échafaudage. Une nuit de vent ou un passage suffisent à le changer.",
+    "mpi": "C3.13",
+    "etanch": "C3.4",
+    "source": "Référentiel R408 (RAG), item 3.4 « Réaliser la vérification journalière »"
+  },
+  {
+    "id": "C3-5",
+    "b": 3,
+    "n": 3,
+    "q": "Je porte un harnais. Je l'accroche :",
+    "r": ["à un point d'ancrage prévu pour cela", "à la barre la plus solide autour", "à la structure de l'échafaudage"],
+    "e": "Un point d'ancrage est calculé pour retenir une chute. Une barre quelconque ne l'est pas.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "QCM « Le travail en hauteur » (questions 13 et 17) ; référentiel R408 (RAG)"
+  },
+
+  {
+    "id": "C5-1",
+    "b": 5,
+    "n": 2,
+    "q": "Je casse la vitre d'un client pendant le chantier :",
+    "r": ["mon employeur en répond, et je le préviens", "je paie la vitre sur mon salaire", "le client se retourne contre le CFA et le lycée"],
+    "e": "L'employeur répond des dommages causés par son apprenti pendant qu'il le surveille.",
+    "mpi": "C1.2",
+    "etanch": "C1.2",
+    "source": "Code civil, art. 1242 (responsabilité des artisans pour leurs apprentis)"
+  },
+  {
+    "id": "C5-2",
+    "b": 5,
+    "n": 3,
+    "q": "J'ai fait un dégât et personne ne l'a vu. Je :",
+    "r": ["le dis à mon tuteur avant de partir", "attends qu'on vienne me le demander", "le répare moi-même sans en parler"],
+    "e": "Un dégât caché se découvre plus tard et coûte plus cher. Le dire protège l'entreprise et moi.",
+    "mpi": "C1.2",
+    "etanch": "C1.2",
+    "source": "Code civil, art. 1242"
+  },
+  {
+    "id": "C5-3",
+    "b": 5,
+    "n": 2,
+    "q": "Un dégât fait exprès, par jeu ou par colère :",
+    "r": ["reste à ma charge, l'employeur ne couvre pas", "est couvert comme les autres dégâts", "est couvert par l'assurance du lycée"],
+    "e": "La couverture de l'employeur vaut pour le travail, pas pour un acte volontaire.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "Code civil, art. 1242 ; Code des assurances, art. L113-1 (la faute intentionnelle n'est pas assurée)"
+  },
+  {
+    "id": "C5-4",
+    "b": 5,
+    "n": 3,
+    "q": "Je me coupe un doigt sur le chantier, ce n'est pas grave. Je :",
+    "r": ["préviens mon tuteur tout de suite", "termine la journée et je verrai", "mets un pansement et je continue"],
+    "e": "Une petite blessure non déclarée devient un problème si elle s'infecte. On prévient toujours.",
+    "mpi": "C1.2",
+    "etanch": "C1.2",
+    "source": "Code de la sécurité sociale, art. L441-1"
+  },
+  {
+    "id": "C5-5",
+    "b": 5,
+    "n": 1,
+    "q": "Après un accident, j'informe mon employeur dans :",
+    "r": ["les 24 heures", "la semaine", "les 48 heures"],
+    "e": "Vingt-quatre heures : c'est le délai écrit dans le code. Passé ce délai, tout devient plus difficile.",
+    "mpi": "C1.1",
+    "etanch": "C1.1",
+    "source": "Code de la sécurité sociale, art. L441-1 ; service-public.gouv.fr"
+  },
+  {
+    "id": "C5-6",
+    "b": 5,
+    "n": 1,
+    "q": "Mon employeur déclare l'accident à la Sécurité sociale dans :",
+    "r": ["les 48 heures", "les 24 heures", "les 15 jours"],
+    "e": "Quarante-huit heures, dimanches et jours fériés non comptés. C'est lui qui remplit la déclaration.",
+    "mpi": "C1.1",
+    "etanch": "C1.1",
+    "source": "Code de la sécurité sociale, art. R441-3 ; ameli.fr"
+  },
+  {
+    "id": "C5-7",
+    "b": 5,
+    "n": 2,
+    "q": "La feuille d'accident du travail me sert à :",
+    "r": ["me faire soigner sans rien payer", "justifier mon absence au CFA", "toucher mon salaire pendant l'arrêt"],
+    "e": "Avec cette feuille, le médecin et la pharmacie ne demandent pas d'argent. L'employeur me la remet.",
+    "mpi": "C1.1",
+    "etanch": "C1.1",
+    "source": "ameli.fr, feuille d'accident du travail (formulaire S6201)"
+  },
+  {
+    "id": "C5-8",
+    "b": 5,
+    "n": 2,
+    "q": "Je me blesse pendant un cours au CFA :",
+    "r": ["c'est un accident du travail, comme en entreprise", "c'est un accident scolaire, pas du travail", "cela dépend de mon âge et de mon contrat"],
+    "e": "L'apprenti est couvert dès le premier jour : en entreprise, au CFA, et sur le trajet.",
+    "mpi": "C3.2",
+    "etanch": "C3.2",
+    "source": "ameli.fr, « Apprenti : les modalités de votre prise en charge »"
+  }
+]

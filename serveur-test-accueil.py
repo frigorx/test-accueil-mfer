@@ -468,7 +468,11 @@ ACTIVITES = [
     ('/positionnement.html', "2. Où j'en suis", 'froid, climatisation, habilitations · six niveaux · noté, barème dégressif', '#c9451a'),
     ('/manometres.html', '3. Lire un manomètre', 'pression, fluide, température · 10 questions · noté sur 20', '#0e7a5f'),
     ('/jeux/schema-frigo/', '4. Jeu : compléter le schéma frigorifique', 'je pose chaque organe à sa place', '#5d6b7c'),
-    ('/apprentis/', '5. Accueil sécurité apprenant', 'apprentis MPI, Étancheur, TP CVC · règles, EPI, hauteur, accident · 40 questions', '#7a4b8f'),
+    # Les trois QCM d'accueil des apprentis : un par formation. L'apprenti n'en voit qu'un,
+    # celui sur lequel il clique — il ne choisit rien à l'intérieur de la page.
+    ('/apprentis/?f=mpi', 'Apprentis — CAP Plâtre et isolation', 'accueil sécurité · règles, chantier, hauteur, accident · 36 questions', '#7a4b8f'),
+    ('/apprentis/?f=etancheur', 'Apprentis — CAP Étancheur', 'accueil sécurité · règles, toiture, chalumeau, hauteur · 36 questions', '#7a4b8f'),
+    ('/apprentis/?f=cvc', "Apprentis — Titre pro Technicien d'études CVC", 'accueil sécurité · règles, visite de chantier, bureau · 36 questions', '#7a4b8f'),
 ]
 
 
