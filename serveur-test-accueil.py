@@ -31,7 +31,12 @@ COLONNES = ['recu', 'type', 'nom', 'diplome', 'classe', 'niveau', 'niveau_nom', 
             'minutes', 'code', 'competences', 'niveaux', 'tax', 'blocs', 'reponses', 'ip']
 
 
-def lire_resultats():
+def lire_resultats(toutes_les_classes=False):
+    """Les résultats de la CLASSE DU JOUR (bilan, « qui a fait quoi », cartographie, CSV passent tous par ici).
+
+    Le fichier garde tout, pour toujours : on ne filtre qu'à la lecture. Deux classes peuvent donc passer
+    le même jour sans se mélanger, et une classe de l'an dernier se retrouve en la rechoisissant.
+    Tant qu'aucune classe n'est nommée dans le poste de commande, on montre tout, comme avant."""
     lignes = []
     if os.path.exists(JSONL):
         with io.open(JSONL, encoding='utf-8') as f:
@@ -42,7 +47,12 @@ def lire_resultats():
                         lignes.append(json.loads(l))
                     except ValueError:
                         pass
-    return lignes
+    if toutes_les_classes:
+        return lignes
+    active = str(reglages().get('nom_classe') or '').strip()
+    if not active:
+        return lignes
+    return [l for l in lignes if str(l.get('seance') or '').strip() == active]
 
 
 def ecrire_csv(lignes):
@@ -710,8 +720,12 @@ def page_prof(ok=False):
                    ('<input name="%s" value="%s" autocomplete="off">' % (nom, html.escape(valeur)))))
     classe = r.get('classe') or []
     active = (r.get('nom_classe') or '').strip()
-    etat = ('%d résultat(s) reçu(s) · %d téléphone(s) connecté(s) en ce moment · %d élève(s) dans la liste'
-            % (len(lire_resultats()), vivants, len(classe)))
+    autres_classes = len(lire_resultats(True)) - len(lire_resultats())
+    etat = ('%d résultat(s) reçu(s)%s · %d téléphone(s) connecté(s) en ce moment · %d élève(s) dans la liste'
+            % (len(lire_resultats()),
+               (' pour <b>%s</b>' % html.escape(active)) if active else '',
+               vivants, len(classe))
+            + ((' · %d résultat(s) gardé(s) pour les autres classes' % autres_classes) if autres_classes else ''))
 
     # Mes classes : un bouton chacune, jamais un menu déroulant. Changer de classe range la
     # précédente (élèves, groupe WhatsApp) et sort celle qu'on demande : rien n'est perdu.
