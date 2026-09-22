@@ -958,6 +958,15 @@ class Gestionnaire(SimpleHTTPRequestHandler):
             # navigateurs et affiche « Pas de réseau — inerWeb Édu ». À sa prochaine vérification il charge ceci, se désinscrit, vide ses caches et recharge la page.
             self.repondre(200, "self.addEventListener('install', () => self.skipWaiting());self.addEventListener('activate', e => e.waitUntil(self.registration.unregister().then(() => caches.keys()).then(ks => Promise.all(ks.map(k => caches.delete(k)))).then(() => self.clients.matchAll({type: 'window'})).then(cs => cs.forEach(c => c.navigate(c.url)))));", 'application/javascript; charset=utf-8')
             return
+        if self.path.startswith('/classe.json'):
+            # La liste de la classe du jour, pour que l'élève CHOISISSE son nom au lieu de le taper.
+            # Servie seulement sur le Wi-Fi de la classe, jamais publiée. Vide = les pages
+            # retombent d'elles-mêmes sur la saisie libre (cas de la version en ligne).
+            r = reglages()
+            self.repondre(200, json.dumps({'classe': (r.get('nom_classe') or '').strip(),
+                                           'eleves': [n for n in (r.get('classe') or []) if str(n).strip()]},
+                                          ensure_ascii=False), 'application/json')
+            return
         if self.path.startswith('/aide'):
             self.repondre(200, page_aide())
             return
