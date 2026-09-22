@@ -95,6 +95,10 @@ def poser_symboles():
         print('symboles : page ou palette absente')
         return
     svg = io.open(sprite, encoding='utf-8').read()
+    # L'en-tête de symboles.svg est un commentaire qui contient lui-même le mot « <svg> »
+    # (« coller ce <svg> juste après <body> ») : sans ce nettoyage, la recherche attrape ce
+    # faux départ et recopie le mode d'emploi dans la page, où il s'affiche devant l'élève.
+    svg = re.sub(r'<!--[\s\S]*?-->', '', svg)
     m = re.search(r'<svg[\s\S]*</svg>', svg)
     if not m:
         print('symboles : palette illisible')

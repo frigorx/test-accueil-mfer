@@ -18,6 +18,7 @@
   .niveaux{display:flex; gap:4px; margin:0 0 12px}
   .niveaux span{flex:1; text-align:center; font-size:12px; padding:3px 0; border-radius:5px; background:#dfe5ee; color:var(--gris); font-family:'Trebuchet MS',sans-serif; font-weight:bold}
   .niveaux span.fait{background:var(--vert); color:#fff} .niveaux span.encours{background:var(--orange); color:#fff}
+  .niveaux span.saute{background:#eef1f5; color:#aab4c0; text-decoration:line-through}
   .carte{background:#fff; border-radius:10px; box-shadow:0 2px 12px rgba(27,58,99,.12); padding:16px; margin-bottom:14px}
   .etiq{display:inline-block; background:var(--doux); border:1px solid var(--filet); border-radius:9px; padding:1px 10px; font-size:13px;
     font-family:'Trebuchet MS',sans-serif; font-weight:bold; color:var(--bleu); margin:0 6px 8px 0}
@@ -64,12 +65,6 @@
 </style>
 
 <!-- SYMBOLES:debut — la palette de symboles, posée par construire-banque.py, ne pas éditer à la main -->
-<svg style="display:none" aria-hidden="true"> juste après <body> (il est invisible),
-       puis poser un symbole où on veut :
-         <use href="#compresseur_general" x="100" y="60"/>
-       x et y posent le CENTRE de l'organe : les symboles sont dessinés
-       autour de (0,0). data-vb rappelle l'encombrement (x y largeur hauteur).
-       et ne dessiner à la main QUE les liaisons entre organes. -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><defs>
 <g id="compresseur_general" data-vb="-24.0 -20.0 50 40"><circle cx="0.0" cy="0.0" r="15.0" fill="white" stroke="#000" stroke-width="1"/>
 <line x1="-15" y1="0" x2="-16" y2="0" stroke="#000" stroke-width="1"/>
@@ -968,6 +963,11 @@ const PAR_NIVEAU = 15;                      // questions tirées par niveau (tou
 const SEUIL = 0.5;                          // part de bonnes réponses pour passer au niveau suivant
 const SORTIES_MAX = 5;
 const POIDS = [3, 2.5, 2, 1.5, 1, 0.5];       // barème dégressif : les premiers niveaux pèsent plus que les niveaux experts (Franck, 17/09/2026)
+// Niveau de DÉPART par classe : un terminale n'a pas à franchir « l'atelier et les règles » pour
+// arriver à son métier. Pas de plafond : le test monte déjà par paliers, chaque niveau se mérite
+// à 50 % de réussite, donc personne ne reçoit une question au-dessus de ce qu'il a déjà validé.
+// Les niveaux non abordés sont exclus du calcul de la note (voir terminer()).
+const DEPART = { TNE: 0, CAP: 0, MFER: 1, TMFER: 2 };
 const NIVEAUX = ["N0 · L'atelier et les règles", "N1 · Les bases du froid", "N2 · Mesurer et agir", "N3 · Électricité et habilitation", "N4 · Habilitation fluide", "N5 · Expert"];
 const NOMS_COURTS = ['0 Règles', '1 Bases', '2 Mesures', '3 Élec', '4 Fluides', '5 Expert'];
 const TAX = { 1: 'Je sais', 2: 'Je comprends', 3: 'Je fais le bon geste' };
@@ -1020,7 +1020,9 @@ function preparer(nom, cl){
     const tires = melange(dispo, r).slice(0, PAR_NIVEAU);
     niveaux.push({ ordre: tires, reponses: tires.map(() => melange([0, 1, 2, 3].slice(0, 3), r)), choix: [] });
   }
-  return { nom, classe: cl, niveaux, n: 0, k: 0, debut: Date.now(), fini: false, sorties: 0, arret: null };
+  let depart = DEPART[cl] !== undefined ? DEPART[cl] : 0;
+  while (depart > 0 && niveaux[depart].ordre.length === 0) depart--;   // niveau vide : on redescend
+  return { nom, classe: cl, niveaux, n: depart, depart: depart, k: 0, debut: Date.now(), fini: false, sorties: 0, arret: null };
 }
 function ordreReponses(q, n, k){
   const base = etat.niveaux[n].reponses[k];
@@ -1034,7 +1036,10 @@ function afficher(){
   const N = etat.niveaux[etat.n], q = BANQUE[N.ordre[etat.k]];
   $('nivnom').textContent = NIVEAUX[etat.n]; $('numero').textContent = etat.k + 1; $('total').textContent = N.ordre.length;
   $('jauge').style.width = Math.round(100 * etat.k / N.ordre.length) + '%';
-  $('frise').innerHTML = NOMS_COURTS.map((x, i) => '<span class="' + (i < etat.n ? 'fait' : i === etat.n ? 'encours' : '') + '">' + x + '</span>').join('');
+  // Un niveau situé avant le départ de la classe n'a pas été « fait » : il ne concerne pas cet élève.
+  const dep = etat.depart || 0;
+  $('frise').innerHTML = NOMS_COURTS.map((x, i) => '<span class="' + (i < dep ? 'saute' : i < etat.n ? 'fait' : i === etat.n ? 'encours' : '') + '"'
+    + (i < dep ? ' title="niveau non demandé à ma classe"' : '') + '>' + x + '</span>').join('');
   $('theme').textContent = q.theme; $('tax').textContent = TAX[q.tax] || '';
   $('question').textContent = q.q;
   const s = $('symb');
