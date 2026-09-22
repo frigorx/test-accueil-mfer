@@ -424,6 +424,7 @@ def page_accueil():
     boutons = list(ACTIVITES)
     if r.get('groupe_whatsapp'):
         boutons.append(('/groupe', 'Rejoindre le groupe WhatsApp de la classe', 'ouvre WhatsApp · une seule fois', '#128c7e'))
+    boutons.append(('/aide', 'Un problème ?', "mon écran s'éteint, j'ai perdu la page, mon téléphone dit qu'il n'y a pas Internet", '#5d6b7c'))
     b = ''.join('<a class="b" href="%s" style="background:%s"><b>%s</b><span>%s</span></a>' % (h, c, html.escape(t), html.escape(d))
                 for h, t, d, c in boutons)
     return ('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">'
@@ -438,40 +439,160 @@ def page_accueil():
             '<footer>LPP Jacques Raynaud — Campus ÉQUATIO · F. Henninot · P. Warton · © F. Henninot 2026</footer></div>' % b)
 
 
+def page_aide():
+    """La même aide que sur le tableau, mais sur le téléphone de l'élève (celui qui est encore connecté).
+
+    Ne remplace pas la page projetée : un élève vraiment déconnecté ne peut plus ouvrir cette page-ci,
+    c'est le QR resté au tableau qui le rattrape."""
+    cas = [("Mon écran s'éteint tout seul",
+            "Un écran éteint compte comme une sortie de la page, et les sorties sont comptées. "
+            "<b>Android</b> : Réglages &rarr; Affichage &rarr; Délai de mise en veille &rarr; le plus long. "
+            "<b>iPhone</b> : Réglages &rarr; Luminosité et affichage &rarr; Verrouillage auto &rarr; <b>Jamais</b>."),
+           ("Mon téléphone dit qu'il n'y a pas Internet",
+            "C'est normal et ça n'empêche rien : le Wi-Fi de la classe sert à joindre le PC du professeur, "
+            "pas à aller sur Internet. Je réponds <b>oui, rester connecté</b> et je continue."),
+           ("J'ai perdu la page, j'ai fermé par erreur",
+            "Je regarde le tableau : je rescanne le <b>QR n&deg;&nbsp;2</b>. Les codes y restent affichés "
+            "pendant toute la séance. Ce que j'avais déjà validé n'est pas perdu."),
+           ("Je n'arrive pas à me connecter au Wi-Fi",
+            "Je rescanne le <b>QR n&deg;&nbsp;1</b> au tableau. Si ça ne marche toujours pas, je choisis le "
+            "réseau à la main dans les réglages Wi-Fi et je tape le mot de passe écrit sous le QR code."),
+           ("Je ne sais plus où j'en étais",
+            "Je reviens à l'accueil et je reprends l'activité : elle me remet où j'en étais.")]
+    blocs = ''.join('<div class="cas"><h2>' + html.escape(q) + '</h2><p>' + rep + '</p></div>' for q, rep in cas)
+    return ('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+            '<meta name="robots" content="noindex, nofollow"><title>Un problème ?</title>'
+            '<style>*{box-sizing:border-box}body{margin:0;background:#eef1f5;color:#22303f;'
+            'font-family:Calibri,Segoe UI,Arial,sans-serif;font-size:18px;line-height:1.45}'
+            '.page{max-width:640px;margin:0 auto;padding:0 14px 40px}'
+            'header{background:#1b3a63;color:#fff;border-radius:0 0 10px 10px;padding:12px 16px;margin:0 -14px 14px}'
+            'header h1{margin:0;font-family:Trebuchet MS,sans-serif;font-size:20px}'
+            '.cas{background:#fff;border-radius:12px;padding:12px 16px;margin:10px 0;box-shadow:0 2px 12px rgba(27,58,99,.10)}'
+            '.cas h2{font-family:Trebuchet MS,sans-serif;font-size:18px;color:#1b3a63;margin:0 0 6px}'
+            '.cas p{margin:0}'
+            '.retour{display:block;text-align:center;background:#1b3a63;color:#fff;text-decoration:none;'
+            'border-radius:12px;padding:14px;margin:16px 0 0;font-size:19px}</style>'
+            '<div class="page"><header><h1>Un problème ?</h1></header>' + blocs +
+            '<a class="retour" href="/">Revenir aux activités</a></div>')
+
+
 def page_projeter():
-    """La page à projeter au tableau : le Wi-Fi à rejoindre (QR), puis l'adresse en très gros (QR)."""
+    """La page à projeter au tableau : tout ce que l'élève doit faire, visible en même temps.
+
+    Pas de diaporama : personne ne pilote de pages pendant que la classe se connecte, et l'élève
+    en retard doit retrouver l'étape 1 quand les autres sont à la 3. Les QR restent donc affichés
+    toute la séance — c'est aussi le rattrapage de celui qui s'est déconnecté."""
     r = reglages()
     url = r.get('adresse') or adresse_eleves()
     qr_ok = qr_png(url) is not None
-    wifi = ''
+
+    # Garde-fou : sans la borne branchée, l'adresse devinée est celle d'une autre carte du PC
+    # (Hyper-V, Tailscale…) et aucun téléphone ne l'atteindra. On le dit avant de projeter.
+    alerte_borne = ''
+    if not r.get('adresse') and '192.168.8.' not in url:
+        alerte_borne = ('<p class="alerte-borne">&#9940; <b>La borne Wi-Fi n\'est pas détectée.</b> '
+                        'L\'adresse ci-dessous (<b>' + html.escape(url) + '</b>) est celle d\'une autre carte '
+                        'réseau de ce PC : <b>les téléphones ne l\'atteindront pas</b>. Brancher le câble sur '
+                        'la borne, attendre dix secondes, puis recharger cette page.</p>')
+
+    # 1. le Wi-Fi
     if r.get('ssid'):
-        wifi = ('<div class="col"><h2>1. Le Wi-Fi</h2><div class="adr" style="font-size:36px">%s</div>%s<p class="pas">mot de passe : <b>%s</b></p></div>'
-                % (html.escape(r['ssid']), '<img src="/qr-wifi.png" alt="QR Wi-Fi">' if qr_ok else '', html.escape(r.get('motdepasse', '') or '(aucun)')))
+        bloc_wifi = ('<div class="col"><div class="num">1</div><h2>Je rejoins le Wi-Fi</h2>'
+                     + ('<img src="/qr-wifi.png" alt="QR du Wi-Fi">' if qr_ok else '')
+                     + '<div class="nom">' + html.escape(r['ssid']) + '</div>'
+                     + '<p class="secours">Si le scan ne marche pas : je choisis ce réseau à la main, mot de passe <b>'
+                     + html.escape(r.get('motdepasse', '') or '(aucun)') + '</b></p></div>')
     else:
-        wifi = '<div class="col"><h2>1. Le Wi-Fi</h2><p class="pas">Je me connecte au Wi-Fi du professeur.</p><p style="font-size:14px;opacity:.7">Pour afficher le nom, le mot de passe et leur QR code : écrire <code>reglages.json</code> à côté du serveur.</p></div>'
-    adresse = ('<div class="col"><h2>2. L\'adresse</h2><div class="adr">%s</div>%s<p class="pas">l\'accueil me donne les activités dans l\'ordre. À la fin de chaque test, mon résultat part tout seul vers le PC du professeur.</p></div>'
-               % (html.escape(url), '<img src="/qr.png" alt="QR adresse">' if qr_ok else
-                  '<p style="font-size:18px;color:#ffd0bd">Pas de QR code : lancer une fois <code>pip install qrcode[pil]</code> (Test-de-rentree.cmd le fait s\'il y a Internet).</p>'))
+        bloc_wifi = ('<div class="col"><div class="num">1</div><h2>Je rejoins le Wi-Fi</h2>'
+                     '<p class="secours">Nom et mot de passe non réglés : les écrire dans le poste de commande '
+                     '(<code>/prof</code>), ils apparaîtront ici avec leur QR code.</p></div>')
+
+    # 2. l'adresse
+    if qr_ok:
+        image_adresse = '<img src="/qr.png" alt="QR de l\'adresse">'
+    else:
+        image_adresse = ('<p class="secours">Pas de QR code : lancer une fois <code>pip install qrcode[pil]</code> '
+                         '(Test-de-rentree.cmd le fait s\'il y a Internet).</p>')
+    bloc_adresse = ('<div class="col"><div class="num">2</div><h2>J\'ouvre la page</h2>' + image_adresse
+                    + '<p class="secours">Si le scan ne marche pas, je tape dans mon navigateur : <b>'
+                    + html.escape(url) + '</b></p></div>')
+
+    # 3. les activités
+    liste = ''.join('<li>' + html.escape(titre) + '</li>' for _, titre, _, _ in ACTIVITES)
+    bloc_choix = ('<div class="col"><div class="num">3</div><h2>Je choisis mon activité</h2>'
+                  '<ul class="acts">' + liste + '</ul>'
+                  '<p class="secours">À la fin de chaque activité, mon résultat part tout seul '
+                  'vers le PC du professeur. Je n\'ai rien à envoyer.</p></div>')
+
+    # les deux marques de téléphone, côte à côte
+    android = ('<div class="bande"><h3>&#128241; Android &mdash; Samsung, Pixel, Xiaomi, Oppo&hellip;</h3><ol>'
+               '<li>J\'ouvre l\'<b>appareil photo</b> et je vise le QR n&deg;&nbsp;1.</li>'
+               '<li>Je touche <b>&laquo;&nbsp;Se connecter au réseau&nbsp;&raquo;</b>.</li>'
+               '<li>Un message dit <b>&laquo;&nbsp;Ce réseau n\'a pas accès à Internet&nbsp;&raquo;</b> : '
+               'je réponds <b>OUI, rester connecté</b>. C\'est normal.</li>'
+               '<li>Appareil photo &rarr; QR n&deg;&nbsp;2 &rarr; je touche le lien qui apparaît.</li>'
+               '</ol></div>')
+    iphone = ('<div class="bande"><h3>&#127823; iPhone</h3><ol>'
+              '<li>J\'ouvre l\'<b>appareil photo</b> et je vise le QR n&deg;&nbsp;1.</li>'
+              '<li>Je touche le bandeau jaune en haut : <b>&laquo;&nbsp;Rejoindre le réseau&nbsp;&raquo;</b>.</li>'
+              '<li>Si &laquo;&nbsp;Sécurité faible&nbsp;&raquo; s\'affiche : sans importance, je continue.</li>'
+              '<li>Appareil photo &rarr; QR n&deg;&nbsp;2 &rarr; je touche le bandeau qui apparaît.</li>'
+              '</ol></div>')
+
+    # l'écran qui s'éteint
+    veille = ('<p class="alerte">&#9888;&#65039; <b>Mon téléphone ne doit pas s\'éteindre pendant le test</b> : '
+              'un écran éteint compte comme une sortie de la page. &nbsp;'
+              '<b>Android</b> : Réglages &rarr; Affichage &rarr; Délai de mise en veille &rarr; le plus long. &nbsp;'
+              '<b>iPhone</b> : Réglages &rarr; Luminosité et affichage &rarr; Verrouillage auto &rarr; <b>Jamais</b>.</p>')
+
+    # le rattrapage
+    secours = ('<p class="rattrapage">&#128260; <b>Un problème ?</b> Je me suis déconnecté, j\'ai fermé la page, '
+               'je ne sais plus où j\'en suis : je rescanne le <b>QR n&deg;&nbsp;1</b>, puis le <b>QR n&deg;&nbsp;2</b>. '
+               'Les deux codes restent affichés pendant toute la séance.</p>')
+
+    # le groupe de la classe, discret
     groupe = ''
-    if r.get('groupe_whatsapp'):
-        groupe = ('<div class="col"><h2>3. Le groupe WhatsApp de la classe</h2>%s<p class="pas">Je le scanne avec WhatsApp (appareil photo, ou « Scanner le code ») et je rejoins le groupe.</p></div>'
-                  % ('<img src="/qr-groupe.png" alt="QR groupe WhatsApp">' if qr_ok else ''))
+    if r.get('groupe_whatsapp') and qr_ok:
+        groupe = ('<div class="groupe"><img src="/qr-groupe.png" alt="QR du groupe WhatsApp">'
+                  '<span>Le groupe WhatsApp de la classe &mdash; je le scanne avec WhatsApp '
+                  '(appareil photo, ou &laquo;&nbsp;Scanner le code&nbsp;&raquo;).</span></div>')
+
     return (CSS_PROJETER + '<title>Se connecter au test</title>'
-            '<h1>Pour faire le test sur mon téléphone</h1><div class="cols">%s%s%s</div>'
-            '<p class="pas">Mon téléphone ne s\'éteint pas tout seul : verrouillage automatique sur « Jamais ». Un écran éteint compte comme une sortie.</p>'
-            '<p style="font-size:16px;opacity:.85">L\'accueil donne les activités dans l\'ordre : test d\'accueil, où j\'en suis, manomètres, jeux &nbsp;·&nbsp; Le professeur suit tout sur http://localhost:%d/resultats</p>'
-            '<p style="font-size:14px;opacity:.7">Si l\'adresse ne répond pas, essayer : %s (point d\'accès mobile de Windows : 192.168.137.1 en général)</p>'
-            % (wifi, adresse, groupe, PORT, html.escape(' · '.join('http://%s:%d/' % (ip, PORT) for ip in adresses()) or '—')))
+            '<h1>Séance sur téléphone &mdash; ce que je fais, dans l\'ordre</h1>'
+            + alerte_borne
+            + '<div class="cols">' + bloc_wifi + bloc_adresse + bloc_choix + '</div>'
+            '<div class="cols bandes">' + android + iphone + '</div>'
+            + veille + secours + groupe
+            + '<p class="pied">Le professeur suit la séance sur http://127.0.0.1:' + str(PORT) + '/resultats'
+            + ' &nbsp;&middot;&nbsp; Si l\'adresse ne répond pas, essayer : '
+            + html.escape(' · '.join('http://%s:%d/' % (ip, PORT) for ip in adresses()) or '—') + '</p>')
 
 
 PUBLIC = 'https://frigorx.github.io/test-accueil-mfer/'
 PAGES_PROF = ('/prof', '/projeter', '/resultats', '/cartographie', '/qr', '/bilan')   # ne s'ouvrent que sur le PC du professeur
 CSS_PROJETER = ('<meta charset="utf-8"><meta http-equiv="refresh" content="60">'
-                '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:18px}'
-                'h1{font-size:30px;margin:6px 0 14px}h2{font-size:24px;margin:4px 0 8px}code{font-family:Consolas,monospace}'
-                '.cols{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}.col{flex:1;min-width:320px;max-width:640px;background:rgba(255,255,255,.06);border-radius:16px;padding:14px}'
-                '.adr{font-size:40px;font-weight:bold;background:#fff;color:#1b3a63;display:inline-block;padding:10px 22px;border-radius:14px;margin:8px 0;letter-spacing:.03em;word-break:break-all}'
-                'img{width:min(38vh,90%);display:block;margin:8px auto;border-radius:10px}.pas{font-size:22px;margin:6px 0}</style>')
+                '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:14px 16px 20px}'
+                'h1{font-size:28px;margin:4px 0 12px}h2{font-size:23px;margin:2px 0 8px}h3{font-size:20px;margin:0 0 6px;color:#ffd9a8}'
+                'code{font-family:Consolas,monospace}b{color:#fff}'
+                '.cols{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}'
+                '.col{flex:1;min-width:300px;max-width:480px;background:rgba(255,255,255,.07);border-radius:16px;padding:12px 14px 14px;position:relative}'
+                '.num{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:38px;height:38px;line-height:38px;'
+                'border-radius:50%;background:#ffd9a8;color:#1b3a63;font-size:24px;font-weight:bold}'
+                '.nom{font-size:30px;font-weight:bold;background:#fff;color:#1b3a63;display:inline-block;padding:7px 18px;'
+                'border-radius:12px;margin:6px 0 4px;word-break:break-all}'
+                'img{width:min(30vh,78%);display:block;margin:14px auto 6px;border-radius:10px;background:#fff;padding:6px}'
+                '.acts{text-align:left;font-size:20px;line-height:1.6;margin:10px 0 6px;padding-left:24px}'
+                '.secours{font-size:16px;opacity:.85;margin:6px 0 0;line-height:1.4}'
+                '.bandes .bande{flex:1;min-width:320px;max-width:560px;background:rgba(255,255,255,.07);border-radius:16px;padding:12px 16px}'
+                '.bande ol{text-align:left;font-size:18px;line-height:1.5;margin:0;padding-left:24px}'
+                '.bande li{margin-bottom:5px}'
+                '.alerte-borne{font-size:21px;line-height:1.5;background:#a11b1b;border:3px solid #ffd9a8;border-radius:12px;'
+                'padding:12px 18px;margin:0 auto 14px;max-width:1120px}'
+                '.alerte{font-size:18px;line-height:1.5;background:#8a3b12;border-radius:12px;padding:10px 16px;margin:0 auto 10px;max-width:1120px}'
+                '.rattrapage{font-size:19px;line-height:1.5;background:rgba(255,255,255,.1);border-radius:12px;padding:10px 16px;margin:0 auto 10px;max-width:1120px}'
+                '.groupe{display:flex;align-items:center;gap:14px;justify-content:center;font-size:16px;opacity:.9;margin:0 auto 10px;max-width:700px}'
+                '.groupe img{width:96px;margin:0;padding:4px}'
+                '.pied{font-size:14px;opacity:.65;margin:10px 0 0}</style>')
 CSS_PROF = ('<meta charset="utf-8"><style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;padding:18px 26px;color:#22303f;background:#f5f8fc}'
             'h1{color:#1b3a63;font-size:28px;margin:0 0 4px}h2{color:#1b3a63;font-size:20px;margin:22px 0 8px}.etat{font-size:16px;color:#555;margin:0}'
             '.grille{display:flex;flex-wrap:wrap;gap:12px}.b{flex:1;min-width:240px;max-width:420px;color:#fff;text-decoration:none;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}'
@@ -679,6 +800,9 @@ class Gestionnaire(SimpleHTTPRequestHandler):
             # Coupe-circuit : un vieux service worker d'inerWeb Édu (scope /, script /sw.js) est encore enregistré sur localhost:8765 dans certains
             # navigateurs et affiche « Pas de réseau — inerWeb Édu ». À sa prochaine vérification il charge ceci, se désinscrit, vide ses caches et recharge la page.
             self.repondre(200, "self.addEventListener('install', () => self.skipWaiting());self.addEventListener('activate', e => e.waitUntil(self.registration.unregister().then(() => caches.keys()).then(ks => Promise.all(ks.map(k => caches.delete(k)))).then(() => self.clients.matchAll({type: 'window'})).then(cs => cs.forEach(c => c.navigate(c.url)))));", 'application/javascript; charset=utf-8')
+            return
+        if self.path.startswith('/aide'):
+            self.repondre(200, page_aide())
             return
         if self.path.startswith('/groupe'):
             lien = reglages().get('groupe_whatsapp')
