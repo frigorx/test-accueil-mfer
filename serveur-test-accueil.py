@@ -596,11 +596,12 @@ def page_aide():
 
 
 def page_projeter():
-    """La page à projeter au tableau : tout ce que l'élève doit faire, visible en même temps.
+    """La page à projeter au tableau : TOUT sur un seul écran, sans jamais défiler.
 
-    Pas de diaporama : personne ne pilote de pages pendant que la classe se connecte, et l'élève
-    en retard doit retrouver l'étape 1 quand les autres sont à la 3. Les QR restent donc affichés
-    toute la séance — c'est aussi le rattrapage de celui qui s'est déconnecté."""
+    On ne fait pas défiler une projection pendant que la classe scanne, et l'élève en retard
+    doit retrouver l'étape 1 quand les autres sont à la 3 : rien ne bouge, rien ne disparaît.
+    Les hauteurs sont en vh pour que l'ensemble tienne quel que soit le vidéoprojecteur.
+    La liste des activités n'est pas ici : l'élève l'a sous les yeux sur son téléphone."""
     r = reglages()
     url = r.get('adresse') or adresse_eleves()
     qr_ok = qr_png(url) is not None
@@ -611,109 +612,91 @@ def page_projeter():
     if not r.get('adresse') and '192.168.8.' not in url:
         alerte_borne = ('<p class="alerte-borne">&#9940; <b>La borne Wi-Fi n\'est pas détectée.</b> '
                         'L\'adresse ci-dessous (<b>' + html.escape(url) + '</b>) est celle d\'une autre carte '
-                        'réseau de ce PC : <b>les téléphones ne l\'atteindront pas</b>. Brancher le câble sur '
-                        'la borne, attendre dix secondes, puis recharger cette page.</p>')
+                        'réseau de ce PC : <b>les téléphones ne l\'atteindront pas.</b> Brancher le câble, '
+                        'attendre dix secondes, recharger.</p>')
 
-    # 1. le Wi-Fi
     if r.get('ssid'):
         bloc_wifi = ('<div class="col"><div class="num">1</div><h2>Je rejoins le Wi-Fi</h2>'
                      + ('<img src="/qr-wifi.png" alt="QR du Wi-Fi">' if qr_ok else '')
                      + '<div class="nom">' + html.escape(r['ssid']) + '</div>'
-                     + '<p class="secours">Si le scan ne marche pas : je choisis ce réseau à la main, mot de passe <b>'
+                     + '<p class="secours">sinon, à la main &mdash; mot de passe <b>'
                      + html.escape(r.get('motdepasse', '') or '(aucun)') + '</b></p></div>')
     else:
         bloc_wifi = ('<div class="col"><div class="num">1</div><h2>Je rejoins le Wi-Fi</h2>'
-                     '<p class="secours">Nom et mot de passe non réglés : les écrire dans le poste de commande '
-                     '(<code>/prof</code>), ils apparaîtront ici avec leur QR code.</p></div>')
+                     '<p class="secours">Nom et mot de passe non réglés : les écrire dans le poste de '
+                     'commande (<code>/prof</code>).</p></div>')
 
-    # 2. l'adresse
-    if qr_ok:
-        image_adresse = '<img src="/qr.png" alt="QR de l\'adresse">'
-    else:
-        image_adresse = ('<p class="secours">Pas de QR code : lancer une fois <code>pip install qrcode[pil]</code> '
-                         '(Test-de-rentree.cmd le fait s\'il y a Internet).</p>')
+    image_adresse = ('<img src="/qr.png" alt="QR de l\'adresse">' if qr_ok else
+                     '<p class="secours">Pas de QR : lancer une fois <code>pip install qrcode[pil]</code>.</p>')
     bloc_adresse = ('<div class="col"><div class="num">2</div><h2>J\'ouvre la page</h2>' + image_adresse
-                    + '<p class="secours">Si le scan ne marche pas, je tape dans mon navigateur : <b>'
-                    + html.escape(url) + '</b></p></div>')
+                    + '<p class="secours">sinon, je tape <b>' + html.escape(url) + '</b></p></div>')
 
-    # 3. les activités
-    liste = ''.join('<li>' + html.escape(titre) + '</li>' for _, titre, _, _ in ACTIVITES)
-    bloc_choix = ('<div class="col"><div class="num">3</div><h2>Je choisis mon activité</h2>'
-                  '<ul class="acts">' + liste + '</ul>'
-                  '<p class="secours">À la fin de chaque activité, mon résultat part tout seul '
-                  'vers le PC du professeur. Je n\'ai rien à envoyer.</p></div>')
-
-    # les deux marques de téléphone, côte à côte
-    android = ('<div class="bande"><h3>&#128241; Android &mdash; Samsung, Pixel, Xiaomi, Oppo&hellip;</h3><ol>'
-               '<li>J\'ouvre l\'<b>appareil photo</b> et je vise le QR n&deg;&nbsp;1.</li>'
-               '<li>Je touche <b>&laquo;&nbsp;Se connecter au réseau&nbsp;&raquo;</b>.</li>'
-               '<li>Un message dit <b>&laquo;&nbsp;Ce réseau n\'a pas accès à Internet&nbsp;&raquo;</b> : '
-               'je réponds <b>OUI, rester connecté</b>. C\'est normal.</li>'
-               '<li>Appareil photo &rarr; QR n&deg;&nbsp;2 &rarr; je touche le lien qui apparaît.</li>'
-               '</ol></div>')
-    iphone = ('<div class="bande"><h3>&#127823; iPhone</h3><ol>'
-              '<li>J\'ouvre l\'<b>appareil photo</b> et je vise le QR n&deg;&nbsp;1.</li>'
-              '<li>Je touche le bandeau jaune en haut : <b>&laquo;&nbsp;Rejoindre le réseau&nbsp;&raquo;</b>.</li>'
-              '<li>Si &laquo;&nbsp;Sécurité faible&nbsp;&raquo; s\'affiche : sans importance, je continue.</li>'
-              '<li>Appareil photo &rarr; QR n&deg;&nbsp;2 &rarr; je touche le bandeau qui apparaît.</li>'
-              '</ol></div>')
-
-    # l'écran qui s'éteint
-    veille = ('<p class="alerte">&#9888;&#65039; <b>Mon téléphone ne doit pas s\'éteindre pendant le test</b> : '
-              'un écran éteint compte comme une sortie de la page. &nbsp;'
-              '<b>Android</b> : Réglages &rarr; Affichage &rarr; Délai de mise en veille &rarr; le plus long. &nbsp;'
-              '<b>iPhone</b> : Réglages &rarr; Luminosité et affichage &rarr; Verrouillage auto &rarr; <b>Jamais</b>.</p>')
-
-    # le rattrapage
-    secours = ('<p class="rattrapage">&#128260; <b>Un problème ?</b> Je me suis déconnecté, j\'ai fermé la page, '
-               'je ne sais plus où j\'en suis : je rescanne le <b>QR n&deg;&nbsp;1</b>, puis le <b>QR n&deg;&nbsp;2</b>. '
-               'Les deux codes restent affichés pendant toute la séance.</p>')
-
-    # le groupe de la classe, discret
-    groupe = ''
+    # Le groupe ne prend une colonne que s'il est réglé ET montré : sinon la place va aux deux autres.
+    bloc_groupe = ''
     if r.get('groupe_whatsapp') and qr_ok and r.get('afficher_whatsapp', True):
         nom_g = (r.get('nom_groupe') or '').strip()
-        groupe = ('<div class="groupe"><img src="/qr-groupe.png" alt="QR du groupe WhatsApp">'
-                  '<span>' + (html.escape(nom_g) if nom_g else 'Le groupe WhatsApp de la classe')
-                  + ' &mdash; je le scanne avec WhatsApp (appareil photo, ou '
-                  '&laquo;&nbsp;Scanner le code&nbsp;&raquo;).</span></div>')
+        bloc_groupe = ('<div class="col"><div class="num">3</div><h2>' + (html.escape(nom_g) if nom_g else 'Le groupe de la classe')
+                       + '</h2><img src="/qr-groupe.png" alt="QR du groupe WhatsApp">'
+                       + '<p class="secours">je le scanne avec WhatsApp</p></div>')
+
+    android = ('<div class="bande"><h3>&#128241; Android <span>Samsung, Pixel, Xiaomi, Oppo&hellip;</span></h3><ol>'
+               '<li><b>Appareil photo</b> &rarr; QR n&deg;&nbsp;1 &rarr; <b>Se connecter au réseau</b></li>'
+               '<li>&laquo;&nbsp;Pas d\'accès à Internet&nbsp;&raquo; &rarr; <b>OUI, rester connecté</b> (c\'est normal)</li>'
+               '<li><b>Appareil photo</b> &rarr; QR n&deg;&nbsp;2 &rarr; je touche le lien</li>'
+               '</ol></div>')
+    iphone = ('<div class="bande"><h3>&#127823; iPhone</h3><ol>'
+              '<li><b>Appareil photo</b> &rarr; QR n&deg;&nbsp;1 &rarr; bandeau <b>Rejoindre le réseau</b></li>'
+              '<li>&laquo;&nbsp;Sécurité faible&nbsp;&raquo; &rarr; sans importance, je continue</li>'
+              '<li><b>Appareil photo</b> &rarr; QR n&deg;&nbsp;2 &rarr; je touche le bandeau</li>'
+              '</ol></div>')
+
+    pied = ('<div class="pied">'
+            '<span class="p-alerte">&#9888;&#65039; <b>Mon écran ne doit pas s\'éteindre</b> &mdash; '
+            '<b>Android</b> : Réglages &rsaquo; Affichage &rsaquo; Mise en veille &rsaquo; le plus long. '
+            '<b>iPhone</b> : Réglages &rsaquo; Luminosité &rsaquo; Verrouillage auto &rsaquo; <b>Jamais</b>.</span>'
+            '<span class="p-secours">&#128260; <b>Perdu&nbsp;?</b> je rescanne le QR n&deg;&nbsp;1 puis le n&deg;&nbsp;2 &mdash; '
+            'ils restent affichés toute la séance.</span></div>')
 
     return (CSS_PROJETER + '<title>Se connecter au test</title>'
+            '<div class="ecran">'
             '<h1>Séance sur téléphone &mdash; ce que je fais, dans l\'ordre</h1>'
             + alerte_borne
-            + '<div class="cols">' + bloc_wifi + bloc_adresse + bloc_choix + '</div>'
-            '<div class="cols bandes">' + android + iphone + '</div>'
-            + veille + secours + groupe
-            + '<p class="pied">Le professeur suit la séance sur http://127.0.0.1:' + str(PORT) + '/resultats'
-            + ' &nbsp;&middot;&nbsp; Si l\'adresse ne répond pas, essayer : '
-            + html.escape(' · '.join('http://%s:%d/' % (ip, PORT) for ip in adresses()) or '—') + '</p>')
+            + '<div class="cols">' + bloc_wifi + bloc_adresse + bloc_groupe + '</div>'
+            + '<div class="bandes">' + android + iphone + '</div>'
+            + pied + '</div>')
 
 
 PUBLIC = 'https://frigorx.github.io/test-accueil-mfer/'
 PAGES_PROF = ('/prof', '/projeter', '/resultats', '/cartographie', '/qr', '/bilan', '/engagements')   # ne s'ouvrent que sur le PC du professeur
 CSS_PROJETER = ('<meta charset="utf-8"><meta http-equiv="refresh" content="60">'
-                '<style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;background:#1b3a63;color:#fff;text-align:center;padding:14px 16px 20px}'
-                'h1{font-size:28px;margin:4px 0 12px}h2{font-size:23px;margin:2px 0 8px}h3{font-size:20px;margin:0 0 6px;color:#ffd9a8}'
+                '<style>*{box-sizing:border-box}'
+                'html,body{height:100%;margin:0;overflow:hidden}'
+                'body{font-family:Calibri,Segoe UI,sans-serif;background:#1b3a63;color:#fff;text-align:center}'
+                '.ecran{height:100%;display:flex;flex-direction:column;gap:1.1vh;padding:1.4vh 1.2vw}'
+                'h1{font-size:2.6vh;margin:0;flex:0 0 auto}'
+                'h2{font-size:2.5vh;margin:0 0 .4vh}'
+                'h3{font-size:2.2vh;margin:0 0 .6vh;color:#ffd9a8}h3 span{font-weight:normal;font-size:1.7vh;opacity:.8}'
                 'code{font-family:Consolas,monospace}b{color:#fff}'
-                '.cols{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}'
-                '.col{flex:1;min-width:300px;max-width:480px;background:rgba(255,255,255,.07);border-radius:16px;padding:12px 14px 14px;position:relative}'
-                '.num{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:38px;height:38px;line-height:38px;'
-                'border-radius:50%;background:#ffd9a8;color:#1b3a63;font-size:24px;font-weight:bold}'
-                '.nom{font-size:30px;font-weight:bold;background:#fff;color:#1b3a63;display:inline-block;padding:7px 18px;'
-                'border-radius:12px;margin:6px 0 4px;word-break:break-all}'
-                'img{width:min(30vh,78%);display:block;margin:14px auto 6px;border-radius:10px;background:#fff;padding:6px}'
-                '.acts{text-align:left;font-size:20px;line-height:1.6;margin:10px 0 6px;padding-left:24px}'
-                '.secours{font-size:16px;opacity:.85;margin:6px 0 0;line-height:1.4}'
-                '.bandes .bande{flex:1;min-width:320px;max-width:560px;background:rgba(255,255,255,.07);border-radius:16px;padding:12px 16px}'
-                '.bande ol{text-align:left;font-size:18px;line-height:1.5;margin:0;padding-left:24px}'
-                '.bande li{margin-bottom:5px}'
-                '.alerte-borne{font-size:21px;line-height:1.5;background:#a11b1b;border:3px solid #ffd9a8;border-radius:12px;'
-                'padding:12px 18px;margin:0 auto 14px;max-width:1120px}'
-                '.alerte{font-size:18px;line-height:1.5;background:#8a3b12;border-radius:12px;padding:10px 16px;margin:0 auto 10px;max-width:1120px}'
-                '.rattrapage{font-size:19px;line-height:1.5;background:rgba(255,255,255,.1);border-radius:12px;padding:10px 16px;margin:0 auto 10px;max-width:1120px}'
-                '.groupe{display:flex;align-items:center;gap:14px;justify-content:center;font-size:16px;opacity:.9;margin:0 auto 10px;max-width:700px}'
-                '.groupe img{width:96px;margin:0;padding:4px}'
-                '.pied{font-size:14px;opacity:.65;margin:10px 0 0}</style>')
+                '.cols{flex:1 1 auto;display:flex;gap:1.2vw;justify-content:center;min-height:0}'
+                '.col{flex:1 1 0;max-width:34vw;background:rgba(255,255,255,.07);border-radius:1.4vh;'
+                'padding:1.6vh 1vw .9vh;position:relative;display:flex;flex-direction:column;align-items:center;min-height:0}'
+                '.num{position:absolute;top:-1.6vh;left:50%;transform:translateX(-50%);width:3.4vh;height:3.4vh;'
+                'line-height:3.4vh;border-radius:50%;background:#ffd9a8;color:#1b3a63;font-size:2.1vh;font-weight:bold}'
+                '.nom{font-size:2.6vh;font-weight:bold;background:#fff;color:#1b3a63;display:inline-block;'
+                'padding:.5vh 1.4vh;border-radius:1vh;margin:.6vh 0 .3vh;word-break:break-all}'
+                'img{flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;'
+                'margin:.5vh auto;border-radius:.8vh;background:#fff;padding:.5vh}'
+                '.secours{font-size:1.7vh;opacity:.85;margin:.3vh 0 0;line-height:1.3}'
+                '.bandes{flex:0 0 auto;display:flex;gap:1.2vw;justify-content:center}'
+                '.bande{flex:1 1 0;max-width:42vw;background:rgba(255,255,255,.07);border-radius:1.4vh;padding:1vh 1.2vw}'
+                '.bande ol{text-align:left;font-size:1.85vh;line-height:1.35;margin:0;padding-left:2.2vh}'
+                '.bande li{margin-bottom:.3vh}'
+                '.alerte-borne{flex:0 0 auto;font-size:2vh;line-height:1.35;background:#a11b1b;'
+                'border:.3vh solid #ffd9a8;border-radius:1vh;padding:.8vh 1.2vw;margin:0}'
+                '.pied{flex:0 0 auto;display:flex;gap:1.2vw;justify-content:center;font-size:1.7vh;line-height:1.3}'
+                '.p-alerte{flex:1 1 0;background:#8a3b12;border-radius:1vh;padding:.7vh 1vw;text-align:left}'
+                '.p-secours{flex:0 1 32vw;background:rgba(255,255,255,.1);border-radius:1vh;padding:.7vh 1vw;text-align:left}'
+                '</style>')
 CSS_PROF = ('<meta charset="utf-8"><style>body{font-family:Calibri,Segoe UI,sans-serif;margin:0;padding:18px 26px;color:#22303f;background:#f5f8fc}'
             'h1{color:#1b3a63;font-size:28px;margin:0 0 4px}h2{color:#1b3a63;font-size:20px;margin:22px 0 8px}.etat{font-size:16px;color:#555;margin:0}'
             '.grille{display:flex;flex-wrap:wrap;gap:12px}.b{flex:1;min-width:240px;max-width:420px;color:#fff;text-decoration:none;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}'
