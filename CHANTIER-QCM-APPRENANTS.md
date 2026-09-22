@@ -1,64 +1,103 @@
 # Chantier — « Accueil sécurité apprenant » (MPI · Étancheur · TP CVC)
 
-> Cadré le 22/09/2026 au soir, à la demande de F. Henninot. **Rien n'est écrit pour l'instant** :
-> ce fichier existe pour qu'une session neuve parte de l'existant et non de zéro.
+> Cadré le 22/09/2026 au soir. **Écrit et vérifié le 22/09/2026 au soir** : 40 questions, page
+> `apprentis/`, contrôle à 0 défaut. Ce fichier dit ce qui existe, ce qui a été tranché, et ce qui
+> reste à décider par F. Henninot.
 
-## Ce que c'est
+## Ce qui existe maintenant
 
-Le même esprit que le test d'accueil des élèves, mais pour des **apprentis**, et avec la partie
-métier remplacée par du générique entreprise. Trois filières :
+| Fichier | Ce que c'est |
+|---|---|
+| `apprentis/questions.json` | **40 questions**, six thèmes, codées CAP MPI et CAP Étancheur, chacune avec sa source |
+| `apprentis/index.html` | La page de l'apprenti : même charte et même mécanique que le test d'accueil des élèves |
+| `controler-apprentis.py` | Le contrôle : forme, longueurs, codes, doublons, **et le biais de longueur** |
+| `serveur-test-accueil.py` | Une ligne ajoutée : l'activité n° 5 de l'accueil des téléphones, `/apprentis/` |
 
-| Filière | Code dans le RAG | Ce que le RAG contient déjà |
+`PYTHONIOENCODING=utf-8 python controler-apprentis.py` → **40 questions, 0 défaut.**
+Parcours vérifié au navigateur le 22/09 : départ, questions mélangées, explication, résultat,
+compétences codées, code de validation, case d'engagement.
+
+### Les six thèmes
+
+| # | Thème | Questions |
 |---|---|---|
-| CAP Métiers du plâtre et de l'isolation | `CAP_MPI` | sujets d'examen EP1, EP2, EP3 (PDF) |
-| CAP Étancheur du bâtiment | `CAP_ETANCH` | **compétences codées** : C1.2 Échanger et rendre compte oralement, C3.4 Utiliser des échafaudages, C3.6 Exécuter les travaux préparatoires, C3.8 Mettre en œuvre une étanchéité |
-| Titre professionnel CVC | (voir `C:\git\tp-tecvc`) | dossier de TP existant |
+| 0 | Les règles du lycée valent aussi pour moi | 9 |
+| 1 | Mon comportement en entreprise | 7 |
+| 2 | Mes équipements de protection | 6 |
+| 3 | Le travail en hauteur | 7 |
+| 4 | Ce que j'engage : ma responsabilité | 5 |
+| 5 | S'il arrive un accident | 6 |
 
-**Interroger le RAG avant d'écrire** : `node C:/git/HAL-v3/scripts/chercher-rag.js "<sujet>"`.
-C'est lui qui a fourni tout ce tableau.
+## Ce qui a été tranché (et pourquoi)
 
-## 🔴 Ne pas refaire : le travail en hauteur existe déjà
+- **Une seule banque**, pas trois. Chaque question porte son code MPI *et* son code Étancheur.
+  Aucune question n'est propre à une filière : un accueil sécurité est le même pour les trois.
+  Le champ `filiere` du cadrage n'a donc pas été créé — il n'aurait rien porté.
+- **Le nom retenu** : « Accueil sécurité apprenant ».
+- **Le travail en hauteur n'a pas été réécrit** : les sept questions viennent du QCM existant
+  (`C:\git\qcm-travail-hauteur`, questions 8, 11, 13, 15, 17, 22, 25), du référentiel R408 du RAG
+  (items 2.4, 3.4, écrans « protection collective », « harnais, longe, point d'ancrage ») et des
+  articles D4153-30 et D4153-31 pour les moins de 18 ans. Chaque question cite laquelle.
+- **Durée 45 minutes**, mêmes règles que le test d'accueil : sorties de page comptées (−1 point,
+  arrêt à 5), écran maintenu allumé, code de validation, capture d'écran comme preuve.
 
-- **`C:\git\qcm-travail-hauteur`** — QCM autonome (`index.html`, `data.js`, `script.js`), ~27 questions,
-  son PDF source `Le-travail-en-hauteur.pdf`, ses illustrations dans `assets/`. Dépôt GitHub `frigorx/qcm-travail-hauteur`.
-- **Référentiel R408** dans le RAG : `res/habilitation/referentiel-r408-hauteur/…` (ex. « 4.2 — Utiliser un
-  échafaudage de pied en sécurité »).
-- Deux TP « Travail en hauteur » (un BAC MFER, un CAP IFCA) et la station **« En hauteur (Législation) »**,
-  déjà en ligne sur inerweb.fr.
+## 🔴 Trois points qui appellent une décision
 
-Le volet hauteur du QCM apprenant **reprend cette matière**, il ne la réécrit pas.
+### 1. Le TP CVC n'a pas de code de compétence à porter
 
-## Le fond commun à écrire
+Le REAC du titre (arrêté du 15/12/2022) ne code que des compétences de **bureau d'études**
+(CP1 à CP10 : plans, calculs, études). Aucune ne porte la sécurité. Les questions ne peuvent donc
+pas lui être rattachées sans inventer un code. La page le dit à l'apprenti CVC — son résultat se
+lit par thème et par niveau — et le contrôle n'en réclame pas. **À trancher** : garder le TP CVC
+dans cette banque, ou lui faire un accueil à part.
 
-Ce qui remplace la partie « froid, spécifique atelier » du test des élèves :
+### 2. La banque du positionnement porte encore le biais que les élèves ont trouvé
 
-1. **Les règles de vie du lycée s'appliquent aussi aux apprentis** — demande explicite de F. Henninot,
-   « c'est ce qu'un apprenti croit souvent ne pas le concerner ». Plusieurs questions, pas une seule.
-2. **Comportement responsable en entreprise** — horaires, tenue, téléphone, alcool, consignes du tuteur.
-3. **Le port des EPI** — lesquels, quand, qui les fournit, que faire s'ils manquent.
-4. **Le travail en hauteur** — repris de l'existant ci-dessus.
-5. **La responsabilité civile de l'apprenti** — ce qu'il engage, ce que couvre l'entreprise, ce que couvre
-   l'établissement, à qui il déclare un dommage.
-6. **Conduite à tenir en cas d'accident** — déclarer, à qui, dans quel délai, et pourquoi la trace compte.
+Le contrôle du 22/09 refuse une bonne réponse *nettement* plus longue (plus d'un quart, plus de
+8 caractères). Il ne voit pas le biais d'ensemble : **sur les 196 questions du positionnement, la
+bonne réponse est strictement la plus longue dans 133 cas, soit 68 %** — le hasard en donnerait 33 %.
+Les écarts sont petits (+3,6 caractères en moyenne), donc chaque question passe le contrôle une par
+une ; mais cocher la plus longue sans lire rapporte encore 68 %.
 
-> **L'objectif n'est pas seulement pédagogique** : F. Henninot le dit clairement, il s'agit aussi de
-> **se protéger en cas d'accident** — pouvoir établir que l'apprenti a été informé, et quand. C'est la même
-> logique que les engagements du test d'accueil (`resultats/engagements.jsonl`), et le même avertissement
-> s'applique : une trace horodatée établit l'information reçue, elle ne vaut pas signature.
+`controler-apprentis.py` ajoute ce contrôle d'ensemble (défaut au-delà de 45 %). La banque
+apprenant est à **32 %, écart moyen −1,5 caractère**. **À trancher** : porter le même contrôle dans
+`construire-banque.py` et rééquilibrer les 196 questions du positionnement (c'est du travail de
+réécriture, pas un réglage).
 
-## Contraintes de rédaction — non négociables
+### 3. Un fait écarté faute de source vérifiée
 
-- 🔴 **La bonne réponse ne doit pas être la plus longue.** Défaut relevé par les élèves le 22/09 : 73 % sur le
-  test d'accueil, +17 caractères de moyenne. `construire-banque.py` refuse désormais ces questions.
-  Une mauvaise réponse doit être **aussi crédible et aussi longue** que la bonne — c'est meilleur
-  pédagogiquement, une fausse plausible en apprend davantage qu'une évidence.
-- Question de 20 mots au plus, réponse de 12 mots au plus, explication de 25 mots au plus.
-- Trois ou quatre réponses, jamais « toutes les réponses » ni « aucune ».
-- Chaque question cite sa source et porte son code de compétence.
-- Vocabulaire simple : pas de terme savant, niveau CAP, lecteurs FLE et DYS compris.
+La durée maximale de travail d'un apprenti mineur (8 h par jour, 35 h par semaine, avec dérogation
+possible dans le bâtiment) n'a **pas** été posée en question : la vérification en ligne n'a pas
+confirmé l'article. À ajouter si la source est retrouvée — le fait est utile à un apprenti.
 
-## À trancher avant d'écrire
+## D'où viennent les questions
 
-- Une banque commune aux trois filières avec un champ `filiere`, ou trois banques distinctes ? (Le test
-  d'accueil des élèves gère déjà deux diplômes dans un seul fichier, via un champ `d` — c'est le précédent.)
-- Le nom retenu : **« Accueil sécurité apprenant »**.
+- **Règles du lycée** : règlement intérieur et test d'accueil des élèves (`index.html`), dont les
+  questions sont déjà validées en classe. Le doublon avec le test des élèves est voulu : un apprenti
+  croit souvent que ces règles ne le concernent pas.
+- **Entreprise, EPI** : Code du travail, art. R4321-4 et R4323-95 (l'employeur fournit gratuitement,
+  entretient, remplace), R4228-20 et R4228-21 (alcool), L4121-2 (protection collective d'abord),
+  L4122-1, R4153-40 (encadrement du jeune).
+- **Hauteur** : voir plus haut.
+- **Responsabilité** : Code civil, art. 1240 et 1242 (« les artisans [répondent] du dommage causé par
+  leurs élèves et apprentis pendant le temps qu'ils sont sous leur surveillance ») ; Code des
+  assurances, art. L113-1 (la faute intentionnelle n'est pas assurée) et L124-1.
+- **Accident** : 24 h pour informer l'employeur, 48 h pour sa déclaration à la CPAM (dimanches et
+  jours fériés non comptés), feuille d'accident S6201 (soins sans avance de frais), et un accident
+  survenu **au CFA** est un accident du travail — l'apprenti est couvert dès le premier jour
+  (service-public.gouv.fr, ameli.fr).
+
+## Ce qui n'est pas fait
+
+- **Le bilan du professeur ne distingue pas encore les apprentis.** Les résultats partent sur la même
+  route `/resultat` que ceux des élèves, avec `type: 'apprenti'` dans le suivi. Ils se mélangent au
+  bilan du jour. À séparer si la séance d'accueil des apprentis se tient hors d'un cours de classe.
+- **La liste des noms** (`choisir-son-nom.js`) prend la classe réglée dans le poste de commande. Pour
+  un groupe d'apprentis, il faut y coller leur liste avant la séance, sinon la saisie reste libre.
+- Aucun essai sur un téléphone réel : même réserve que pour le reste du dépôt (voir `REPRISE.md`).
+
+## Le rappel qui vaut pour tout ce dispositif
+
+Une trace horodatée — résultat, code de validation, case d'engagement — **établit que l'information
+a été reçue, et quand**. Elle ne vaut pas signature. C'est le même avertissement que pour
+`resultats/engagements.jsonl` du test d'accueil.
