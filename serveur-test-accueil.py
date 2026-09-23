@@ -68,7 +68,8 @@ def ecrire_csv(lignes):
 
 SUIVI = {}   # qui est connecté en ce moment : clé = nom normalisé (cle_nom) → dernier signe de vie, coupures, activités vues
 SILENCE_ROUGE = 60   # secondes sans signe de vie avant le rouge (Franck, 17/09/2026)
-ACTIVITES_NOMS = {'accueil': "Test d'accueil", 'positionnement': "Où j'en suis", 'manometres': 'Manomètres', 'jeu-schema': 'Jeu du schéma'}
+ACTIVITES_NOMS = {'accueil': "Test d'accueil", 'positionnement': "Où j'en suis", 'manometres': 'Manomètres', 'jeu-schema': 'Jeu du schéma',
+                  'apprenti': 'Accueil apprenti'}
 
 
 def noter_signe_de_vie(d, fini=False):
@@ -172,7 +173,8 @@ def tableau_classe(lignes):
     classe = [n for n in (reglages().get('classe') or []) if str(n).strip()]
     if not classe:
         return ('<p class="etat">Pour voir <b>qui a fait quoi</b>, coller la liste de la classe dans le poste de commande (<a href="/prof">réglages</a>).</p>')
-    ACT = [('accueil', "Test d'accueil"), ('positionnement', "Où j'en suis"), ('manometres', 'Manomètres'), ('jeu-schema', 'Jeu du schéma')]
+    ACT = [('accueil', "Test d'accueil"), ('positionnement', "Où j'en suis"), ('manometres', 'Manomètres'), ('jeu-schema', 'Jeu du schéma'),
+           ('apprenti', 'Accueil apprenti')]
     par_eleve, inconnus = {}, {}
     cles = {cle_nom(n): n for n in classe}
     for l in lignes:
@@ -229,15 +231,22 @@ def bilan(lignes):
     for nom in ordre:
         d = par.get(nom, {'connu': True})
         a, p, m, j = d.get('accueil'), d.get('positionnement'), d.get('manometres'), d.get('jeu-schema')
+        ap = d.get('apprenti')
         na, np_, nm = (nombre(a.get('note')) if a else None), (nombre(p.get('note')) if p else None), (nombre(m.get('note')) if m else None)
+        nap = nombre(ap.get('note')) if ap else None
         total = (na or 0) + (np_ or 0) + (nm or 0)
         alertes, regles = [], []
-        manque = [t for t, x in (("test d'accueil", a), ("où j'en suis", p), ('manomètres', m)) if not x]
-        if len(manque) == 3:
-            alertes.append("n'a rien fait")
-        elif manque:
-            alertes.append('manque : ' + ', '.join(manque))
-        for t, x in (("accueil", a), ("positionnement", p)):
+        # Un apprenti ne fait qu'une activité : son accueil sécurité. Lui reprocher les trois
+        # activités des élèves n'aurait pas de sens, et sa note est sur 20, pas sur 60.
+        if ap:
+            total = nap or 0
+        else:
+            manque = [t for t, x in (("test d'accueil", a), ("où j'en suis", p), ('manomètres', m)) if not x]
+            if len(manque) == 3:
+                alertes.append("n'a rien fait")
+            elif manque:
+                alertes.append('manque : ' + ', '.join(manque))
+        for t, x in (("accueil", a), ("positionnement", p), ("accueil apprenti", ap)):
             if x and x.get('arret'):
                 alertes.append('%s arrêté (5 sorties)' % t)
             elif x and (int(nombre(x.get('sorties')) or 0) >= 3):
@@ -248,6 +257,14 @@ def bilan(lignes):
                 if mm and int(mm.group(3)) and int(mm.group(2)) / int(mm.group(3)) < 0.5 and mm.group(1) in ("Les règles de la classe", "La sécurité à l'atelier", 'Le règlement du lycée'):
                     alertes.append('règles : %s %s/%s' % (mm.group(1).lower(), mm.group(2), mm.group(3)))
             regles += [e for e in (a.get('erreurs') or []) if not e.startswith(('Les gestes', 'Le projet'))]
+        if ap:
+            # Accueil apprenti : tout le QCM porte sur les règles et la sécurité, donc toutes les
+            # erreurs remontent. C'est aussi la trace de ce qui a été repris avec lui.
+            for bloc in str(ap.get('blocs') or '').split(' · '):
+                mm = re.match(r'(.+?) (\d+)/(\d+)$', bloc.strip())
+                if mm and int(mm.group(3)) and int(mm.group(2)) / int(mm.group(3)) < 0.5:
+                    alertes.append('%s %s/%s' % (mm.group(1).lower(), mm.group(2), mm.group(3)))
+            regles += ap.get('erreurs') or []
         if p:
             niv = nombre(p.get('niveau'))
             if niv is not None and niv < 0:
@@ -259,6 +276,7 @@ def bilan(lignes):
                         if val not in ('0', '-', '') and qid in questions:
                             regles.append("L'atelier et les règles · " + questions[qid])
         rangs.append({'nom': nom, 'connu': d.get('connu', True), 'accueil': na, 'positionnement': np_, 'niveau': (p or {}).get('niveau_nom', ''), 'manometres': nm,
+                      'apprenti': nap, 'formation': (ap or {}).get('classe', ''),
                       'jeu': ('%s/%s' % (j.get('justes'), j.get('total'))) if j else None, 'total': total, 'alertes': alertes, 'regles': regles})
     maxi = max([r['total'] for r in rangs] + [0])
     for r in rangs:
@@ -278,16 +296,19 @@ def page_bilan(lignes):
         gris = ' style="color:#777"' if not r['connu'] else ''
         regles = ('<details><summary>%d question(s) de règles fausse(s)</summary><ul>%s</ul></details>'
                   % (len(r['regles']), ''.join('<li>%s</li>' % html.escape(q) for q in r['regles']))) if r['regles'] else ''
-        return ('<tr%s%s><td><b>%s</b></td><td>%s</td><td>%s<br><small>%s</small></td><td>%s</td><td>%s</td><td>%s / 60</td><td class="jour">%s</td><td>%s%s</td></tr>'
+        apprenti = ('%s<br><small>%s</small>' % (n(r['apprenti']), html.escape(str(r.get('formation') or '')))) if r.get('apprenti') is not None else '—'
+        return ('<tr%s%s><td><b>%s</b></td><td>%s</td><td>%s<br><small>%s</small></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="jour">%s</td><td>%s%s</td></tr>'
                 % (cls, gris, html.escape(str(r['nom'])), n(r['accueil']), n(r['positionnement']), html.escape(str(r['niveau'] or '')), n(r['manometres']),
-                   html.escape(r['jeu'] or '—'), n(r['total']), n(r['jour']), html.escape(' · '.join(r['alertes'])), regles))
+                   html.escape(r['jeu'] or '—'), apprenti, n(r['total']), n(r['jour']), html.escape(' · '.join(r['alertes'])), regles))
     return (CSS_PROF + '<meta http-equiv="refresh" content="30"><title>Bilan du jour</title>'
             '<style>table{border-collapse:collapse;width:100%%;background:#fff}td,th{border:1px solid #d8dee6;padding:6px 8px;text-align:left;vertical-align:top;font-size:15px}'
             'th{background:#f5f8fc;color:#1b3a63}.alerte{background:#fdf3f3}.jour{font-size:20px;font-weight:bold;color:#1b3a63}details{font-size:14px}summary{cursor:pointer;color:#b3261e;font-weight:bold}ul{margin:4px 0 0 16px;padding:0}small{color:#666}</style>'
             '<h1>Bilan du jour</h1><p class="etat"><b>Note du jour</b> : total des trois activités notées (test d\'accueil + où j\'en suis + manomètres, sur 60) ramené sur 20, '
-            '<b>le meilleur total de la classe vaut 20</b> (%s / 60 aujourd\'hui) ; une activité non faite vaut zéro. Moyenne de la classe : <b>%s / 20</b> · %d élève(s) en alerte sur %d · '
+            '<b>le meilleur total de la classe vaut 20</b> (%s aujourd\'hui) ; une activité non faite vaut zéro. '
+            '<b>Un apprenti ne fait qu\'une activité</b>, son accueil sécurité : son total, c\'est cette note sur 20, et aucune autre activité ne lui manque. '
+            'Moyenne de la classe : <b>%s / 20</b> · %d élève(s) en alerte sur %d · '
             '<a href="/bilan.csv">télécharger le tableur</a> · <a href="/prof">poste de commande</a> · page rafraîchie toutes les 30 s.</p>'
-            '<table><tr><th>Élève</th><th>Test d\'accueil</th><th>Où j\'en suis</th><th>Manomètres</th><th>Jeu</th><th>Total</th><th>Note du jour</th><th>Alertes · règles à reprendre</th></tr>%s</table>'
+            '<table><tr><th>Élève</th><th>Test d\'accueil</th><th>Où j\'en suis</th><th>Manomètres</th><th>Jeu</th><th>Accueil apprenti</th><th>Total</th><th>Note du jour</th><th>Alertes · règles à reprendre</th></tr>%s</table>'
             '<p class="pied">En rose : au moins une alerte. En gris : un nom envoyé qui n\'est pas dans la liste de la classe.</p>'
             % (('%g' % maxi).replace('.', ','), ('%.1f' % moy).replace('.', ','), n_alerte, len(connus), ''.join(tr(r) for r in rangs)))
 
@@ -296,10 +317,12 @@ def csv_bilan(lignes):
     rangs, maxi = bilan(lignes)
     out = io.StringIO()
     w = csv.writer(out, delimiter=';')
-    w.writerow(['élève', "test d'accueil /20", "où j'en suis /20", 'niveau atteint', 'manomètres /20', 'jeu du schéma', 'total /60', 'note du jour /20', 'alertes', 'questions de règles fausses'])
+    w.writerow(['élève', "test d'accueil /20", "où j'en suis /20", 'niveau atteint', 'manomètres /20', 'jeu du schéma',
+                'accueil apprenti /20', 'formation', 'total', 'note du jour /20', 'alertes', 'questions de règles fausses'])
     fmt = lambda x: '' if x is None else ('%g' % x).replace('.', ',')   # virgule décimale pour Excel en français
     for r in rangs:
-        w.writerow([r['nom'], fmt(r['accueil']), fmt(r['positionnement']), r['niveau'], fmt(r['manometres']), r['jeu'] or '', fmt(r['total']), fmt(r['jour']),
+        w.writerow([r['nom'], fmt(r['accueil']), fmt(r['positionnement']), r['niveau'], fmt(r['manometres']), r['jeu'] or '',
+                    fmt(r['apprenti']), r.get('formation') or '', fmt(r['total']), fmt(r['jour']),
                     ' · '.join(r['alertes']), ' | '.join(r['regles'])])
     return out.getvalue()
 

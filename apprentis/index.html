@@ -350,7 +350,12 @@ function terminer(){
   $('code').textContent = code;
   const minutes = Math.round((Date.now() - etat.debut) / 60000);
   etat.resultat = {
-    nom: etat.nom, note: noteTxt, code: code, diplome: REF.nom + ' · ' + etat.quand,
+    // `type` n'est pas décoratif : le serveur range les résultats par type, et le dernier envoi
+    // de chaque type fait foi. Sans lui, un apprenti écraserait le test d'accueil d'un élève
+    // qui porte le même nom.
+    type: 'apprenti', classe: REF.nom,
+    nom: etat.nom, note: noteTxt, justes: ok, minutes: minutes,
+    code: code, diplome: REF.nom + ' · ' + etat.quand,
     blocs: parBloc.map((x, b) => nomDuBloc(b) + ' ' + x.ok + '/' + x.n).join(' · '),
     competences: (codes.length ? codes.map(c => c + ' ' + parComp[c].ok + '/' + parComp[c].n + ' ' + classe(parComp[c].ok, parComp[c].n)[0]).join(' · ') + ' · ' : '')
                  + 'niveaux ' + [1, 2, 3].map(l => NIVEAUX[l] + ' ' + parNiv[l].ok + '/' + parNiv[l].n).join(', '),
