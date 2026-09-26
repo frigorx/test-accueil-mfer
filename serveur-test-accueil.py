@@ -491,6 +491,8 @@ ACTIVITES = [
     ('/positionnement.html', "2. Où j'en suis", 'froid, climatisation, habilitations · six niveaux · noté, barème dégressif', '#c9451a'),
     ('/manometres.html', '3. Lire un manomètre', 'pression, fluide, température · 10 questions · noté sur 20', '#0e7a5f'),
     ('/jeux/schema-frigo/', '4. Jeu : compléter le schéma frigorifique', 'je pose chaque organe à sa place', '#5d6b7c'),
+    # TD 04 v2 (1re MFER, 26/09/2026) : copie du simulateur de progression-1re-mfer, v2/, dans jeux/r134a/
+    ('/jeux/r134a/', '5. Je fais bouillir du R134a', "TD 04 · l'expérience de la capsule 1 · le diagramme enthalpique", '#c9451a'),
     # Les trois QCM d'accueil des apprentis : un par formation. L'apprenti n'en voit qu'un,
     # celui sur lequel il clique — il ne choisit rien à l'intérieur de la page.
     ('/apprentis/?f=mpi', 'Apprentis — CAP Plâtre et isolation', 'accueil sécurité · règles, chantier, hauteur, accident · 36 questions', '#7a4b8f'),
