@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Jeu — compléter le schéma frigorifique</title>
+<style>
+  :root{--bleu:#1b3a63; --orange:#ff6b35; --orange-p:#c9451a; --vert:#0e7a5f; --rouge:#b3261e; --encre:#22303f; --gris:#5d6b7c;
+    --filet:#d8dee6; --fond:#eef1f5; --doux:#f5f8fc}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--fond); color:var(--encre); font-family:Calibri,'Segoe UI',Arial,sans-serif; font-size:18px; line-height:1.45}
+  .page{max-width:640px; margin:0 auto; padding:14px 14px 40px}
+  header{background:var(--bleu); color:#fff; border-radius:0 0 10px 10px; padding:12px 16px; margin:0 -14px 14px}
+  header .lycee{font-family:'Trebuchet MS',sans-serif; font-weight:bold; letter-spacing:.06em; font-size:13px; opacity:.9}
+  header h1{margin:2px 0 0; font-family:'Trebuchet MS',sans-serif; font-size:19px; line-height:1.25}
+  .carte{background:#fff; border-radius:10px; box-shadow:0 2px 12px rgba(27,58,99,.12); padding:14px; margin-bottom:14px}
+  .etiq{display:inline-block; background:var(--doux); border:1px solid var(--filet); border-radius:9px; padding:1px 10px; font-size:13px;
+    font-family:'Trebuchet MS',sans-serif; font-weight:bold; color:var(--bleu); margin:0 6px 8px 0}
+  .consigne{font-size:17px; margin:0 0 8px}
+  button{font:inherit; cursor:pointer}
+  .suite{display:block; width:100%; background:var(--bleu); color:#fff; border:none; border-radius:9px; padding:14px; font-size:19px; font-weight:bold; margin-top:10px; text-align:center; text-decoration:none}
+  .suite.o{background:var(--orange-p)} .suite.v{background:var(--vert)} .suite.g{background:var(--gris)}
+  .plateau{display:block; width:100%; max-width:420px; margin:0 auto; touch-action:manipulation}
+  .slot{fill:#fff; stroke:var(--gris); stroke-width:1.6; stroke-dasharray:5 4}
+  .slot.cible{stroke:var(--orange-p); stroke-width:3; stroke-dasharray:none; fill:#fff7f3}
+  .slot.juste{stroke:var(--vert); stroke-width:3; stroke-dasharray:none; fill:#f2faf7}
+  .slot.faux{stroke:var(--rouge); stroke-width:3; stroke-dasharray:none; fill:#fdf3f3}
+  .nomslot{font-size:9px; fill:var(--gris); font-family:'Trebuchet MS',sans-serif; font-weight:bold; text-anchor:middle}
+  .palette{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:8px 0 4px}
+  .chip{border:2px solid var(--filet); background:#fff; border-radius:9px; padding:6px 4px 4px; text-align:center; min-height:72px; display:flex; flex-direction:column; align-items:center; gap:2px}
+  .chip svg{width:56px; height:56px}
+  .chip.on{border-color:var(--orange-p); background:#fff7f3}
+  .chip.pose{opacity:.25; pointer-events:none}
+  .chip small{font-size:11px; line-height:1.15; color:var(--bleu); font-weight:bold; font-family:'Trebuchet MS',sans-serif; display:none}
+  .noms .chip small{display:block}
+  .aide{background:#fff; border:2px solid var(--filet); border-radius:9px; padding:6px 12px; font-size:15px; color:var(--bleu); margin:6px 0 0}
+  .retour{border-left:6px solid var(--vert); background:#f2faf7; border-radius:0 8px 8px 0; padding:10px 14px; margin:10px 0 4px; font-size:17px}
+  .retour.faux{border-left-color:var(--rouge); background:#fdf3f3}
+  input[type=text]{font:inherit; width:100%; padding:10px 12px; border:2px solid var(--filet); border-radius:9px; margin:4px 0 8px; font-size:18px}
+  label{font-weight:bold; color:var(--bleu); font-family:'Trebuchet MS',sans-serif; font-size:14px}
+  .petit{font-size:14px; color:var(--gris)}
+  footer{font-size:12px; color:var(--gris); text-align:center; margin-top:20px}
+  [hidden]{display:none!important}
+</style>
+
+<div class="page">
+  <header>
+    <div class="lycee">LPP JACQUES RAYNAUD</div>
+    <h1>Jeu — compléter le schéma frigorifique</h1>
+  </header>
+
+  <div class="carte">
+    <span class="etiq" id="niveau">Niveau 1 · les quatre organes</span><span class="etiq" id="score"></span>
+    <p class="consigne" id="consigne">Je touche un symbole, puis la place où il va. Le fluide tourne dans le sens des flèches : HP en rouge, BP en bleu. Il y a plus de symboles que de places.</p>
+    <div id="plateau"></div>
+    <div class="palette" id="palette"></div>
+    <button type="button" class="aide" id="noms">Afficher les noms des symboles</button>
+    <div id="retour" hidden></div>
+    <button class="suite v" id="verifier">Vérifier</button>
+    <button class="suite o" id="suivant" hidden>Niveau suivant</button>
+    <button class="suite g" id="rejouer">Recommencer ce niveau</button>
+  </div>
+
+  <div class="carte">
+    <label for="nom">Mon nom et mon prénom (pour que le professeur voie ce que j'ai fait)</label>
+    <input type="text" id="nom" autocomplete="off" placeholder="ex. : DUPONT Léa">
+    <p class="petit" id="envoi" style="margin:0"></p>
+    <a class="suite" id="accueil" href="/" hidden>Retour à l'accueil : la suite des activités</a>
+  </div>
+
+  <footer>1re Bac Pro MFER — compétence C2 — savoir S3 (schéma fluidique) · CAP IFCA C2.1<br>Symboles : palette inerWeb des symboles normalisés (usine-contenu/bibliotheque-symboles) · LPP Jacques Raynaud — Campus ÉQUATIO · F. Henninot · créé le 17/09/2026</footer>
+</div>
+
+<script>
+// ---------------------------------------------------------------- la palette des symboles (le même sprite que le quiz de positionnement)
+const NOMS = { compresseur_general:'compresseur', echangeur_a_air:'échangeur à air', detendeur_thermo_int:'détendeur thermostatique', bouteille_liquide:'réservoir de liquide',
+  filtre_deshydrateur:'filtre déshydrateur', voyant_liquide:'voyant liquide', pressostat:'pressostat', separateur_huile:'séparateur d\'huile', electrovanne_frigo:'électrovanne',
+  ventilateur_axial:'ventilateur', vanne_isolement:'vanne d\'isolement', clapet_anti_retour:'clapet anti-retour' };
+// Les places : le fluide va du compresseur (droite) au condenseur (haut), puis ligne liquide (haut-gauche) vers le détendeur (gauche), l'évaporateur (bas), retour au compresseur.
+const PLACES = {
+  1: [ { id:'comp', x:300, y:160, attendu:'compresseur_general', nom:'compresseur' }, { id:'cond', x:180, y:60, attendu:'echangeur_a_air', nom:'condenseur' },
+       { id:'det', x:50, y:160, attendu:'detendeur_thermo_int', nom:'détendeur' }, { id:'evap', x:180, y:260, attendu:'echangeur_a_air', nom:'évaporateur' } ],
+  2: [ { id:'bout', x:126, y:60, attendu:'bouteille_liquide', nom:'réservoir' }, { id:'filt', x:78, y:60, attendu:'filtre_deshydrateur', nom:'filtre' }, { id:'voy', x:50, y:104, attendu:'voyant_liquide', nom:'voyant' } ]
+};
+const PALETTES = {
+  1: ['compresseur_general', 'echangeur_a_air', 'echangeur_a_air', 'detendeur_thermo_int', 'pressostat', 'separateur_huile', 'electrovanne_frigo', 'ventilateur_axial'],
+  2: ['compresseur_general', 'echangeur_a_air', 'echangeur_a_air', 'detendeur_thermo_int', 'bouteille_liquide', 'filtre_deshydrateur', 'voyant_liquide', 'pressostat', 'electrovanne_frigo', 'vanne_isolement', 'clapet_anti_retour', 'separateur_huile']
+};
+const TITRES = { 1:'Niveau 1 · les quatre organes', 2:'Niveau 2 · la ligne liquide, dans l\'ordre' };
+const CONSIGNES = { 1:'Je touche un symbole, puis la place où il va. Le fluide tourne dans le sens des flèches : HP en rouge, BP en bleu. Il y a plus de symboles que de places.',
+  2:'Les quatre organes, plus la ligne liquide : du condenseur au détendeur, dans le bon ordre. Un symbole posé au mauvais endroit se retire en le touchant.' };
+const $ = (id) => document.getElementById(id);
+let niveau = 1, choisi = null, poses = {}, chips = [], verifie = false, scores = {};
+
+// ---------------------------------------------------------------- le plateau
+function fleche(x, y, dx, dy, col){ const s = 7; return '<path d="M' + (x - dx * s + dy * s * .6) + ' ' + (y - dy * s - dx * s * .6) + ' L' + (x + dx * s * .4) + ' ' + (y + dy * s * .4) + ' L' + (x - dx * s - dy * s * .6) + ' ' + (y - dy * s + dx * s * .6) + ' Z" fill="' + col + '"/>'; }
+function plateau(){
+  const R = '#b3261e', B = '#1d4ed8', places = PLACES[1].concat(niveau >= 2 ? PLACES[2] : []);
+  let s = '<svg class="plateau" viewBox="0 0 360 320" role="img" aria-label="schéma frigorifique à compléter">';
+  // les tubes : HP du compresseur au détendeur (droite → haut → gauche), BP du détendeur au compresseur (gauche → bas → droite)
+  s += '<path d="M300 160 L300 60 L180 60 M180 60 L50 60 L50 160" fill="none" stroke="' + R + '" stroke-width="4"/>';
+  s += '<path d="M50 160 L50 260 L180 260 M180 260 L300 260 L300 160" fill="none" stroke="' + B + '" stroke-width="4"/>';
+  s += fleche(300, 105, 0, -1, R) + fleche(240, 60, -1, 0, R) + fleche(50, 215, 0, 1, B) + fleche(240, 260, 1, 0, B);
+  if (niveau < 2) s += fleche(105, 60, -1, 0, R);
+  s += '<text x="330" y="112" font-size="11" font-weight="bold" fill="' + R + '">HP</text><text x="18" y="215" font-size="11" font-weight="bold" fill="' + B + '">BP</text>';
+  places.forEach(p => {
+    const r = PLACES[1].includes(p) ? 27 : 22, k = poses[p.id];
+    s += '<g class="place" data-id="' + p.id + '"><circle class="slot" id="slot-' + p.id + '" cx="' + p.x + '" cy="' + p.y + '" r="' + r + '"/>';
+    if (k) s += '<svg x="' + (p.x - r * .78) + '" y="' + (p.y - r * .78) + '" width="' + (r * 1.56) + '" height="' + (r * 1.56) + '" viewBox="-34 -34 68 68" pointer-events="none"><use href="#' + k + '"/></svg>';
+    else s += '<text class="nomslot" x="' + p.x + '" y="' + (p.y + 3) + '">?</text>';
+    s += '</g>';
+  });
+  s += '</svg>';
+  $('plateau').innerHTML = s;
+  document.querySelectorAll('.place').forEach(g => g.addEventListener('click', () => toucherPlace(g.dataset.id)));
+  if (choisi !== null) document.querySelectorAll('.slot').forEach(c => { if (!poses[c.id.slice(5)]) c.classList.add('cible'); });
+}
+function palette(){
+  const z = $('palette'); z.innerHTML = ''; chips = [];
+  PALETTES[niveau].forEach((k, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.i = i;
+    b.innerHTML = '<svg viewBox="-34 -34 68 68"><use href="#' + k + '"/></svg><small>' + NOMS[k] + '</small>';
+    b.addEventListener('click', () => { if (verifie) return; choisi = choisi === i ? null : i; palette(); plateau(); });
+    if (choisi === i) b.classList.add('on');
+    z.appendChild(b); chips.push(b);
+  });
+  Object.keys(posesIndex).forEach(p => { const b = chips[posesIndex[p]]; if (b) b.classList.add('pose'); });
+}
+let posesIndex = {};   // place → index du chip posé (pour griser le bon chip, même quand deux chips sont identiques)
+function toucherPlace(id){
+  if (verifie) return;
+  if (poses[id] && choisi === null) { delete poses[id]; delete posesIndex[id]; palette(); plateau(); return; }
+  if (choisi === null) return;
+  if (poses[id]) { delete posesIndex[id]; }
+  poses[id] = PALETTES[niveau][choisi]; posesIndex[id] = choisi; choisi = null;
+  palette(); plateau();
+}
+function verifier(){
+  const places = PLACES[1].concat(niveau >= 2 ? PLACES[2] : []);
+  let ok = 0; const manques = [];
+  places.forEach(p => { const c = $('slot-' + p.id); c.classList.remove('cible'); if (poses[p.id] === p.attendu) { ok++; c.classList.add('juste'); } else { c.classList.add('faux'); manques.push(p.nom); } });
+  verifie = true; scores[niveau] = ok + '/' + places.length; $('score').textContent = 'Score : ' + scores[niveau];
+  const r = $('retour'); r.hidden = false; r.className = 'retour' + (ok === places.length ? '' : ' faux');
+  r.innerHTML = ok === places.length ? '<b>Tout est à sa place.</b> ' + (niveau === 1 ? 'Le même symbole sert au condenseur et à l\'évaporateur : c\'est la place qui dit lequel est lequel.' : 'Réservoir, filtre, voyant : dans cet ordre le liquide est stocké, séché, puis contrôlé avant le détendeur.')
+                                     : '<b>' + ok + ' juste(s) sur ' + places.length + '.</b> À revoir : ' + manques.join(', ') + '. Je touche « Recommencer » pour corriger.';
+  $('verifier').hidden = true; $('suivant').hidden = !(ok === places.length && niveau < 2);
+  envoyer();
+}
+function commencer(n){ niveau = n; choisi = null; poses = {}; posesIndex = {}; verifie = false; $('niveau').textContent = TITRES[n]; $('consigne').textContent = CONSIGNES[n];
+  $('retour').hidden = true; $('verifier').hidden = false; $('suivant').hidden = true; $('score').textContent = scores[n] ? 'Dernier score : ' + scores[n] : ''; palette(); plateau(); }
+const surLePC = () => location.protocol === 'http:' && !/github\.io$/.test(location.hostname);
+function envoyer(){
+  const nom = $('nom').value.trim(); if (!surLePC() || nom.length < 3) { $('envoi').textContent = nom.length < 3 ? 'Sans nom, le score reste sur ce téléphone.' : ''; return; }
+  const d = { type:'jeu-schema', nom:nom, classe:'', diplome:'Jeu du schéma', niveau_nom:'Jeu schéma niveau ' + niveau, note:'', justes:parseInt(scores[niveau]), total:parseInt(scores[niveau].split('/')[1]),
+    repondu:parseInt(scores[niveau].split('/')[1]), code:'JEU-' + niveau, competences:'S3 schéma fluidique niveau ' + niveau + ' : ' + scores[niveau], reponses:Object.keys(poses).map(p => p + '=' + poses[p]).join(' ') };
+  fetch('/resultat', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(d) })
+    .then(r => { $('envoi').textContent = r.ok ? 'Score envoyé au PC du professeur ✓' : 'Envoi refusé.'; }).catch(() => { $('envoi').textContent = 'Pas de liaison avec le PC.'; });
+}
+$('verifier').addEventListener('click', verifier);
+$('suivant').addEventListener('click', () => commencer(2));
+$('rejouer').addEventListener('click', () => commencer(niveau));
+$('noms').addEventListener('click', () => { document.body.classList.toggle('noms'); $('noms').textContent = document.body.classList.contains('noms') ? 'Cacher les noms des symboles' : 'Afficher les noms des symboles'; });
+$('accueil').hidden = !surLePC();
+// signe de vie toutes les vingt secondes, pour la surveillance du professeur (si un nom est saisi)
+setInterval(() => { const nom = $('nom').value.trim(); if (!surLePC() || nom.length < 3) return;
+  fetch('/suivi', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify({ type:'jeu-schema', nom:nom, classe:'', niveau:'Jeu schéma', question:niveau, total:2, sorties:0, fini:false }) }).catch(() => {}); }, 20000);
+try { const n = localStorage.getItem('jeu-schema-nom'); if (n) $('nom').value = n; } catch (e) {}
+$('nom').addEventListener('change', () => { try { localStorage.setItem('jeu-schema-nom', $('nom').value); } catch (e) {} });
+
+// le sprite des symboles, servi par le PC : chargé une fois, posé invisible dans la page
+fetch('../../symboles.svg', { cache:'no-store' }).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => {
+  const m = t.replace(/<!--[\s\S]*?-->/g, '').match(/<svg[\s\S]*<\/svg>/); if (!m) throw new Error('palette illisible');   // sans les commentaires : le mode d'emploi du sprite contient le mot <svg>
+  const d = document.createElement('div'); d.innerHTML = m[0].replace('<svg', '<svg style="display:none" aria-hidden="true"'); document.body.insertBefore(d.firstChild, document.body.firstChild);
+  commencer(1);
+}).catch(() => { $('consigne').textContent = 'Les symboles ne se chargent pas : ouvrir cette page depuis l\'adresse donnée par le professeur.'; });
+</script>
+<script src="../../choisir-son-nom.js"></script>
+</html>

@@ -1,4 +1,5 @@
 resultats/
 reglages.json
 __pycache__/
-jeux/
+jeux/*
+!jeux/schema-frigo/

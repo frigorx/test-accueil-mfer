@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 200" width="440" height="200" aria-hidden="true">
+  <!-- Filigrane R9 de la charte inerWeb (Franck, 03/10/2026) : le logo officiel, cartouche « QCM », et « by inerweb.fr ».
+       Dessin repris de jouerezo/moteur/voyage-dessin.js (D.filigrane). L'opacité se règle dans revision.css. -->
+  <g transform="rotate(-12 220 100) translate(20 35)" fill="#1b3a63">
+    <text x="0" y="80" font-size="56">❄️</text>
+    <text x="76" y="75" font-size="52" font-weight="700" font-family="Trebuchet MS, Trebuchet, sans-serif">iner</text>
+    <text x="171" y="75" font-size="52" font-family="Segoe Script, Brush Script MT, cursive">Web</text>
+    <line x1="76" x2="276" y1="80" y2="80" stroke="#e8914a" stroke-width="4"/>
+    <rect x="281" y="8" rx="7" width="120" height="38" fill="#e8914a"/>
+    <text x="341" y="34" text-anchor="middle" font-size="22" font-weight="700" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif">QCM</text>
+    <text x="76" y="122" font-size="30" font-weight="700" font-family="Trebuchet MS, Trebuchet, sans-serif">by inerweb.fr</text>
+  </g>
+</svg>

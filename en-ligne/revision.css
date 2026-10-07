@@ -1,0 +1,16 @@
+/* inerWeb QCM — ce que la version en ligne ajoute aux pages de la classe (posé par en-ligne/livrer.mjs).
+   Les boutons d'envoi au professeur restent dans la page (le script les appelle) mais ne se montrent plus. */
+#whatsapp, #courriel, #copier, #sorties { display: none !important; }
+
+/* Filigrane R9 (charte inerWeb, Franck 03/10/2026) : trois exemplaires dont un au centre, pâles.
+   Posé AU-DESSUS mais en « multiply » et sans clic : sur fond blanc il se lit comme un fond,
+   et le texte noir reste noir — il ne masque rien, il survit à la capture d'écran. */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 2147483000;
+  background-image: url("filigrane.svg"), url("filigrane.svg"), url("filigrane.svg");
+  background-repeat: no-repeat;
+  background-position: 6% 8%, 50% 50%, 94% 92%;
+  background-size: min(60vw, 340px) auto;
+  opacity: .10; mix-blend-mode: multiply;
+}
+@media print { body::after { opacity: .07; } }
