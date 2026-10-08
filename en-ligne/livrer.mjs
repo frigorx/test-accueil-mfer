@@ -46,13 +46,17 @@ const MARQUE = '\n<script src="../moteur/marque.js?v=' + CLE_MARQUE + '" data-ca
   + "<script>if ('ResizeObserver' in window) new ResizeObserver(() => window.dispatchEvent(new Event('resize'))).observe(document.body);</script>\n";
 // Les pages de classe n'ont ni <head> ni <body> (et le positionnement pas de doctype) : sans <head>,
 // build/retour-accueil.mjs et build/animations.mjs du site ne posent pas leurs scripts.
-const entete = (description) => (t) => (/^<!doctype/i.test(t) ? '' : '<!doctype html>\n<html lang="fr">\n')
+// Le canonical est exigé par build/sitemap.mjs du site pour toute page indexée.
+const entete = (description, cible) => (t) => (/^<!doctype/i.test(t) ? '' : '<!doctype html>\n<html lang="fr">\n')
   + remplacer(remplacer(t, '<meta charset="utf-8">', '<head>\n<meta charset="utf-8">', 1, 'entête'), /<\/style>/, '</style>\n</head>\n<body>', 1, 'entête')
     .replace(/<\/title>/, ' · inerWeb QCM</title>\n<meta name="description" content="' + description
-  + '">\n<link rel="stylesheet" href="revision.css?v=' + CLE_REVISION + '">');
+  + '">\n<link rel="canonical" href="https://inerweb.fr/qcm/' + cible + '">\n<meta property="og:url" content="https://inerweb.fr/qcm/' + cible
+  + '">\n<meta property="og:image" content="https://inerweb.fr/icones/og-inerweb-1200x630.png?v=20261006">\n<link rel="stylesheet" href="revision.css?v=' + CLE_REVISION + '">');
 
 /* ---- ce que les trois pages ont en commun ---- */
 const COMMUN = [
+  // En classe, ces pages ne doivent pas sortir dans Google ; en ligne, si (Franck, 07/10 : diffusion libre).
+  [/<meta name="robots" content="noindex, nofollow">\n/, ''],
   ['header .lycee{', 'header .marque-qcm{'],
   ['<div class="lycee">LPP JACQUES RAYNAUD</div>', '<div class="marque-qcm">inerWeb QCM · réviser en autonomie</div>'],
 ];
@@ -139,7 +143,7 @@ function controler(nom, texte) {
 
 /* ---- fabrication en mémoire, puis écriture seulement si tout est passé ---- */
 const fichiers = {};
-for (const p of PAGES) fichiers[p.cible] = entete(p.description)(appliquer(lire(p.source), p.regles, p.source));
+for (const p of PAGES) fichiers[p.cible] = entete(p.description, p.cible)(appliquer(lire(p.source), p.regles, p.source));
 fichiers['index.html'] = lire('en-ligne/index.html').replace('CLE_REVISION', CLE_REVISION).replace('CLE_MARQUE', CLE_MARQUE);
 fichiers['revision.css'] = revisionCss;
 fichiers['filigrane.svg'] = filigrane;
