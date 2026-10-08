@@ -4,7 +4,27 @@
 https://frigorx.github.io/test-accueil-mfer/ (test d'accueil) et `…/positionnement.html` (positionnement).
 **Ce fichier est le point d'entrée.** Mode d'emploi : `README.md` · plan, décisions et restes du positionnement :
 `_PLAN-QUIZ-POSITIONNEMENT.md` · les modes de récupération des notes : `PROCEDURE-COLLECTE.md`.
-**Dernière mise à jour : 18/09/2026, 11 h 20 — voir « État au 18/09 » juste dessous, puis le reste.**
+**Dernière mise à jour : 08/10/2026 — « inerWeb QCM » est en ligne (section suivante), puis l'état au 18/09.**
+
+## 08/10/2026 — « inerWeb QCM » EN LIGNE : https://inerweb.fr/qcm/ (feu vert de Franck, « carte blanche »)
+
+- **Ce que c'est** : la version OUVERTE de la décision du 21/09 (réviser ≠ évaluer). Accueil + trois activités :
+  `positionnement.html`, `manometres.html`, `schema-frigo.html`. Pas de nom, pas de sorties comptées, pas de note /20,
+  résultat par compétences, **rien n'est envoyé**. Marque inerWeb (logo, filigrane R9 cartouche « QCM », `marque.js`).
+- **Comment** : `node en-ligne/livrer.mjs <racine du site>` tire la copie en ligne des pages de classe, qui ne sont
+  **pas modifiées**. Chaque remplacement doit trouver sa cible, et aucune trace de l'établissement ne doit rester
+  (Raynaud, Henninot, lycée, ÉQUATIO, 192.168…) : sinon rien n'est écrit. La banque perd son champ `source`, et
+  « lycée » devient « établissement » / « formation » (validé par Franck). **Ne jamais retoucher `pilote-fluides/qcm/`
+  à la main** : corriger ici, relivrer.
+- **Relivrer** (dans un worktree du site) : `livrer.mjs` → `node build/retour-accueil.mjs` → annuler tout ce qui n'est
+  pas `qcm/` et ramener la clé de `retour-accueil.js` à celle des autres pages (`43cc8eadb1` au 08/10) → si l'accueil
+  a changé, `node build/version.mjs` (commit des clés à part) → `node outils/catalogue-stations.mjs` **depuis
+  `C:\git\pilote-fluides`** (chemin écrit en dur) → `node C:/git/HAL-v3/scripts/indexer-stations-rag.js`.
+- **Sur le site** : carte dans « Les outils inerWeb », nouveauté du 8 octobre, sitemap (4 URL, canonical + og:url
+  exigés), catalogue 412 stations, RAG HAL réindexé. Site `47e78a16` + `498512c0` + `c496f7ca` poussés à 05 h 55.
+- **Restes** : plus de QCM, rangés par thèmes (décision du 21/09) ; « inerWeb Classe » (la version qui relève les
+  notes) toujours à rendre téléchargeable (les quatre points du 21/09) ; le jeu « Je fais bouillir du R134a » et le QCM
+  apprentis restent scolaires (marque du lycée) et hors station.
 
 ## État au 18/09/2026 — l'échec du matin est EXPLIQUÉ (nom et mot de passe du Wi-Fi faux) ; reste à le prouver sur un téléphone
 

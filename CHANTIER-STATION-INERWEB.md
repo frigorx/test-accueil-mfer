@@ -17,6 +17,6 @@ test d'accueil `index.html`, `apprentis/`, `jeux/r134a/`, `questions-au-tableau.
 - [x] 2. `jeux/schema-frigo/` sous git (exception au `.gitignore`)
 - [x] 3. Livrer dans un worktree du site (`C:\git\_wt-qcm`), `animations.mjs` + `retour-accueil.mjs` sur `qcm/` seulement
 - [x] 4. Essai navigateur (ordinateur + téléphone), mesure : aucune requête vers le PC, aucun nom, filigrane
-- [ ] 5. Montrer à Franck (lien direct) ; trancher : carte sur l'accueil, indexation
-- [ ] 6. Feu vert → catalogue des stations + RAG HAL, `git fetch` + règle 4, push, contrôle en ligne
-- [ ] 7. fin-de-chantier, ligne du § 4 de FINITIONS-INERWEB.md
+- [x] 5. Montrer à Franck (lien direct) ; trancher : carte sur l'accueil, indexation
+- [x] 6. Feu vert → catalogue des stations + RAG HAL, `git fetch` + règle 4, push, contrôle en ligne
+- [x] 7. fin-de-chantier, ligne du § 4 de FINITIONS-INERWEB.md
