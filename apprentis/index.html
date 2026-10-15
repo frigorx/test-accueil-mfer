@@ -68,9 +68,9 @@
   <!-- ===== écran 0 : aucune formation dans l'adresse — les trois portes ===== -->
   <section id="portes" class="carte" hidden>
     <p style="margin:0 0 4px"><b>Trois QCM, un par formation.</b> Je clique sur la mienne.</p>
-    <a class="porte" style="background:#1b3a63" href="?f=mpi">CAP Métiers du plâtre et de l'isolation<span>règles, chantier, hauteur, poussières, accident</span></a>
-    <a class="porte" style="background:#0e7a5f" href="?f=etancheur">CAP Étancheur du bâtiment<span>règles, toiture-terrasse, chalumeau, hauteur, accident</span></a>
-    <a class="porte" style="background:#7a4b8f" href="?f=cvc">Titre pro Technicien d'études CVC<span>règles, visite de chantier, bureau d'études, accident</span></a>
+    <a class="porte" style="background:#1b3a63" href="?f=mpi" data-f="mpi">CAP Métiers du plâtre et de l'isolation<span>règles, chantier, hauteur, poussières, accident</span></a>
+    <a class="porte" style="background:#0e7a5f" href="?f=etancheur" data-f="etancheur">CAP Étancheur du bâtiment<span>règles, toiture-terrasse, chalumeau, hauteur, accident</span></a>
+    <a class="porte" style="background:#7a4b8f" href="?f=cvc" data-f="cvc">Titre pro Technicien d'études CVC<span>règles, visite de chantier, bureau d'études, accident</span></a>
   </section>
 
   <!-- ===== écran 1 : le départ ===== -->
@@ -182,12 +182,15 @@ const BLOCS = ["Les règles du lycée valent aussi pour moi", "En entreprise, av
                "Mes équipements de protection", "Le travail en hauteur",
                "Les risques de mon métier", "Ma responsabilité et l'accident"];
 const BLOC_METIER = 4;
-const MINUTES = 40;
-
 const filiere = (new URLSearchParams(location.search).get('f') || '').toLowerCase();
 const REF = FILIERES[filiere] || null;
+// Version courte (adresse avec &court=1) : 3 questions tirées par thème, soit 18 questions en
+// 20 minutes, pour garder le reste du créneau au cours. Le test complet reste la version par défaut.
+const COURT = new URLSearchParams(location.search).get('court') === '1';
+const PAR_THEME_COURT = 3;
+const MINUTES = COURT ? 20 : 40;
 let QUESTIONS = [];
-const CLE = 'apprentis-' + filiere + '-2026';
+const CLE = 'apprentis-' + filiere + (COURT ? '-court' : '') + '-2026';
 
 // ---------------------------------------------------------------- la collecte des résultats
 function surLePC(){ return location.protocol === 'http:' && !/github\.io$/.test(location.hostname); }
@@ -212,7 +215,8 @@ function preparer(nom){
   const r = alea(graine((nom + '|' + filiere).toLowerCase()));
   const ordre = [];
   for (let b = 0; b < BLOCS.length; b++) {
-    ordre.push(...melange(QUESTIONS.map((q, i) => q.b === b ? i : -1).filter(i => i >= 0), r));
+    const tires = melange(QUESTIONS.map((q, i) => q.b === b ? i : -1).filter(i => i >= 0), r);
+    ordre.push(...(COURT ? tires.slice(0, PAR_THEME_COURT) : tires));
   }
   const reponses = ordre.map(i => melange(QUESTIONS[i].r.map((_, k) => k), r));
   return { nom, ordre, reponses, courante: 0, choix: [], debut: Date.now(), fini: false, sorties: 0 };
@@ -432,6 +436,7 @@ if (surLePC()) $('accueil').hidden = false;
 // Sans formation dans l'adresse, on montre les trois portes et on ne charge rien.
 if (!REF) {
   $('portes').hidden = false;
+  if (COURT) document.querySelectorAll('#portes a[data-f]').forEach(a => { a.href = '?f=' + a.dataset.f + '&court=1'; });
 } else {
   $('depart').hidden = false;
   $('titre').textContent = 'Accueil sécurité — ' + (filiere === 'cvc' ? 'Technicien d\'études CVC' : REF.nom);
@@ -442,7 +447,8 @@ if (!REF) {
   Promise.all(['commun.json', REF.fichier].map(f => fetch(f, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); })))
     .then(([commun, metier]) => {
       QUESTIONS = commun.concat(metier);
-      $('combien').textContent = QUESTIONS.length; $('total').textContent = QUESTIONS.length;
+      const combien = COURT ? BLOCS.reduce((a, _, b) => a + Math.min(PAR_THEME_COURT, QUESTIONS.filter(q => q.b === b).length), 0) : QUESTIONS.length;
+      $('combien').textContent = combien; $('total').textContent = combien;
       $('chargement').textContent = '';
       const repris = charger();
       if (repris && repris.nom) {
