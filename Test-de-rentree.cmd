@@ -9,6 +9,8 @@ echo.
 echo Le poste de commande s'ouvre dans le navigateur.
 echo NE PAS FERMER cette fenetre pendant le test. Pour arreter : la fermer.
 echo.
+rem Met la borne a jour depuis GitHub si Internet est la ; sinon on continue avec la version du PC.
+git pull --ff-only --quiet 2>nul
 python -c "import qrcode" 2>nul
 if errorlevel 1 (
   echo Module QR code absent : installation, une seule fois, si Internet est la...

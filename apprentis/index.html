@@ -57,10 +57,13 @@
   .consigne-capture{background:#fff7f3; border:1.5px dashed var(--orange-p); border-radius:8px; padding:8px 12px; font-weight:bold; color:var(--orange-p); font-size:16px}
   footer{font-size:12px; color:var(--gris); text-align:center; margin-top:20px}
   [hidden]{display:none!important}
+  .langue{float:right; position:relative; z-index:2; background:#fff; color:var(--bleu); border:0; border-radius:8px; padding:6px 10px; font-size:16px; font-weight:bold; cursor:pointer}
+  .fr{display:block; font-size:14px; font-weight:normal; color:#5d6b7c; margin-top:4px}
 </style>
 
 <div class="page">
   <header>
+    <button class="langue" id="langue" type="button" hidden>🇬🇧 English</button>
     <div class="lycee">LPP JACQUES RAYNAUD</div>
     <h1 id="titre">Accueil sécurité apprenant</h1>
   </header>
@@ -68,9 +71,9 @@
   <!-- ===== écran 0 : aucune formation dans l'adresse — les trois portes ===== -->
   <section id="portes" class="carte" hidden>
     <p style="margin:0 0 4px"><b>Trois QCM, un par formation.</b> Je clique sur la mienne.</p>
-    <a class="porte" style="background:#1b3a63" href="?f=mpi">CAP Métiers du plâtre et de l'isolation<span>règles, chantier, hauteur, poussières, accident</span></a>
-    <a class="porte" style="background:#0e7a5f" href="?f=etancheur">CAP Étancheur du bâtiment<span>règles, toiture-terrasse, chalumeau, hauteur, accident</span></a>
-    <a class="porte" style="background:#7a4b8f" href="?f=cvc">Titre pro Technicien d'études CVC<span>règles, visite de chantier, bureau d'études, accident</span></a>
+    <a class="porte" style="background:#1b3a63" href="?f=mpi" data-f="mpi">CAP Métiers du plâtre et de l'isolation<span>règles, chantier, hauteur, poussières, accident</span></a>
+    <a class="porte" style="background:#0e7a5f" href="?f=etancheur" data-f="etancheur">CAP Étancheur du bâtiment<span>règles, toiture-terrasse, chalumeau, hauteur, accident</span></a>
+    <a class="porte" style="background:#7a4b8f" href="?f=cvc" data-f="cvc">Titre pro Technicien d'études CVC<span>règles, visite de chantier, bureau d'études, accident</span></a>
   </section>
 
   <!-- ===== écran 1 : le départ ===== -->
@@ -83,6 +86,12 @@
       <li>Le bouton 🔊 lit la question à voix haute.</li>
       <li><b>Je reste sur la page.</b> Si je sors (autre appli, écran verrouillé, page fermée), je perds <b>1 point</b>. À <b>5 sorties</b>, le test s'arrête.</li>
       <li><b>Mon téléphone ne doit pas s'éteindre tout seul.</b> Je mets le verrouillage automatique sur « Jamais » (Réglages).</li>
+    </ul>
+    <ul class="regles" id="regles-en" hidden>
+      <li><b>In English:</b> one right answer for each question. After each answer, a short explanation.</li>
+      <li>At the end: a mark out of 20. I take a <b>screenshot</b> of my result and send it to the trainer.</li>
+      <li><b>I stay on the page.</b> If I leave it (other app, locked screen), I lose 1 point. After 5 exits, the test stops.</li>
+      <li>I write my name below, then I press <b>Commencer</b> (= Start).</li>
     </ul>
     <label for="nom">Nom et prénom</label>
     <input type="text" id="nom" autocomplete="off" placeholder="ex. : DUPONT Léa">
@@ -182,12 +191,35 @@ const BLOCS = ["Les règles du lycée valent aussi pour moi", "En entreprise, av
                "Mes équipements de protection", "Le travail en hauteur",
                "Les risques de mon métier", "Ma responsabilité et l'accident"];
 const BLOC_METIER = 4;
-const MINUTES = 40;
-
 const filiere = (new URLSearchParams(location.search).get('f') || '').toLowerCase();
 const REF = FILIERES[filiere] || null;
+// Version courte (adresse avec &court=1) : 3 questions tirées par thème, soit 18 questions en
+// 20 minutes, pour garder le reste du créneau au cours. Le test complet reste la version par défaut.
+const COURT = new URLSearchParams(location.search).get('court') === '1';
+const PAR_THEME_COURT = 3;
+const MINUTES = COURT ? 20 : 40;
 let QUESTIONS = [];
-const CLE = 'apprentis-' + filiere + '-2026';
+// ---------------------------------------------------------------- la version anglaise
+// Bouton « English » (ou adresse avec &lang=en) : questions, réponses et explications en anglais
+// (en.json, mêmes identifiants, réponses dans le même ordre). La question française reste
+// affichée en petit dessous, pour le formateur. Le choix est gardé sur le téléphone.
+let EN = null;
+let ANGLAIS = new URLSearchParams(location.search).get('lang') === 'en';
+try { if (localStorage.getItem('apprentis-langue') === 'en') ANGLAIS = true; } catch (e) {}
+const BLOCS_EN = ["School rules apply to me too", "At the company, with my supervisor", "My protective equipment",
+                  "Working at height", "The risks of my trade", "My responsibility and accidents"];
+const NIVEAUX_EN = { 1: 'I know', 2: 'I understand', 3: 'I do the right thing' };
+function enAnglais(){ return ANGLAIS && EN; }
+function txtQ(q){ return enAnglais() && EN[q.id] ? EN[q.id].q : q.q; }
+function txtR(q, k){ return enAnglais() && EN[q.id] ? EN[q.id].r[k] : q.r[k]; }
+function txtE(q){ return enAnglais() && EN[q.id] ? EN[q.id].e : q.e; }
+function majLangue(){
+  const b = document.getElementById('langue'); if (!b) return;
+  b.hidden = !EN; b.textContent = enAnglais() ? '🇫🇷 Français' : '🇬🇧 English';
+  document.getElementById('regles-en').hidden = !enAnglais();
+  if (etat && !etat.fini && !document.getElementById('quiz').hidden) afficher();
+}
+const CLE = 'apprentis-' + filiere + (COURT ? '-court' : '') + '-2026';
 
 // ---------------------------------------------------------------- la collecte des résultats
 function surLePC(){ return location.protocol === 'http:' && !/github\.io$/.test(location.hostname); }
@@ -212,7 +244,8 @@ function preparer(nom){
   const r = alea(graine((nom + '|' + filiere).toLowerCase()));
   const ordre = [];
   for (let b = 0; b < BLOCS.length; b++) {
-    ordre.push(...melange(QUESTIONS.map((q, i) => q.b === b ? i : -1).filter(i => i >= 0), r));
+    const tires = melange(QUESTIONS.map((q, i) => q.b === b ? i : -1).filter(i => i >= 0), r);
+    ordre.push(...(COURT ? tires.slice(0, PAR_THEME_COURT) : tires));
   }
   const reponses = ordre.map(i => melange(QUESTIONS[i].r.map((_, k) => k), r));
   return { nom, ordre, reponses, courante: 0, choix: [], debut: Date.now(), fini: false, sorties: 0 };
@@ -247,31 +280,35 @@ const $ = (id) => document.getElementById(id);
 let minuteur = null;
 
 function nomDuBloc(b){ return b === BLOC_METIER ? REF.metier : BLOCS[b]; }
+function nomDuBlocAffiche(b){ return enAnglais() ? BLOCS_EN[b] : nomDuBloc(b); }
 
 function afficher(){
   $('portes').hidden = true; $('depart').hidden = true; $('quiz').hidden = false; $('fin').hidden = true;
   const n = etat.courante, q = QUESTIONS[etat.ordre[n]];
   $('numero').textContent = n + 1; $('total').textContent = etat.ordre.length;
   $('jauge').style.width = Math.round(100 * n / etat.ordre.length) + '%';
-  $('bloc').textContent = nomDuBloc(q.b); $('niveau').textContent = NIVEAUX[q.n];
-  $('question').textContent = q.q;
+  $('bloc').textContent = nomDuBlocAffiche(q.b); $('niveau').textContent = (enAnglais() ? NIVEAUX_EN : NIVEAUX)[q.n];
+  $('question').textContent = txtQ(q);
+  if (enAnglais()) { const f = document.createElement('span'); f.className = 'fr'; f.textContent = q.q; $('question').appendChild(f); }
+  $('lire').textContent = enAnglais() ? '🔊 Read aloud' : '🔊 Lire à voix haute';
   const zone = $('reponses'); zone.innerHTML = '';
   etat.reponses[n].forEach((k, pos) => {
     const b = document.createElement('button'); b.className = 'rep'; b.dataset.k = k;
-    b.innerHTML = '<span class="l">' + 'abcd'[pos] + '</span>' + q.r[k];
+    b.innerHTML = '<span class="l">' + 'abcd'[pos] + '</span>' + txtR(q, k);
     b.addEventListener('click', () => repondre(k));
     zone.appendChild(b);
   });
   $('retour').hidden = true; $('suivant').hidden = true;
+  if (etat.choix[n] !== undefined) montrerRetour(n, etat.choix[n]);
   afficherSorties();
 }
 
 function lireVoixHaute(){
   if (!('speechSynthesis' in window)) return;
   const n = etat.courante, q = QUESTIONS[etat.ordre[n]];
-  const texte = q.q + ' ' + etat.reponses[n].map((k, pos) => 'abcd'[pos] + '. ' + q.r[k]).join('. ');
+  const texte = txtQ(q) + ' ' + etat.reponses[n].map((k, pos) => 'abcd'[pos] + '. ' + txtR(q, k)).join('. ');
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(texte); u.lang = 'fr-FR'; u.rate = 0.9;
+  const u = new SpeechSynthesisUtterance(texte); u.lang = enAnglais() ? 'en-GB' : 'fr-FR'; u.rate = 0.9;
   speechSynthesis.speak(u);
 }
 
@@ -279,6 +316,11 @@ function repondre(k){
   const n = etat.courante, q = QUESTIONS[etat.ordre[n]];
   if (etat.choix[n] !== undefined) return;
   etat.choix[n] = k; sauver();
+  montrerRetour(n, k);
+}
+
+function montrerRetour(n, k){
+  const q = QUESTIONS[etat.ordre[n]];
   document.querySelectorAll('#reponses .rep').forEach(b => {
     b.disabled = true;
     if (+b.dataset.k === 0) b.classList.add('juste');
@@ -286,9 +328,12 @@ function repondre(k){
   });
   const r = $('retour'); r.hidden = false;
   r.className = 'retour' + (k === 0 ? '' : ' faux');
-  r.innerHTML = (k === 0 ? '<b>Juste.</b> ' : '<b>Non.</b> La bonne réponse est en vert. ') + q.e;
+  r.textContent = '';
+  const en = enAnglais();
+  r.innerHTML = (k === 0 ? (en ? '<b>Correct.</b> ' : '<b>Juste.</b> ') : (en ? '<b>No.</b> The right answer is in green. ' : '<b>Non.</b> La bonne réponse est en vert. '));
+  r.appendChild(document.createTextNode(txtE(q)));
   const s = $('suivant'); s.hidden = false;
-  s.textContent = n + 1 < etat.ordre.length ? 'Question suivante' : 'Voir mon résultat';
+  s.textContent = n + 1 < etat.ordre.length ? (en ? 'Next question' : 'Question suivante') : (en ? 'See my result' : 'Voir mon résultat');
 }
 
 function suivante(){
@@ -377,7 +422,7 @@ function revoir(){
   const lignes = [];
   etat.ordre.forEach((i, n) => {
     const q = QUESTIONS[i];
-    if (etat.choix[n] !== 0) lignes.push('<p><b>' + q.q + '</b><br><span style="color:var(--vert)">' + q.r[0] + '</span><br><span class="petit">' + q.e + '<br>Source : ' + q.source + '</span></p>');
+    if (etat.choix[n] !== 0) lignes.push('<p><b>' + txtQ(q) + '</b><br><span style="color:var(--vert)">' + txtR(q, 0) + '</span><br><span class="petit">' + txtE(q) + '<br>Source : ' + q.source + '</span></p>');
   });
   z.innerHTML = lignes.length ? '<h3 style="margin:0 0 6px; color:var(--bleu)">Mes erreurs et leur explication</h3>' + lignes.join('') : '<p>Aucune erreur.</p>';
   $('revoir').hidden = true;
@@ -385,6 +430,12 @@ function revoir(){
 
 // ---------------------------------------------------------------- le démarrage
 $('suivant').addEventListener('click', suivante);
+$('langue').addEventListener('click', () => {
+  ANGLAIS = !ANGLAIS;
+  try { localStorage.setItem('apprentis-langue', ANGLAIS ? 'en' : 'fr'); } catch (e) {}
+  majLangue();
+});
+fetch('en.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(d => { EN = d; majLangue(); }).catch(() => {});
 $('lire').addEventListener('click', lireVoixHaute);
 $('revoir').addEventListener('click', revoir);
 $('autre').addEventListener('click', () => { try { localStorage.removeItem(CLE); } catch (e) {} location.reload(); });
@@ -432,6 +483,7 @@ if (surLePC()) $('accueil').hidden = false;
 // Sans formation dans l'adresse, on montre les trois portes et on ne charge rien.
 if (!REF) {
   $('portes').hidden = false;
+  if (COURT) document.querySelectorAll('#portes a[data-f]').forEach(a => { a.href = '?f=' + a.dataset.f + '&court=1'; });
 } else {
   $('depart').hidden = false;
   $('titre').textContent = 'Accueil sécurité — ' + (filiere === 'cvc' ? 'Technicien d\'études CVC' : REF.nom);
@@ -442,7 +494,8 @@ if (!REF) {
   Promise.all(['commun.json', REF.fichier].map(f => fetch(f, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); })))
     .then(([commun, metier]) => {
       QUESTIONS = commun.concat(metier);
-      $('combien').textContent = QUESTIONS.length; $('total').textContent = QUESTIONS.length;
+      const combien = COURT ? BLOCS.reduce((a, _, b) => a + Math.min(PAR_THEME_COURT, QUESTIONS.filter(q => q.b === b).length), 0) : QUESTIONS.length;
+      $('combien').textContent = combien; $('total').textContent = combien;
       $('chargement').textContent = '';
       const repris = charger();
       if (repris && repris.nom) {

@@ -495,6 +495,10 @@ ACTIVITES = [
     ('/jeux/r134a/', '5. Je fais bouillir du R134a', "TD 04 · l'expérience de la capsule 1 · le diagramme enthalpique", '#c9451a'),
     # Les trois QCM d'accueil des apprentis : un par formation. L'apprenti n'en voit qu'un,
     # celui sur lequel il clique — il ne choisit rien à l'intérieur de la page.
+    # Version courte (court=1) : 3 questions par thème, 18 questions en 20 minutes, pour laisser
+    # le reste du créneau au cours (lecture de plans ETAN + MPI, vendredi 8 h-10 h).
+    ('/apprentis/?f=mpi&court=1', 'Apprentis MPI — accueil sécurité, version courte', 'CAP Plâtre et isolation · 18 questions · 20 minutes', '#1b3a63'),
+    ('/apprentis/?f=etancheur&court=1', 'Apprentis ETAN — accueil sécurité, version courte', 'CAP Étancheur · 18 questions · 20 minutes', '#0e7a5f'),
     ('/apprentis/?f=mpi', 'Apprentis — CAP Plâtre et isolation', 'accueil sécurité · règles, chantier, hauteur, accident · 36 questions', '#7a4b8f'),
     ('/apprentis/?f=etancheur', 'Apprentis — CAP Étancheur', 'accueil sécurité · règles, toiture, chalumeau, hauteur · 36 questions', '#7a4b8f'),
     ('/apprentis/?f=cvc', "Apprentis — Titre pro Technicien d'études CVC", 'accueil sécurité · règles, visite de chantier, bureau · 36 questions', '#7a4b8f'),
